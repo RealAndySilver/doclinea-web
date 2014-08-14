@@ -1,0 +1,96 @@
+body {
+  padding: 0px;
+  margin: 0px;
+  margin-top: -20px;
+  position: relative;
+  font-family: Arial, Helvetica, sans-serif;
+  letter-spacing: 1px;
+  vertical-align: baseline;
+}
+a,
+a:hover {
+  text-decoration: none;
+}
+header {
+  background-color: #ecf3f8;
+  height: 110px;
+  border-bottom: solid 1px #e0e8ec;
+}
+.center {
+  margin: 0 auto;
+  width: 1024px;
+}
+.jumbotron {
+  padding: 25px;
+}
+#logo-box {
+  width: 320px;
+  height: 110px;
+  float: left;
+  padding-left: 20px;
+}
+#logo-box img {
+  height: 100%;
+}
+#main-header {
+  height: 90px;
+  float: right;
+  margin-bottom: 0;
+  margin-top: 20px;
+}
+#main-header li {
+  float: left;
+  list-style: none;
+  line-height: 90px;
+}
+li.vertical-divider {
+  height: 90px;
+  margin: 0 10px;
+  border-left: 1px solid #e0e8ec;
+  border-right: 1px solid #fff;
+}
+#main-header li a {
+  padding: 10px 20px;
+}
+#container {
+  background-color: #cddce4;
+}
+#container .center {
+  padding: 30px 0;
+}
+#container .center #main-box {
+  height: 480px;
+  margin-top: 50px;
+  padding: 0 20px;
+}
+.center #main-box .mb-left {
+  width: 530px;
+  height: 100%;
+  float: left;
+}
+.center #main-box .mb-right {
+  width: 420px;
+  float: right;
+}
+#main-box .mb-left #mb-form-box {
+  height: 100%;
+  background: #4682b4;
+  border-radius: 14px;
+  padding: 25px 60px;
+}
+.mb-left #mb-form-box p {
+  font-size: 23px;
+  color: #fff;
+}
+#mb-form-box form {
+  margin-top: 35px;
+}
+.mb-left #mb-form-box label {
+  display: block;
+  color: #fff;
+  font-size: 18px;
+  font-weight: normal;
+}
+.mb-left #mb-form-box select {
+  margin-bottom: 25px;
+}
