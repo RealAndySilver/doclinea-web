@@ -3,9 +3,10 @@ body {
   margin: 0px;
   margin-top: -20px;
   position: relative;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   letter-spacing: 1px;
   vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
 }
 a,
 a:hover {
@@ -15,6 +16,18 @@ h2 {
   font-size: 22px;
   color: #4682b4;
   font-weight: bold;
+}
+h3 {
+  font-size: 20px;
+  color: #4682b4;
+}
+ul {
+  padding-left: 0;
+}
+li {
+  list-style: none;
+  color: #4682b4;
+  margin-bottom: 4px;
 }
 header {
   background-color: #ecf3f8;
@@ -139,13 +152,97 @@ li.vertical-divider {
   margin-top: 35px;
 }
 #providers_container {
-  background: #f8f8f8;
+  background-color: #f8f8f8;
 }
 #providers_container .center {
   padding: 30px 0;
 }
-#providers_container .center #info-box {
-  height: 480px;
+#providers_container .center .info-box {
+  height: 360px;
   padding: 0 20px;
   margin-bottom: 20px;
+}
+.info-box .inner-info-box .column {
+  float: left;
+  width: 33.33%;
+}
+.inner-info-box .column hr {
+  border-top: solid 1px #559b49;
+  width: 60%;
+  float: left;
+  padding-right: 80px;
+}
+#docs_container {
+  background-color: #fff;
+  border-top: solid 1px #e2e2e2;
+}
+#docs_container .center {
+  padding: 30px 0;
+}
+#docs_container .center h2,
+#docs_container .center p {
+  color: #665f5f;
+}
+#docs_container .center p {
+  font-size: 17px;
+  padding-right: 50px;
+}
+#docs_container .center button {
+  width: 250px;
+  height: 36px;
+  line-height: 14px;
+  margin-top: 25px;
+}
+#docs_container .center .info-box {
+  height: 200px;
+  padding: 0 20px;
+  margin-bottom: 20px;
+}
+.info-box .inner-info-box .column-b {
+  float: left;
+  width: 50%;
+}
+.info-box .inner-info-box .column-b:first-child {
+  border-right: dotted 1px #665f5f;
+}
+.info-box .inner-info-box .column-b:last-child {
+  padding-left: 60px;
+}
+footer {
+  height: 250px;
+  background-color: #4682b4;
+  border-top: solid 1px #104f83;
+}
+footer .center {
+  padding: 30px 0;
+}
+footer .center .info-box {
+  padding: 0 20px;
+  margin-bottom: 20px;
+}
+footer .column {
+  float: left;
+  width: 33.33%;
+}
+footer .column:last-child {
+  text-align: center;
+}
+footer h2 {
+  color: #fff;
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-weight: normal;
+  font-size: 18px;
+}
+footer .column i {
+  color: #fff;
+}
+footer .column span {
+  margin-left: 5px;
+  color: #fff;
+  font-size: 18px;
+}
+footer .column button {
+  padding-left: 35px;
+  padding-right: 35px;
 }
