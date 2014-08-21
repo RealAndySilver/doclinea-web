@@ -147,9 +147,11 @@ li.vertical-divider {
 }
 .mb-left #mb-form-box select {
   margin-bottom: 25px;
+  font-size: 18px;
 }
 .btn-block {
   margin-top: 35px;
+  font-weight: bold;
 }
 #providers_container {
   background-color: #f8f8f8;
