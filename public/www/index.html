@@ -15,6 +15,21 @@
 
 <body ng-app="doclinea">
 
+    <div id="shadow"></div>    
+
+    <div id="form-box">
+        <div class="jumbotron">
+            <form>
+                <img src="www/css/images/close.png">
+                <input type="text" class="form-control" placeholder="Nombre">
+                <input type="email" class="form-control" placeholder="Email">
+                <input type="tel" class="form-control" placeholder="Teléfono">
+                <textarea class="form-control" rows="6" placeholder="Mensaje"></textarea>
+                <button class="btn btn-success btn-small">Enviar</button>
+            </form>
+        </div>
+    </div>
+
     <header>
         <div class="center">
             <div id="logo-box">
@@ -46,6 +61,37 @@
                     </div>
                 </div>
             </div>
+            <div class="info-box">
+                <div class="column-c">
+                    <ul>
+                        <li><b>Pacientes</b></li>
+                        <li><a href="#/search">Buscar cita</a></li>
+                    </ul>
+                </div>
+                <div class="column-c">
+                    <ul>
+                        <li><b>Doctores</b></li>
+                        <li><a href="#">Únete a nosotros</a></li>
+                    </ul>
+                </div>
+                <div class="column-c">
+                    <ul>
+                        <li><b>Compañía</b></li>
+                        <li><a href="#">Quiénes somos</a></li>
+                    </ul>
+                </div>
+                <div class="column-c">
+                    <ul>
+                        <li><b>Sigue a Doclinea</b></li>
+                        <li><a href="#"><i class="fa fa-facebook-square"></i>Facebook</a></li>
+                        <li><a href="#"><i class="fa fa-twitter-square"></i>Twitter</a></li>
+                        <li><a href="#"><i class="fa fa-google-plus-square"></i>Google+</a></li>
+                        <li><a href="#"><i class="fa fa-linkedin-square"></i>LinkedIn</a></li>
+                        <li><a href="#"><i class="fa fa-youtube-play"></i>YouTube</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="info-box last-box">Powered by <a target="_blank" href="https://db.tt/4PP3J7Gx">Novelza</a></div>
         </div>
     </footer>
 
@@ -54,6 +100,7 @@
 <script src="www/js/libs/angular.min.js"></script>
 <script src="www/js/libs/angular-route.min.js"></script>
 <script src="www/js/angular/app.js"></script>
+<script src="www/js/front.js"></script>
 
 </body>
 </html>

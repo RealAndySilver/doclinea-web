@@ -8,6 +8,64 @@ body
 	vertical-align baseline
 	-webkit-font-smoothing: antialiased;
 
+#shadow
+	position absolute
+	top 0
+	left 0
+	right 0
+	bottom 0
+	background #525252
+	opacity 0.5
+	z-index 100
+	display none
+
+#form-box
+	position fixed
+	width: 460px;
+	height: 458px;
+	background-color #70CFDF
+	z-index 100
+	display none
+	top: 50%;
+	margin-top: -229px;
+	left: 50%;
+	margin-left: -230px;
+	border-radius: 4px;
+
+#form-box .jumbotron
+	width: 460px;
+	height: 458px;
+	position: absolute;
+	left: 50%;
+	margin-left: -230px;
+	top: 50%;
+	margin-top: -229px;
+
+#form-box .jumbotron form
+	margin-top: 25px;
+
+#form-box .jumbotron img
+	width: 27px;
+	position: absolute;
+	right: 14px;
+	top: 14px;
+
+form input.form-control
+	margin-bottom 25px
+	width 95%
+
+form textarea.form-control
+	width 95%
+
+#form-box form button
+	width 120px
+	font-size 14px
+	height 32px
+	margin-bottom 0px
+	margin-top: 30px;
+	background-color: #F79226;
+	border-color: #F7A946;
+
 a, a:hover
 	text-decoration none
 
@@ -80,8 +138,13 @@ header
 	float: left;
 	padding-left: 20px;
 
+#logo-box a
+	width: 100%;
+	display: block;
+	margin-top: 37px;
+
 #logo-box img
-	height 100%
+	width 65%
 
 #main-header
 	height: 90px;
@@ -209,12 +272,14 @@ li.vertical-divider
 	padding-left: 60px;
 
 footer
-	height: 250px;
+	height: 320px;
 	background-color: #4682b4;
 	border-top: solid 1px #104F83;
+	position relative
 
 footer .center
 	padding 30px 0
+	padding-bottom: 10px;
 
 footer .center .info-box
 	padding: 0 20px;
@@ -234,7 +299,7 @@ footer h2
 	font-weight: normal;
 	font-size: 18px;
 
-footer .column i
+footer i
 	color white
 
 footer .column span
@@ -245,3 +310,28 @@ footer .column span
 footer .column  button
 	padding-left: 35px;
 	padding-right: 35px;
+
+footer .column-c
+	width: 25%;
+	float: left;
+
+footer .column-c ul
+	margin-top 30px
+
+footer .column-c b,footer .column-c a
+	color white
+
+footer .column-c i
+	margin-right 6px
+
+footer .center .info-box.last-box
+	text-align: center;
+	color: white;
+	font-size: 12px;
+	margin-bottom 0
+
+footer .center .info-box.last-box a
+	color white
+
+footer .center .info-box.last-box a:hover
+	text-decoration underline
