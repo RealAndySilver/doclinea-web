@@ -16,8 +16,8 @@
             when('/sign_on', {
                 templateUrl: 'www/sign_on.html'
             }).
-            when('/:PoleeCastillo', {
-                templateUrl: 'www/landpage.html'
+            when('/doctor/gregory_house', {
+                templateUrl: 'www/doctor.html'
             }).
             /*when('/:PoleeCastillo/search_plan', {
                 templateUrl: 'www/plan_form.html',

@@ -1,0 +1,115 @@
+#doc-profile .center {
+  padding: 15px 0;
+}
+#doc-profile .center .inner-doc-profile {
+  padding: 0 20px;
+  overflow: hidden;
+}
+.inner-doc-profile .doc-main-info {
+  float: left;
+  width: 60%;
+  height: 100%;
+  margin: 5px;
+}
+.doc-main-info .doc-main-photo {
+  width: 30%;
+  height: 100%;
+  float: left;
+}
+.doc-main-photo .inner-doc-main-photo {
+  overflow: hidden;
+  width: 100%;
+  height: 60%;
+  padding: 5px;
+}
+.inner-doc-main-photo img {
+  width: 100%;
+  border: solid 3px #e1e3e4;
+}
+.doc-main-info .inner-doc-main-info {
+  float: left;
+  width: 70%;
+  height: 100%;
+  padding: 10px 15px;
+}
+.inner-doc-main-info .doc-title {
+  width: 100%;
+  height: 70px;
+  border-bottom: solid 1px #d2dadd;
+  margin-top: 10px;
+  letter-spacing: 0;
+}
+.doc-title span {
+  display: block;
+  width: 100%;
+  color: #665f5f;
+}
+.doc-title .doc-title-name {
+  height: 30px;
+  font-size: 18px;
+  font-weight: bold;
+}
+.inner-doc-main-info .doc-rating {
+  width: 40%;
+  margin-top: 20px;
+  padding-right: 15px;
+  float: left;
+}
+.doc-rating .average-rating {
+  width: 100%;
+  height: 75px;
+  letter-spacing: 0;
+}
+.average-rating .rating-title {
+  display: block;
+  width: 100%;
+  color: #665f5f;
+  font-weight: bold;
+}
+.average-rating .visual-rating {
+  height: 28px;
+  padding: 5px 0;
+  overflow: hidden;
+  background-image: url("http://www.pavis.org.uk/wp-content/uploads/2013/10/5stars.png");
+  background-size: 80%;
+  background-repeat: no-repeat;
+  background-position-y: 2px;
+}
+.doc-rating a.btn {
+  height: 30px;
+  padding: 5px 18px;
+  font-size: 14px;
+  margin-top: 6px;
+  font-weight: bold;
+}
+.inner-doc-main-info .doc-description {
+  width: 60%;
+  margin-top: 20px;
+  float: left;
+}
+.doc-specs .specs-title {
+  display: block;
+  width: 100%;
+  color: #665f5f;
+  font-weight: bold;
+}
+.doc-specs ul {
+  margin-top: 3px;
+  padding-left: 15px;
+}
+.doc-specs ul li {
+  list-style: initial;
+}
+.doc-description .description-title {
+  display: block;
+  width: 100%;
+  color: #665f5f;
+  font-weight: bold;
+}
+.doc-description .description-text {
+  height: 135px;
+  overflow: hidden;
+  font-size: 13px;
+  padding: 5px 0;
+  padding-right: 10px;
+}
