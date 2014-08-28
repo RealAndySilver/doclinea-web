@@ -173,14 +173,16 @@
 	overflow: hidden;
 
 .inner-doc-profile .doc-details
-	width: 25%;
+	width: 35%;
 	float: left;
 	color: #665f5f;
 
 .inner-doc-profile .doc-list-reviews
-	width: 75%;
+	width: 65%;
+	float: left;
+	color: #665f5f;
 
-.doc-details h3
+#extra-doc-info h3
 	color: #665f5f;
 
 .doc-details span
@@ -191,3 +193,42 @@
 .doc-details ul li
 	margin-bottom 0
 	color: #665f5f;
+
+.doc-list-reviews .review-box
+	padding: 5px 0;
+	padding-bottom: 15px;
+	margin-bottom: 30px;
+	border-bottom: solid 1px #d2dadd;
+
+.review-box .items-reviewed, .review-box .post-date
+	float: left;
+	width: 50%;
+
+.items-reviewed .rating-title
+	display: block;
+	margin-bottom: 10px;
+	width: 50%;
+	float: left;
+
+.items-reviewed .visual-rating
+	display: block;
+	margin-bottom: 10px;
+	width: 50%;
+	float: left;
+	height: 20px;
+	overflow: hidden;
+	background-image: url("http://www.pavis.org.uk/wp-content/uploads/2013/10/5stars.png");
+	background-size: 65%;
+	background-repeat: no-repeat;
+
+.review-box .post-date span
+	display block
+	font-weight bold
+
+.review-box .review-text
+	clear: both;
+	width 100%
+
+.review-text p
+	margin-bottom: 0;
+	padding-top: 10px;
