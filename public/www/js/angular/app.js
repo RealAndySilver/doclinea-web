@@ -19,6 +19,9 @@
             when('/doctor/gregory_house', {
                 templateUrl: 'www/doctor.html'
             }).
+            /*when('/doctor/gregory_house#doc-book', {
+                templateUrl: 'www/doctor.html'
+            }).*/
             /*when('/:PoleeCastillo/search_plan', {
                 templateUrl: 'www/plan_form.html',
                 controller: 'SliderController'
