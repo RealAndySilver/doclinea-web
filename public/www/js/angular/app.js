@@ -16,7 +16,7 @@
             when('/sign_on', {
                 templateUrl: 'www/sign_on.html'
             }).
-            when('/doctor/gregory_house', {
+            when('/doctor/:doc_name', {
                 templateUrl: 'www/doctor.html'
             }).
             /*when('/doctor/gregory_house#doc-book', {
