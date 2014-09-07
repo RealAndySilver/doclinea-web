@@ -1,10 +1,10 @@
-<div id="doc-profile">
+<div id="doc-profile" ng-app="mapsApp" ng-controller="MapCtrl as doc">
 	<div class="center">
 		<div class="inner-doc-profile">
-			<div class="doc-main-info">
+			<div class="doc-main-info" ng-repeat="doctor in doc.docs">
 				<div class="doc-main-photo">
 					<div class="inner-doc-main-photo">
-						<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCuaRjPqJfsU6w8aOa4uIfmkqMX-zjS-JqUYPc5rnpwDj751CK">
+						<img ng-src="{{doctor.profile_pic}}">
 					</div>
 				</div>
 				<div class="inner-doc-main-info">

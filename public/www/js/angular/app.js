@@ -103,7 +103,7 @@ var mapView = angular.module('mapsApp', [])
 			position: new google.maps.LatLng(info.lat, info.long),
 			title: info.gender +' '+ info.name +' '+ info.lastname
 		});
-		marker.content = '<div class="infoWindowContent"><img src="' + info.profile_pic + '" /><h4>' + info.practice_list + '</h4><br><h4>' + info.address + '</h4><a href="#/" class="btn btn-success">Pedir cita</a></div>';
+		marker.content = '<div class="infoWindowContent"><img src="' + info.profile_pic + '" /><h4>' + info.practice_list + '</h4><br><h4>' + info.address + '</h4><br><a href="#/" class="btn btn-success">Pedir cita</a></div>';
 		
 		google.maps.event.addListener(marker, 'click', function(){
 			infoWindow.setContent('<h3>' + marker.title + '</h3>' + marker.content);
