@@ -1,22 +1,22 @@
-<div id="doc-profile" ng-app="mapsApp" ng-controller="MapCtrl as doc">
+<div id="doc-profile" ng-app="docProfile" ng-controller="ProfileCtrl as profile">
 	<div class="center">
 		<div class="inner-doc-profile">
-			<div class="doc-main-info" ng-repeat="doctor in doc.docs">
+			<div class="doc-main-info">
 				<div class="doc-main-photo">
 					<div class="inner-doc-main-photo">
-						<img ng-src="{{doctor.profile_pic}}">
+						<img ng-src="{{profile.doctor[doctorId-1].profile_pic}}">
 					</div>
 				</div>
 				<div class="inner-doc-main-info">
 					<div class="doc-title">
-						<span class="doc-title-name">Dr. Gregory House</span>
-						<span class="doc-title-speciality">Nefrólogo</span>
+						<span class="doc-title-name">{{profile.doctor[doctorId-1].gender}} {{profile.doctor[doctorId-1].name}} {{profile.doctor[doctorId-1].lastname}}</span>
+						<span class="doc-title-speciality">{{profile.doctor[doctorId-1].practice_list}}</span>
 					</div>
 					<div class="doc-rating">
 						<div class="average-rating">
 							<span class="rating-title">Opinión Promedio</span>
 							<div class="visual-rating"></div>
-							<a href="link-reviews">Ver comentarios</a>
+							<a href="#extra-doc-info" class="link-reviews scroll">Ver comentarios</a>
 						</div>
 						<a href="#doc-book" class="btn btn-success btn-lg scroll">Pedir cita</a>
 					</div>
@@ -24,13 +24,12 @@
 						<div class="doc-specs">
 							<span class="specs-title">Especialidades</span>
 							<ul>
-								<li><a href="#/">Nefrólogo</a></li>
-								<li><a href="#/">Infectólogo</a></li>
+								<li><a href="#/">{{profile.doctor[doctorId-1].practice_list}}</a></li>
 							</ul>
 						</div>
 						<div class="doc-profile-description">
 							<div class="description-title">Descripción</div>
-							<p class="description-text">Los métodos poco ortodoxos que utiliza para diagnosticar, las terapias alternativas y la racionalidad incondicional dan como resultado varios conflictos con sus colegas de profesión. A menudo le retratan como una persona carente de simpatía y compasión hacia sus pacientes, una práctica que le permite resolver enigmas patológicos. El personaje está inspirado en Sherlock Holmes. Un ejemplo de ello es que si bien el detective era adicto al opio, el médico es adicto a la vicodina para controlar el dolor de su pierna, derivado de un infarto en el cuádriceps.</p>
+							<p class="description-text">{{profile.doctor[doctorId-1].description | limitTo: 240}}</p>
 						</div>
 					</div>
 				</div>
@@ -85,8 +84,8 @@
 				<div class="doc-education">
 					<span>Formación académica</span>
 					<ul>
-						<li>Pontificia Universidad Javeriana</li>
-						<li>Clínica Universitaria Corpas</li>
+						<li>{{profile.doctor[doctorId-1].education_list.college}}</li>
+						<!-- <li>Clínica Universitaria Corpas</li> -->
 					</ul>
 				</div>
 				<div class="doc-membership">

@@ -3,6 +3,7 @@
 	var app = angular.module('doclinea', [
 	  'ngRoute',
 	  'mapsApp',
+	  'docProfile',
 	]);
 
 	app.config(['$routeProvider',
@@ -20,8 +21,9 @@
 			when('/sign_in', {
 				templateUrl: 'www/sign_in.html'
 			}).
-			when('/doctor/:doc_name', {
-				templateUrl: 'www/doctor.html'
+			when('/doctor/:doctorId', {
+				templateUrl: 'www/doctor.html',
+				controller: 'ProfileCtrl',
 			}).
 			/*when('/doctor/gregory_house#doc-book', {
 				templateUrl: 'www/doctor.html'
@@ -33,20 +35,26 @@
 
 
 
-
-	//Data
 var doctors = [
 	{
+		id: 1,
 		name: 'Gregory',
 		lastname: 'House',
 		gender: 'Dr.',
 		profile_pic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCuaRjPqJfsU6w8aOa4uIfmkqMX-zjS-JqUYPc5rnpwDj751CK',
 		practice_list: 'Nefrólogo',
 		address: '34875 Princeton, New Jersey',
+		description: 'Los métodos poco ortodoxos que utiliza para diagnosticar, las terapias alternativas y la racionalidad incondicional dan como resultado varios conflictos con sus colegas de profesión. A menudo le retratan como una persona carente de simpatía y compasión hacia sus pacientes, una práctica que le permite resolver enigmas patológicos.',
+		education_list: [
+			{
+				college: 'Pontificia Universidad Javeriana',
+			},
+		],
 		lat : 41.8819,
 		long : -87.6278
 	},
 	{
+		id: 2,
 		name: '',
 		lastname: 'Dolittle',
 		gender: 'Dr.',
@@ -57,6 +65,7 @@ var doctors = [
 		long : -118.2500
 	},
 	{
+		id: 3,
 		name: '',
 		lastname: 'Malito',
 		gender: 'Dr.',
@@ -67,6 +76,7 @@ var doctors = [
 		long : -96.3300
 	},
 	{
+		id: 4,
 		name: 'Emmet',
 		lastname: 'Brown',
 		gender: 'Dr.',
@@ -78,7 +88,6 @@ var doctors = [
 	},
 ];
 
-//Angular App Module and Controller
 var mapView = angular.module('mapsApp', [])
 .controller('MapCtrl', function ($scope) {
 
@@ -126,7 +135,13 @@ var mapView = angular.module('mapsApp', [])
 });
 
 
+var profileView = angular.module('docProfile', [])
+.controller('ProfileCtrl', ['$scope', '$http', '$routeParams', function (scope, http, routeParams) {
 
+	this.doctor = doctors;
+	scope.doctorId = routeParams.doctorId;
+	
+}]);
 
 
 })();
