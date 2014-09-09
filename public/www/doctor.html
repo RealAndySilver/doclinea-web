@@ -10,7 +10,7 @@
 				<div class="inner-doc-main-info">
 					<div class="doc-title">
 						<span class="doc-title-name">{{profile.doctor[doctorId-1].gender}} {{profile.doctor[doctorId-1].name}} {{profile.doctor[doctorId-1].lastname}}</span>
-						<span class="doc-title-speciality">{{profile.doctor[doctorId-1].practice_list}}</span>
+						<span class="doc-title-speciality">{{profile.doctor[doctorId-1].practice_list[0]}}</span>
 					</div>
 					<div class="doc-rating">
 						<div class="average-rating">
@@ -24,7 +24,7 @@
 						<div class="doc-specs">
 							<span class="specs-title">Especialidades</span>
 							<ul>
-								<li><a href="#/">{{profile.doctor[doctorId-1].practice_list}}</a></li>
+								<li ng-repeat="practice in profile.doctor[doctorId-1].practice_list"><a href="#/">{{practice}}</a></li>
 							</ul>
 						</div>
 						<div class="doc-profile-description">
@@ -37,7 +37,9 @@
 			<div class="doc-box-location">
 				<div class="inner-doc-box-location">
 					<div class="map-box">
-						<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d97303.39153178313!2d-74.66984245!3d40.3483133!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c3e6c172d059f1%3A0x3fcd49934a13d6c2!2sPrinceton%2C+NJ!5e0!3m2!1sen!2s!4v1409154026250" width="400" height="300" frameborder="0" style="border:0"></iframe>
+						<div>
+			    			<div id="map"></div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -76,7 +78,7 @@
 		</div>
 	</div>
 </div>
-<div id="extra-doc-info">
+<div id="extra-doc-info" ng-app="docProfile" ng-controller="ProfileCtrl as profile">
 	<div class="center">
 		<div class="inner-doc-profile">
 			<div class="doc-details">
@@ -84,14 +86,13 @@
 				<div class="doc-education">
 					<span>Formación académica</span>
 					<ul>
-						<li>{{profile.doctor[doctorId-1].education_list.college}}</li>
-						<!-- <li>Clínica Universitaria Corpas</li> -->
+						<li ng-repeat="education in profile.doctor[doctorId-1].education_list">{{education}}</li>
 					</ul>
 				</div>
 				<div class="doc-membership">
 					<span>Membresías profesionales</span>
 					<ul>
-						<li>Asociación Americana de Nefrólogos</li>
+						<li>{{profile.doctor[doctorId-1].professional_membership}}</li>
 					</ul>
 				</div>
 				<div class="doc-insurances">
