@@ -10,19 +10,19 @@
 		function($routeProvider) {
 		$routeProvider.
 			when('/', {
-				templateUrl: 'www/landpage.html'
+				templateUrl: '../www/landpage.html'
 			}).
 			when('/search', {
-				templateUrl: 'www/search.html'
+				templateUrl: '../www/search.html'
 			}).
 			when('/sign_up', {
-				templateUrl: 'www/sign_up.html'
+				templateUrl: '../www/sign_up.html'
 			}).
 			when('/sign_in', {
-				templateUrl: 'www/sign_in.html'
+				templateUrl: '../www/sign_in.html'
 			}).
 			when('/doctor/:doctorId', {
-				templateUrl: 'www/doctor.html',
+				templateUrl: '../www/doctor.html',
 				controller: 'ProfileCtrl',
 			}).
 			/*when('/doctor/gregory_house#doc-book', {
@@ -82,7 +82,7 @@
 			lastname: 'Malito',
 			gender: 'Dr.',
 			profile_pic: 'http://spa.fotolog.com/photo/10/17/30/juan_caa/1240277762838_f.jpg',
-			practice_list: 'Villano',
+			practice_list: ['Villano', 'Perverso'],
 			address: '3487556 Kentucky, Kansas',
 			lat : 37.0210,
 			long : -96.3300
@@ -93,7 +93,7 @@
 			lastname: 'Brown',
 			gender: 'Dr.',
 			profile_pic: 'http://i.ytimg.com/i/Y55LDYTBDs3vFMTh1Pfa3A/mq1.jpg?v=50b39a5d',
-			practice_list: 'Físico Cuántico',
+			practice_list: ['Físico Cuántico', 'Eléctrico', 'Mecánico'],
 			address: '348556 San Luis, Colorado',
 			lat : 39.0260,
 			long : -104.3505
@@ -125,7 +125,7 @@
 				position: new google.maps.LatLng(info.lat, info.long),
 				title: info.gender +' '+ info.name +' '+ info.lastname
 			});
-			marker.content = '<div class="infoWindowContent"><img src="' + info.profile_pic + '" /><h4>' + info.practice_list + '</h4><br><h4>' + info.address + '</h4><br><a href="#/" class="btn btn-success">Pedir cita</a></div>';
+			marker.content = '<div class="infoWindowContent"><img src="' + info.profile_pic + '" /><h4>' + info.practice_list[0] + '</h4><br><h4>' + info.address + '</h4><br><a href="#/" class="btn btn-success">Pedir cita</a></div>';
 			
 			google.maps.event.addListener(marker, 'click', function(){
 				infoWindow.setContent('<h3>' + marker.title + '</h3>' + marker.content);
@@ -183,9 +183,9 @@
 			
 		} 
 
-		//for (i = 0; i < doctors.length; i++){
-		createMarker(doctors);
-		//}
+		for (i = 0; i < doctors.length; i++){
+			createMarker(doctors[i]);
+		}
 
 		scope.openInfoWindow = function(e, selectedMarker){
 			e.preventDefault();
