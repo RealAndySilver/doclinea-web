@@ -4,8 +4,11 @@
 	  'ngRoute',
 	  'mapsApp',
 	  'docProfile',
+	  //'loginUser',
+	  //'createAccount',
 	]);
-
+	//var endpoint = "http://192.241.187.135:1414/api_1.0/";
+	var endpoint = "http://192.168.1.103:1414/api_1.0/";
 	app.config(['$routeProvider',
 		function($routeProvider) {
 		$routeProvider.
@@ -16,18 +19,21 @@
 				templateUrl: '../www/search.html'
 			}).
 			when('/sign_up', {
-				templateUrl: '../www/sign_up.html'
+				templateUrl: '../www/sign_up.html', 
+				controller: 'SignUpController',
 			}).
 			when('/sign_in', {
-				templateUrl: '../www/sign_in.html'
+				templateUrl: '../www/sign_in.html',
+				controller: 'SignInController',
+			}).
+			when('/user/:userId', {
+				templateUrl: '../www/user.html',
+				//controller: 'SignInController',
 			}).
 			when('/doctor/:doctorId', {
 				templateUrl: '../www/doctor.html',
 				controller: 'ProfileCtrl',
 			}).
-			/*when('/doctor/gregory_house#doc-book', {
-				templateUrl: 'www/doctor.html'
-			}).*/
 			otherwise({
 				redirectTo: '/404'
 			});
@@ -35,6 +41,17 @@
 
 
 	//DATA
+
+	var users = [
+		{
+			id: 1,
+			name: 'Carlos',
+			lastname: 'Castillo',
+			email: 'poleecastillo@gmail.com',
+			password: '1234',
+		},
+	];
+
 	var doctors = [
 		{
 			id: 1,
@@ -100,6 +117,49 @@
 		},
 	];
 
+	/*var signUp = angular.module('createAccount', []);
+	
+	signUp.controller('SignUpController', function(){
+		this._users = users;
+		_users = {};
+	});*/
+
+	//var login = angular.module('loginUser', []);
+
+	app.controller('SignInController', ['$http',function($http){
+		// this.signIn = function(){
+		// 	//console.log("hola paola");
+		// 	var login = this;
+		// 	var data1 = this.data;
+		// 	console.log("Data: "+JSON.stringify(data1));
+		// 	var type = "User";
+		// 	$http.post(endpoint + type + '/AuthenticateUser', data1)
+		//         .success(function(data) {
+		//             if (data.status) {
+		//             	console.log("Listo: "+ data.status);
+		//             } else {
+		//             	console.log("Paila");
+		//             }
+		//         }).error(function(error){
+		//         	//
+		//         });
+		// }
+		var type = "User";
+		this.signIn = function() {
+               var data1 = this.data;
+               $http.post(endpoint + type + '/AuthenticateUser', data1)
+               .success(function(data) {
+                   if (!data.status) {
+                           console.log("Paila, no se creó",data);
+                   } else {
+                           // if successful, bind success message to message
+                       console.log("Listo, creado" + data);
+                   }
+       });
+       this.data = {};
+       };
+	}]);
+
 	 
 	var mapView = angular.module('mapsApp', [])
 	.controller('MapCtrl', function ($scope) {
@@ -136,9 +196,9 @@
 			
 		}  
 		
-		for (i = 0; i < doctors.length; i++){
-			createMarker(doctors[i]);
-		}
+		//for (i = 0; i < doctors.length; i++){
+			createMarker(doctors[doctorId]);
+		//}
 
 		$scope.openInfoWindow = function(e, selectedMarker){
 			e.preventDefault();
@@ -155,6 +215,16 @@
 
 		scope.doctorId = routeParams.doctorId;
 
+		/*function initialize() {
+
+			var location = new google.maps.LatLng(39.6753, -104.7720);
+			var mapOptions = {
+				zoom: 4,
+				center: location,
+			}
+
+		}*/
+
 		var mapOptions = {
 			zoom: 4,
 			center: new google.maps.LatLng(40.0000, -98.0000),
@@ -163,14 +233,12 @@
 		
 		scope.map = new google.maps.Map(document.getElementById('profile-map'), mapOptions);
 
-		scope.markers = [];
-
 		var createMarker = function (info){
 			
 			var marker = new google.maps.Marker({
 				map: scope.map,
 				//position: new google.maps.LatLng(info.lat, info.long),
-				position: new google.maps.LatLng(41.8819, -104.3505),
+				position: new google.maps.LatLng(info.lat, info.long),
 				//title: info.gender +' '+ info.name +' '+ info.lastname
 			});
 			//marker.content = '<div class="infoWindowContent"><img src="' + info.profile_pic + '" /><h4>' + info.practice_list + '</h4><br><h4>' + info.address + '</h4><br><a href="#/" class="btn btn-success">Pedir cita</a></div>';
@@ -180,9 +248,9 @@
 				infoWindow.open(scope.map, marker);
 			});*/
 			
-			//scope.markers.push(marker);
-			
 		} 
+
+		//google.maps.event.addDomListener(window, 'load', createMarker);
 
 		/*for (i = 0; i < doctors.length; i++){
 			createMarker(doctors[i]);
