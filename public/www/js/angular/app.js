@@ -4,11 +4,11 @@
 	  'ngRoute',
 	  'mapsApp',
 	  'docProfile',
-	  //'loginUser',
-	  //'createAccount',
+	  'loginUser',
+	  'createAccount',
 	]);
-	//var endpoint = "http://192.241.187.135:1414/api_1.0/";
-	var endpoint = "http://192.168.1.103:1414/api_1.0/";
+	var endpoint = "http://192.241.187.135:1414/api_1.0/";
+	//var endpoint = "http://192.168.1.103:1414/api_1.0/";
 	app.config(['$routeProvider',
 		function($routeProvider) {
 		$routeProvider.
@@ -20,15 +20,15 @@
 			}).
 			when('/sign_up', {
 				templateUrl: '../www/sign_up.html', 
-				controller: 'SignUpController',
+				//controller: 'SignUpController',
 			}).
 			when('/sign_in', {
 				templateUrl: '../www/sign_in.html',
-				controller: 'SignInController',
+				//controller: 'SignInController',
 			}).
 			when('/user/:userId', {
 				templateUrl: '../www/user.html',
-				//controller: 'SignInController',
+				controller: 'SignInController',
 			}).
 			when('/doctor/:doctorId', {
 				templateUrl: '../www/doctor.html',
@@ -41,16 +41,6 @@
 
 
 	//DATA
-
-	var users = [
-		{
-			id: 1,
-			name: 'Carlos',
-			lastname: 'Castillo',
-			email: 'poleecastillo@gmail.com',
-			password: '1234',
-		},
-	];
 
 	var doctors = [
 		{
@@ -117,35 +107,36 @@
 		},
 	];
 
-	/*var signUp = angular.module('createAccount', []);
-	
-	signUp.controller('SignUpController', function(){
-		this._users = users;
-		_users = {};
-	});*/
 
-	//var login = angular.module('loginUser', []);
+	var createUser = angular.module('createAccount', []);
+	createUser.controller('SignUpController', ['$http',function($http){
+		var type = "User";
+		console.log('hola '+type);
+		this.test = function(){
+			console.log('TODO BIEN PICHURRIA');
+		};
+		this.signUp = function() {
+				console.log('Entra a signUp');
+               var data1 = this.data;
+               $http.post(endpoint + type + '/SignUp', data1)
+               .success(function(data) {
+                   if (!data.status) {
+                           console.log("Paila, no se creó",data);
+                   } else {
+                           // if successful, bind success message to message
+                       console.log("Listo, creado" + data);
+                   }
+       });
+       this.data = {};
+       };
+	}]);
 
-	app.controller('SignInController', ['$http',function($http){
-		// this.signIn = function(){
-		// 	//console.log("hola paola");
-		// 	var login = this;
-		// 	var data1 = this.data;
-		// 	console.log("Data: "+JSON.stringify(data1));
-		// 	var type = "User";
-		// 	$http.post(endpoint + type + '/AuthenticateUser', data1)
-		//         .success(function(data) {
-		//             if (data.status) {
-		//             	console.log("Listo: "+ data.status);
-		//             } else {
-		//             	console.log("Paila");
-		//             }
-		//         }).error(function(error){
-		//         	//
-		//         });
-		// }
+
+	var login = angular.module('loginUser', []);
+	login.controller('SignInController', ['$http',function($http){
 		var type = "User";
 		this.signIn = function() {
+				console.log('Entra a signIn');
                var data1 = this.data;
                $http.post(endpoint + type + '/AuthenticateUser', data1)
                .success(function(data) {
@@ -162,7 +153,7 @@
 
 	 
 	var mapView = angular.module('mapsApp', [])
-	.controller('MapCtrl', function ($scope) {
+	mapView.controller('MapCtrl', function ($scope) {
 
 		this.docs = doctors;
 
@@ -196,9 +187,9 @@
 			
 		}  
 		
-		//for (i = 0; i < doctors.length; i++){
-			createMarker(doctors[doctorId]);
-		//}
+		for (i = 0; i < doctors.length; i++){
+			createMarker(doctors[i]);
+		}
 
 		$scope.openInfoWindow = function(e, selectedMarker){
 			e.preventDefault();
@@ -215,7 +206,7 @@
 
 		scope.doctorId = routeParams.doctorId;
 
-		/*function initialize() {
+		function initialize() {
 
 			var location = new google.maps.LatLng(39.6753, -104.7720);
 			var mapOptions = {
@@ -223,7 +214,7 @@
 				center: location,
 			}
 
-		}*/
+		}
 
 		var mapOptions = {
 			zoom: 4,
@@ -248,18 +239,18 @@
 				infoWindow.open(scope.map, marker);
 			});*/
 			
-		} 
+		}
 
 		//google.maps.event.addDomListener(window, 'load', createMarker);
 
-		/*for (i = 0; i < doctors.length; i++){
+		for (i = 0; i < doctors.length; i++){
 			createMarker(doctors[i]);
-		}*/
+		}
 
-		/*scope.openInfoWindow = function(e, selectedMarker){
+		scope.openInfoWindow = function(e, selectedMarker){
 			e.preventDefault();
 			google.maps.event.trigger(selectedMarker, 'click');
-		}*/
+		}
 
 	}]);
 
