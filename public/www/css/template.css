@@ -88,7 +88,7 @@ li {
   margin-bottom: 4px;
 }
 header {
-  background-color: #ecf3f8;
+  background-color: #fff;
   height: 110px;
   border-bottom: solid 1px #e0e8ec;
 }
@@ -252,11 +252,12 @@ li.vertical-divider {
   font-size: 17px;
   padding-right: 50px;
 }
-#docs_container .center button {
+#docs_container .center a {
   width: 250px;
   height: 36px;
   line-height: 14px;
   margin-top: 25px;
+  font-weight: bold;
 }
 #docs_container .center .info-box {
   height: 200px;

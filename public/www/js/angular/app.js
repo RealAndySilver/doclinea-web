@@ -5,10 +5,12 @@
 	  'mapsApp',
 	  'docProfile',
 	  'loginUser',
-	  'createAccount',
+	  'loginDoctor',
+	  'createUser',
+	  'createDoctor',
 	]);
-	var endpoint = "http://192.241.187.135:1414/api_1.0/";
-	//var endpoint = "http://192.168.1.103:1414/api_1.0/";
+	//var endpoint = "http://192.241.187.135:1414/api_1.0/";
+	var endpoint = "http://192.168.1.101:1414/api_1.0/";
 	app.config(['$routeProvider',
 		function($routeProvider) {
 		$routeProvider.
@@ -33,6 +35,12 @@
 			when('/doctor/:doctorId', {
 				templateUrl: '../www/doctor.html',
 				controller: 'ProfileCtrl',
+			}).
+			when('/doctor_sign_up', {
+				templateUrl: '../www/doctor_sign_up.html',
+			}).
+			when('/doctor_sign_in', {
+				templateUrl: '../www/doctor_sign_in.html',
 			}).
 			otherwise({
 				redirectTo: '/404'
@@ -108,15 +116,16 @@
 	];
 
 
-	var createUser = angular.module('createAccount', []);
+	//ACCOUNTS AND AUTHENTICATION
+	var createUser = angular.module('createUser', []);
 	createUser.controller('SignUpController', ['$http',function($http){
 		var type = "User";
-		console.log('hola '+type);
-		this.test = function(){
+		//console.log('hola '+type);
+		/*this.test = function(){
 			console.log('TODO BIEN PICHURRIA');
-		};
+		};*/
 		this.signUp = function() {
-				console.log('Entra a signUp');
+				//console.log('Entra a signUp');
                var data1 = this.data;
                $http.post(endpoint + type + '/SignUp', data1)
                .success(function(data) {
@@ -136,7 +145,7 @@
 	login.controller('SignInController', ['$http',function($http){
 		var type = "User";
 		this.signIn = function() {
-				console.log('Entra a signIn');
+				//console.log('Entra a signIn');
                var data1 = this.data;
                $http.post(endpoint + type + '/AuthenticateUser', data1)
                .success(function(data) {
@@ -151,7 +160,50 @@
        };
 	}]);
 
-	 
+	var createDoctor = angular.module('createDoctor', []);
+	createDoctor.controller('DoctorSignUpController', ['$http',function($http){
+		var type = "Doctor";
+		//console.log('hola '+type);
+		/*this.test = function(){
+			console.log('TODO BIEN PICHURRIA');
+		};*/
+		this.signUp = function() {
+				//console.log('Entra a signUp');
+               var data1 = this.data;
+               $http.post(endpoint + type + '/SignUp', data1)
+               .success(function(data) {
+                   if (!data.status) {
+                           console.log("Paila, no se creó",data);
+                   } else {
+                           // if successful, bind success message to message
+                       console.log("Listo, creado" + data);
+                   }
+       });
+       //this.data = {};
+       };
+	}]);
+
+	var loginDoctor = angular.module('loginDoctor', []);
+	loginDoctor.controller('DoctorSignInController', ['$http',function($http){
+		var type = "Doctor";
+		this.signIn = function() {
+				//console.log('Entra a signIn');
+               var data1 = this.data;
+               $http.post(endpoint + type + '/SignInDoctor', data1)
+               .success(function(data) {
+                   if (!data.status) {
+                           console.log("Paila, no se creó",data);
+                   } else {
+                           // if successful, bind success message to message
+                       console.log("Listo, creado" + data);
+                   }
+       });
+       this.data = {};
+       };
+	}]);
+
+
+	//SEARCH AND PROFILE 
 	var mapView = angular.module('mapsApp', [])
 	mapView.controller('MapCtrl', function ($scope) {
 
