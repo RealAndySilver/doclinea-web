@@ -8,17 +8,19 @@
 	  'loginDoctor',
 	  'createUser',
 	  'createDoctor',
+	  //'listDoctors',
 	]);
-	//var endpoint = "http://192.241.187.135:1414/api_1.0/";
-	var endpoint = "http://192.168.1.101:1414/api_1.0/";
+	var endpoint = "http://192.241.187.135:1414/api_1.0/";
+	//var endpoint = "http://192.168.1.101:1414/api_1.0/";
 	app.config(['$routeProvider',
 		function($routeProvider) {
 		$routeProvider.
 			when('/', {
 				templateUrl: '../www/landpage.html'
 			}).
-			when('/search', {
-				templateUrl: '../www/search.html'
+			when('/search/:city/:practice_list/:insurance_list', {
+				templateUrl: '../www/search.html',
+				//controller: 'MapCtrl'
 			}).
 			when('/sign_up', {
 				templateUrl: '../www/sign_up.html', 
@@ -49,8 +51,7 @@
 
 
 	//DATA
-
-	var doctors = [
+	/*var doctors = [
 		{
 			id: 1,
 			name: 'Gregory',
@@ -113,7 +114,7 @@
 			lat : 39.0260,
 			long : -104.3505
 		},
-	];
+	];*/
 
 
 	//ACCOUNTS AND AUTHENTICATION
@@ -161,7 +162,22 @@
 	}]);
 
 	var createDoctor = angular.module('createDoctor', []);
-	createDoctor.controller('DoctorSignUpController', ['$http',function($http){
+	createDoctor.controller('DoctorSignUpController', ['$http', '$scope', function($http, $scope){
+		$scope.practices = [
+			{
+				name: 'Medicina general',
+			},
+			{
+				name: 'Pedriatría',
+			},
+			{
+				name: 'Ortopedia',
+
+			},
+			{
+				name: 'Ginecologia',
+			},
+		];
 		var type = "Doctor";
 		//console.log('hola '+type);
 		/*this.test = function(){
@@ -179,7 +195,7 @@
                        console.log("Listo, creado" + data);
                    }
        });
-       //this.data = {};
+       this.data = {};
        };
 	}]);
 
@@ -203,12 +219,79 @@
 	}]);
 
 
-	//SEARCH AND PROFILE 
+	//GET DOCTOR BY SEARCH PARAMS - to search page
+	//var loginDoctor = angular.module('loginDoctor', []);
+	app.controller('DoctorSearchController', ['$http',function($http){
+		var type = "Doctor";
+		this.searchDoctor = function() {
+			console.log(this.data);
+			window.location = "/#/search/" + this.data.city + "/" + this.data.practice_list + "/" + this.data.insurance_list;
+			/*
+				console.log('Entra a Doctores');
+               var data1 = this.data;
+               $http.post(endpoint + type + '/GetDoctorsByParams', data1)
+               .success(function(data) {
+                   if (!data.status) {
+                       console.log("No se encontraron doctores",data);
+                       //console.log(data);
+                   } else {
+                       // if successful, bind success message to message
+                       console.log("Resultado de busqueda de doctores:");
+                       console.log(data);
+                       window.location = "/#/search/" + data1.city + "/" + data1.practice_list + "/" + data1.insurance_list;
+                   }
+       });
+*/
+       this.data = {};
+       };
+	}]);
+
+
+	//PROFILES 
 	var mapView = angular.module('mapsApp', [])
-	mapView.controller('MapCtrl', function ($scope) {
+	mapView.controller('MapCtrl', function ($scope, $http, $routeParams) {
 
-		this.docs = doctors;
+		$scope.docs = {};
 
+		var city = $routeParams.city;
+		var practice_list = $routeParams.practice_list;
+		var insurance_list = $routeParams.insurance_list;
+
+		var data1 = {};
+
+		if(city !== "city") {
+			data1.city = city;
+		}
+
+		if(practice_list !== "undefined") {
+			data1.practice_list = practice_list;
+		}
+
+		if(insurance_list !== "undefined") {
+			data1.insurance_list = insurance_list;
+		}
+
+
+		console.log('Entra a Doctores');
+		console.log(data1);
+               
+      	$http.post(endpoint + "Doctor" + '/GetDoctorsByParams', data1)
+      		.success(function(data) {
+            	if (!data.status) {
+               		console.log("No se encontraron doctores",data);
+               		console.log(data);
+           		} else {
+               		// if successful, bind success message to message
+               		console.log("Resultado de busqueda de doctores:");
+               		console.log(data);
+
+               		$scope.docs = data;
+
+           		}
+       });
+
+		
+/*
 		var mapOptions = {
 			zoom: 4,
 			center: new google.maps.LatLng(40.0000, -98.0000),
@@ -247,6 +330,7 @@
 			e.preventDefault();
 			google.maps.event.trigger(selectedMarker, 'click');
 		}
+		*/
 
 	});
 
@@ -254,7 +338,7 @@
 	var profileView = angular.module('docProfile', [])
 	.controller('ProfileCtrl', ['$scope', '$http', '$routeParams', function (scope, http, routeParams) {
 
-		this.doctor = doctors;
+		/*this.doctor = doctors;
 
 		scope.doctorId = routeParams.doctorId;
 
@@ -289,7 +373,7 @@
 			/*google.maps.event.addListener(marker, 'click', function(){
 				infoWindow.setContent('<h3>' + marker.title + '</h3>' + marker.content);
 				infoWindow.open(scope.map, marker);
-			});*/
+			});
 			
 		}
 
@@ -302,7 +386,7 @@
 		scope.openInfoWindow = function(e, selectedMarker){
 			e.preventDefault();
 			google.maps.event.trigger(selectedMarker, 'click');
-		}
+		}*/
 
 	}]);
 
