@@ -7,11 +7,12 @@
 						<form id="main-form" name="searchDoctorForm" ng-controller="DoctorSearchController as docSearchCtrl"  ng-submit="docSearchCtrl.searchDoctor()" novalidate>
 							<label for="practice_list">Especialidad</label>
 							<select class="form-control" name="practice_list" id="practice_list" ng-model="docSearchCtrl.data.practice_list">
-							  <option value="1">Pediatría</option>
-							  <option value="2">Fonoaudilogía</option>
-							  <option value="3">Ginecología</option>
-							  <option value="4">Ortopedia</option>
-							  <option value="5">Odontología</option>
+							  <option value="" disabled>- Seleccione una especialidad -</option>
+							  <option>Pediatría</option>
+							  <option>Fonoaudiólogo</option>
+							  <option>Ginecólogo</option>
+							  <option>Ortopedista</option>
+							  <option>Odontólogo</option>
 							</select>
 							<label for="city_list">Ciudad</label>
 							<select class="form-control" name="city_list" id="city_list" ng-model="docSearchCtrl.data.city">
@@ -26,6 +27,7 @@
 							<!--<input class="form-control" type="text"  name="city_list" id="city_list" ng-model="docSearchCtrl.data.city"/>-->
 							<label for="insurance_list">Aseguradora</label>
 							<select class="form-control" name="insurance_list" id="insurance_list" ng-model="docSearchCtrl.data.insurance_list">
+							  <option value="" disabled>- Seleccione una aseguradora -</option>
 							  <option value="1">Colpatria</option>
 							  <option value="2">Sura</option>
 							  <option value="3">Compensar</option>

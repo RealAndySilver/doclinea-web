@@ -51,70 +51,108 @@
 
 
 	//DATA
-	/*var doctors = [
+	var locationsBogota = [
 		{
-			id: 1,
-			name: 'Gregory',
-			lastname: 'House',
-			gender: 'Dr.',
-			profile_pic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCuaRjPqJfsU6w8aOa4uIfmkqMX-zjS-JqUYPc5rnpwDj751CK',
-			practice_list: [
-					'Nefrólogo',
-					'Infectólogo'
-				],
-			address: '34875 Princeton, New Jersey',
-			description: 'Los métodos poco ortodoxos que utiliza para diagnosticar, las terapias alternativas y la racionalidad incondicional dan como resultado varios conflictos con sus colegas de profesión. A menudo le retratan como una persona carente de simpatía y compasión hacia sus pacientes, una práctica que le permite resolver enigmas patológicos.',
-			education_list: [
-					'Pontificia Universidad Javeriana',
-					'Clínica Universitaria Corpas',
-				], 
-			professional_membership: 'Asociación Americana de Nefrólogos',
-			lat : 41.8819,
-			long : -87.6278
+			name: "Antonio Nariño",
+			lat: 4.5,
+			lon: 74.5,	
 		},
 		{
-			id: 2,
-			name: '',
-			lastname: 'Dolittle',
-			gender: 'Dr.',
-			profile_pic: 'http://image.xyface.com/image/d/movie-dr-dolittle-2/dr-dolittle-2-53414.jpg',
-			practice_list: [
-				'Veterinario',
-				'Zootécnico',
-			],
-			address: '34875 Malibu, Los Angeles',
-			description: 'He is a doctor who shuns human patients in favour of animals, with whom he can speak in their own languages.',
-			education_list: [
-					'Preparatoria Regional de Malibu',
-					'Clínica Marly',
-				],
-			professional_membership: 'Asociación de Zooamantes de Norteamérica', 
-			lat : 34.0500,
-			long : -118.2500
+			name: "Barrios Unidos",
+			lat: 4.5,
+			lon: 74.5,	
 		},
 		{
-			id: 3,
-			name: '',
-			lastname: 'Malito',
-			gender: 'Dr.',
-			profile_pic: 'http://spa.fotolog.com/photo/10/17/30/juan_caa/1240277762838_f.jpg',
-			practice_list: ['Villano', 'Perverso'],
-			address: '3487556 Kentucky, Kansas',
-			lat : 37.0210,
-			long : -96.3300
+			name: "Bosa",
+			lat: 4.5,
+			lon: 74.5,	
 		},
 		{
-			id: 4,
-			name: 'Emmet',
-			lastname: 'Brown',
-			gender: 'Dr.',
-			profile_pic: 'http://i.ytimg.com/i/Y55LDYTBDs3vFMTh1Pfa3A/mq1.jpg?v=50b39a5d',
-			practice_list: ['Físico Cuántico', 'Eléctrico', 'Mecánico'],
-			address: '348556 San Luis, Colorado',
-			lat : 39.0260,
-			long : -104.3505
+			name: "Chapinero",
+			lat: 4.5,
+			lon: 74.5,	
 		},
-	];*/
+		{
+			name: "Ciudad Bolivar",
+			lat: 4.5,
+			lon: 74.5,	
+		},
+		{
+			name: "Engativá",
+			lat: 4.5,
+			lon: 74.5,	
+		},
+		{
+			name: "Fontibón",
+			lat: 4.5,
+			lon: 74.5,	
+		},
+		{
+			name: "Keneddy",
+			lat: 4.5,
+			lon: 74.5,	
+		},
+		{
+			name: "La Candelaria",
+			lat: 4.5,
+			lon: 74.5,	
+		},
+		{
+			name: "Los Mártires",
+			lat: 4.5,
+			lon: 74.5,	
+		},
+		{
+			name: "Puente Aranda",
+			lat: 4.5,
+			lon: 74.5,	
+		},
+		{
+			name: "Rafael Uribe",
+			lat: 4.5,
+			lon: 74.5,	
+		},
+		{
+			name: "San Cristóbal",
+			lat: 4.5,
+			lon: 74.5,	
+		},
+		{
+			name: "Santa Fe",
+			lat: 4.5,
+			lon: 74.5,	
+		},
+		{
+			name: "Suba",
+			lat: 4.5,
+			lon: 74.5,	
+		},
+		{
+			name: "Sumapaz",
+			lat: 4.5,
+			lon: 74.5,	
+		},
+		{
+			name: "Teusaquillo",
+			lat: 4.5,
+			lon: 74.5,	
+		},
+		{
+			name: "Tunjuelito",
+			lat: 4.5,
+			lon: 74.5,	
+		},
+		{
+			name: "Usaquén",
+			lat: 4.5,
+			lon: 74.5,	
+		},
+		{
+			name: "Usme",
+			lat: 4.5,
+			lon: 74.5,	
+		},
+	];	
 
 
 	//ACCOUNTS AND AUTHENTICATION
@@ -162,22 +200,10 @@
 	}]);
 
 	var createDoctor = angular.module('createDoctor', []);
-	createDoctor.controller('DoctorSignUpController', ['$http', '$scope', function($http, $scope){
-		$scope.practices = [
-			{
-				name: 'Medicina general',
-			},
-			{
-				name: 'Pedriatría',
-			},
-			{
-				name: 'Ortopedia',
+	createDoctor.controller('DoctorSignUpController', ['$http', function($http){
 
-			},
-			{
-				name: 'Ginecologia',
-			},
-		];
+		this.locations = locationsBogota;
+
 		var type = "Doctor";
 		//console.log('hola '+type);
 		/*this.test = function(){
@@ -226,23 +252,7 @@
 		this.searchDoctor = function() {
 			console.log(this.data);
 			window.location = "/#/search/" + this.data.city + "/" + this.data.practice_list + "/" + this.data.insurance_list;
-			/*
-				console.log('Entra a Doctores');
-               var data1 = this.data;
-               $http.post(endpoint + type + '/GetDoctorsByParams', data1)
-               .success(function(data) {
-                   if (!data.status) {
-                       console.log("No se encontraron doctores",data);
-                       //console.log(data);
-                   } else {
-                       // if successful, bind success message to message
-                       console.log("Resultado de busqueda de doctores:");
-                       console.log(data);
-                       window.location = "/#/search/" + data1.city + "/" + data1.practice_list + "/" + data1.insurance_list;
-                   }
-       });
-*/
-       this.data = {};
+       		this.data = {};
        };
 	}]);
 
@@ -251,7 +261,7 @@
 	var mapView = angular.module('mapsApp', [])
 	mapView.controller('MapCtrl', function ($scope, $http, $routeParams) {
 
-		$scope.docs = {};
+		this.docs = [];
 
 		var city = $routeParams.city;
 		var practice_list = $routeParams.practice_list;
@@ -259,7 +269,7 @@
 
 		var data1 = {};
 
-		if(city !== "city") {
+		if(city !== "undefined") {
 			data1.city = city;
 		}
 
@@ -274,6 +284,8 @@
 
 		console.log('Entra a Doctores');
 		console.log(data1);
+
+		var This = this;
                
       	$http.post(endpoint + "Doctor" + '/GetDoctorsByParams', data1)
       		.success(function(data) {
@@ -285,13 +297,15 @@
                		console.log("Resultado de busqueda de doctores:");
                		console.log(data);
 
-               		$scope.docs = data;
+               		This.docs = data.response;
+
+               		console.log(JSON.stringify(this.docs));
 
            		}
        });
 
-		
-/*
+		/*
+
 		var mapOptions = {
 			zoom: 4,
 			center: new google.maps.LatLng(40.0000, -98.0000),
@@ -331,6 +345,7 @@
 			google.maps.event.trigger(selectedMarker, 'click');
 		}
 		*/
+		
 
 	});
 
