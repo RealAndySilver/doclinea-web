@@ -40,6 +40,9 @@
 .form-box .form-group {
   margin-bottom: 5px;
 }
+.form-box .form-group select {
+  margin-bottom: 25px;
+}
 .form-box .form-group.last-form-element {
   margin-bottom: 30px;
 }

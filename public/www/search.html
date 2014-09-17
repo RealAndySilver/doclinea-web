@@ -81,11 +81,13 @@
 							</div>
 						</div>
 						<div class="doc-info">
-							<div class="doc-name"><span><a href="#/doctor/gregory_house">
-								<label ng-if="doctor.gender == 1">Dr.</label>
-								<label ng-if="doctor.gender != 1">Dra.</label>
-								{{doctor.name}}  
-								{{doctor.lastname}}</a></span></div>
+							<div class="doc-name"><span>
+									<a href="#/doctor/gregory_house">
+									<label ng-if="doctor.gender == 1">Dr.</label>
+									<label ng-if="doctor.gender != 1">Dra.</label>
+									{{doctor.name}}  
+									{{doctor.lastname}}</a>
+								</span></div>
 							<div class="doc-address">
 								<div class="doc-speciality"><b>{{doctor.practice_list[0]}}</b></div>
 								<div class="doc-adress-location"><p>{{doctor.address}}</p></div>

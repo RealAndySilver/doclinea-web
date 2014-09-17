@@ -10,8 +10,8 @@
 	  'createDoctor',
 	  //'listDoctors',
 	]);
-	var endpoint = "http://192.241.187.135:1414/api_1.0/";
-	//var endpoint = "http://192.168.1.101:1414/api_1.0/";
+	//var endpoint = "http://192.241.187.135:1414/api_1.0/";
+	var endpoint = "http://192.168.1.101:1414/api_1.0/";
 	app.config(['$routeProvider',
 		function($routeProvider) {
 		$routeProvider.
@@ -51,109 +51,7 @@
 
 
 	//DATA
-	var localidades = [
-		{
-			name: "Antonio Nariño",
-			lat: 4.5,
-			lon: 74.5,	
-		},
-		{
-			name: "Barrios Unidos",
-			lat: 4.5,
-			lon: 74.5,	
-		},
-		{
-			name: "Bosa",
-			lat: 4.5,
-			lon: 74.5,	
-		},
-		{
-			name: "Chapinero",
-			lat: 4.5,
-			lon: 74.5,	
-		},
-		{
-			name: "Ciudad Bolivar",
-			lat: 4.5,
-			lon: 74.5,	
-		},
-		{
-			name: "Engativá",
-			lat: 4.5,
-			lon: 74.5,	
-		},
-		{
-			name: "Fontibón",
-			lat: 4.5,
-			lon: 74.5,	
-		},
-		{
-			name: "Keneddy",
-			lat: 4.5,
-			lon: 74.5,	
-		},
-		{
-			name: "La Candelaria",
-			lat: 4.5,
-			lon: 74.5,	
-		},
-		{
-			name: "Los Mártires",
-			lat: 4.5,
-			lon: 74.5,	
-		},
-		{
-			name: "Puente Aranda",
-			lat: 4.5,
-			lon: 74.5,	
-		},
-		{
-			name: "Rafael Uribe",
-			lat: 4.5,
-			lon: 74.5,	
-		},
-		{
-			name: "San Cristóbal",
-			lat: 4.5,
-			lon: 74.5,	
-		},
-		{
-			name: "Santa Fe",
-			lat: 4.5,
-			lon: 74.5,	
-		},
-		{
-			name: "Suba",
-			lat: 4.5,
-			lon: 74.5,	
-		},
-		{
-			name: "Sumapaz",
-			lat: 4.5,
-			lon: 74.5,	
-		},
-		{
-			name: "Teusaquillo",
-			lat: 4.5,
-			lon: 74.5,	
-		},
-		{
-			name: "Tunjuelito",
-			lat: 4.5,
-			lon: 74.5,	
-		},
-		{
-			name: "Usaquén",
-			lat: 4.5,
-			lon: 74.5,	
-		},
-		{
-			name: "Usme",
-			lat: 4.5,
-			lon: 74.5,	
-		},
-	];	
-
+	//Include here hard-coded data
 
 	//ACCOUNTS AND AUTHENTICATION
 	var createUser = angular.module('createUser', []);
@@ -305,10 +203,7 @@
 			},
 	  	];
 
-		//this.locs = localidades;
-
 		var type = "Doctor";
-		//console.log('hola '+type);
 		/*this.test = function(){
 			console.log('TODO BIEN PICHURRIA');
 		};*/
@@ -318,10 +213,12 @@
                $http.post(endpoint + type + '/SignUp', data1)
                .success(function(data) {
                    if (!data.status) {
-                           console.log("Paila, no se creó",data);
+                        console.log("Paila, no se creó",data);
+                        console.log(JSON.stringify(data1));
                    } else {
                            // if successful, bind success message to message
                        console.log("Listo, creado" + data);
+                       console.log(JSON.stringify(data1));
                    }
        });
        this.data = {};
@@ -353,7 +250,6 @@
 	app.controller('DoctorSearchController', ['$http',function($http){
 		var type = "Doctor";
 		this.searchDoctor = function() {
-			console.log(this.data);
 			window.location = "/#/search/" + this.data.city + "/" + this.data.practice_list + "/" + this.data.insurance_list;
        		this.data = {};
        };
@@ -384,9 +280,7 @@
 			data1.insurance_list = insurance_list;
 		}
 
-
 		console.log('Entra a Doctores');
-		console.log(data1);
 
 		var This = this;
                
@@ -402,10 +296,43 @@
 
                		This.docs = data.response;
 
-               		console.log(JSON.stringify(this.docs));
+               		//console.log(JSON.stringify(this.docs));
 
            		}
        });
+
+      	var mapOptions = {
+			zoom: 2,
+			center: new google.maps.LatLng(15.0000, -98.0000),
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		}
+
+		$scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+		$scope.markers = [];
+
+		var createMarker = function (info){
+			
+			console.log('ENTRA A CREAR MARKER');
+			var marker = new google.maps.Marker({
+				map: $scope.map,
+				position: new google.maps.LatLng(info.location_list.lat, info.location_list.lon),
+				//title: info.gender +' '+ info.name +' '+ info.lastname
+			});
+			//marker.content = '<div class="infoWindowContent"><img src="' + info.profile_pic + '" /><h4>' + info.practice_list[0] + '</h4><br><h4>' + info.address + '</h4><br><a href="#/" class="btn btn-success">Pedir cita</a></div>';
+			
+			/*google.maps.event.addListener(marker, 'click', function(){
+				infoWindow.setContent('<h3>' + marker.title + '</h3>' + marker.content);
+				infoWindow.open($scope.map, marker);
+			});*/
+			
+			$scope.markers.push(marker);
+			
+		}
+
+		for (i = 0; i < This.docs.length; i++){
+			createMarker(This.docs[i]);
+		}
 
 		/*
 
@@ -460,16 +387,6 @@
 
 		scope.doctorId = routeParams.doctorId;
 
-		function initialize() {
-
-			var location = new google.maps.LatLng(39.6753, -104.7720);
-			var mapOptions = {
-				zoom: 4,
-				center: location,
-			}
-
-		}
-
 		var mapOptions = {
 			zoom: 4,
 			center: new google.maps.LatLng(40.0000, -98.0000),
@@ -494,8 +411,6 @@
 			});
 			
 		}
-
-		//google.maps.event.addDomListener(window, 'load', createMarker);
 
 		for (i = 0; i < doctors.length; i++){
 			createMarker(doctors[i]);

@@ -54,7 +54,7 @@
 						  <input type="radio" name="patient_gender" id="patient_gender-1" value="2"  ng-model="docSignUpCtrl.data.patient_gender">
 						  Femenino
 						</label>
-						<label class="radio-inline" for="patient_gender-1">
+						<label class="radio-inline" for="patient_gender-2">
 						  <input type="radio" name="patient_gender" id="patient_gender-3" value="3"  ng-model="docSignUpCtrl.data.patient_gender">
 						  Ambos
 						</label>
@@ -66,18 +66,6 @@
 					  <input id="phone" name="phone" type="text" placeholder="" class="form-control input-md"  ng-model="docSignUpCtrl.data.phone">
 					  </div>
 					</div>
-					<!--<div class="form-group">
-					  <label class="col-md-4 control-label" for="country">País</label>  
-					  <div class="col-md-6">
-					  <input id="country" name="country" type="text" placeholder="" class="form-control input-md"  ng-model="signUpCtrl.data.country">
-					  </div>
-					</div>-->
-					<!--<div class="form-group">
-					  <label class="col-md-4 control-label" for="city">Ciudad</label>  
-					  <div class="col-md-6">
-					  <input id="city" name="city" type="text" placeholder="" class="form-control input-md"  ng-model="docSignUpCtrl.data.city">
-					  </div>
-					</div>-->
 					<div class="form-group">
 						<label class="col-md-4 control-label" for="city">Ciudad</label>
 						<div class="col-md-6">
@@ -91,29 +79,19 @@
 						</select>
 						</div>
 					</div>
-					<div class="form-group">
-						<label class="col-md-4 control-label" for="city">Localidad</label>
+					<div class="form-group" ng-if="docSignUpCtrl.data.city == 'Bogotá'">
+						<label class="col-md-4 control-label" for="localidad">Localidad</label>
 						<div class="col-md-6">
-						<select class="form-control" name="city" id="city" ng-model="docSignUpCtrl.data.localidad" ng-options="loc as loc.name for loc in localidades">
+						<select class="form-control" name="localidad" id="localidad" ng-model="docSignUpCtrl.data.localidad" ng-options="localidad.name for localidad in localidades">
 						</select>
 						</div>
 					</div>
-					<div class="form-group last-form-element">
+					<div class="form-group">
 					  <label class="col-md-4 control-label" for="address">Dirección</label>  
 					  <div class="col-md-6">
 					  <input id="address" name="address" type="text" placeholder="" class="form-control input-md"  ng-model="docSignUpCtrl.data.address">
 					  </div>
 					</div>
-					<!--<div class="form-group last-form-element">
-					  <label class="col-md-4 control-label" for="insurance">Aseguradora</label>
-					  <div class="col-md-6">
-						<select id="insurance" name="insurance" class="form-control"  ng-model="signUpCtrl.data.insurance">
-						  <option value="1">Sura</option>
-						  <option value="2">Colpatria</option>
-						  <option value="3">Compensar</option>
-						</select>
-					  </div>
-					</div>-->
 					<div class="form-group">
 					  <label class="col-md-4 control-label" for="lat">Latitú</label>
 					  <div class="col-md-6">
@@ -138,12 +116,6 @@
 						</select>
 					  </div>
 					</div>
-					<!--<div class="form-group">
-					  <label class="col-md-4 control-label" for="practice">Especialidad</label>
-					  <div class="col-md-6">
-						<input id="practice" name="practice" type="text" placeholder="" class="form-control input-md" ng-model="docSignUpCtrl.data.practice">
-					  </div>
-					</div>-->
 					<div class="form-group">
 					  <div class="col-md-4 center-button">
 						<button id="doctor_sign_up_submit" name="doctor_sign_up_submit" class="btn btn-primary">Registrarse</button>
