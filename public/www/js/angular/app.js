@@ -51,7 +51,7 @@
 
 
 	//DATA
-	var locationsBogota = [
+	var localidades = [
 		{
 			name: "Antonio Nariño",
 			lat: 4.5,
@@ -200,9 +200,112 @@
 	}]);
 
 	var createDoctor = angular.module('createDoctor', []);
-	createDoctor.controller('DoctorSignUpController', ['$http', function($http){
+	createDoctor.controller('DoctorSignUpController', ['$http', '$scope', function($http, $scope){
 
-		this.locations = locationsBogota;
+		$scope.localidades = [
+	    	{
+				name: "Antonio Nariño",
+				lat: 4.5,
+				lon: 74.5,	
+			},
+			{
+				name: "Barrios Unidos",
+				lat: 4.5,
+				lon: 74.5,	
+			},
+			{
+				name: "Bosa",
+				lat: 4.5,
+				lon: 74.5,	
+			},
+			{
+				name: "Chapinero",
+				lat: 4.5,
+				lon: 74.5,	
+			},
+			{
+				name: "Ciudad Bolivar",
+				lat: 4.5,
+				lon: 74.5,	
+			},
+			{
+				name: "Engativá",
+				lat: 4.5,
+				lon: 74.5,	
+			},
+			{
+				name: "Fontibón",
+				lat: 4.5,
+				lon: 74.5,	
+			},
+			{
+				name: "Keneddy",
+				lat: 4.5,
+				lon: 74.5,	
+			},
+			{
+				name: "La Candelaria",
+				lat: 4.5,
+				lon: 74.5,	
+			},
+			{
+				name: "Los Mártires",
+				lat: 4.5,
+				lon: 74.5,	
+			},
+			{
+				name: "Puente Aranda",
+				lat: 4.5,
+				lon: 74.5,	
+			},
+			{
+				name: "Rafael Uribe",
+				lat: 4.5,
+				lon: 74.5,	
+			},
+			{
+				name: "San Cristóbal",
+				lat: 4.5,
+				lon: 74.5,	
+			},
+			{
+				name: "Santa Fe",
+				lat: 4.5,
+				lon: 74.5,	
+			},
+			{
+				name: "Suba",
+				lat: 4.5,
+				lon: 74.5,	
+			},
+			{
+				name: "Sumapaz",
+				lat: 4.5,
+				lon: 74.5,	
+			},
+			{
+				name: "Teusaquillo",
+				lat: 4.5,
+				lon: 74.5,	
+			},
+			{
+				name: "Tunjuelito",
+				lat: 4.5,
+				lon: 74.5,	
+			},
+			{
+				name: "Usaquén",
+				lat: 4.5,
+				lon: 74.5,	
+			},
+			{
+				name: "Usme",
+				lat: 4.5,
+				lon: 74.5,	
+			},
+	  	];
+
+		//this.locs = localidades;
 
 		var type = "Doctor";
 		//console.log('hola '+type);
