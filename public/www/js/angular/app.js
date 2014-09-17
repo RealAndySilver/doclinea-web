@@ -10,8 +10,8 @@
 	  'createDoctor',
 	  //'listDoctors',
 	]);
-	//var endpoint = "http://192.241.187.135:1414/api_1.0/";
-	var endpoint = "http://192.168.1.101:1414/api_1.0/";
+	var endpoint = "http://192.241.187.135:1414/api_1.0/";
+	//var endpoint = "http://192.168.1.101:1414/api_1.0/";
 	app.config(['$routeProvider',
 		function($routeProvider) {
 		$routeProvider.
@@ -299,10 +299,9 @@
                		//console.log(JSON.stringify(this.docs));
 
            		}
-       });
 
-      	var mapOptions = {
-			zoom: 2,
+           	var mapOptions = {
+			zoom: 1,
 			center: new google.maps.LatLng(15.0000, -98.0000),
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 		}
@@ -310,14 +309,16 @@
 		$scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
 		$scope.markers = [];
+		console.log('This is my doctors data'); 
+		console.log(This.docs[8].location_list[0].lat);
 
-		var createMarker = function (info){
-			
-			console.log('ENTRA A CREAR MARKER');
+		 var createMarker = function (info){
+			//console.log('ENTRA A CREAR MARKER');
 			var marker = new google.maps.Marker({
 				map: $scope.map,
-				position: new google.maps.LatLng(info.location_list.lat, info.location_list.lon),
+				position: new google.maps.LatLng(info.location_list[0].lat, info.location_list[0].lon),
 				//title: info.gender +' '+ info.name +' '+ info.lastname
+				//position: new google.maps.LatLng(37.8943, -90.7843),
 			});
 			//marker.content = '<div class="infoWindowContent"><img src="' + info.profile_pic + '" /><h4>' + info.practice_list[0] + '</h4><br><h4>' + info.address + '</h4><br><a href="#/" class="btn btn-success">Pedir cita</a></div>';
 			
@@ -330,9 +331,12 @@
 			
 		}
 
-		for (i = 0; i < This.docs.length; i++){
+		for (i = 0; i < (data.response).length; i++){
 			createMarker(This.docs[i]);
 		}
+       });
+
+      	
 
 		/*
 
