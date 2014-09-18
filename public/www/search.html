@@ -1,38 +1,44 @@
 <div id="search-bar">
 	<div class="center">
 		<div class="inner-search-bar">
-			<div class="column-c">
-				<label>Especialidad</label>
-				<select class="form-control">
-                  <option value="">Pediatría</option>
-                  <option value="">Fonoaudilogía</option>
-                  <option value="">Ginecología</option>
-                  <option value="">Ortopedia</option>
-                  <option value="">Odontología</option>
-                </select>
-			</div>
-			<div class="column-c">
-				<label>Localidad</label>
-				<select class="form-control">
-                  <option value="">Usaquen</option>
-                  <option value="">Suba</option>
-                  <option value="">Engativá</option>
-                  <option value="">Barrios Unidos</option>
-                  <option value="">Chapinero</option>
-                  <option value="">Puente Aranda</option>
-                </select>
-			</div>
-			<div class="column-c">
-				<label>Aseguradora</label>
-				<select class="form-control">
-                  <option value="">Colpatria</option>
-                  <option value="">Sura</option>
-                  <option value="">Compensar</option>
-                </select>
-			</div>
-			<div class="column-c">
-				<a href="#/search" class="btn btn-success btn-block btn-lg">Buscar</a>
-			</div>
+			<form name="searchDoctorForm" ng-controller="DoctorSearchController as docSearchCtrl"  ng-submit="docSearchCtrl.searchDoctor()" novalidate>
+				<div class="column-c">
+					<label for="practice_list">Especialidad</label>
+					<select class="form-control" name="practice_list" id="practice_list" ng-model="docSearchCtrl.data.practice_list">
+					  <option value="" disabled>- Seleccione una especialidad -</option>
+	                  <option>Pediatra</option>
+	                  <option>Fonoaudiólogo</option>
+	                  <option>Ginecólogo</option>
+	                  <option>Ortopedista</option>
+	                  <option>Odontólogo</option>
+	                </select>
+				</div>
+				<div class="column-c">
+					<label for="city_list">Ciudad</label>
+					<select class="form-control" name="city_list" id="city_list" ng-model="docSearchCtrl.data.city">
+	                  <option value="" disabled>- Seleccione una ciudad -</option>
+					  <option>Bogotá</option>
+					  <option>Medellín</option>
+					  <option>Cali</option>
+					  <option>Barranquilla</option>
+					  <option>Pereira</option>
+					  <option>Bucaramanga</option>
+	                </select>
+				</div>
+				<div class="column-c">
+					<label for="insurance_list">Aseguradora</label>
+					<select class="form-control" name="insurance_list" id="insurance_list" ng-model="docSearchCtrl.data.insurance_list">
+	                  <option value="" disabled>- Seleccione una aseguradora -</option>
+					  <option value="1">Colpatria</option>
+					  <option value="2">Sura</option>
+					  <option value="3">Compensar</option>
+	                </select>
+				</div>
+				<div class="column-c">
+					<!--<a href="#/search" class="btn btn-success btn-block btn-lg">Buscar</a>-->
+					<button id="search_doctor" name="search_doctor" class="btn btn-success btn-block btn-lg" ng-click="docSearchCtrl.test()">Buscar</button>
+				</div>
+			</form>
 		</div>
 		<hr>
 		<!--<div class="inner-search-bar">
