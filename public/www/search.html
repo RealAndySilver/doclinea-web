@@ -65,11 +65,11 @@
 		</div>-->
 	</div>
 </div>
-<div class="description-bar">
+<!--<div class="description-bar" ng-controller="MapCtrl as doc">
 	<div class="center">
-		<span><b id="doctor_type">Doctores</b> en <b id="location_name">Chapinero</b> que aceptan <b id="ensurance_name">Sura</b></span>
+		<span><b id="doctor_type">Doctores</b> en <b id="location_name">{{city}}</b> que aceptan <b id="ensurance_name">Sura</b></span>
 	</div>
-</div>
+</div>-->
 <div id="results-box">
 	<div class="center">
 		<div ng-app="mapsApp" ng-controller="MapCtrl as doc" class="results-page">
@@ -101,7 +101,7 @@
 							<div class="doc-review"></div>
 							<div class="book-options">
 								<a href="#/" class="btn btn-success btn-lg">Pedir cita</a>
-								<a href="#/doctor/{{doctor.id}}" class="btn btn-info btn-lg">Ver perfil</a>
+								<a href="#/doctor/{{doctor.email}}" class="btn btn-info btn-lg">Ver perfil</a>
 							</div>
 						</div>
 					</div>

@@ -3,13 +3,13 @@
 	var app = angular.module('doclinea', [
 	  'ngRoute',
 	  'mapsApp',
-	  'docProfile',
 	  'loginUser',
 	  'loginDoctor',
 	  'createUser',
 	  'createDoctor',
-	  //'listDoctors',
+	  'docProfile',
 	]);
+
 	var endpoint = "http://192.241.187.135:1414/api_1.0/";
 	//var endpoint = "http://192.168.1.101:1414/api_1.0/";
 	app.config(['$routeProvider',
@@ -34,9 +34,9 @@
 				templateUrl: '../www/user.html',
 				controller: 'SignInController',
 			}).
-			when('/doctor/:doctorId', {
+			when('/doctor/:email', {
 				templateUrl: '../www/doctor.html',
-				controller: 'ProfileCtrl',
+				//controller: 'ProfileCtrl',
 			}).
 			when('/doctor_sign_up', {
 				templateUrl: '../www/doctor_sign_up.html',
@@ -204,9 +204,6 @@
 	  	];
 
 		var type = "Doctor";
-		/*this.test = function(){
-			console.log('TODO BIEN PICHURRIA');
-		};*/
 		this.signUp = function() {
 				//console.log('Entra a signUp');
                var data1 = this.data;
@@ -260,7 +257,7 @@
 	var mapView = angular.module('mapsApp', [])
 	mapView.controller('MapCtrl', function ($scope, $http, $routeParams) {
 
-		this.docs = [];
+		//this.docs = [];
 
 		var city = $routeParams.city;
 		var practice_list = $routeParams.practice_list;
@@ -280,8 +277,6 @@
 			data1.insurance_list = insurance_list;
 		}
 
-		console.log('Entra a Doctores');
-
 		var This = this;
                
       	$http.post(endpoint + "Doctor" + '/GetDoctorsByParams', data1)
@@ -297,69 +292,92 @@
                		This.docs = data.response;
 
                		//console.log(JSON.stringify(this.docs));
-
            		}
 
-           	var mapOptions = {
-				zoom: 1,
-				center: new google.maps.LatLng(15.0000, -98.0000),
-				mapTypeId: google.maps.MapTypeId.ROADMAP
-			}
+	           	var mapOptions = {
+					zoom: 1,
+					center: new google.maps.LatLng(15.0000, -98.0000),
+					mapTypeId: google.maps.MapTypeId.ROADMAP
+				}
 
-			$scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
+				$scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
-			$scope.markers = [];
-			var infoWindow = new google.maps.InfoWindow();
-			//console.log('This is my doctors data'); 
-			//console.log(This.docs[8].location_list[0].lat);
+				$scope.markers = [];
+				var infoWindow = new google.maps.InfoWindow();
+				//console.log('This is my doctors data'); 
+				//console.log(This.docs[8].location_list[0].lat);
 
-			 var createMarker = function (info){
-				//console.log('ENTRA A CREAR MARKER');
-				var marker = new google.maps.Marker({
-					map: $scope.map,
-					position: new google.maps.LatLng(info.location_list[0].lat, info.location_list[0].lon),
-					title: info.name +' '+ info.lastname
-				});
-				marker.content = '<div class="infoWindowContent"><img src="' + info.profile_pic + '" /><div class="map-inner-info"><h4>' + info.practice_list[0] + '</h4><br><h4>' + info.address + '</h4><br><a href="#/" class="btn btn-success">Pedir cita</a></div></div>';
-				
-				google.maps.event.addListener(marker, 'click', function(){
-					infoWindow.setContent('<h3>' + marker.title + '</h3>' + marker.content);
-					infoWindow.open($scope.map, marker);
-				});
-				
-				$scope.markers.push(marker);
-				
-			}
+				 var createMarker = function (info){
+					//console.log('ENTRA A CREAR MARKER');
+					var marker = new google.maps.Marker({
+						map: $scope.map,
+						position: new google.maps.LatLng(info.location_list[0].lat, info.location_list[0].lon),
+						title: info.name +' '+ info.lastname
+					});
+					marker.content = '<div class="infoWindowContent"><img src="' + info.profile_pic + '" /><div class="map-inner-info"><h4>' + info.practice_list[0] + '</h4><br><h4>' + info.address + '</h4><br><a href="#/" class="btn btn-success">Pedir cita</a></div></div>';
+					
+					google.maps.event.addListener(marker, 'click', function(){
+						infoWindow.setContent('<h3>' + marker.title + '</h3>' + marker.content);
+						infoWindow.open($scope.map, marker);
+					});
+					
+					$scope.markers.push(marker);
+					
+				}
 
-			for (i = 0; i < (data.response).length; i++){
-				createMarker(This.docs[i]);
-			}
+				for (i = 0; i < (data.response).length; i++){
+					createMarker(This.docs[i]);
+				}
 
-			$scope.openInfoWindow = function(e, selectedMarker){
-				e.preventDefault();
-				google.maps.event.trigger(selectedMarker, 'click');
-			}
+				$scope.openInfoWindow = function(e, selectedMarker){
+					e.preventDefault();
+					google.maps.event.trigger(selectedMarker, 'click');
+				}	
 
-	    });
+	    	});
 
 	});
 
 
 	var profileView = angular.module('docProfile', [])
-	.controller('ProfileCtrl', ['$scope', '$http', '$routeParams', function (scope, http, routeParams) {
+	.controller('ProfileCtrl', function ($scope, $http, $routeParams) {
 
-		/*this.doctor = doctors;
+		this.dProfile = {};
 
-		scope.doctorId = routeParams.doctorId;
+		var type = "Doctor";
+		var email = $routeParams.email;
+		console.log(email);
 
-		var mapOptions = {
-			zoom: 4,
+		$http.get(endpoint + type + '/GetDoctorByEmail/' + email)
+      		.success(function(data) {
+            	if (!data.status) {
+               		console.log("No se encontró un doctor con correo:", data);
+           		} else {
+               		// if successful, bind success message to message
+               		console.log("El doctor encontrado es:");
+               		console.log(data);
+
+               		this.dProfile = data.response;
+               		//console.log(JSON.stringify(this.dProfile));
+           		}
+	       		var mapOptions = {
+					zoom: 2,
+					center: new google.maps.LatLng(40.0000, -98.0000),
+					mapTypeId: google.maps.MapTypeId.ROADMAP
+				}
+			
+				$scope.map = new google.maps.Map(document.getElementById('profile-map'), mapOptions);
+           	});
+
+
+
+		/*var mapOptions = {
+			zoom: 2,
 			center: new google.maps.LatLng(40.0000, -98.0000),
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 		}
-		
-		scope.map = new google.maps.Map(document.getElementById('profile-map'), mapOptions);
-
+	
+		$scope.map = new google.maps.Map(document.getElementById('profile-map'), mapOptions);
 		var createMarker = function (info){
 			
 			var marker = new google.maps.Marker({
@@ -386,7 +404,8 @@
 			google.maps.event.trigger(selectedMarker, 'click');
 		}*/
 
-	}]);
-
+	});
 
 })();
+
+
