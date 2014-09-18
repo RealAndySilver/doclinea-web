@@ -236,6 +236,7 @@ li.vertical-divider {
   width: 60%;
   float: left;
   padding-right: 80px;
+  margin: 10px 0 20px;
 }
 #docs_container {
   background-color: #fff;
