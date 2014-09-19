@@ -310,7 +310,7 @@
 				//console.log('This is my doctors data'); 
 				//console.log(This.docs[8].location_list[0].lat);
 
-				 var createMarker = function (info){
+				var createMarker = function (info){
 					//console.log('ENTRA A CREAR MARKER');
 					var marker = new google.maps.Marker({
 						map: $scope.map,
@@ -325,7 +325,6 @@
 					});
 					
 					$scope.markers.push(marker);
-					
 				}
 
 				for (i = 0; i < (data.response).length; i++){
@@ -351,7 +350,7 @@
 		var email = $routeParams.email;
 		console.log(email);
 
-		//var This = this;
+		var This = this;
 
 		$http.get(endpoint + type + '/GetDoctorByEmail/' + email)
       		.success(function(data) {
@@ -362,8 +361,8 @@
                		console.log("El doctor encontrado es:");
                		console.log(data);
 
-               		dProfile = data.response;
-               		console.log(JSON.stringify(dProfile));
+               		This.dProfile = data.response;
+               		//console.log(JSON.stringify(dProfile.name));
            		}
 	       		var mapOptions = {
 					zoom: 2,
@@ -372,6 +371,28 @@
 				}
 			
 				$scope.map = new google.maps.Map(document.getElementById('profile-map'), mapOptions);
+
+				//$scope.markers = [];
+				var infoWindow = new google.maps.InfoWindow();
+
+				var createMarker = function (info){
+					//console.log('ENTRA A CREAR MARKER');
+					var marker = new google.maps.Marker({
+						map: $scope.map,
+						position: new google.maps.LatLng(info.location_list[0].lat, info.location_list[0].lon),
+						title: info.name +' '+ info.lastname
+					});
+					marker.content = '<div class="infoWindowContent"><img src="' + info.profile_pic + '" /><div class="map-inner-info"><h4>' + info.practice_list[0] + '</h4><br><h4>' + info.address + '</h4><br><a href="#/" class="btn btn-success">Pedir cita</a></div></div>';
+					
+					google.maps.event.addListener(marker, 'click', function(){
+						infoWindow.setContent('<h3>' + marker.title + '</h3>' + marker.content);
+						infoWindow.open($scope.map, marker);
+					});
+					
+					//$scope.markers.push(marker);
+				}
+
+				createMarker(This.dProfile);
            	});
 
 

@@ -4,18 +4,22 @@
 			<div class="doc-main-info">
 				<div class="doc-main-photo">
 					<div class="inner-doc-main-photo">
-						<div ng-if="doctor.gender == 1">
+						<div ng-if="profile.dProfile.gender == 1">
 							<img src="http://medicalappjournal.com/images/Male_Doctor.png">
 						</div>	
-						<div ng-if="doctor.gender != 1">
+						<div ng-if="profile.dProfile.gender != 1">
 							<img src="http://www.medicalappjournal.com/images/Female_Doctor.png">
 						</div>
 					</div>
 				</div>
 				<div class="inner-doc-main-info">
 					<div class="doc-title">
-						<span class="doc-title-name">{{profile.doctor[doctorId-1].gender}} {{name}} {{profile.doctor[doctorId-1].lastname}}</span>
-						<span class="doc-title-speciality">{{profile.doctor[doctorId-1].practice_list[0]}}</span>
+						<span class="doc-title-name">
+						<label ng-if="profile.dProfile.gender == 1">Dr.</label>
+						<label ng-if="profile.dProfile.gender != 1">Dra.</label>
+						{{profile.dProfile.name}}
+						{{profile.dProfile.lastname}}</span>
+						<span class="doc-title-speciality">{{profile.dProfile.practice_list[0]}}</span>
 					</div>
 					<div class="doc-rating">
 						<div class="average-rating">
@@ -29,12 +33,12 @@
 						<div class="doc-specs">
 							<span class="specs-title">Especialidades</span>
 							<ul>
-								<li ng-repeat="practice in profile.doctor[doctorId-1].practice_list"><a href="#/">{{practice}}</a></li>
+								<li ng-repeat="practice in profile.dProfile.practice_list"><a href="#/">{{practice}}</a></li>
 							</ul>
 						</div>
 						<div class="doc-profile-description">
 							<div class="description-title">Descripción</div>
-							<p class="description-text">{{profile.doctor[doctorId-1].description | limitTo: 240}}</p>
+							<p class="description-text">{{profile.dProfile.description | limitTo: 240}}</p>
 						</div>
 					</div>
 				</div>
