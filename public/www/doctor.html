@@ -4,12 +4,17 @@
 			<div class="doc-main-info">
 				<div class="doc-main-photo">
 					<div class="inner-doc-main-photo">
-						<img ng-src="{{profile.doctor[doctorId-1].profile_pic}}">
+						<div ng-if="doctor.gender == 1">
+							<img src="http://medicalappjournal.com/images/Male_Doctor.png">
+						</div>	
+						<div ng-if="doctor.gender != 1">
+							<img src="http://www.medicalappjournal.com/images/Female_Doctor.png">
+						</div>
 					</div>
 				</div>
 				<div class="inner-doc-main-info">
 					<div class="doc-title">
-						<span class="doc-title-name">{{profile.doctor[doctorId-1].gender}} {{profile.dProfile.name}} {{profile.doctor[doctorId-1].lastname}}</span>
+						<span class="doc-title-name">{{profile.doctor[doctorId-1].gender}} {{name}} {{profile.doctor[doctorId-1].lastname}}</span>
 						<span class="doc-title-speciality">{{profile.doctor[doctorId-1].practice_list[0]}}</span>
 					</div>
 					<div class="doc-rating">
@@ -51,7 +56,7 @@
 		<div class="inner-doc-profile">
 			<h2>Pida una cita</h2>
 			<div class="book-box">
-				<div class="inner-search-bar">
+				<!--<div class="inner-search-bar">
 					<div class="column-c">
 						<label>Escoja una aseguradora</label>
 						<select class="form-control">
@@ -68,10 +73,9 @@
 		              		<option value="">Control prenatal</option>
 		            	</select>
 					</div>
-				</div>
+				</div>-->
 				<div class="doc-schedule">
 					<div class="inner-doc-schedule">
-						<iframe src="https://www.google.com/calendar/embed?src=carlos%40iamstudio.co&ctz=America/Bogota" style="border: 0" width="100%" height="100%" frameborder="0" scrolling="no"></iframe>
 					</div>
 				</div>
 			</div>

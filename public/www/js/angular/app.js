@@ -265,6 +265,8 @@
 
 		var data1 = {};
 
+		//var encodedString = Base64.encode(data1);
+
 		if(city !== "undefined") {
 			data1.city = city;
 		}
@@ -282,8 +284,9 @@
       	$http.post(endpoint + "Doctor" + '/GetDoctorsByParams', data1)
       		.success(function(data) {
             	if (!data.status) {
-               		console.log("No se encontraron doctores",data);
+               		console.log("No se encontraron doctores",data.error);
                		console.log(data);
+               		alert('No se encontraron doctores con los criteros de búsqueda introducidos, vuelva a intentarlo');
            		} else {
                		// if successful, bind success message to message
                		console.log("Resultado de busqueda de doctores:");
@@ -342,11 +345,13 @@
 	var profileView = angular.module('docProfile', [])
 	.controller('ProfileCtrl', function ($scope, $http, $routeParams) {
 
-		this.dProfile = {};
+		//this.dProfile = {};
 
 		var type = "Doctor";
 		var email = $routeParams.email;
 		console.log(email);
+
+		//var This = this;
 
 		$http.get(endpoint + type + '/GetDoctorByEmail/' + email)
       		.success(function(data) {
@@ -357,8 +362,8 @@
                		console.log("El doctor encontrado es:");
                		console.log(data);
 
-               		this.dProfile = data.response;
-               		//console.log(JSON.stringify(this.dProfile));
+               		dProfile = data.response;
+               		console.log(JSON.stringify(dProfile));
            		}
 	       		var mapOptions = {
 					zoom: 2,
