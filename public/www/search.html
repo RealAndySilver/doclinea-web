@@ -4,30 +4,25 @@
 			<form name="searchDoctorForm" ng-controller="DoctorSearchController as docSearchCtrl"  ng-submit="docSearchCtrl.searchDoctor()" novalidate>
 				<div class="column-c">
 					<label for="practice_list">Especialidad</label>
-
-					<select class="form-control" name="practice_list" id="practice_list" ng-options="o.name for o in docSearchCtrl.controlEspecility" ng-model="docSearchCtrl.selectedEspeciality">
-					<option value="" disabled>- Seleccione una especialidad -</option>
-					<!--
-					<select class="form-control" name="practice_list" id="practice_list" ng-model="docSearchCtrl.data.practice_list" ng-init="docSearchCtrl.data.practice_list">
-						
+					<select class="form-control" name="practice_list" id="practice_list" ng-model="docSearchCtrl.data.practice_list">
+					  <option value="" disabled>- Seleccione una especialidad -</option>
 	                  <option>Pediatra</option>
 	                  <option>Fonoaudiólogo</option>
 	                  <option>Ginecólogo</option>
 	                  <option>Ortopedista</option>
 	                  <option>Odontólogo</option>
-	              -->
 	                </select>
 				</div>
 				<div class="column-c">
 					<label for="city_list">Ciudad</label>
 					<select class="form-control" name="city_list" id="city_list" ng-model="docSearchCtrl.data.city">
 	                  <option value="" disabled>- Seleccione una ciudad -</option>
-					  <!--<option>Bogotá</option>
+					  <option>Bogotá</option>
 					  <option>Medellín</option>
 					  <option>Cali</option>
 					  <option>Barranquilla</option>
 					  <option>Pereira</option>
-					  <option>Bucaramanga</option>-->
+					  <option>Bucaramanga</option>
 	                </select>
 				</div>
 				<div class="column-c">

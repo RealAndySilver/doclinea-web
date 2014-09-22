@@ -6,27 +6,29 @@
 						<p>Encuentre un médico y pida una cita ahora mismo</p>
 						<form id="main-form" name="searchDoctorForm" ng-controller="DoctorSearchController as docSearchCtrl"  ng-submit="docSearchCtrl.searchDoctor()" novalidate>
 							<label for="practice_list">Especialidad</label>
-							<select class="form-control" name="practice_list" id="practice_list" ng-options="o.name for o in docSearchCtrl.controlEspecility" ng-model="docSearchCtrl.selectedEspeciality">
+							<!--<select class="form-control" name="practice_list" id="practice_list" ng-options="o.name for o in docSearchCtrl.controlPractice" ng-model="docSearchCtrl.selectedPractice">-->
+							<select class="form-control" name="practice_list" id="practice_list" ng-model="docSearchCtrl.data.practice_list">
 							  <option value="">- Seleccione una especialidad -</option>
-							  <!--<option>Pediatra</option>
+							  <option>Pediatra</option>
 							  <option>Fonoaudiólogo</option>
 							  <option>Ginecólogo</option>
 							  <option>Ortopedista</option>
-							  <option>Odontólogo</option>-->
+							  <option>Odontólogo</option>
 							</select>
 							<label for="city_list">Ciudad</label>
-							<select class="form-control" name="city_list" id="city_list" ng-options="o.name for o in docSearchCtrl.controlCity" ng-model="docSearchCtrl.selectedCity">
+							<!-- <select class="form-control" name="city_list" id="city_list" ng-options="o.name for o in docSearchCtrl.controlCity" ng-model="docSearchCtrl.selectedCity"> -->
+							<select class="form-control" name="city_list" id="city_list" ng-model="docSearchCtrl.data.city">
 							  <option value="">- Seleccione una ciudad -</option>
-							  <!--<option>Bogotá</option>
+							  <option>Bogotá</option>
 							  <option>Medellín</option>
 							  <option>Cali</option>
 							  <option>Barranquilla</option>
 							  <option>Pereira</option>
-							  <option>Bucaramanga</option>-->
+							  <option>Bucaramanga</option>
 							</select>
 							<label for="insurance_list">Aseguradora</label>
-							<select class="form-control" name="insurance_list" id="insurance_list" ng-model="docSearchCtrl.data.insurance_list">
-							  <option value="" disabled>- Seleccione una aseguradora -</option>
+							<select class="form-control" name="insurance_list" id="insurance_list" ng-model="docSearchCtrl.data.insurance.list">
+							  <option value="">- Seleccione una aseguradora -</option>
 							  <option value="1">Colpatria</option>
 							  <option value="2">Sura</option>
 							  <option value="3">Compensar</option>

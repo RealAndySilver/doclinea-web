@@ -246,24 +246,10 @@
 	//GET DOCTOR BY SEARCH PARAMS --> to search page
 	//var loginDoctor = angular.module('loginDoctor', []);
 	app.controller('DoctorSearchController', ['$http',function($http){
-		
-		var getPosition = function(list, option) {
-			for(var i in list) {
-				if(list[i].name === option) {
-					return list[i];
-				}
-			}
-		};
-
-		this.controlEspecility = [ {name: "Pediatra", id: 1}, {name: "Fonoaudiólogo", id: 2}, {name: "Ginecólogo", id: 3}, {name: "Ortopedista", id: 4}, {name: "Odontólogo", id: 5} ];
-		this.selectedEspeciality = getPosition(this.controlEspecility);
-
-		this.controlCity = [ {name: "Bogotá", id: 1}, {name: "Medellín", id: 2}, {name: "Cali", id: 3}, {name: "Barranquilla", id: 4}, {name: "Pereira", id: 5}, {name: "Bucaramamnga", id: 6} ];
-		this.selectedCity = getPosition(this.controlCity);
-
 		this.searchDoctor = function() {
-			window.location = "/#/search/" + this.selectedCity.name + "/" + this.selectedEspeciality.name + "/" + this.data.insurance_list;
-       		//this.data = {};
+			console.log(this.data);
+			window.location = "/#/search/" + this.data.practice_list + "/" + this.data.city + "/" + this.data.insurance_list;
+       		this.data = {};
        };
 	}]);
 
@@ -272,7 +258,7 @@
 	var mapView = angular.module('mapsApp', [])
 	mapView.controller('MapCtrl', function ($scope, $http, $routeParams) {
 
-		//this.docs = [];
+		this.docs = [];
 
 		var city = $routeParams.city;
 		var practice_list = $routeParams.practice_list;
@@ -297,9 +283,9 @@
       	$http.post(endpoint + "Doctor" + '/GetDoctorsByParams', data1)
       		.success(function(data) {
             	if (!data.status) {
-               		console.log("No se encontraron doctores",data.error);
-               		console.log(data);
-               		alert('No se encontraron doctores con los criteros de búsqueda introducidos, vuelva a intentarlo');
+               		console.log("No se encontraron doctores",data);
+               		//console.log(data);
+               		//alert('No se encontraron doctores con los criteros de búsqueda introducidos, vuelva a intentarlo');
            		} else {
                		// if successful, bind success message to message
                		console.log("Resultado de busqueda de doctores:");
