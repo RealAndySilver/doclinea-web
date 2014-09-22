@@ -52,6 +52,7 @@
 
 	//DATA
 	//Include here hard-coded data
+	// [  {}  ]
 
 	//ACCOUNTS AND AUTHENTICATION
 	var createUser = angular.module('createUser', []);
@@ -245,10 +246,24 @@
 	//GET DOCTOR BY SEARCH PARAMS --> to search page
 	//var loginDoctor = angular.module('loginDoctor', []);
 	app.controller('DoctorSearchController', ['$http',function($http){
-		var type = "Doctor";
+		
+		var getPosition = function(list, option) {
+			for(var i in list) {
+				if(list[i].name === option) {
+					return list[i];
+				}
+			}
+		};
+
+		this.controlEspecility = [ {name: "Pediatra", id: 1}, {name: "Fonoaudiólogo", id: 2}, {name: "Ginecólogo", id: 3}, {name: "Ortopedista", id: 4}, {name: "Odontólogo", id: 5} ];
+		this.selectedEspeciality = getPosition(this.controlEspecility);
+
+		this.controlCity = [ {name: "Bogotá", id: 1}, {name: "Medellín", id: 2}, {name: "Cali", id: 3}, {name: "Barranquilla", id: 4}, {name: "Pereira", id: 5}, {name: "Bucaramamnga", id: 6} ];
+		this.selectedCity = getPosition(this.controlCity);
+
 		this.searchDoctor = function() {
-			window.location = "/#/search/" + this.data.city + "/" + this.data.practice_list + "/" + this.data.insurance_list;
-       		this.data = {};
+			window.location = "/#/search/" + this.selectedCity.name + "/" + this.selectedEspeciality.name + "/" + this.data.insurance_list;
+       		//this.data = {};
        };
 	}]);
 
@@ -265,8 +280,6 @@
 
 		var data1 = {};
 
-		//var encodedString = Base64.encode(data1);
-
 		if(city !== "undefined") {
 			data1.city = city;
 		}
@@ -280,7 +293,7 @@
 		}
 
 		var This = this;
-               
+
       	$http.post(endpoint + "Doctor" + '/GetDoctorsByParams', data1)
       		.success(function(data) {
             	if (!data.status) {
