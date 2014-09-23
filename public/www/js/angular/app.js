@@ -246,10 +246,37 @@
 	//var loginDoctor = angular.module('loginDoctor', []);
 	app.controller('DoctorSearchController', ['$http',function($http){
 		var type = "Doctor";
+
+		var getPosition = function(list, option) {
+			for(var i in list) {
+				if(list[i].name === option) {
+					return list[i];
+				}
+			}
+		};
+
+		this.practices = [ {name: "Pediatra", id: 1}, {name: "Fonoaudiólogo", id: 2}, {name: "Ginecólogo", id: 3}, {name: "Ortopedista", id: 4}, {name: "Odontólogo", id: 5} ];
+		//this.setPractice = getPosition(this.practices, data1.practice_list);
+		this.selectedPractice = getPosition(this.practices, "Pediatra");
+		this.cities = [ {name: "Bogotá", id: 1}, {name: "Medellín", id: 2}, {name: "Cali", id: 3}, {name: "Barranquilla", id: 4}, {name: "Pereira", id: 5}, {name: "Bucaramanga", id: 6} ];
+		this.selectedCity = getPosition(this.cities, "Bogotá");
+		this.insurances = [ {name: "Colpatria", id: 1}, {name: "Compensar", id: 2} ];
+		this.selectedInsurance = getPosition(this.insurances);
+		//console.log(this.data);
+
 		this.searchDoctor = function() {
-			window.location = "/#/search/" + this.data.city + "/" + this.data.practice_list + "/" + this.data.insurance_list;
-       		this.data = {};
+
+			var selectedCity = !this.selectedCity ? "undefined" : this.selectedCity.name;
+			var selectedPractice = !this.selectedPractice ? "undefined" : this.selectedPractice.name;
+			var selectedInsurance = !this.selectedInsurance ? "undefined" : this.selectedInsurance.name;
+
+			window.location = "/#/search/" + this.selectedCity.name + "/" + this.selectedPractice.name + "/" + selectedInsurance.name;
+       		//this.data = {};
        };
+       /*this.setDoctor = function() {
+			//window.location = "/#/search/" + this.data.city + "/" + this.data.practice_list + "/" + this.data.insurance_list;
+       		this.data = {};
+       };*/
 	}]);
 
 
@@ -280,7 +307,7 @@
 		}
 
 		var This = this;
-               
+
       	$http.post(endpoint + "Doctor" + '/GetDoctorsByParams', data1)
       		.success(function(data) {
             	if (!data.status) {
