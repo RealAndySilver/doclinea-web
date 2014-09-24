@@ -1,118 +1,120 @@
-<div id="search-bar">
-	<div class="center">
-		<div class="inner-search-bar">
-			<form name="searchDoctorForm" ng-controller="DoctorSearchController as docSearchCtrl"  ng-submit="docSearchCtrl.searchDoctor()" novalidate>
+<div>
+	<div id="search-bar">
+		<div class="center">
+			<div class="inner-search-bar">
+				<form name="searchDoctorForm" ng-controller="DoctorSearchController as docSearchCtrl"  ng-submit="docSearchCtrl.searchDoctor()" novalidate>
+					<div class="column-c">
+						<label for="practice_list">Especialidad</label>
+						<!--<select class="form-control" name="practice_list" id="practice_list" ng-model="docSearchCtrl.data.practice_list">-->
+						<select class="form-control" name="practice_list" id="practice_list" ng-model="docSearchCtrl.selectedPractice" ng-options="op.name for op in docSearchCtrl.practices">
+						  <option value="">- Seleccione una especialidad -</option>
+		                  <!--<option>Pediatra</option>
+		                  <option>Fonoaudiólogo</option>
+		                  <option>Ginecólogo</option>
+		                  <option>Ortopedista</option>
+		                  <option>Odontólogo</option>-->
+		                </select>
+					</div>
+					<div class="column-c">
+						<label for="city_list">Ciudad</label>
+						<!--<select class="form-control" name="city_list" id="city_list" ng-model="docSearchCtrl.data.city" ng-init="docSearchCtrl.data1.city">-->
+						<select class="form-control" name="city" id="city" ng-model="docSearchCtrl.selectedCity" ng-options="op.name for op in docSearchCtrl.cities">
+		                  <option value="">- Seleccione una ciudad -</option>
+						  <!--<option>Bogotá</option>
+						  <option>Medellín</option>
+						  <option>Cali</option>
+						  <option>Barranquilla</option>
+						  <option>Pereira</option>
+						  <option>Bucaramanga</option>-->
+		                </select>
+					</div>
+					<div class="column-c">
+						<label for="insurance_list">Aseguradora</label>
+						<!--<select class="form-control" name="insurance_list" id="insurance_list" ng-model="docSearchCtrl.data.insurance_list">-->
+						<select class="form-control" name="insurance_list" id="insurance_list" ng-model="docSearchCtrl.selectedInsurance" ng-options="op.name for op in docSearchCtrl.insurances">
+		                  <option value="">- Seleccione una aseguradora -</option>
+						  <!--<option value="1">Colpatria</option>
+						  <option value="2">Sura</option>
+						  <option value="3">Compensar</option>-->
+		                </select>
+					</div>
+					<div class="column-c">
+						<!--<a href="#/search" class="btn btn-success btn-block btn-lg">Buscar</a>-->
+						<button id="search_doctor" name="search_doctor" class="btn btn-success btn-block btn-lg">Buscar</button>
+					</div>
+				</form>
+			</div>
+			<hr>
+			<!--<div class="inner-search-bar">
 				<div class="column-c">
-					<label for="practice_list">Especialidad</label>
-					<!--<select class="form-control" name="practice_list" id="practice_list" ng-model="docSearchCtrl.data.practice_list">-->
-					<select class="form-control" name="practice_list" id="practice_list" ng-model="docSearchCtrl.selectedPractice" ng-options="op.name for op in docSearchCtrl.practices">
-					  <option value="" disabled>- Seleccione una especialidad -</option>
-	                  <!--<option>Pediatra</option>
-	                  <option>Fonoaudiólogo</option>
-	                  <option>Ginecólogo</option>
-	                  <option>Ortopedista</option>
-	                  <option>Odontólogo</option>-->
-	                </select>
+					<select class="form-control">
+	              		<option value="">Motivo de consulta</option>
+	              		<option value="">Exámen general</option>
+	              		<option value="">Vacuna</option>
+	              		<option value="">Control prenatal</option>
+	            	</select>
 				</div>
 				<div class="column-c">
-					<label for="city_list">Ciudad</label>
-					<!--<select class="form-control" name="city_list" id="city_list" ng-model="docSearchCtrl.data.city" ng-init="docSearchCtrl.data1.city">-->
-					<select class="form-control" name="city" id="city" ng-model="docSearchCtrl.selectedCity" ng-options="op.name for op in docSearchCtrl.cities">
-	                  <option value="" disabled>- Seleccione una ciudad -</option>
-					  <!--<option>Bogotá</option>
-					  <option>Medellín</option>
-					  <option>Cali</option>
-					  <option>Barranquilla</option>
-					  <option>Pereira</option>
-					  <option>Bucaramanga</option>-->
-	                </select>
+					<select class="form-control">
+	              		<option value="">Género del doctor</option>
+	              		<option value="">Doctor</option>
+	              		<option value="">Doctora</option>
+	            	</select>
 				</div>
 				<div class="column-c">
-					<label for="insurance_list">Aseguradora</label>
-					<!--<select class="form-control" name="insurance_list" id="insurance_list" ng-model="docSearchCtrl.data.insurance_list">-->
-					<select class="form-control" name="insurance_list" id="insurance_list" ng-model="docSearchCtrl.selectedInsurance" ng-options="op.name for op in docSearchCtrl.insurances">
-	                  <option value="">- Seleccione una aseguradora -</option>
-					  <!--<option value="1">Colpatria</option>
-					  <option value="2">Sura</option>
-					  <option value="3">Compensar</option>-->
-	                </select>
+					<span>
+						<input type="checkbox" name="child_attention" value="chld_attn">Atención a niños
+					</span>
 				</div>
-				<div class="column-c">
-					<!--<a href="#/search" class="btn btn-success btn-block btn-lg">Buscar</a>-->
-					<button id="search_doctor" name="search_doctor" class="btn btn-success btn-block btn-lg">Buscar</button>
-				</div>
-			</form>
+			</div>-->
 		</div>
-		<hr>
-		<!--<div class="inner-search-bar">
-			<div class="column-c">
-				<select class="form-control">
-              		<option value="">Motivo de consulta</option>
-              		<option value="">Exámen general</option>
-              		<option value="">Vacuna</option>
-              		<option value="">Control prenatal</option>
-            	</select>
-			</div>
-			<div class="column-c">
-				<select class="form-control">
-              		<option value="">Género del doctor</option>
-              		<option value="">Doctor</option>
-              		<option value="">Doctora</option>
-            	</select>
-			</div>
-			<div class="column-c">
-				<span>
-					<input type="checkbox" name="child_attention" value="chld_attn">Atención a niños
-				</span>
-			</div>
-		</div>-->
 	</div>
-</div>
-<!--<div class="description-bar" ng-controller="MapCtrl as doc">
-	<div class="center">
-		<span><b id="doctor_type">Doctores</b> en <b id="location_name">{{city}}</b> que aceptan <b id="ensurance_name">Sura</b></span>
-	</div>
-</div>-->
-<div id="results-box">
-	<div class="center">
-		<div ng-app="mapsApp" ng-controller="MapCtrl as doc" class="results-page">
-			<div class="docs-container">
-				<div class="docs-list" ng-repeat="doctor in doc.docs">
-					<div class="doc-box">
-						<div class="doc-photo">
-							<div class="inner-doc-photo">
-								<div ng-if="doctor.gender == 1">
-									<img src="http://medicalappjournal.com/images/Male_Doctor.png">
-								</div>	
-								<div ng-if="doctor.gender != 1">
-									<img src="http://www.medicalappjournal.com/images/Female_Doctor.png">
+	<!--<div class="description-bar" ng-controller="MapCtrl as doc">
+		<div class="center">
+			<span><b id="doctor_type">Doctores</b> en <b id="location_name">{{city}}</b> que aceptan <b id="ensurance_name">Sura</b></span>
+		</div>
+	</div>-->
+	<div id="results-box">
+		<div class="center">
+			<div ng-app="mapsApp" ng-controller="MapCtrl as doc" class="results-page">
+				<div class="docs-container">
+					<div class="docs-list" ng-repeat="doctor in doc.docs">
+						<div class="doc-box">
+							<div class="doc-photo">
+								<div class="inner-doc-photo">
+									<div ng-if="doctor.gender == 1">
+										<img src="http://medicalappjournal.com/images/Male_Doctor.png">
+									</div>	
+									<div ng-if="doctor.gender != 1">
+										<img src="http://www.medicalappjournal.com/images/Female_Doctor.png">
+									</div>
 								</div>
 							</div>
-						</div>
-						<div class="doc-info">
-							<div class="doc-name"><span>
-									<a href="#/doctor/gregory_house">
-									<label ng-if="doctor.gender == 1">Dr.</label>
-									<label ng-if="doctor.gender != 1">Dra.</label>
-									{{doctor.name}}  
-									{{doctor.lastname}}</a>
-								</span></div>
-							<div class="doc-address">
-								<div class="doc-speciality"><b>{{doctor.practice_list[0]}}</b></div>
-								<div class="doc-adress-location"><p>{{doctor.address}}</p></div>
-							</div>
-							<div class="doc-review"></div>
-							<div class="book-options">
-								<a href="#/" class="btn btn-success btn-lg">Pedir cita</a>
-								<a href="#/doctor/{{doctor.email}}" class="btn btn-info btn-lg">Ver perfil</a>
+							<div class="doc-info">
+								<div class="doc-name"><span>
+										<a href="#/doctor/gregory_house">
+										<label ng-if="doctor.gender == 1">Dr.</label>
+										<label ng-if="doctor.gender != 1">Dra.</label>
+										{{doctor.name}}  
+										{{doctor.lastname}}</a>
+									</span></div>
+								<div class="doc-address">
+									<div class="doc-speciality"><b>{{doctor.practice_list[0]}}</b></div>
+									<div class="doc-adress-location"><p>{{doctor.address}}</p></div>
+								</div>
+								<div class="doc-review"></div>
+								<div class="book-options">
+									<a href="#/" class="btn btn-success btn-lg">Pedir cita</a>
+									<a href="#/doctor/{{doctor.email}}" class="btn btn-info btn-lg">Ver perfil</a>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="location-container">
-				<div>
-			    	<div id="map"></div>
+				<div class="location-container">
+					<div>
+				    	<div id="map"></div>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -20,7 +20,8 @@
 			}).
 			when('/search/:city/:practice_list/:insurance_list', {
 				templateUrl: '../www/search.html',
-				//controller: 'MapCtrl'
+				controller: 'GetDoctorsController',
+				controllerAs: 'getDrCtrl',
 			}).
 			when('/sign_up', {
 				templateUrl: '../www/sign_up.html', 
@@ -241,11 +242,35 @@
        };
 	}]);
 
+	app.controller('GetDoctorsController', ['$http', '$routeParams', function($http, $routeParams){
+
+		var docData = this;
+
+		var city = $routeParams.city;
+		var practice_list = $routeParams.practice_list;
+		var insurance_list = $routeParams.insurance_list;
+
+		docData.data1 = {};
+
+		if(city !== "undefined") {
+			docData.data1.city = city;
+		}
+
+		if(practice_list !== "undefined") {
+			docData.data1.practice_list = practice_list;
+		}
+
+		if(insurance_list !== "undefined") {
+			docData.data1.insurance_list = insurance_list;
+		}
+
+	}]);
+
 
 	//GET DOCTOR BY SEARCH PARAMS --> to search page
-	//var loginDoctor = angular.module('loginDoctor', []);
-	app.controller('DoctorSearchController', ['$http',function($http){
-		var type = "Doctor";
+	app.controller('DoctorSearchController', ['$http', function($http){
+
+		var docData = this;
 
 		var getPosition = function(list, option) {
 			for(var i in list) {
@@ -256,13 +281,13 @@
 		};
 
 		this.practices = [ {name: "Pediatra", id: 1}, {name: "Fonoaudiólogo", id: 2}, {name: "Ginecólogo", id: 3}, {name: "Ortopedista", id: 4}, {name: "Odontólogo", id: 5} ];
-		//this.setPractice = getPosition(this.practices, data1.practice_list);
-		this.selectedPractice = getPosition(this.practices, "Pediatra");
+		this.selectedPractice = getPosition(this.practices, "Ortopedista");
+		
 		this.cities = [ {name: "Bogotá", id: 1}, {name: "Medellín", id: 2}, {name: "Cali", id: 3}, {name: "Barranquilla", id: 4}, {name: "Pereira", id: 5}, {name: "Bucaramanga", id: 6} ];
 		this.selectedCity = getPosition(this.cities, "Bogotá");
+		
 		this.insurances = [ {name: "Colpatria", id: 1}, {name: "Compensar", id: 2} ];
 		this.selectedInsurance = getPosition(this.insurances);
-		//console.log(this.data);
 
 		this.searchDoctor = function() {
 
@@ -270,13 +295,9 @@
 			var selectedPractice = !this.selectedPractice ? "undefined" : this.selectedPractice.name;
 			var selectedInsurance = !this.selectedInsurance ? "undefined" : this.selectedInsurance.name;
 
-			window.location = "/#/search/" + this.selectedCity.name + "/" + this.selectedPractice.name + "/" + selectedInsurance.name;
+			window.location = "/#/search/" + selectedCity + "/" + selectedPractice + "/" + selectedInsurance;
        		//this.data = {};
        };
-       /*this.setDoctor = function() {
-			//window.location = "/#/search/" + this.data.city + "/" + this.data.practice_list + "/" + this.data.insurance_list;
-       		this.data = {};
-       };*/
 	}]);
 
 
@@ -284,31 +305,15 @@
 	var mapView = angular.module('mapsApp', [])
 	mapView.controller('MapCtrl', function ($scope, $http, $routeParams) {
 
-		//this.docs = [];
+		var docData = this;
 
-		var city = $routeParams.city;
-		var practice_list = $routeParams.practice_list;
-		var insurance_list = $routeParams.insurance_list;
+		docData.docs = $scope.getDrCtrl.data1;
 
-		var data1 = {};
-
-		//var encodedString = Base64.encode(data1);
-
-		if(city !== "undefined") {
-			data1.city = city;
-		}
-
-		if(practice_list !== "undefined") {
-			data1.practice_list = practice_list;
-		}
-
-		if(insurance_list !== "undefined") {
-			data1.insurance_list = insurance_list;
-		}
+		console.log('Mi data es ',docData.docs);
 
 		var This = this;
 
-      	$http.post(endpoint + "Doctor" + '/GetDoctorsByParams', data1)
+      	$http.post(endpoint + "Doctor" + '/GetDoctorsByParams', docData.docs)
       		.success(function(data) {
             	if (!data.status) {
                		console.log("No se encontraron doctores",data.error);
@@ -334,8 +339,6 @@
 
 				$scope.markers = [];
 				var infoWindow = new google.maps.InfoWindow();
-				//console.log('This is my doctors data'); 
-				//console.log(This.docs[8].location_list[0].lat);
 
 				var createMarker = function (info){
 					//console.log('ENTRA A CREAR MARKER');
