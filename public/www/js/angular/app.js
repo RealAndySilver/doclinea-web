@@ -266,11 +266,66 @@
 
 	}]);
 
+	//SEARCH DOCTOR FROM LANDING PAGE
+	app.controller('LanpageDocSearchController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams) {
+
+		this.docs = [];
+
+		this.practices = [ {name: "Pediatra", id: 1}, {name: "Fonoaudiólogo", id: 2}, {name: "Ginecólogo", id: 3}, {name: "Ortopedista", id: 4}, {name: "Odontólogo", id: 5} ];
+		this.cities = [ {name: "Bogotá", id: 1}, {name: "Medellín", id: 2}, {name: "Cali", id: 3}, {name: "Barranquilla", id: 4}, {name: "Pereira", id: 5}, {name: "Bucaramanga", id: 6} ];
+		this.insurances = [ {name: "Colpatria", id: 1}, {name: "Compensar", id: 2} ];
+
+		var city = $routeParams.city;
+		var practice_list = $routeParams.practice_list;
+		var insurance_list = $routeParams.insurance_list;
+
+		var data1 = {};
+
+		if(city !== "undefined") {
+			data1.city = city;
+		}
+
+		if(practice_list !== "undefined") {
+			data1.practice_list = practice_list;
+		}
+
+		if(insurance_list !== "undefined") {
+			data1.insurance_list = insurance_list;
+		}
+
+		var getPosition = function(list, option) {
+			for(var i in list) {
+				if(list[i].name === option) {
+					return list[i];
+				}
+			}
+		};
+
+		this.selectedPractice = getPosition(this.practices, this.practice_list);
+		this.selectedCity = getPosition(this.cities, this.city);
+		this.selectedInsurance = getPosition(this.insurances, this.insurance_list);
+
+		this.searchDoctor = function() {
+
+			var selectedCity = !this.selectedCity ? "undefined" : this.selectedCity.name;
+			var selectedPractice = !this.selectedPractice ? "undefined" : this.selectedPractice.name;
+			var selectedInsurance = !this.selectedInsurance ? "undefined" : this.selectedInsurance.name;
+
+			window.location = "/#/search/" + selectedCity + "/" + selectedPractice + "/" + selectedInsurance;
+       		//this.data = {};
+       };
+
+	}]);
+
 
 	//GET DOCTOR BY SEARCH PARAMS --> to search page
-	app.controller('DoctorSearchController', ['$http', function($http){
+	app.controller('DoctorSearchController', ['$http', '$scope', function($http, $scope){
 
 		var docData = this;
+
+		docData.city = $scope.getDrCtrl.data1.city;
+		docData.practice = $scope.getDrCtrl.data1.practice_list;
+		docData.insurance = $scope.getDrCtrl.data1.insurance_list;
 
 		var getPosition = function(list, option) {
 			for(var i in list) {
@@ -281,13 +336,13 @@
 		};
 
 		this.practices = [ {name: "Pediatra", id: 1}, {name: "Fonoaudiólogo", id: 2}, {name: "Ginecólogo", id: 3}, {name: "Ortopedista", id: 4}, {name: "Odontólogo", id: 5} ];
-		this.selectedPractice = getPosition(this.practices, "Ortopedista");
+		this.selectedPractice = getPosition(this.practices, docData.practice);
 		
 		this.cities = [ {name: "Bogotá", id: 1}, {name: "Medellín", id: 2}, {name: "Cali", id: 3}, {name: "Barranquilla", id: 4}, {name: "Pereira", id: 5}, {name: "Bucaramanga", id: 6} ];
-		this.selectedCity = getPosition(this.cities, "Bogotá");
+		this.selectedCity = getPosition(this.cities, docData.city);
 		
 		this.insurances = [ {name: "Colpatria", id: 1}, {name: "Compensar", id: 2} ];
-		this.selectedInsurance = getPosition(this.insurances);
+		this.selectedInsurance = getPosition(this.insurances, docData.insurance);
 
 		this.searchDoctor = function() {
 
