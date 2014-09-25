@@ -2,6 +2,9 @@
   height: 439px;
   width: 593px;
 }
+#profile-map .map-inner-info {
+  width: 100%;
+}
 .infoWindowContent {
   font-size: 12px !important;
 }
@@ -17,6 +20,10 @@
 .infoWindowContent .map-inner-info {
   float: left;
   width: 70%;
+}
+.gm-style-iw h3 {
+  font-size: 18px;
+  margin-top: 10px;
 }
 .infoWindowContent h4 {
   font-size: 12px !important;

@@ -267,7 +267,7 @@
 	}]);
 
 	//SEARCH DOCTOR FROM LANDING PAGE
-	app.controller('LanpageDocSearchController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams) {
+	app.controller('LandpageDocSearchController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams) {
 
 		this.docs = [];
 
@@ -467,7 +467,7 @@
 						position: new google.maps.LatLng(info.location_list[0].lat, info.location_list[0].lon),
 						title: info.name +' '+ info.lastname
 					});
-					marker.content = '<div class="infoWindowContent"><img src="' + info.profile_pic + '" /><div class="map-inner-info"><h4>' + info.practice_list[0] + '</h4><br><h4>' + info.address + '</h4><br><a href="#/" class="btn btn-success">Pedir cita</a></div></div>';
+					marker.content = '<div class="infoWindowContent"><div class="map-inner-info"><h4>' + info.practice_list[0] + '</h4><br><h4>' + info.address + '</h4><br><a href="#/" class="btn btn-success">Pedir cita</a></div></div>';
 					
 					google.maps.event.addListener(marker, 'click', function(){
 						infoWindow.setContent('<h3>' + marker.title + '</h3>' + marker.content);
@@ -479,41 +479,6 @@
 
 				createMarker(This.dProfile);
            	});
-
-
-
-		/*var mapOptions = {
-			zoom: 2,
-			center: new google.maps.LatLng(40.0000, -98.0000),
-			mapTypeId: google.maps.MapTypeId.ROADMAP
-		}
-	
-		$scope.map = new google.maps.Map(document.getElementById('profile-map'), mapOptions);
-		var createMarker = function (info){
-			
-			var marker = new google.maps.Marker({
-				map: scope.map,
-				//position: new google.maps.LatLng(info.lat, info.long),
-				position: new google.maps.LatLng(info.lat, info.long),
-				//title: info.gender +' '+ info.name +' '+ info.lastname
-			});
-			//marker.content = '<div class="infoWindowContent"><img src="' + info.profile_pic + '" /><h4>' + info.practice_list + '</h4><br><h4>' + info.address + '</h4><br><a href="#/" class="btn btn-success">Pedir cita</a></div>';
-			
-			/*google.maps.event.addListener(marker, 'click', function(){
-				infoWindow.setContent('<h3>' + marker.title + '</h3>' + marker.content);
-				infoWindow.open(scope.map, marker);
-			});
-			
-		}
-
-		for (i = 0; i < doctors.length; i++){
-			createMarker(doctors[i]);
-		}
-
-		scope.openInfoWindow = function(e, selectedMarker){
-			e.preventDefault();
-			google.maps.event.trigger(selectedMarker, 'click');
-		}*/
 
 	});
 

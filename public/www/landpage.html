@@ -4,7 +4,7 @@
 				<div class="mb-left">
 					<div id="mb-form-box">
 						<p>Encuentre un médico y pida una cita ahora mismo</p>
-						<form id="main-form" name="searchDoctorForm" ng-controller="LanpageDocSearchController as landDocSearchCtrl"  ng-submit="landDocSearchCtrl.searchDoctor()" novalidate>
+						<form id="main-form" name="searchDoctorForm" ng-controller="LandpageDocSearchController as landDocSearchCtrl"  ng-submit="landDocSearchCtrl.searchDoctor()" novalidate>
 							<label for="practice_list">Especialidad</label>
 							<!--<select class="form-control" name="practice_list" id="practice_list" ng-model="docSearchCtrl.data.practice_list">-->
 							<select class="form-control" name="practice_list" id="practice_list" ng-model="landDocSearchCtrl.selectedPractice" ng-options="op.name for op in landDocSearchCtrl.practices">
