@@ -2,28 +2,17 @@
 	  <div class="row">
 		<div class="col-sm-3 col-md-2 sidebar">
 		  <ul class="nav nav-sidebar">
-			<li class="active"><a href="#">Resúmen</a></li>
+			<li><a href="#">Resúmen</a></li>
 			<li><a href="#">Citas</a></li>
-			<li><a href="#">Cuenta</a></li>
+			<li class="active"><a href="#">Cuenta</a></li>
+			<li><a href="#">Pagos</a></li>
 			<li><a href="#">Estadísticas</a></li>
-		  </ul>
-		  <ul class="nav nav-sidebar">
-			<li><a href="">Nav item</a></li>
-			<li><a href="">Nav item again</a></li>
-			<li><a href="">One more nav</a></li>
-			<li><a href="">Another nav item</a></li>
-			<li><a href="">More navigation</a></li>
-		  </ul>
-		  <ul class="nav nav-sidebar">
-			<li><a href="">Nav item again</a></li>
-			<li><a href="">One more nav</a></li>
-			<li><a href="">Another nav item</a></li>
 		  </ul>
 		</div>
 		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-		  <h1 class="page-header">Dashboard</h1>
+		  <h1 class="page-header">Cuenta</h1>
 
-		  <div class="row placeholders">
+		  <!--<div class="row placeholders">
 			<div class="col-xs-6 col-sm-3 placeholder">
 			  <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail">
 			  <h4>Label</h4>
@@ -44,10 +33,145 @@
 			  <h4>Label</h4>
 			  <span class="text-muted">Something else</span>
 			</div>
-		  </div>
+		  </div>-->
 
-		  <h2 class="sub-header">Section title</h2>
-		  <div class="table-responsive">
+		  <h2 class="sub-header">Editar datos de cuenta</h2>
+
+
+		  <div id="doctor-sign-up-box">
+			<div class="center">
+				<div class="inner-info-box">
+					<div class="form-box" >
+						<h2>Registro de Doctores</h2>
+						<form class="form-horizontal" name="doctorSignUpForm" ng-controller="DoctorSignUpController as docSignUpCtrl" ng-submit="docSignUpCtrl.signUp()" novalidate>
+						<!-- <form class="form-horizontal" name="signUpForm" ng-controller="SignUpController as signUpCtrl" ng-submit="signUpCtrl.signUp()" novalidate> -->
+						<fieldset>
+							<div class="form-group">
+							  <label class="col-md-4 control-label" for="name">Nombres</label>  
+							  <div class="col-md-6">
+							  <input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="docSignUpCtrl.data.name">
+							  </div>
+							</div>
+							<div class="form-group">
+							  <label class="col-md-4 control-label" for="last_name">Apellidos</label>  
+							  <div class="col-md-6">
+							  <input id="last_name" name="last_name" type="text" placeholder="" class="form-control input-md"  ng-model="docSignUpCtrl.data.lastname">
+							  </div>
+							</div>
+							<div class="form-group">
+							  <label class="col-md-4 control-label" for="email">Email</label>  
+							  <div class="col-md-6">
+							  <input id="email" name="email" type="text" placeholder="" class="form-control input-md"  ng-model="docSignUpCtrl.data.email">
+							  </div>
+							</div>
+							<div class="form-group">
+							  <label class="col-md-4 control-label" for="password">Contraseña</label>
+							  <div class="col-md-6">
+								<input id="password" name="password" type="password" placeholder="" class="form-control input-md"  ng-model="docSignUpCtrl.data.password">
+							  </div>
+							</div>
+							<div class="form-group last-form-element">
+							  <label class="col-md-4 control-label" for="gender">Género</label>
+							  <div class="col-md-4"> 
+								<label class="radio-inline" for="gender-0">
+								  <input type="radio" name="gender" id="gender-0" value="1" checked="checked" ng-model="docSignUpCtrl.data.gender">
+								  Masculino
+								</label> 
+								<label class="radio-inline" for="gender-1">
+								  <input type="radio" name="gender" id="gender-1" value="2"  ng-model="docSignUpCtrl.data.gender">
+								  Femenino
+								</label>
+							  </div>
+							</div>
+							<div class="form-group last-form-element">
+							  <label class="col-md-4 control-label" for="patient_gender">Género de paciente</label>
+							  <div class="col-md-4"> 
+								<label class="radio-inline" for="patient_gender-0">
+								  <input type="radio" name="patient_gender" id="patient_gender-0" value="1" checked="checked" ng-model="docSignUpCtrl.data.patient_gender">
+								  Masculino
+								</label> 
+								<label class="radio-inline" for="patient_gender-1">
+								  <input type="radio" name="patient_gender" id="patient_gender-1" value="2"  ng-model="docSignUpCtrl.data.patient_gender">
+								  Femenino
+								</label>
+								<label class="radio-inline" for="patient_gender-2">
+								  <input type="radio" name="patient_gender" id="patient_gender-3" value="3"  ng-model="docSignUpCtrl.data.patient_gender">
+								  Ambos
+								</label>
+							  </div>
+							</div>
+							<div class="form-group">
+							  <label class="col-md-4 control-label" for="phone">Teléfono</label>  
+							  <div class="col-md-6">
+							  <input id="phone" name="phone" type="text" placeholder="" class="form-control input-md"  ng-model="docSignUpCtrl.data.phone">
+							  </div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-4 control-label" for="city">Ciudad</label>
+								<div class="col-md-6">
+								<select class="form-control" name="city" id="city" ng-model="docSignUpCtrl.data.city">
+								  <option>Bogotá</option>
+								  <option>Medellín</option>
+								  <option>Cali</option>
+								  <option>Barranquilla</option>
+								  <option>Pereira</option>
+								  <option>Bucaramanga</option>
+								</select>
+								</div>
+							</div>
+							<div class="form-group" ng-if="docSignUpCtrl.data.city == 'Bogotá'">
+								<label class="col-md-4 control-label" for="localidad">Localidad</label>
+								<div class="col-md-6">
+								<select class="form-control" name="localidad" id="localidad" ng-model="docSignUpCtrl.data.localidad" ng-options="localidad.name for localidad in localidades">
+								</select>
+								</div>
+							</div>
+							<div class="form-group">
+							  <label class="col-md-4 control-label" for="address">Dirección</label>  
+							  <div class="col-md-6">
+							  <input id="address" name="address" type="text" placeholder="" class="form-control input-md"  ng-model="docSignUpCtrl.data.address">
+							  </div>
+							</div>
+							<div class="form-group">
+							  <label class="col-md-4 control-label" for="lat">Latitú</label>
+							  <div class="col-md-6">
+								<input id="lat" name="lat" type="text" placeholder="" class="form-control input-md"  ng-model="docSignUpCtrl.data.lat">
+							  </div>
+							</div>
+							<div class="form-group">
+							  <label class="col-md-4 control-label" for="lon">Longitú</label>
+							  <div class="col-md-6">
+								<input id="lon" name="lon" type="text" placeholder="" class="form-control input-md"  ng-model="docSignUpCtrl.data.lon">
+							  </div>
+							</div>
+							<div class="form-group last-form-element">
+							  <label class="col-md-4 control-label" for="practice">Especialidad</label>
+							  <div class="col-md-6">
+								<select id="practice" name="practice" class="form-control" ng-model="docSignUpCtrl.data.practice">
+								  <option>Médico General</option>
+								  <option>Odontólogo</option>
+								  <option>Ortopedista</option>
+								  <option>Ginecólogo</option>
+								  <option>Fonoaudiólogo</option>
+								</select>
+							  </div>
+							</div>
+							<div class="form-group">
+							  <div class="col-md-4 center-button">
+								<button id="doctor_sign_up_submit" name="doctor_sign_up_submit" class="btn btn-primary">Registrarse</button>
+							  </div>
+							</div>
+						</fieldset>
+						<!-- </form> -->
+						</form>
+					</div> 
+				</div>
+			</div>
+		</div>
+
+
+		  
+		  <!--<div class="table-responsive">
 			<table class="table table-striped">
 			  <thead>
 				<tr>
@@ -173,7 +297,7 @@
 				</tr>
 			  </tbody>
 			</table>
-		  </div>
+		  </div>-->
 		</div>
 	  </div>
 	</div>
