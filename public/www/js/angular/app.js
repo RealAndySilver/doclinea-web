@@ -4,7 +4,7 @@
 	  'ngRoute',
 	  'mapsApp',
 	  'loginUser',
-	  'loginDoctor',
+	  //'loginDoctor',
 	  'createUser',
 	  'createDoctor',
 	  'docProfile',
@@ -35,7 +35,7 @@
 				templateUrl: '../www/user.html',
 				controller: 'SignInController',
 			}).
-			when('/doctor/:email', {
+			when('/doctor/:id', {
 				templateUrl: '../www/doctor.html',
 				//controller: 'ProfileCtrl',
 			}).
@@ -44,6 +44,9 @@
 			}).
 			when('/doctor_sign_in', {
 				templateUrl: '../www/doctor_sign_in.html',
+			}).
+			when('/doctor_dashboard', {
+				templateUrl: '../www/doctor_dashboard.html',
 			}).
 			otherwise({
 				redirectTo: '/404'
@@ -88,10 +91,10 @@
                $http.post(endpoint + type + '/AuthenticateUser', data1)
                .success(function(data) {
                    if (!data.status) {
-                           console.log("Paila, no se creó",data);
+                           console.log("Paila, no se autenticó",data);
                    } else {
                            // if successful, bind success message to message
-                       console.log("Listo, creado" + data);
+                       console.log("Listo, autenticado" + data);
                    }
        });
        this.data = {};
@@ -223,19 +226,20 @@
        };
 	}]);
 
-	var loginDoctor = angular.module('loginDoctor', []);
-	loginDoctor.controller('DoctorSignInController', ['$http',function($http){
+	//var loginDoctor = angular.module('loginDoctor', []);
+	app.controller('DoctorSignInController', ['$http',function($http){
 		var type = "Doctor";
 		this.signIn = function() {
 				//console.log('Entra a signIn');
                var data1 = this.data;
-               $http.post(endpoint + type + '/SignInDoctor', data1)
+               $http.post(endpoint + type + '/AuthenticateDoctor', data1)
                .success(function(data) {
                    if (!data.status) {
-                           console.log("Paila, no se creó",data);
+                           console.log("Paila, no se autenticó",data);
                    } else {
                            // if successful, bind success message to message
-                       console.log("Listo, creado" + data);
+                       console.log("Listo, doctor autenticado" + data);
+                       window.location = "/#/doctor_dashboard";
                    }
        });
        this.data = {};
@@ -432,12 +436,12 @@
 		//this.dProfile = {};
 
 		var type = "Doctor";
-		var email = $routeParams.email;
-		console.log(email);
+		var id = $routeParams.id;
+		console.log(id);
 
 		var This = this;
 
-		$http.get(endpoint + type + '/GetDoctorByEmail/' + email)
+		$http.get(endpoint + type + '/GetDoctorById/' + id)
       		.success(function(data) {
             	if (!data.status) {
                		console.log("No se encontró un doctor con correo:", data);
