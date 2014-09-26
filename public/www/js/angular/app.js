@@ -483,8 +483,43 @@
 
 				createMarker(This.dProfile);
            	});
-
 	});
+
+	/*app.controller('DocDashboardController', ['$http', '$scope', function($http, $scope){
+
+		var docData = this;
+
+		docData.city = $scope.getDrCtrl.data1.city;
+		docData.practice = $scope.getDrCtrl.data1.practice_list;
+		docData.insurance = $scope.getDrCtrl.data1.insurance_list;
+
+		var getPosition = function(list, option) {
+			for(var i in list) {
+				if(list[i].name === option) {
+					return list[i];
+				}
+			}
+		};
+
+		this.practices = [ {name: "Pediatra", id: 1}, {name: "Fonoaudiólogo", id: 2}, {name: "Ginecólogo", id: 3}, {name: "Ortopedista", id: 4}, {name: "Odontólogo", id: 5} ];
+		this.selectedPractice = getPosition(this.practices, docData.practice);
+		
+		this.cities = [ {name: "Bogotá", id: 1}, {name: "Medellín", id: 2}, {name: "Cali", id: 3}, {name: "Barranquilla", id: 4}, {name: "Pereira", id: 5}, {name: "Bucaramanga", id: 6} ];
+		this.selectedCity = getPosition(this.cities, docData.city);
+		
+		this.insurances = [ {name: "Colpatria", id: 1}, {name: "Compensar", id: 2} ];
+		this.selectedInsurance = getPosition(this.insurances, docData.insurance);
+
+		this.searchDoctor = function() {
+
+			var selectedCity = !this.selectedCity ? "undefined" : this.selectedCity.name;
+			var selectedPractice = !this.selectedPractice ? "undefined" : this.selectedPractice.name;
+			var selectedInsurance = !this.selectedInsurance ? "undefined" : this.selectedInsurance.name;
+
+			window.location = "/#/search/" + selectedCity + "/" + selectedPractice + "/" + selectedInsurance;
+       		//this.data = {};
+       };
+	}]);*/
 
 })();
 

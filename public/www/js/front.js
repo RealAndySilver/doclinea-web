@@ -11,7 +11,7 @@ $(document).ready(function(){
 	$(".scroll").click(function(event){
 		event.preventDefault();
         //$('.colapse.in').fadeOut(400);
-		$('html,body').animate({scrollTop:$(this.hash).offset().top}, 1000);
+		$('html,body').animate({scrollTop:$(this.hash).offset().top-100}, 1000);
 	});
 
 });

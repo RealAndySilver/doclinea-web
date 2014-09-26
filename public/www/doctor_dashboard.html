@@ -2,7 +2,6 @@
 	  <div class="row">
 		<div class="col-sm-3 col-md-2 sidebar">
 		  <ul class="nav nav-sidebar">
-			<li><a href="#">Resúmen</a></li>
 			<li><a href="#">Citas</a></li>
 			<li class="active"><a href="#">Cuenta</a></li>
 			<li><a href="#">Pagos</a></li>
@@ -10,294 +9,231 @@
 		  </ul>
 		</div>
 		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-		  <h1 class="page-header">Cuenta</h1>
+		  <h2 class="sub-header">Cuenta</h2>
+		  <ul class="nav nav-tabs" role="tablist">
+			  <li class="active"><a href="#/doctor_dashboard#personal" role="tab" data-toggle="tab">Datos Personales</a></li>
+			  <li><a href="#/doctor_dashboard#password_change" role="tab" data-toggle="tab">Contraseña</a></li>
+			  <li><a href="#/doctor_dashboard#studies" role="tab" data-toggle="tab">Formación académica</a></li>
+			  <li><a href="#/doctor_dashboard#locations" role="tab" data-toggle="tab">Locaciones</a></li>
+		  </ul>
 
-		  <!--<div class="row placeholders">
-			<div class="col-xs-6 col-sm-3 placeholder">
-			  <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail">
-			  <h4>Label</h4>
-			  <span class="text-muted">Something else</span>
-			</div>
-			<div class="col-xs-6 col-sm-3 placeholder">
-			  <img data-src="holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail">
-			  <h4>Label</h4>
-			  <span class="text-muted">Something else</span>
-			</div>
-			<div class="col-xs-6 col-sm-3 placeholder">
-			  <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail">
-			  <h4>Label</h4>
-			  <span class="text-muted">Something else</span>
-			</div>
-			<div class="col-xs-6 col-sm-3 placeholder">
-			  <img data-src="holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail">
-			  <h4>Label</h4>
-			  <span class="text-muted">Something else</span>
-			</div>
-		  </div>-->
-
-		  <h2 class="sub-header">Editar datos de cuenta</h2>
-
-
-		  <div id="doctor-sign-up-box">
-			<div class="center">
-				<div class="inner-info-box">
-					<div class="form-box" >
-						<h2>Registro de Doctores</h2>
-						<form class="form-horizontal" name="doctorSignUpForm" ng-controller="DoctorSignUpController as docSignUpCtrl" ng-submit="docSignUpCtrl.signUp()" novalidate>
-						<!-- <form class="form-horizontal" name="signUpForm" ng-controller="SignUpController as signUpCtrl" ng-submit="signUpCtrl.signUp()" novalidate> -->
-						<fieldset>
-							<div class="form-group">
-							  <label class="col-md-4 control-label" for="name">Nombres</label>  
-							  <div class="col-md-6">
-							  <input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="docSignUpCtrl.data.name">
-							  </div>
-							</div>
-							<div class="form-group">
-							  <label class="col-md-4 control-label" for="last_name">Apellidos</label>  
-							  <div class="col-md-6">
-							  <input id="last_name" name="last_name" type="text" placeholder="" class="form-control input-md"  ng-model="docSignUpCtrl.data.lastname">
-							  </div>
-							</div>
-							<div class="form-group">
-							  <label class="col-md-4 control-label" for="email">Email</label>  
-							  <div class="col-md-6">
-							  <input id="email" name="email" type="text" placeholder="" class="form-control input-md"  ng-model="docSignUpCtrl.data.email">
-							  </div>
-							</div>
-							<div class="form-group">
-							  <label class="col-md-4 control-label" for="password">Contraseña</label>
-							  <div class="col-md-6">
-								<input id="password" name="password" type="password" placeholder="" class="form-control input-md"  ng-model="docSignUpCtrl.data.password">
-							  </div>
-							</div>
-							<div class="form-group last-form-element">
-							  <label class="col-md-4 control-label" for="gender">Género</label>
-							  <div class="col-md-4"> 
-								<label class="radio-inline" for="gender-0">
-								  <input type="radio" name="gender" id="gender-0" value="1" checked="checked" ng-model="docSignUpCtrl.data.gender">
-								  Masculino
-								</label> 
-								<label class="radio-inline" for="gender-1">
-								  <input type="radio" name="gender" id="gender-1" value="2"  ng-model="docSignUpCtrl.data.gender">
-								  Femenino
-								</label>
-							  </div>
-							</div>
-							<div class="form-group last-form-element">
-							  <label class="col-md-4 control-label" for="patient_gender">Género de paciente</label>
-							  <div class="col-md-4"> 
-								<label class="radio-inline" for="patient_gender-0">
-								  <input type="radio" name="patient_gender" id="patient_gender-0" value="1" checked="checked" ng-model="docSignUpCtrl.data.patient_gender">
-								  Masculino
-								</label> 
-								<label class="radio-inline" for="patient_gender-1">
-								  <input type="radio" name="patient_gender" id="patient_gender-1" value="2"  ng-model="docSignUpCtrl.data.patient_gender">
-								  Femenino
-								</label>
-								<label class="radio-inline" for="patient_gender-2">
-								  <input type="radio" name="patient_gender" id="patient_gender-3" value="3"  ng-model="docSignUpCtrl.data.patient_gender">
-								  Ambos
-								</label>
-							  </div>
-							</div>
-							<div class="form-group">
-							  <label class="col-md-4 control-label" for="phone">Teléfono</label>  
-							  <div class="col-md-6">
-							  <input id="phone" name="phone" type="text" placeholder="" class="form-control input-md"  ng-model="docSignUpCtrl.data.phone">
-							  </div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-4 control-label" for="city">Ciudad</label>
-								<div class="col-md-6">
-								<select class="form-control" name="city" id="city" ng-model="docSignUpCtrl.data.city">
-								  <option>Bogotá</option>
-								  <option>Medellín</option>
-								  <option>Cali</option>
-								  <option>Barranquilla</option>
-								  <option>Pereira</option>
-								  <option>Bucaramanga</option>
-								</select>
+		  <div class="tab-content">
+			  
+			  <div class="tab-pane active" id="personal">
+				<div class="center">
+					<div class="inner-info-box">
+						<div class="form-box">
+							<form class="form-horizontal" name="changePersonalDocInfo">
+							<fieldset>
+								<div class="form-group">
+								  <label class="col-md-4 control-label" for="name">Nombres</label>  
+								  <div class="col-md-6">
+								  <input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="docSignUpCtrl.data.name">
+								  </div>
 								</div>
-							</div>
-							<div class="form-group" ng-if="docSignUpCtrl.data.city == 'Bogotá'">
-								<label class="col-md-4 control-label" for="localidad">Localidad</label>
-								<div class="col-md-6">
-								<select class="form-control" name="localidad" id="localidad" ng-model="docSignUpCtrl.data.localidad" ng-options="localidad.name for localidad in localidades">
-								</select>
+								<div class="form-group">
+								  <label class="col-md-4 control-label" for="last_name">Apellidos</label>  
+								  <div class="col-md-6">
+								  <input id="last_name" name="last_name" type="text" placeholder="" class="form-control input-md"  ng-model="docSignUpCtrl.data.lastname">
+								  </div>
 								</div>
-							</div>
-							<div class="form-group">
-							  <label class="col-md-4 control-label" for="address">Dirección</label>  
-							  <div class="col-md-6">
-							  <input id="address" name="address" type="text" placeholder="" class="form-control input-md"  ng-model="docSignUpCtrl.data.address">
-							  </div>
-							</div>
-							<div class="form-group">
-							  <label class="col-md-4 control-label" for="lat">Latitú</label>
-							  <div class="col-md-6">
-								<input id="lat" name="lat" type="text" placeholder="" class="form-control input-md"  ng-model="docSignUpCtrl.data.lat">
-							  </div>
-							</div>
-							<div class="form-group">
-							  <label class="col-md-4 control-label" for="lon">Longitú</label>
-							  <div class="col-md-6">
-								<input id="lon" name="lon" type="text" placeholder="" class="form-control input-md"  ng-model="docSignUpCtrl.data.lon">
-							  </div>
-							</div>
-							<div class="form-group last-form-element">
-							  <label class="col-md-4 control-label" for="practice">Especialidad</label>
-							  <div class="col-md-6">
-								<select id="practice" name="practice" class="form-control" ng-model="docSignUpCtrl.data.practice">
-								  <option>Médico General</option>
-								  <option>Odontólogo</option>
-								  <option>Ortopedista</option>
-								  <option>Ginecólogo</option>
-								  <option>Fonoaudiólogo</option>
-								</select>
-							  </div>
-							</div>
-							<div class="form-group">
-							  <div class="col-md-4 center-button">
-								<button id="doctor_sign_up_submit" name="doctor_sign_up_submit" class="btn btn-primary">Registrarse</button>
-							  </div>
-							</div>
-						</fieldset>
-						<!-- </form> -->
-						</form>
-					</div> 
+								<div class="form-group">
+								  <label class="col-md-4 control-label" for="email">Email</label>  
+								  <div class="col-md-6">
+								  <input id="email" name="email" type="text" placeholder="" class="form-control input-md"  ng-model="docSignUpCtrl.data.email">
+								  </div>
+								</div>
+								<div class="form-group last-form-element">
+								  <label class="col-md-4 control-label" for="gender">Género</label>
+								  <div class="col-md-4"> 
+									<label class="radio-inline" for="gender-0">
+									  <input type="radio" name="gender" id="gender-0" value="1" checked="checked" ng-model="docSignUpCtrl.data.gender">
+									  Masculino
+									</label> 
+									<label class="radio-inline" for="gender-1">
+									  <input type="radio" name="gender" id="gender-1" value="2"  ng-model="docSignUpCtrl.data.gender">
+									  Femenino
+									</label>
+								  </div>
+								</div>
+								<div class="form-group last-form-element">
+								  <label class="col-md-4 control-label" for="patient_gender">Género de paciente</label>
+								  <div class="col-md-4"> 
+									<label class="radio-inline" for="patient_gender-0">
+									  <input type="radio" name="patient_gender" id="patient_gender-0" value="1" checked="checked" ng-model="docSignUpCtrl.data.patient_gender">
+									  Masculino
+									</label> 
+									<label class="radio-inline" for="patient_gender-1">
+									  <input type="radio" name="patient_gender" id="patient_gender-1" value="2"  ng-model="docSignUpCtrl.data.patient_gender">
+									  Femenino
+									</label>
+									<label class="radio-inline" for="patient_gender-2">
+									  <input type="radio" name="patient_gender" id="patient_gender-3" value="3"  ng-model="docSignUpCtrl.data.patient_gender">
+									  Ambos
+									</label>
+								  </div>
+								</div>
+								<div class="form-group">
+								  <label class="col-md-4 control-label" for="phone">Teléfono</label>  
+								  <div class="col-md-6">
+								  <input id="phone" name="phone" type="text" placeholder="" class="form-control input-md"  ng-model="docSignUpCtrl.data.phone">
+								  </div>
+								</div>
+								<div class="form-group">
+								  <div class="col-md-4 center-button">
+									<button id="doctor_sign_up_submit" name="doctor_sign_up_submit" class="btn btn-primary">Guardar</button>
+									<button id="doctor_sign_up_submit" name="doctor_sign_up_submit" class="btn btn-warning">Cancelar</button>
+								  </div>
+								</div>
+							</fieldset>
+							</form>
+						</div> 
+					</div>
 				</div>
 			</div>
+
+			<div class="tab-pane" id="password_change">
+				<div class="center">
+					<div class="inner-info-box">
+						<div class="form-box">
+							<form class="form-horizontal" name="changePersonalDocInfo">
+							<fieldset>
+								<div class="form-group">
+								  <label class="col-md-4 control-label" for="password">Ingrese su contraseña actual</label>
+								  <div class="col-md-6">
+									<input id="password" name="password" type="password" placeholder="" class="form-control input-md"  ng-model="docSignUpCtrl.data.password">
+								  </div>
+								</div>
+								<div class="form-group">
+								  <label class="col-md-4 control-label" for="password">Ingrese su nueva contraseña</label>
+								  <div class="col-md-6">
+									<input id="password" name="password" type="password" placeholder="" class="form-control input-md"  ng-model="docSignUpCtrl.data.password">
+								  </div>
+								</div>
+								<div class="form-group">
+								  <label class="col-md-4 control-label" for="password">Confirme su nueva contraseña</label>
+								  <div class="col-md-6">
+									<input id="password" name="password" type="password" placeholder="" class="form-control input-md"  ng-model="docSignUpCtrl.data.password">
+								  </div>
+								</div>
+								<div class="form-group">
+								  <div class="col-md-4 center-button">
+									<button id="doctor_sign_up_submit" name="doctor_sign_up_submit" class="btn btn-primary">Guardar</button>
+									<button id="doctor_sign_up_submit" name="doctor_sign_up_submit" class="btn btn-warning">Cancelar</button>
+								  </div>
+								</div>
+							</fieldset>
+							</form>
+						</div> 
+					</div>
+				</div>
+			</div>
+
+			<div class="tab-pane" id="studies">
+				<div class="center">
+					<div class="inner-info-box">
+						<div class="form-box">
+							<form class="form-horizontal" name="changePersonalDocInfo">
+							<fieldset>
+								<div class="form-group last-form-element">
+								  <label class="col-md-4 control-label" for="practice">Especialidad</label>
+								  <div class="col-md-6">
+									<select id="practice" name="practice" class="form-control" ng-model="docSignUpCtrl.data.practice">
+									  <option>Médico General</option>
+									  <option>Odontólogo</option>
+									  <option>Ortopedista</option>
+									  <option>Ginecólogo</option>
+									  <option>Fonoaudiólogo</option>
+									</select>
+								  </div>
+								</div>
+								<div class="form-group">
+								  <label class="col-md-4 control-label" for="education_list">Formación académica</label>  
+								  <div class="col-md-6">
+								  <input id="education_list" name="education_list" type="text" placeholder="" class="form-control input-md"  ng-model="docSignUpCtrl.data.education_list">
+								  </div>
+								</div>
+								<div class="form-group">
+								  <label class="col-md-4 control-label" for="description">Descripción</label>  
+								  <div class="col-md-6">
+								  <textarea id="description" name="description" type="text" placeholder="" class="form-control input-md"  ng-model="docSignUpCtrl.data.description"></textarea>
+								  </div>
+								</div>
+								<div class="form-group">
+								  <label class="col-md-4 control-label" for="profesional_membership">Membresías Profesionales</label>  
+								  <div class="col-md-6">
+								  <input id="profesional_membership" name="profesional_membership" type="text" placeholder="" class="form-control input-md"  ng-model="docSignUpCtrl.data.profesional_membership">
+								  </div>
+								</div>
+								<div class="form-group last-form-element">
+								  <label class="col-md-4 control-label" for="insurance_list">Aseguradoras</label>
+								  <div class="col-md-6">
+									<select id="insurance_list" name="insurance_list" class="form-control"  ng-model="docSignUpCtrl.data.insurance_list">
+									  <option value="1">Sura</option>
+									  <option value="2">Colpatria</option>
+									  <option value="3">Compensar</option>
+									</select>
+								  </div>
+								</div>
+								<div class="form-group">
+								  <div class="col-md-4 center-button">
+									<button id="doctor_sign_up_submit" name="doctor_sign_up_submit" class="btn btn-primary">Guardar</button>
+									<button id="doctor_sign_up_submit" name="doctor_sign_up_submit" class="btn btn-warning">Cancelar</button>
+								  </div>
+								</div>
+							</fieldset>
+							</form>
+						</div> 
+					</div>
+				</div>
+			</div>
+
+			<div class="tab-pane" id="locations">
+				<div class="center">
+					<div class="inner-info-box">
+						<div class="form-box">
+							<form class="form-horizontal" name="changePersonalDocInfo" ng-controller="DoctorSignUpController as docSignUpCtrl">
+							<fieldset>
+								<div class="form-group">
+									<label class="col-md-4 control-label" for="city">Ciudad</label>
+									<div class="col-md-6">
+									<select class="form-control" name="city" id="city" ng-model="docSignUpCtrl.data.city">
+									  <option>Bogotá</option>
+									  <option>Medellín</option>
+									  <option>Cali</option>
+									  <option>Barranquilla</option>
+									  <option>Pereira</option>
+									  <option>Bucaramanga</option>
+									</select>
+									</div>
+								</div>
+								<div class="form-group" ng-if="docSignUpCtrl.data.city == 'Bogotá'">
+									<label class="col-md-4 control-label" for="localidad">Localidad</label>
+									<div class="col-md-6">
+									<select class="form-control" name="localidad" id="localidad" ng-model="docSignUpCtrl.data.localidad" ng-options="localidad.name for localidad in localidades">
+									</select>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-4 control-label" for="location_list">Ingrese su ubicación o búsquela en el mapa</label>
+									<div class="col-md-6">
+									  	<input id="location_list" name="location_list" type="text" placeholder="" class="form-control input-md"  ng-model="docSignUpCtrl.data.location_list">
+								    </div>
+								    <div class="map-box">
+									<div>
+						    			<div id="profile-map"></div>
+									</div>
+								</div>
+								</div>
+							</fieldset>
+							</form>
+						</div> 
+					</div>
+				</div>
+			</div>
+
 		</div>
 
-
-		  
-		  <!--<div class="table-responsive">
-			<table class="table table-striped">
-			  <thead>
-				<tr>
-				  <th>#</th>
-				  <th>Header</th>
-				  <th>Header</th>
-				  <th>Header</th>
-				  <th>Header</th>
-				</tr>
-			  </thead>
-			  <tbody>
-				<tr>
-				  <td>1,001</td>
-				  <td>Lorem</td>
-				  <td>ipsum</td>
-				  <td>dolor</td>
-				  <td>sit</td>
-				</tr>
-				<tr>
-				  <td>1,002</td>
-				  <td>amet</td>
-				  <td>consectetur</td>
-				  <td>adipiscing</td>
-				  <td>elit</td>
-				</tr>
-				<tr>
-				  <td>1,003</td>
-				  <td>Integer</td>
-				  <td>nec</td>
-				  <td>odio</td>
-				  <td>Praesent</td>
-				</tr>
-				<tr>
-				  <td>1,003</td>
-				  <td>libero</td>
-				  <td>Sed</td>
-				  <td>cursus</td>
-				  <td>ante</td>
-				</tr>
-				<tr>
-				  <td>1,004</td>
-				  <td>dapibus</td>
-				  <td>diam</td>
-				  <td>Sed</td>
-				  <td>nisi</td>
-				</tr>
-				<tr>
-				  <td>1,005</td>
-				  <td>Nulla</td>
-				  <td>quis</td>
-				  <td>sem</td>
-				  <td>at</td>
-				</tr>
-				<tr>
-				  <td>1,006</td>
-				  <td>nibh</td>
-				  <td>elementum</td>
-				  <td>imperdiet</td>
-				  <td>Duis</td>
-				</tr>
-				<tr>
-				  <td>1,007</td>
-				  <td>sagittis</td>
-				  <td>ipsum</td>
-				  <td>Praesent</td>
-				  <td>mauris</td>
-				</tr>
-				<tr>
-				  <td>1,008</td>
-				  <td>Fusce</td>
-				  <td>nec</td>
-				  <td>tellus</td>
-				  <td>sed</td>
-				</tr>
-				<tr>
-				  <td>1,009</td>
-				  <td>augue</td>
-				  <td>semper</td>
-				  <td>porta</td>
-				  <td>Mauris</td>
-				</tr>
-				<tr>
-				  <td>1,010</td>
-				  <td>massa</td>
-				  <td>Vestibulum</td>
-				  <td>lacinia</td>
-				  <td>arcu</td>
-				</tr>
-				<tr>
-				  <td>1,011</td>
-				  <td>eget</td>
-				  <td>nulla</td>
-				  <td>Class</td>
-				  <td>aptent</td>
-				</tr>
-				<tr>
-				  <td>1,012</td>
-				  <td>taciti</td>
-				  <td>sociosqu</td>
-				  <td>ad</td>
-				  <td>litora</td>
-				</tr>
-				<tr>
-				  <td>1,013</td>
-				  <td>torquent</td>
-				  <td>per</td>
-				  <td>conubia</td>
-				  <td>nostra</td>
-				</tr>
-				<tr>
-				  <td>1,014</td>
-				  <td>per</td>
-				  <td>inceptos</td>
-				  <td>himenaeos</td>
-				  <td>Curabitur</td>
-				</tr>
-				<tr>
-				  <td>1,015</td>
-				  <td>sodales</td>
-				  <td>ligula</td>
-				  <td>in</td>
-				  <td>libero</td>
-				</tr>
-			  </tbody>
-			</table>
-		  </div>-->
 		</div>
 	  </div>
 	</div>
