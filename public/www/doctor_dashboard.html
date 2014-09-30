@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" ng-controller="DocDashboardController as docDashCtrl">
 	  <div class="row">
 		<div class="col-sm-3 col-md-2 sidebar">
 		  <ul class="nav nav-sidebar">
@@ -28,30 +28,30 @@
 								<div class="form-group">
 								  <label class="col-md-4 control-label" for="name">Nombres</label>  
 								  <div class="col-md-6">
-								  <input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="docSignUpCtrl.data.name">
+								  <input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="docDashCtrl.info.name" ng-init="docDashCtrl.info.name">
 								  </div>
 								</div>
 								<div class="form-group">
 								  <label class="col-md-4 control-label" for="last_name">Apellidos</label>  
 								  <div class="col-md-6">
-								  <input id="last_name" name="last_name" type="text" placeholder="" class="form-control input-md"  ng-model="docSignUpCtrl.data.lastname">
+								  <input id="last_name" name="last_name" type="text" placeholder="" class="form-control input-md"  ng-model="docDashCtrl.info.lastname" ng-init="docDashCtrl.info.lastname">
 								  </div>
 								</div>
 								<div class="form-group">
 								  <label class="col-md-4 control-label" for="email">Email</label>  
 								  <div class="col-md-6">
-								  <input id="email" name="email" type="text" placeholder="" class="form-control input-md"  ng-model="docSignUpCtrl.data.email">
+								  <input id="email" name="email" type="text" placeholder="" class="form-control input-md"  ng-model="docDashCtrl.info.email" ng-init="docDashCtrl.info.email">
 								  </div>
 								</div>
 								<div class="form-group last-form-element">
 								  <label class="col-md-4 control-label" for="gender">Género</label>
 								  <div class="col-md-4"> 
 									<label class="radio-inline" for="gender-0">
-									  <input type="radio" name="gender" id="gender-0" value="1" checked="checked" ng-model="docSignUpCtrl.data.gender">
+									  <input type="radio" name="gender" id="gender-0" value="1" checked="checked" ng-model="docDashCtrl.info.gender" ng-init="docDashCtrl.info.gender">
 									  Masculino
 									</label> 
 									<label class="radio-inline" for="gender-1">
-									  <input type="radio" name="gender" id="gender-1" value="2"  ng-model="docSignUpCtrl.data.gender">
+									  <input type="radio" name="gender" id="gender-1" value="2"  ng-model="docDashCtrl.info.gender" ng-init="docDashCtrl.info.gender">
 									  Femenino
 									</label>
 								  </div>
@@ -60,15 +60,15 @@
 								  <label class="col-md-4 control-label" for="patient_gender">Género de paciente</label>
 								  <div class="col-md-4"> 
 									<label class="radio-inline" for="patient_gender-0">
-									  <input type="radio" name="patient_gender" id="patient_gender-0" value="1" checked="checked" ng-model="docSignUpCtrl.data.patient_gender">
+									  <input type="radio" name="patient_gender" id="patient_gender-0" value="1" checked="checked" ng-model="docDashCtrl.info.patient_gender" ng-init="docDashCtrl.info.patient_gender">
 									  Masculino
 									</label> 
 									<label class="radio-inline" for="patient_gender-1">
-									  <input type="radio" name="patient_gender" id="patient_gender-1" value="2"  ng-model="docSignUpCtrl.data.patient_gender">
+									  <input type="radio" name="patient_gender" id="patient_gender-1" value="2"  ng-model="docDashCtrl.info.patient_gender" ng-init="docDashCtrl.info.patient_gender">
 									  Femenino
 									</label>
 									<label class="radio-inline" for="patient_gender-2">
-									  <input type="radio" name="patient_gender" id="patient_gender-3" value="3"  ng-model="docSignUpCtrl.data.patient_gender">
+									  <input type="radio" name="patient_gender" id="patient_gender-3" value="3"  ng-model="docDashCtrl.info.patient_gender" ng-init="docDashCtrl.info.patient_gender">
 									  Ambos
 									</label>
 								  </div>
@@ -76,7 +76,7 @@
 								<div class="form-group">
 								  <label class="col-md-4 control-label" for="phone">Teléfono</label>  
 								  <div class="col-md-6">
-								  <input id="phone" name="phone" type="text" placeholder="" class="form-control input-md"  ng-model="docSignUpCtrl.data.phone">
+								  <input id="phone" name="phone" type="text" placeholder="" class="form-control input-md"  ng-model="docDashCtrl.info.phone" ng-init="docDashCtrl.info.phone">
 								  </div>
 								</div>
 								<div class="form-group">
@@ -192,7 +192,7 @@
 				<div class="center">
 					<div class="inner-info-box">
 						<div class="form-box">
-							<form class="form-horizontal" name="changePersonalDocInfo" ng-controller="DoctorSignUpController as docSignUpCtrl">
+							<form class="form-horizontal" name="changePersonalDocInfo">
 							<fieldset>
 								<div class="form-group">
 									<label class="col-md-4 control-label" for="city">Ciudad</label>
@@ -215,15 +215,12 @@
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="col-md-4 control-label" for="location_list">Ingrese su ubicación o búsquela en el mapa</label>
-									<div class="col-md-6">
-									  	<input id="location_list" name="location_list" type="text" placeholder="" class="form-control input-md"  ng-model="docSignUpCtrl.data.location_list">
-								    </div>
+									<label class="col-md-4 control-label" for="location_list">Busque su ubicación en el mapa</label>
 								    <div class="map-box">
-									<div>
-						    			<div id="profile-map"></div>
+										<div>
+							    			<div id="location-map" class="location-map"></div>
+										</div>
 									</div>
-								</div>
 								</div>
 							</fieldset>
 							</form>

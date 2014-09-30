@@ -45,7 +45,7 @@
 			when('/doctor_sign_in', {
 				templateUrl: '../www/doctor_sign_in.html',
 			}).
-			when('/doctor_dashboard', {
+			when('/doctor_dashboard/:id', {
 				templateUrl: '../www/doctor_dashboard.html',
 			}).
 			otherwise({
@@ -227,7 +227,7 @@
 	}]);
 
 	//var loginDoctor = angular.module('loginDoctor', []);
-	app.controller('DoctorSignInController', ['$http',function($http){
+	app.controller('DoctorSignInController', ['$http', '$routeParams', function($http, $routeParams){
 		var type = "Doctor";
 		this.signIn = function() {
 				//console.log('Entra a signIn');
@@ -238,8 +238,10 @@
                            console.log("Paila, no se autenticó",data);
                    } else {
                            // if successful, bind success message to message
-                       console.log("Listo, doctor autenticado" + data);
-                       window.location = "/#/doctor_dashboard";
+                       console.log("Listo, doctor autenticado", data.response);
+                       var doc = data.response;
+                       //console.log('la data es', doc);
+                       window.location = "/#/doctor_dashboard/" + doc._id;
                    }
        });
        this.data = {};
@@ -485,41 +487,48 @@
            	});
 	});
 
-	/*app.controller('DocDashboardController', ['$http', '$scope', function($http, $scope){
+	app.controller('DocDashboardController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams){
 
-		var docData = this;
+		var id = $routeParams.id;
 
-		docData.city = $scope.getDrCtrl.data1.city;
-		docData.practice = $scope.getDrCtrl.data1.practice_list;
-		docData.insurance = $scope.getDrCtrl.data1.insurance_list;
+		var data1 = {};
 
-		var getPosition = function(list, option) {
-			for(var i in list) {
-				if(list[i].name === option) {
-					return list[i];
-				}
-			}
-		};
+		if(id !== "undefined") {
+			data1.id = id;
+		}
 
-		this.practices = [ {name: "Pediatra", id: 1}, {name: "Fonoaudiólogo", id: 2}, {name: "Ginecólogo", id: 3}, {name: "Ortopedista", id: 4}, {name: "Odontólogo", id: 5} ];
-		this.selectedPractice = getPosition(this.practices, docData.practice);
-		
-		this.cities = [ {name: "Bogotá", id: 1}, {name: "Medellín", id: 2}, {name: "Cali", id: 3}, {name: "Barranquilla", id: 4}, {name: "Pereira", id: 5}, {name: "Bucaramanga", id: 6} ];
-		this.selectedCity = getPosition(this.cities, docData.city);
-		
-		this.insurances = [ {name: "Colpatria", id: 1}, {name: "Compensar", id: 2} ];
-		this.selectedInsurance = getPosition(this.insurances, docData.insurance);
+		var doctorData = this;
 
-		this.searchDoctor = function() {
+		$http.get(endpoint + "Doctor" + '/GetDoctorById/' + data1.id, data1)
+      		.success(function(data) {
+            	if (!data.status) {
+               		console.log("No se encontraron doctores",data.error);
+               		console.log(data);
+               		alert('No se encontraron doctores con los criteros de búsqueda introducidos, vuelva a intentarlo');
+           		} else {
+               		// if successful, bind success message to message
+               		console.log("Resultado de busqueda de doctores:");
+               		console.log(data);
 
-			var selectedCity = !this.selectedCity ? "undefined" : this.selectedCity.name;
-			var selectedPractice = !this.selectedPractice ? "undefined" : this.selectedPractice.name;
-			var selectedInsurance = !this.selectedInsurance ? "undefined" : this.selectedInsurance.name;
+               		doctorData.info = data.response;
 
-			window.location = "/#/search/" + selectedCity + "/" + selectedPractice + "/" + selectedInsurance;
-       		//this.data = {};
-       };
-	}]);*/
+               		console.log(doctorData.info.name);
+
+               		console.log(JSON.stringify(doctorData.info));
+           		}
+        	});
+
+		var mapOptions = {
+			zoom: 5,
+			center: new google.maps.LatLng(4.28343, -74.22404),
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		}
+
+		$scope.map = new google.maps.Map(document.getElementById('location-map'), mapOptions);
+      	
+      	google.maps.event.trigger($scope.map, 'resize');
+
+	}]);
 
 })();
 

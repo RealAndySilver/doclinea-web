@@ -49,6 +49,14 @@ header {
   color: #fff;
   background-color: #428bca;
 }
+.form-group .map-box {
+  width: 50%;
+  float: left;
+  height: 300px;
+}
+#location-map {
+  height: 100%;
+}
 /*
  * Main content
  */
