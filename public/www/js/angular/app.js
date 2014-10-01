@@ -46,7 +46,7 @@
 				templateUrl: '../www/doctor_sign_in.html',
 			}).
 			when('/doctor_dashboard/:id', {
-				templateUrl: '../www/doctor_dashboard.html',
+				templateUrl: '../www/doctor_dashboard.html#personal',
 			}).
 			otherwise({
 				redirectTo: '/404'
@@ -241,7 +241,7 @@
                        console.log("Listo, doctor autenticado", data.response);
                        var doc = data.response;
                        //console.log('la data es', doc);
-                       window.location = "/#/doctor_dashboard/" + doc._id;
+                       window.location = "/#/doctor_dashboard/" + doc._id + "/#personal";
                    }
        });
        this.data = {};
@@ -497,9 +497,11 @@
 			data1.id = id;
 		}
 
+		this.practices = [ {name: "Pediatra", id: 1}, {name: "Fonoaudiólogo", id: 2}, {name: "Ginecólogo", id: 3}, {name: "Ortopedista", id: 4}, {name: "Odontólogo", id: 5} ];
+
 		var doctorData = this;
 
-		$http.get(endpoint + "Doctor" + '/GetDoctorById/' + data1.id, data1)
+		$http.get(endpoint + "Doctor" + '/GetDoctorById/' + data1.id)
       		.success(function(data) {
             	if (!data.status) {
                		console.log("No se encontraron doctores",data.error);
@@ -509,10 +511,32 @@
                		// if successful, bind success message to message
                		console.log("Resultado de busqueda de doctores:");
                		console.log(data);
+               		//console.log(data.response.practice_list[0]);
+
+               		this.practices = [ {name: "Pediatra", id: 1}, {name: "Fonoaudiólogo", id: 2}, {name: "Ginecólogo", id: 3}, {name: "Ortopedista", id: 4}, {name: "Odontólogo", id: 5} ];
+               		//console.log('ARRAY ', this.practices);
+               		
+
+					var getPosition = function(list, option) {
+						for(var i in list) {
+							if(list[i].name === option) {
+								return list[i];
+							}
+						}
+					};
+
+					this.selectedPractice = getPosition(this.practices, data.response.practice_list[0]);
+
+
+
+					console.log('la opcion seleccionada es '+this.selectedPractice.name);
+
+
+
 
                		doctorData.info = data.response;
 
-               		console.log(doctorData.info.name);
+               		console.log('practica', doctorData.info.practice_list[0]);
 
                		console.log(JSON.stringify(doctorData.info));
            		}
