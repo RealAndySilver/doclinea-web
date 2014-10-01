@@ -5,10 +5,12 @@
 				<div class="doc-main-photo">
 					<div class="inner-doc-main-photo">
 						<div ng-if="profile.dProfile.gender == 1">
-							<img src="http://medicalappjournal.com/images/Male_Doctor.png">
+							<img ng-if="!profile.dProfile.profile_pic" ng-src="http://medicalappjournal.com/images/Male_Doctor.png">
+							<img ng-if="profile.dProfile.profile_pic" ng-src="{{profile.dProfile.profile_pic}}">
 						</div>	
 						<div ng-if="profile.dProfile.gender != 1">
-							<img src="http://www.medicalappjournal.com/images/Female_Doctor.png">
+							<img ng-if="!profile.dProfile.profile_pic" ng-src="http://www.medicalappjournal.com/images/Female_Doctor.png">
+							<img ng-if="profile.dProfile.profile_pic" ng-src="{{profile.dProfile.profile_pic}}">
 						</div>
 					</div>
 				</div>
