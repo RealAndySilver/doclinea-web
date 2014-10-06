@@ -40,7 +40,7 @@
 								<div class="form-group">
 								  <label class="col-md-4 control-label" for="email">Email</label>  
 								  <div class="col-md-6">
-								  <input id="email" name="email" type="text" placeholder="" class="form-control input-md"  ng-model="docDashCtrl.info.email">
+								  <input disabled id="email" name="email" type="text" placeholder="" class="form-control input-md"  ng-model="docDashCtrl.info.email">
 								  </div>
 								</div>
 								<div class="form-group last-form-element">
@@ -76,14 +76,12 @@
 								<div class="form-group">
 								  <label class="col-md-4 control-label" for="phone">Teléfono</label>  
 								  <div class="col-md-6">
-								  <input id="phone" name="phone" type="text" placeholder="" class="form-control input-md"  ng-model="docDashCtrl.info.phone">
+								  <input id="phone" name="phone" type="text" placeholder="" class="form-control input-md" ng-model="docDashCtrl.info.phone">
 								  </div>
 								</div>
 								<div class="form-group">
 								  <div class="col-md-4 center-button">
-									<!--<button id="doctor_update_submit" name="doctor_update_submit" class="btn btn-primary">Guardar</button>-->
 									<input type="submit" class="btn btn-primary" value="Guardar">
-									<!--<button id="doctor_update_reset" name="doctor_update_reset" class="btn btn-warning">Cancelar</button>-->
 									<a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#personal" class="btn btn-warning">Cancelar</a>
 								  </div>
 								</div>
@@ -140,7 +138,7 @@
 								<div class="form-group">
 								  <label class="col-md-4 control-label" for="practice_list">Especialidad</label>
 								  <div class="col-md-6">
-									<select id="practice_list" name="practice_list" class="form-control" ng-model="docDashCtrl.selectedPractice.name" ng-init="docDashCtrl.info.selectedPractice.name" ng-options="op.name for op in docDashCtrl.practices">
+									<select id="practice_list" name="practice_list" class="form-control" ng-model="docDashCtrl.selectedPractice.name" ng-value="docDashCtrl.info.selectedPractice.name" ng-options="op.name for op in docDashCtrl.practices">
 										<option></option>
 									  <!--<option>Pediatra</option>
 									  <option>Odontólogo</option>
