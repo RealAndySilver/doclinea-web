@@ -12,6 +12,7 @@
 		  <h2 class="sub-header">Cuenta</h2>
 		  <ul class="nav nav-tabs" role="tablist">
 			  <li class="active"><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#personal" role="tab" data-toggle="tab">Datos Personales</a></li>
+			  <li><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#pictures" role="tab" data-toggle="tab">Imágenes</a></li>
 			  <li><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#password_change" role="tab" data-toggle="tab">Contraseña</a></li>
 			  <li><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#studies" role="tab" data-toggle="tab">Formación académica</a></li>
 			  <li><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#locations" role="tab" data-toggle="tab">Locaciones</a></li>
@@ -92,6 +93,32 @@
 				</div>
 			</div>
 
+			<div class="tab-pane" id="pictures">
+				<div class="center">
+					<div class="inner-info-box">
+						<div class="form-box">
+							<form class="form-horizontal" name="loadDocPictures" enctype="multipart/form-data" ng-submit="docDashCtrl.updateProfilePic()">
+							<fieldset>
+								<div class="form-group">
+								  <label class="col-md-4 control-label" for="email">Foto de perfil</label>  
+								  <div class="col-md-6">
+								  <img id="profile-pic" src="#" class="img-thumbnail" />
+								  <input id="image" name="image" type="file" class="form-control input-md" ng-model="docDashCtrl.info.profile_pic">
+								  </div>
+								</div>
+								<div class="form-group">
+								  <div class="col-md-4 center-button">
+									<button id="doctor_sign_up_submit" name="doctor_sign_up_submit" class="btn btn-primary">Guardar</button>
+									<button id="doctor_sign_up_submit" name="doctor_sign_up_submit" class="btn btn-warning">Cancelar</button>
+								  </div>
+								</div>
+							</fieldset>
+							</form>
+						</div> 
+					</div>
+				</div>
+			</div>
+
 			<div class="tab-pane" id="password_change">
 				<div class="center">
 					<div class="inner-info-box">
@@ -110,12 +137,12 @@
 									<input id="password" name="password" type="password" placeholder="" class="form-control input-md" ng-model="docSignUpCtrl.data.password">
 								  </div>
 								</div>
-								<div class="form-group">
+								<!--<div class="form-group">
 								  <label class="col-md-4 control-label" for="password">Confirme su nueva contraseña</label>
 								  <div class="col-md-6">
 									<input id="password" name="password" type="password" placeholder="" class="form-control input-md" ng-model="docSignUpCtrl.data.password">
 								  </div>
-								</div>
+								</div>-->
 								<div class="form-group">
 								  <div class="col-md-4 center-button">
 									<button id="doctor_sign_up_submit" name="doctor_sign_up_submit" class="btn btn-primary">Guardar</button>

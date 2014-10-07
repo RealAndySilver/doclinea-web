@@ -54,59 +54,9 @@
 	}]);
 
 
-
 	//DATA
 	//Include here hard-coded data
-	
-
-	//ACCOUNTS AND AUTHENTICATION
-	var createUser = angular.module('createUser', []);
-	createUser.controller('SignUpController', ['$http',function($http){
-		var type = "User";
-		//console.log('hola '+type);
-		/*this.test = function(){
-			console.log('TODO BIEN PICHURRIA');
-		};*/
-		this.signUp = function() {
-				//console.log('Entra a signUp');
-               var data1 = this.data;
-               $http.post(endpoint + type + '/SignUp', data1)
-               .success(function(data) {
-                   if (!data.status) {
-                           console.log("Paila, no se creó",data);
-                   } else {
-                           // if successful, bind success message to message
-                       console.log("Listo, creado" + data);
-                   }
-       });
-       this.data = {};
-       };
-	}]);
-
-
-	var login = angular.module('loginUser', []);
-	login.controller('SignInController', ['$http',function($http){
-		var type = "User";
-		this.signIn = function() {
-				//console.log('Entra a signIn');
-               var data1 = this.data;
-               $http.post(endpoint + type + '/AuthenticateUser', data1)
-               .success(function(data) {
-                   if (!data.status) {
-                           console.log("Paila, no se autenticó",data);
-                   } else {
-                           // if successful, bind success message to message
-                       console.log("Listo, autenticado" + data);
-                   }
-       });
-       this.data = {};
-       };
-	}]);
-
-	var createDoctor = angular.module('createDoctor', []);
-	createDoctor.controller('DoctorSignUpController', ['$http', '$scope', function($http, $scope){
-		
-		$scope.localidades = [
+	var localidades = [
 			{
 				name: "Antonio Nariño", lat: 4.5, lon: 74.5,	
 			},
@@ -169,11 +119,61 @@
 			},
 		];
 
+
+	//ACCOUNTS AND AUTHENTICATION
+	var createUser = angular.module('createUser', []);
+	createUser.controller('SignUpController', ['$http',function($http){
+		var type = "User";
+		//console.log('hola '+type);
+		/*this.test = function(){
+			console.log('TODO BIEN PICHURRIA');
+		};*/
+		this.signUp = function() {
+				//console.log('Entra a signUp');
+               var data1 = this.data;
+               $http.post(endpoint + type + '/Create', data1)
+               .success(function(data) {
+                   if (!data.status) {
+                           console.log("Paila, no se creó",data);
+                   } else {
+                           // if successful, bind success message to message
+                       console.log("Listo, creado" + data);
+                   }
+       });
+       this.data = {};
+       };
+	}]);
+
+
+	var login = angular.module('loginUser', []);
+	login.controller('SignInController', ['$http',function($http){
+		var type = "User";
+		this.signIn = function() {
+				//console.log('Entra a signIn');
+               var data1 = this.data;
+               $http.post(endpoint + type + '/Authenticate', data1)
+               .success(function(data) {
+                   if (!data.status) {
+                           console.log("Paila, no se autenticó",data);
+                   } else {
+                           // if successful, bind success message to message
+                       console.log("Listo, autenticado" + data);
+                   }
+       });
+       this.data = {};
+       };
+	}]);
+
+	var createDoctor = angular.module('createDoctor', []);
+	createDoctor.controller('DoctorSignUpController', ['$http', '$scope', function($http, $scope){
+		
+		$scope.localidades = localidades;
+
 		var type = "Doctor";
 		this.signUp = function() {
 				//console.log('Entra a signUp');
                var data1 = this.data;
-               $http.post(endpoint + type + '/SignUp', data1)
+               $http.post(endpoint + type + '/Create', data1)
                .success(function(data) {
                    if (!data.status) {
                         console.log("Paila, no se creó",data);
@@ -194,7 +194,7 @@
 		this.signIn = function() {
 				//console.log('Entra a signIn');
                var data1 = this.data;
-               $http.post(endpoint + type + '/AuthenticateDoctor', data1)
+               $http.post(endpoint + type + '/Authenticate', data1)
                .success(function(data) {
                    if (!data.status) {
                            console.log("Paila, no se autenticó",data);
@@ -451,6 +451,23 @@
 
 	app.controller('DocDashboardController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams){
 
+		function readURL(input) {
+			alert('entraa');
+	        if (input.files && input.files[0]) {
+	            var reader = new FileReader();
+
+	            reader.onload = function (e) {
+	                $('#profile-pic').attr('src', e.target.result);
+	            }
+
+	            reader.readAsDataURL(input.files[0]);
+	        }
+	    }
+
+	    $("#image").change(function(){
+	        readURL(this);
+	    });
+
 		$scope.localidades = localidades;
 
 		var id = $routeParams.id;
@@ -493,7 +510,7 @@
 
 
 
-					console.log('la opcion seleccionada es '+this.selectedPractice.name);
+					//console.log('la opcion seleccionada es '+this.selectedPractice.name);
 
 
 
@@ -525,7 +542,7 @@
 			var type = "Doctor";
             var data1 = doctorData.info;
             console.log('Llega', data1);
-            $http.post(endpoint + type + '/UpdateDoctor/' + data1._id, data1)
+            $http.post(endpoint + type + '/Update/' + data1._id, data1)
             .success(function(data) {
                if (!data.status) {
                     console.log("Paila, no se actualizó", data);
@@ -535,12 +552,31 @@
                    console.log("Listo, doctor actualizado" + data);
                    console.log(JSON.stringify(data1));
                    this.data = data1;
-                   return this.data;
+               }
+       });
+       //this.data = data1;
+       };
+
+       this.updateProfilePic = function() {
+			//console.log('Entra a signUp');
+			var type = "Doctor";
+            var data1 = doctorData.info;
+            console.log('Llega', data1);
+            $http.post(endpoint + type + '/UpdateProfilePic/' + data1._id, data1)
+            .success(function(data) {
+               if (!data.status) {
+                    console.log("Paila, no se actualizó", data);
+                    //console.log(JSON.stringify(data1));
+               } else {
+                       // if successful, bind success message to message
+                   console.log("Listo, doctor actualizado" + data);
+                   console.log(JSON.stringify(data1));
+                   this.data = data1;
+                   //return this.data;
                }
        });
        this.data = data1;
        };
-
 	}]);
 
 })();
