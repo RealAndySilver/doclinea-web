@@ -68,6 +68,27 @@ header {
   margin-top: 30px;
 }
 .img-thumbnail {
-  width: 110px;
+  width: 130px;
   margin-bottom: 15px;
+}
+.btn-file {
+  position: relative;
+  overflow: hidden;
+  display: block;
+  width: 160px;
+}
+.btn-file input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  font-size: 100px;
+  text-align: right;
+/*filter: alpha(opacity=0);*/
+  opacity: 0;
+  outline: none;
+  background: #fff;
+  cursor: inherit;
+  display: block;
 }

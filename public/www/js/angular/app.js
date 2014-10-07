@@ -8,10 +8,11 @@
 	  'createUser',
 	  'createDoctor',
 	  'docProfile',
+	  'doctorDashboard',
 	]);
 
-	var endpoint = "http://192.241.187.135:1414/api_1.0/";
-	//var endpoint = "http://192.168.1.100:1414/api_1.0/";
+	//var endpoint = "http://192.241.187.135:1414/api_1.0/";
+	var endpoint = "http://192.168.1.100:1414/api_1.0/";
 	app.config(['$routeProvider',
 		function($routeProvider) {
 		$routeProvider.
@@ -57,67 +58,67 @@
 	//DATA
 	//Include here hard-coded data
 	var localidades = [
-			{
-				name: "Antonio Nariño", lat: 4.5, lon: 74.5,	
-			},
-			{
-				name: "Barrios Unidos", lat: 4.5, lon: 74.5,	
-			},
-			{
-				name: "Bosa", lat: 4.5, lon: 74.5,	
-			},
-			{
-				name: "Chapinero", lat: 4.5, lon: 74.5,	
-			},
-			{
-				name: "Ciudad Bolivar", lat: 4.5, lon: 74.5,	
-			},
-			{
-				name: "Engativá", lat: 4.5, lon: 74.5,	
-			},
-			{
-				name: "Fontibón", lat: 4.5, lon: 74.5,	
-			},
-			{
-				name: "Keneddy", lat: 4.5, lon: 74.5,	
-			},
-			{
-				name: "La Candelaria", lat: 4.5, lon: 74.5,	
-			},
-			{
-				name: "Los Mártires", lat: 4.5, lon: 74.5,	
-			},
-			{
-				name: "Puente Aranda", lat: 4.5, lon: 74.5,	
-			},
-			{
-				name: "Rafael Uribe", lat: 4.5, lon: 74.5,	
-			},
-			{
-				name: "San Cristóbal", lat: 4.5, lon: 74.5,	
-			},
-			{
-				name: "Santa Fe", lat: 4.5, lon: 74.5,	
-			},
-			{
-				name: "Suba", lat: 4.5, lon: 74.5,	
-			},
-			{
-				name: "Sumapaz", lat: 4.5, lon: 74.5,	
-			},
-			{
-				name: "Teusaquillo", lat: 4.5, lon: 74.5,	
-			},
-			{
-				name: "Tunjuelito", lat: 4.5, lon: 74.5,	
-			},
-			{
-				name: "Usaquén", lat: 4.5, lon: 74.5,	
-			},
-			{
-				name: "Usme", lat: 4.5, lon: 74.5,	
-			},
-		];
+		{
+			name: "Antonio Nariño", lat: 4.5, lon: 74.5,	
+		},
+		{
+			name: "Barrios Unidos", lat: 4.5, lon: 74.5,	
+		},
+		{
+			name: "Bosa", lat: 4.5, lon: 74.5,	
+		},
+		{
+			name: "Chapinero", lat: 4.5, lon: 74.5,	
+		},
+		{
+			name: "Ciudad Bolivar", lat: 4.5, lon: 74.5,	
+		},
+		{
+			name: "Engativá", lat: 4.5, lon: 74.5,	
+		},
+		{
+			name: "Fontibón", lat: 4.5, lon: 74.5,	
+		},
+		{
+			name: "Keneddy", lat: 4.5, lon: 74.5,	
+		},
+		{
+			name: "La Candelaria", lat: 4.5, lon: 74.5,	
+		},
+		{
+			name: "Los Mártires", lat: 4.5, lon: 74.5,	
+		},
+		{
+			name: "Puente Aranda", lat: 4.5, lon: 74.5,	
+		},
+		{
+			name: "Rafael Uribe", lat: 4.5, lon: 74.5,	
+		},
+		{
+			name: "San Cristóbal", lat: 4.5, lon: 74.5,	
+		},
+		{
+			name: "Santa Fe", lat: 4.5, lon: 74.5,	
+		},
+		{
+			name: "Suba", lat: 4.5, lon: 74.5,	
+		},
+		{
+			name: "Sumapaz", lat: 4.5, lon: 74.5,	
+		},
+		{
+			name: "Teusaquillo", lat: 4.5, lon: 74.5,	
+		},
+		{
+			name: "Tunjuelito", lat: 4.5, lon: 74.5,	
+		},
+		{
+			name: "Usaquén", lat: 4.5, lon: 74.5,	
+		},
+		{
+			name: "Usme", lat: 4.5, lon: 74.5,	
+		},
+	];
 
 
 	//ACCOUNTS AND AUTHENTICATION
@@ -332,11 +333,11 @@
 
 		docData.docs = $scope.getDrCtrl.data1;
 
-		console.log('Mi data es ',docData.docs);
+		console.log('Mi data es ',docData);
 
 		var This = this;
 
-      	$http.post(endpoint + "Doctor" + '/GetDoctorsByParams', docData.docs)
+      	$http.post(endpoint + "Doctor" + '/GetByParams', docData.docs)
       		.success(function(data) {
             	if (!data.status) {
                		console.log("No se encontraron doctores",data.error);
@@ -405,7 +406,7 @@
 
 		var This = this;
 
-		$http.get(endpoint + type + '/GetDoctorById/' + id)
+		$http.get(endpoint + type + '/GetById/' + id)
       		.success(function(data) {
             	if (!data.status) {
                		console.log("No se encontró un doctor con correo:", data);
@@ -449,10 +450,55 @@
            	});
 	});
 
-	app.controller('DocDashboardController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams){
+
+	var docDash = angular.module('doctorDashboard', []);
+	docDash.directive('fileModel', ['$parse', function ($parse) {
+	    return {
+	        restrict: 'A',
+	        link: function(scope, element, attrs) {
+	            var model = $parse(attrs.fileModel);
+	            var modelSetter = model.assign;
+	            
+	            element.bind('change', function(){
+	                scope.$apply(function(){
+	                    modelSetter(scope, element[0].files[0]);
+	                });
+	            });
+	        }
+	    };
+	}]);
+	docDash.service('fileUpload', ['$http', function ($http) {
+	    this.uploadFileToUrl = function(file, uploadUrl){
+	        var fd = new FormData();
+	        fd.append('image', file);
+	        $http.post(uploadUrl, fd, {
+	            transformRequest: angular.identity,
+	            headers: {'Content-Type': undefined}
+	        })
+	        .success(function(){
+	        })
+	        .error(function(){
+	        });
+	    }
+	}]);
+	docDash.controller('uploadPic', ['$scope', 'fileUpload', function($scope, fileUpload){
+
+    	var type = 'Doctor';
+	    $scope.uploadFile = function(doc_id){
+	        var file = $scope.myFile;
+	        console.log('file is ' + JSON.stringify(file));
+	        var uploadUrl = endpoint + type + '/UpdateProfilePic/'+doc_id;
+	        fileUpload.uploadFileToUrl(file, uploadUrl);
+	    };
+	    
+	}]);
+	docDash.controller('DocDashboardController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams){
+		$('#myTab a').click(function (e) {
+		  e.preventDefault()
+		  $(this).tab('show')
+		})
 
 		function readURL(input) {
-			alert('entraa');
 	        if (input.files && input.files[0]) {
 	            var reader = new FileReader();
 
@@ -469,20 +515,17 @@
 	    });
 
 		$scope.localidades = localidades;
-
 		var id = $routeParams.id;
-
-		var data1 = {};
+		data1 = {};
 
 		if(id !== "undefined") {
 			data1.id = id;
 		}
 
 		this.practices = [ {name: "Pediatra", id: 1}, {name: "Fonoaudiólogo", id: 2}, {name: "Ginecólogo", id: 3}, {name: "Ortopedista", id: 4}, {name: "Odontólogo", id: 5} ];
-
 		var doctorData = this;
 
-		$http.get(endpoint + "Doctor" + '/GetDoctorById/' + data1.id)
+		$http.get(endpoint + "Doctor" + '/GetById/' + data1.id)
       		.success(function(data) {
             	if (!data.status) {
                		console.log("No se encontraron doctores",data.error);
@@ -492,28 +535,6 @@
                		// if successful, bind success message to message
                		console.log("Resultado de busqueda de doctores:");
                		console.log(data);
-               		//console.log(data.response.practice_list[0]);
-
-               		this.practices = [ {name: "Pediatra", id: 1}, {name: "Fonoaudiólogo", id: 2}, {name: "Ginecólogo", id: 3}, {name: "Ortopedista", id: 4}, {name: "Odontólogo", id: 5} ];
-               		//console.log('ARRAY ', this.practices);
-               		
-
-					var getPosition = function(list, option) {
-						for(var i in list) {
-							if(list[i].name === option) {
-								return list[i];
-							}
-						}
-					};
-
-					this.selectedPractice = getPosition(this.practices, data.response.practice_list[0]);
-
-
-
-					//console.log('la opcion seleccionada es '+this.selectedPractice.name);
-
-
-
 
                		doctorData.info = data.response;
 
@@ -528,21 +549,15 @@
 			center: new google.maps.LatLng(4.28343, -74.22404),
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 		}
-
 		$scope.map = new google.maps.Map(document.getElementById('location-map'), mapOptions);
-      	
       	google.maps.event.trigger($scope.map, 'resize');
-
-      	this.test = function() {
-      		alert('sabeee');
-      	};
 
       	this.updateDoctor = function() {
 			//console.log('Entra a signUp');
 			var type = "Doctor";
             var data1 = doctorData.info;
             console.log('Llega', data1);
-            $http.post(endpoint + type + '/Update/' + data1._id, data1)
+            $http.post(endpoint + type + '/Update/' + docInfo.data1._id, data1)
             .success(function(data) {
                if (!data.status) {
                     console.log("Paila, no se actualizó", data);
@@ -561,8 +576,8 @@
 			//console.log('Entra a signUp');
 			var type = "Doctor";
             var data1 = doctorData.info;
-            console.log('Llega', data1);
-            $http.post(endpoint + type + '/UpdateProfilePic/' + data1._id, data1)
+            console.log('Llega', data1.profile_pic);
+            $http.post(endpoint + type + '/UpdateProfilePic/' + data1._id, data1.image,{transformRequest: angular.identity, headers: {"Content-Type": 'multipart/form-data'}})
             .success(function(data) {
                if (!data.status) {
                     console.log("Paila, no se actualizó", data);
@@ -572,10 +587,9 @@
                    console.log("Listo, doctor actualizado" + data);
                    console.log(JSON.stringify(data1));
                    this.data = data1;
-                   //return this.data;
                }
        });
-       this.data = data1;
+       //this.data = data1;
        };
 	}]);
 
