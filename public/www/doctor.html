@@ -6,11 +6,11 @@
 					<div class="inner-doc-main-photo">
 						<div ng-if="profile.dProfile.gender == 1">
 							<img ng-if="!profile.dProfile.profile_pic" ng-src="http://medicalappjournal.com/images/Male_Doctor.png">
-							<img ng-if="profile.dProfile.profile_pic" ng-src="{{profile.dProfile.profile_pic}}">
+							<img ng-if="profile.dProfile.profile_pic" ng-src="{{profile.dProfile.profile_pic.image_url}}">
 						</div>	
 						<div ng-if="profile.dProfile.gender != 1">
 							<img ng-if="!profile.dProfile.profile_pic" ng-src="http://www.medicalappjournal.com/images/Female_Doctor.png">
-							<img ng-if="profile.dProfile.profile_pic" ng-src="{{profile.dProfile.profile_pic}}">
+							<img ng-if="profile.dProfile.profile_pic" ng-src="{{profile.dProfile.profile_pic.image_url}}">
 						</div>
 					</div>
 				</div>
@@ -96,7 +96,7 @@
 				<div class="doc-education">
 					<span>Formación académica</span>
 					<ul>
-						<li ng-repeat="education in profile.doctor[doctorId-1].education_list">{{education}}</li>
+						<li ng-repeat="education in profile.dProfile.education_list">{{education}}</li>
 					</ul>
 				</div>
 				<div class="doc-membership">

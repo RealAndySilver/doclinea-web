@@ -8,11 +8,6 @@
 						<!--<select class="form-control" name="practice_list" id="practice_list" ng-model="docSearchCtrl.data.practice_list">-->
 						<select class="form-control" name="practice_list" id="practice_list" ng-model="docSearchCtrl.selectedPractice" ng-options="op.name for op in docSearchCtrl.practices">
 						  <option value="">- Seleccione una especialidad -</option>
-		                  <!--<option>Pediatra</option>
-		                  <option>Fonoaudiólogo</option>
-		                  <option>Ginecólogo</option>
-		                  <option>Ortopedista</option>
-		                  <option>Odontólogo</option>-->
 		                </select>
 					</div>
 					<div class="column-c">
@@ -20,12 +15,6 @@
 						<!--<select class="form-control" name="city_list" id="city_list" ng-model="docSearchCtrl.data.city" ng-init="docSearchCtrl.data1.city">-->
 						<select class="form-control" name="city" id="city" ng-model="docSearchCtrl.selectedCity" ng-options="op.name for op in docSearchCtrl.cities">
 		                  <option value="">- Seleccione una ciudad -</option>
-						  <!--<option>Bogotá</option>
-						  <option>Medellín</option>
-						  <option>Cali</option>
-						  <option>Barranquilla</option>
-						  <option>Pereira</option>
-						  <option>Bucaramanga</option>-->
 		                </select>
 					</div>
 					<div class="column-c">
@@ -33,9 +22,6 @@
 						<!--<select class="form-control" name="insurance_list" id="insurance_list" ng-model="docSearchCtrl.data.insurance_list">-->
 						<select class="form-control" name="insurance_list" id="insurance_list" ng-model="docSearchCtrl.selectedInsurance" ng-options="op.name for op in docSearchCtrl.insurances">
 		                  <option value="">- Seleccione una aseguradora -</option>
-						  <!--<option value="1">Colpatria</option>
-						  <option value="2">Sura</option>
-						  <option value="3">Compensar</option>-->
 		                </select>
 					</div>
 					<div class="column-c">
@@ -69,11 +55,6 @@
 			</div>-->
 		</div>
 	</div>
-	<!--<div class="description-bar" ng-controller="MapCtrl as doc">
-		<div class="center">
-			<span><b id="doctor_type">Doctores</b> en <b id="location_name">{{city}}</b> que aceptan <b id="ensurance_name">Sura</b></span>
-		</div>
-	</div>-->
 	<div id="results-box">
 		<div class="center">
 			<div ng-app="mapsApp" ng-controller="MapCtrl as doc" class="results-page">

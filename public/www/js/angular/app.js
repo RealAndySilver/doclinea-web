@@ -4,7 +4,7 @@
 	  'ngRoute',
 	  'mapsApp',
 	  'loginUser',
-	  //'loginDoctor',
+	  'loginDoctor',
 	  'createUser',
 	  'createDoctor',
 	  'docProfile',
@@ -125,10 +125,6 @@
 	var createUser = angular.module('createUser', []);
 	createUser.controller('SignUpController', ['$http',function($http){
 		var type = "User";
-		//console.log('hola '+type);
-		/*this.test = function(){
-			console.log('TODO BIEN PICHURRIA');
-		};*/
 		this.signUp = function() {
 				//console.log('Entra a signUp');
                var data1 = this.data;
@@ -189,8 +185,8 @@
        };
 	}]);
 
-	//var loginDoctor = angular.module('loginDoctor', []);
-	app.controller('DoctorSignInController', ['$http', '$routeParams', function($http, $routeParams){
+	var loginDoctor = angular.module('loginDoctor', []);
+	loginDoctor.controller('DoctorSignInController', ['$http', '$routeParams', function($http, $routeParams){
 		var type = "Doctor";
 		this.signIn = function() {
 				//console.log('Entra a signIn');
@@ -210,6 +206,7 @@
        this.data = {};
        };
 	}]);
+
 
 	app.controller('GetDoctorsController', ['$http', '$routeParams', function($http, $routeParams){
 
@@ -234,6 +231,7 @@
 		}
 
 	}]);
+
 
 	//SEARCH DOCTOR FROM LANDING PAGE
 	app.controller('LandpageDocSearchController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams) {
@@ -333,7 +331,7 @@
 
 		docData.docs = $scope.getDrCtrl.data1;
 
-		console.log('Mi data es ',docData);
+		console.log('Mi data es ', docData);
 
 		var This = this;
 
@@ -402,7 +400,7 @@
 
 		var type = "Doctor";
 		var id = $routeParams.id;
-		console.log(id);
+		//console.log(id);
 
 		var This = this;
 
@@ -482,6 +480,21 @@
 	    }
 	}]);
 	docDash.controller('uploadPic', ['$scope', 'fileUpload', function($scope, fileUpload){
+		function readURL(input) {
+	        if (input.files && input.files[0]) {
+	            var reader = new FileReader();
+
+	            reader.onload = function (e) {
+	                $('#profile-pic').attr('src', e.target.result);
+	            }
+
+	            reader.readAsDataURL(input.files[0]);
+	        }
+	    }
+
+	    $("#image").change(function(){
+	        readURL(this);
+	    });
 
     	var type = 'Doctor';
 	    $scope.uploadFile = function(doc_id){
@@ -498,21 +511,7 @@
 		  $(this).tab('show')
 		})
 
-		function readURL(input) {
-	        if (input.files && input.files[0]) {
-	            var reader = new FileReader();
-
-	            reader.onload = function (e) {
-	                $('#profile-pic').attr('src', e.target.result);
-	            }
-
-	            reader.readAsDataURL(input.files[0]);
-	        }
-	    }
-
-	    $("#image").change(function(){
-	        readURL(this);
-	    });
+		
 
 		$scope.localidades = localidades;
 		var id = $routeParams.id;
@@ -557,27 +556,7 @@
 			var type = "Doctor";
             var data1 = doctorData.info;
             console.log('Llega', data1);
-            $http.post(endpoint + type + '/Update/' + docInfo.data1._id, data1)
-            .success(function(data) {
-               if (!data.status) {
-                    console.log("Paila, no se actualizó", data);
-                    //console.log(JSON.stringify(data1));
-               } else {
-                       // if successful, bind success message to message
-                   console.log("Listo, doctor actualizado" + data);
-                   console.log(JSON.stringify(data1));
-                   this.data = data1;
-               }
-       });
-       //this.data = data1;
-       };
-
-       this.updateProfilePic = function() {
-			//console.log('Entra a signUp');
-			var type = "Doctor";
-            var data1 = doctorData.info;
-            console.log('Llega', data1.profile_pic);
-            $http.post(endpoint + type + '/UpdateProfilePic/' + data1._id, data1.image,{transformRequest: angular.identity, headers: {"Content-Type": 'multipart/form-data'}})
+            $http.post(endpoint + type + '/Update/' + data1._id, data1)
             .success(function(data) {
                if (!data.status) {
                     console.log("Paila, no se actualizó", data);
