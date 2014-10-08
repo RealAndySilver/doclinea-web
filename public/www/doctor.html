@@ -102,15 +102,13 @@
 				<div class="doc-membership">
 					<span>Membresías profesionales</span>
 					<ul>
-						<li>{{profile.doctor[doctorId-1].professional_membership}}</li>
+						<li ng-repeat="membership in profile.dProfile.profesional_membership">{{membership}}</li>
 					</ul>
 				</div>
 				<div class="doc-insurances">
 					<span>Aseguradoras</span>
 					<ul>
-						<li><a href="#">Sura</a></li>
-						<li><a href="#">Compensar</a></li>
-						<li><a href="#">Colpatria</a></li>
+						<li ng-repeat="insurance in profile.dProfile.insurance_list"><a href="#">{{insurance}}</a></li>
 					</ul>
 				</div>
 			</div>

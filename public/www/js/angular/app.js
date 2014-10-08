@@ -11,8 +11,8 @@
 	  'doctorDashboard',
 	]);
 
-	//var endpoint = "http://192.241.187.135:1414/api_1.0/";
-	var endpoint = "http://192.168.1.100:1414/api_1.0/";
+	var endpoint = "http://192.241.187.135:1414/api_1.0/";
+	//var endpoint = "http://192.168.1.100:1414/api_1.0/";
 	app.config(['$routeProvider',
 		function($routeProvider) {
 		$routeProvider.
@@ -511,8 +511,6 @@
 		  $(this).tab('show')
 		})
 
-		
-
 		$scope.localidades = localidades;
 		var id = $routeParams.id;
 		data1 = {};
@@ -539,7 +537,7 @@
 
                		console.log('practica', doctorData.info.practice_list[0]);
 
-               		console.log(JSON.stringify(doctorData.info));
+               		//console.log(JSON.stringify(doctorData.info));
            		}
         	});
 
