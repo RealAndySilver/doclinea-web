@@ -27,7 +27,16 @@
 					<div class="form-group">
 					  <label class="col-md-4 control-label" for="password">Contraseña</label>
 					  <div class="col-md-6">
-						<input id="password" name="password" type="password" placeholder="" class="form-control input-md"  ng-model="docSignUpCtrl.data.password">
+						<input id="password" name="password" type="password" placeholder="" class="form-control input-md" ng-model="docSignUpCtrl.data.password" equals="{{docSignUpCtrl.data.password_verify}}" required>
+						<div ng-show="form.password.$error.required" class="alert alert-danger" role="alert">Campo obligatorio</div>
+					  </div>
+					</div>
+					<div class="form-group">
+					  <label class="col-md-4 control-label" for="password">Confirmar contraseña</label>
+					  <div class="col-md-6">
+						<input id="password" name="confirm_password" type="password" placeholder="" class="form-control input-md" ng-model="docSignUpCtrl.data.password_verify" required data-password-verify="docSignUpCtrl.data.password"  equals="{{docSignUpCtrl.data.password}}" required>
+						<div ng-show="form.confirm_password.$error.required" class="alert alert-danger" role="alert">Campo obligatorio</div>
+						<div ng-show="form.confirm_password.$error.passwordVerify" class="alert alert-danger" role="alert">Las contraseñas no coinciden</div>
 					  </div>
 					</div>
 					<div class="form-group last-form-element">
@@ -55,7 +64,7 @@
 						  Femenino
 						</label>
 						<label class="radio-inline" for="patient_gender-2">
-						  <input type="radio" name="patient_gender" id="patient_gender-3" value="3"  ng-model="docSignUpCtrl.data.patient_gender">
+						  <input type="radio" name="patient_gender" id="patient_gender-2" value="3"  ng-model="docSignUpCtrl.data.patient_gender">
 						  Ambos
 						</label>
 					  </div>
@@ -90,18 +99,6 @@
 					  <label class="col-md-4 control-label" for="address">Dirección</label>  
 					  <div class="col-md-6">
 					  <input id="address" name="address" type="text" placeholder="" class="form-control input-md"  ng-model="docSignUpCtrl.data.address">
-					  </div>
-					</div>
-					<div class="form-group">
-					  <label class="col-md-4 control-label" for="lat">Latitú</label>
-					  <div class="col-md-6">
-						<input id="lat" name="lat" type="text" placeholder="" class="form-control input-md"  ng-model="docSignUpCtrl.data.lat">
-					  </div>
-					</div>
-					<div class="form-group">
-					  <label class="col-md-4 control-label" for="lon">Longitú</label>
-					  <div class="col-md-6">
-						<input id="lon" name="lon" type="text" placeholder="" class="form-control input-md"  ng-model="docSignUpCtrl.data.lon">
 					  </div>
 					</div>
 					<div class="form-group last-form-element">

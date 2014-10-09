@@ -96,7 +96,7 @@
 				<div class="doc-education">
 					<span>Formación académica</span>
 					<ul>
-						<li ng-repeat="education in profile.dProfile.education_list">{{education}}</li>
+						<li ng-repeat="education in profile.dProfile.education_list">{{education.institute_name}}</li>
 					</ul>
 				</div>
 				<div class="doc-membership">
@@ -109,6 +109,12 @@
 					<span>Aseguradoras</span>
 					<ul>
 						<li ng-repeat="insurance in profile.dProfile.insurance_list"><a href="#">{{insurance}}</a></li>
+					</ul>
+				</div>
+				<div class="doc-practices">
+					<span>Especialidades</span>
+					<ul>
+						<li ng-repeat="practice in profile.dProfile.practice_list"><a href="#">{{practice}}</a></li>
 					</ul>
 				</div>
 			</div>

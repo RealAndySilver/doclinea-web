@@ -11,8 +11,8 @@
 	  'doctorDashboard',
 	]);
 
-	var endpoint = "http://192.241.187.135:1414/api_1.0/";
-	//var endpoint = "http://192.168.1.100:1414/api_1.0/";
+	//var endpoint = "http://192.241.187.135:1414/api_1.0/";
+	var endpoint = "http://192.168.1.100:1414/api_1.0/";
 	app.config(['$routeProvider',
 		function($routeProvider) {
 		$routeProvider.
@@ -121,10 +121,42 @@
 	];
 
 
+	//GLOBAL DIRECTIVES
+	app.directive('equals', function() {
+	  return {
+	    restrict: 'A', // only activate on element attribute
+	    require: '?ngModel', // get a hold of NgModelController
+	    link: function(scope, elem, attrs, ngModel) {
+	      if(!ngModel) return; // do nothing if no ng-model
+
+	      // watch own value and re-validate on change
+	      scope.$watch(attrs.ngModel, function() {
+	        validate();
+	      });
+
+	      // observe the other value and re-validate on change
+	      attrs.$observe('equals', function (val) {
+	        validate();
+	      });
+
+	      var validate = function() {
+	        // values
+	        var val1 = ngModel.$viewValue;
+	        var val2 = attrs.equals;
+
+	        // set validity
+	        ngModel.$setValidity('equals', ! val1 || ! val2 || val1 === val2);
+	      };
+	    }
+	  }
+	});
+
 	//ACCOUNTS AND AUTHENTICATION
 	var createUser = angular.module('createUser', []);
 	createUser.controller('SignUpController', ['$http',function($http){
 		var type = "User";
+		data1.password = btoa(data1.password);
+        console.log('da password', data1.password);
 		this.signUp = function() {
 				//console.log('Entra a signUp');
                var data1 = this.data;
@@ -145,6 +177,8 @@
 	var login = angular.module('loginUser', []);
 	login.controller('SignInController', ['$http',function($http){
 		var type = "User";
+		data1.password = btoa(data1.password);
+        console.log('da password', data1.password);
 		this.signIn = function() {
 				//console.log('Entra a signIn');
                var data1 = this.data;
@@ -170,6 +204,10 @@
 		this.signUp = function() {
 				//console.log('Entra a signUp');
                var data1 = this.data;
+               data1.password = btoa(data1.password);
+               console.log('da password', data1.password);
+               data1.password_verify = btoa(data1.password_verify);
+               console.log('da other password', data1.password_verify);
                $http.post(endpoint + type + '/Create', data1)
                .success(function(data) {
                    if (!data.status) {
@@ -179,6 +217,9 @@
                            // if successful, bind success message to message
                        console.log("Listo, creado" + data);
                        console.log(JSON.stringify(data1));
+                       var doc = data.response;
+                       //console.log('la data es', doc);
+                       window.location = "/#/doctor_dashboard/" + doc._id;
                    }
        });
        this.data = {};
@@ -191,6 +232,10 @@
 		this.signIn = function() {
 				//console.log('Entra a signIn');
                var data1 = this.data;
+               data1.password = btoa(data1.password);
+               console.log('da password', data1.password);
+               data1.password_verify = btoa(data1.password_verify);
+               console.log('da other password', data1.password_verify);
                $http.post(endpoint + type + '/Authenticate', data1)
                .success(function(data) {
                    if (!data.status) {
@@ -200,7 +245,7 @@
                        console.log("Listo, doctor autenticado", data.response);
                        var doc = data.response;
                        //console.log('la data es', doc);
-                       window.location = "/#/doctor_dashboard/" + doc._id + "/#personal";
+                       window.location = "/#/doctor_dashboard/" + doc._id;
                    }
        });
        this.data = {};
@@ -519,7 +564,7 @@
 			data1.id = id;
 		}
 
-		this.practices = [ {name: "Pediatra", id: 1}, {name: "Fonoaudiólogo", id: 2}, {name: "Ginecólogo", id: 3}, {name: "Ortopedista", id: 4}, {name: "Odontólogo", id: 5} ];
+		this.practices = [ "Pediatra", "Fonoaudiólogo", "Ginecólogo", "Ortopedista", "Odontólogo" ];
 		var doctorData = this;
 
 		$http.get(endpoint + "Doctor" + '/GetById/' + data1.id)
@@ -535,15 +580,15 @@
 
                		doctorData.info = data.response;
 
-               		console.log('practica', doctorData.info.practice_list[0]);
+               		console.log('practica', doctorData.info.practice_list[0].name);
 
                		//console.log(JSON.stringify(doctorData.info));
            		}
         	});
 
 		var mapOptions = {
-			zoom: 5,
-			center: new google.maps.LatLng(4.28343, -74.22404),
+			zoom: 6,
+			center: new google.maps.LatLng(3.8953322, -74.1658375),
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 		}
 		$scope.map = new google.maps.Map(document.getElementById('location-map'), mapOptions);

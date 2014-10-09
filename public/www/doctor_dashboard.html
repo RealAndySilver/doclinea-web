@@ -15,7 +15,7 @@
 			  <li><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#pictures" role="tab" data-toggle="tab">Imágenes</a></li>
 			  <li><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#password_change" role="tab" data-toggle="tab">Contraseña</a></li>
 			  <li><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#studies" role="tab" data-toggle="tab">Formación académica</a></li>
-			  <li><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#locations" role="tab" data-toggle="tab">Locaciones</a></li>
+			  <li><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#locations" role="tab" data-toggle="tab">Consultorio</a></li>
 		  </ul>
 
 		  <div class="tab-content" ng-init="docDashCtrl.info">
@@ -66,11 +66,11 @@
 									  Masculino
 									</label> 
 									<label class="radio-inline" for="patient_gender-1">
-									  <input type="radio" name="patient_gender" id="patient_gender-1" value="2"  ng-model="docDashCtrl.info.patient_gender">
+									  <input type="radio" name="patient_gender" id="patient_gender-1" value="2" ng-model="docDashCtrl.info.patient_gender">
 									  Femenino
 									</label>
-									<label class="radio-inline" for="patient_gender-3">
-									  <input type="radio" name="patient_gender" id="patient_gender-3" value="3"  ng-model="docDashCtrl.info.patient_gender">
+									<label class="radio-inline" for="patient_gender-2">
+									  <input type="radio" name="patient_gender" id="patient_gender-2" value="3" ng-model="docDashCtrl.info.patient_gender">
 									  Ambos
 									</label>
 								  </div>
@@ -168,7 +168,7 @@
 								<div class="form-group">
 								  <label class="col-md-4 control-label" for="practice_list">Especialidad</label>
 								  <div class="col-md-6">
-									<select id="practice_list" name="practice_list" class="form-control" ng-model="docDashCtrl.info.practice_list" ng-options="op.name for op in docDashCtrl.practices" ng-init="docDashCtrl.info.practice_list">
+									<select id="practice_list" name="practice_list" class="form-control" ng-model="docDashCtrl.info.practice_list" ng-options="op for op in docDashCtrl.practices" ng-init="docDashCtrl.info.practice_list">
 									</select>
 								  </div>
 								</div>
@@ -181,7 +181,7 @@
 								<div class="form-group">
 								  <label class="col-md-4 control-label" for="education_list">Formación académica</label>  
 								  <div class="col-md-6">
-								  <input id="education_list" name="education_list" type="text" placeholder="" class="form-control input-md" ng-model="docDashCtrl.info.education_list">
+								  <input id="education_list" name="education_list" type="text" placeholder="" class="form-control input-md" ng-model="docDashCtrl.info.education_list.institute_name">
 								  </div>
 								</div>
 								<div class="form-group">
@@ -208,8 +208,8 @@
 								</div>
 								<div class="form-group">
 								  <div class="col-md-4 center-button">
-									<button id="doctor_sign_up_submit" name="doctor_sign_up_submit" class="btn btn-primary">Guardar</button>
-									<button id="doctor_sign_up_submit" name="doctor_sign_up_submit" class="btn btn-warning">Cancelar</button>
+									<input type="submit" class="btn btn-primary" value="Guardar">
+									<a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#studies" class="btn btn-warning">Cancelar</a>
 								  </div>
 								</div>
 							</fieldset>
@@ -223,9 +223,9 @@
 				<div class="center">
 					<div class="inner-info-box">
 						<div class="form-box">
-							<form class="form-horizontal" name="changePersonalDocInfo">
+							<form class="form-horizontal" name="changePersonalDocInfo" ng-submit="docDashCtrl.updateDoctor()">
 							<fieldset>
-								<div class="form-group">
+								<!--<div class="form-group">
 									<label class="col-md-4 control-label" for="city">Ciudad</label>
 									<div class="col-md-6">
 									<select class="form-control" name="city" id="city" ng-model="docSignUpCtrl.data.city">
@@ -244,6 +244,30 @@
 									<select class="form-control" name="localidad" id="localidad" ng-model="docSignUpCtrl.data.localidad" ng-options="localidad.name for localidad in localidades">
 									</select>
 									</div>
+								</div>-->
+								<div class="form-group">
+								  <label class="col-md-4 control-label" for="location_name">Nombre de Consultorio</label>  
+								  <div class="col-md-6">
+								  <input id="location_name" name="location_name" type="text" placeholder="" class="form-control input-md" ng-model="docDashCtrl.info.location_list.location_name">
+								  </div>
+								</div>
+								<div class="form-group">
+								  <label class="col-md-4 control-label" for="location_address">Dirección de consultorio</label>  
+								  <div class="col-md-6">
+								  <input id="location_address" name="location_address" type="text" placeholder="" class="form-control input-md" ng-model="docDashCtrl.info.location_list.location_address">
+								  </div>
+								</div>
+								<div class="form-group">
+								  <label class="col-md-4 control-label" for="lat">Latitú</label>
+								  <div class="col-md-6">
+									<input id="lat" name="lat" type="text" placeholder="" class="form-control input-md"  ng-model="docDashCtrl.info.location_list.lat">
+								  </div>
+								</div>
+								<div class="form-group">
+								  <label class="col-md-4 control-label" for="lon">Longitú</label>
+								  <div class="col-md-6">
+									<input id="lon" name="lon" type="text" placeholder="" class="form-control input-md"  ng-model="docDashCtrl.info.location_list.lon">
+								  </div>
 								</div>
 								<div class="form-group">
 									<label class="col-md-4 control-label" for="location_list">Busque su ubicación en el mapa</label>
@@ -252,6 +276,12 @@
 							    			<div id="location-map" class="location-map"></div>
 										</div>
 									</div>
+								</div>
+								<div class="form-group">
+								  <div class="col-md-4 center-button">
+									<input type="submit" class="btn btn-primary" value="Guardar">
+									<a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#locations" class="btn btn-warning">Cancelar</a>
+								  </div>
 								</div>
 							</fieldset>
 							</form>
