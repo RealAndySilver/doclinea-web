@@ -606,7 +606,7 @@
                     //console.log(JSON.stringify(data1));
                } else {
                        // if successful, bind success message to message
-                   console.log("Listo, doctor actualizado" + data);
+                   console.log("Listo, doctor actualizado" + data.response);
                    console.log(JSON.stringify(data1));
                    this.data = data1;
                }
