@@ -550,7 +550,7 @@
 	    };
 	    
 	}]);
-	docDash.controller('DocDashboardController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams){
+	docDash.controller('DocDashboardController', ['$http', '$log', '$scope', '$routeParams', function($http, $log, $scope, $routeParams){
 		$('#myTab a').click(function (e) {
 		  e.preventDefault()
 		  $(this).tab('show')
@@ -563,7 +563,7 @@
 		if(id !== "undefined") {
 			data1.id = id;
 		}
-
+		$scope.$log = $log;
 		this.practices = [ "Pediatra", "Fonoaudiólogo", "Ginecólogo", "Ortopedista", "Odontólogo" ];
 		var doctorData = this;
 
@@ -579,10 +579,7 @@
                		console.log(data);
 
                		doctorData.info = data.response;
-
-               		console.log('practica', doctorData.info.practice_list[0].name);
-
-               		//console.log(JSON.stringify(doctorData.info));
+               		console.log(doctorData.info);
            		}
         	});
 
@@ -598,6 +595,9 @@
 			//console.log('Entra a signUp');
 			var type = "Doctor";
             var data1 = doctorData.info;
+            data1.education_list = {};
+            data1.education_list.institute_name = data1.institute_name;
+            delete data1.institute_name;
             console.log('Llega', data1);
             $http.post(endpoint + type + '/Update/' + data1._id, data1)
             .success(function(data) {
@@ -606,9 +606,9 @@
                     //console.log(JSON.stringify(data1));
                } else {
                        // if successful, bind success message to message
-                   console.log("Listo, doctor actualizado" + data.response);
-                   console.log(JSON.stringify(data1));
-                   this.data = data1;
+                   console.log("Listo, doctor actualizado", data.response);
+                   //console.log(JSON.stringify(data1));
+                   this.data = data.response;
                }
        });
        //this.data = data1;
