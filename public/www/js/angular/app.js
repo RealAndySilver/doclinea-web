@@ -11,8 +11,8 @@
 	  'doctorDashboard',
 	]);
 
-	//var endpoint = "http://192.241.187.135:1414/api_1.0/";
-	var endpoint = "http://192.168.1.100:1414/api_1.0/";
+	var endpoint = "http://192.241.187.135:1414/api_1.0/";
+	//var endpoint = "http://192.168.1.100:1414/api_1.0/";
 	app.config(['$routeProvider',
 		function($routeProvider) {
 		$routeProvider.
@@ -363,7 +363,6 @@
 			var selectedInsurance = !this.selectedInsurance ? "undefined" : this.selectedInsurance.name;
 
 			window.location = "/#/search/" + selectedCity + "/" + selectedPractice + "/" + selectedInsurance;
-       		//this.data = {};
        };
 	}]);
 
@@ -385,7 +384,16 @@
             	if (!data.status) {
                		console.log("No se encontraron doctores",data.error);
                		console.log(data);
-               		alert('No se encontraron doctores con los criteros de búsqueda introducidos, vuelva a intentarlo');
+               		$(".doc-box").css('visibility', 'hidden');
+               		var not_found_msg = 'No se encontraron doctores con los criteros de búsqueda introducidos, vuelva a intentarlo.';
+               		var alert_div = $("<div class=\"alert alert-danger alert-dismissible noty fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">x</span><span class=\"sr-only\"></span></button>"+not_found_msg+"</div>");
+					$("body").prepend(alert_div);
+					$(".alert").alert();
+					// setTimeout(function() {
+					// 	$(".noty").fadeOut(300000, function() {
+					// 		$(this).remove()
+					// 	});
+					// }, 800);
            		} else {
                		// if successful, bind success message to message
                		console.log("Resultado de busqueda de doctores:");
