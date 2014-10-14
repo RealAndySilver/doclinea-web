@@ -255,23 +255,29 @@
 
 	app.controller('GetDoctorsController', ['$http', '$routeParams', function($http, $routeParams){
 
+		var encodedParam = btoa("undefined");
+
 		var docData = this;
 
 		var city = $routeParams.city;
 		var practice_list = $routeParams.practice_list;
 		var insurance_list = $routeParams.insurance_list;
 
+		// var encodedCity = btoa(city);
+		// var encodedPractice = btoa(practice_list);
+		// var encodedInsurance = btoa(insurance_list);
+
 		docData.data1 = {};
 
-		if(city !== "undefined") {
+		if(city !== encodedParam) {
 			docData.data1.city = city;
 		}
 
-		if(practice_list !== "undefined") {
+		if(practice_list !== encodedParam) {
 			docData.data1.practice_list = practice_list;
 		}
 
-		if(insurance_list !== "undefined") {
+		if(insurance_list !== encodedParam) {
 			docData.data1.insurance_list = insurance_list;
 		}
 
@@ -280,6 +286,8 @@
 
 	//SEARCH DOCTOR FROM LANDING PAGE
 	app.controller('LandpageDocSearchController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams) {
+
+		var encodedParam = btoa("undefined");
 
 		this.docs = [];
 
@@ -291,17 +299,21 @@
 		var practice_list = $routeParams.practice_list;
 		var insurance_list = $routeParams.insurance_list;
 
+		// var encodedCity = btoa(city);
+		// var encodedPractice = btoa(practice_list);
+		// var encodedInsurance = btoa(insurance_list);
+
 		var data1 = {};
 
-		if(city !== "undefined") {
+		if(city !== encodedParam) {
 			data1.city = city;
 		}
 
-		if(practice_list !== "undefined") {
+		if(practice_list !== encodedParam) {
 			data1.practice_list = practice_list;
 		}
 
-		if(insurance_list !== "undefined") {
+		if(insurance_list !== encodedParam) {
 			data1.insurance_list = insurance_list;
 		}
 
@@ -319,9 +331,9 @@
 
 		this.searchDoctor = function() {
 
-			var selectedCity = !this.selectedCity ? "undefined" : this.selectedCity.name;
-			var selectedPractice = !this.selectedPractice ? "undefined" : this.selectedPractice.name;
-			var selectedInsurance = !this.selectedInsurance ? "undefined" : this.selectedInsurance.name;
+			var selectedCity = !this.selectedCity ? encodedParam : this.selectedCity.name;
+			var selectedPractice = !this.selectedPractice ? encodedParam : this.selectedPractice.name;
+			var selectedInsurance = !this.selectedInsurance ? encodedParam : this.selectedInsurance.name;
 
 			window.location = "/#/search/" + selectedCity + "/" + selectedPractice + "/" + selectedInsurance;
        		//this.data = {};
@@ -332,6 +344,9 @@
 
 	//GET DOCTOR BY SEARCH PARAMS --> to search page
 	app.controller('DoctorSearchController', ['$http', '$scope', function($http, $scope){
+
+		var encodedParam = btoa("undefined");
+		console.log(encodedParam);
 
 		var docData = this;
 
@@ -358,9 +373,9 @@
 
 		this.searchDoctor = function() {
 
-			var selectedCity = !this.selectedCity ? "undefined" : this.selectedCity.name;
-			var selectedPractice = !this.selectedPractice ? "undefined" : this.selectedPractice.name;
-			var selectedInsurance = !this.selectedInsurance ? "undefined" : this.selectedInsurance.name;
+			var selectedCity = !this.selectedCity ? encodedParam : this.selectedCity.name;
+			var selectedPractice = !this.selectedPractice ? encodedParam : this.selectedPractice.name;
+			var selectedInsurance = !this.selectedInsurance ? encodedParam : this.selectedInsurance.name;
 
 			window.location = "/#/search/" + selectedCity + "/" + selectedPractice + "/" + selectedInsurance;
        };
@@ -389,11 +404,6 @@
                		var alert_div = $("<div class=\"alert alert-danger alert-dismissible noty fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">x</span><span class=\"sr-only\"></span></button>"+not_found_msg+"</div>");
 					$("body").prepend(alert_div);
 					$(".alert").alert();
-					// setTimeout(function() {
-					// 	$(".noty").fadeOut(300000, function() {
-					// 		$(this).remove()
-					// 	});
-					// }, 800);
            		} else {
                		// if successful, bind success message to message
                		console.log("Resultado de busqueda de doctores:");
@@ -593,7 +603,7 @@
 
 		var mapOptions = {
 			zoom: 6,
-			center: new google.maps.LatLng(3.8953322, -74.1658375),
+			center: new google.maps.LatLng(3.8953322, -74.1678375),
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 		}
 		$scope.map = new google.maps.Map(document.getElementById('location-map'), mapOptions);
