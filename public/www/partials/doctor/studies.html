@@ -1,0 +1,54 @@
+<div class="center">
+	<div class="inner-info-box">
+		<div class="form-box">
+			<form class="form-horizontal" name="changeStudiesDocInfo" ng-submit="docDashCtrl.updateDoctor()">
+			<fieldset>
+				<div class="form-group">
+				  <label class="col-md-4 control-label" for="practice_list">Especialidad</label>
+				  <div class="col-md-6">
+					<select id="practice_list" name="practice_list" class="form-control" ng-model="docDashCtrl.info.practice_list" ng-options="op for op in docDashCtrl.practices" ng-init="docDashCtrl.info.practice_list">
+					</select>
+				  </div>
+				</div>
+				<div class="form-group">
+				<div ng-repeat"edObj in docDashCtrl.info.education_list">
+				  <label class="col-md-4 control-label" for="education_list">Formación académica</label>  
+				  <div class="col-md-6">
+				  <input id="institute_name" name="institute_name" type="text" placeholder="" class="form-control input-md" ng-model="docDashCtrl.info.education_list[0].institute_name">
+				  </div>
+				  {{$log.log("Res: "+docDashCtrl.info.education_list[0].institute_name)}}
+				</div>
+				</div>
+				<div class="form-group">
+				  <label class="col-md-4 control-label" for="description">Descripción</label>  
+				  <div class="col-md-6">
+				  <textarea id="description" name="description" type="text" placeholder="" class="form-control input-md" ng-model="docDashCtrl.info.description"></textarea>
+				  </div>
+				</div>
+				<div class="form-group">
+				  <label class="col-md-4 control-label" for="profesional_membership">Membresías Profesionales</label>  
+				  <div class="col-md-6">
+				  <input id="profesional_membership" name="profesional_membership" type="text" placeholder="" class="form-control input-md" ng-model="docDashCtrl.info.profesional_membership">
+				  </div>
+				</div>
+				<div class="form-group last-form-element">
+				  <label class="col-md-4 control-label" for="insurance_list">Aseguradoras</label>
+				  <div class="col-md-6">
+					<select id="insurance_list" name="insurance_list" class="form-control"  ng-model="docDashCtrl.info.insurance_list">
+					  <option value="Sura">Sura</option>
+					  <option value="Colpatria">Colpatria</option>
+					  <option value="Compensar">Compensar</option>
+					</select>
+				  </div>
+				</div>
+				<div class="form-group">
+				  <div class="col-md-4 center-button">
+					<input type="submit" class="btn btn-primary" value="Guardar">
+					<a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#studies" class="btn btn-warning">Cancelar</a>
+				  </div>
+				</div>
+			</fieldset>
+			</form>
+		</div> 
+	</div>
+</div>

@@ -205,9 +205,9 @@
 				//console.log('Entra a signUp');
                var data1 = this.data;
                data1.password = btoa(data1.password);
-               console.log('da password', data1.password);
+               //console.log('da password', data1.password);
                data1.password_verify = btoa(data1.password_verify);
-               console.log('da other password', data1.password_verify);
+               //console.log('da other password', data1.password_verify);
                $http.post(endpoint + type + '/Create', data1)
                .success(function(data) {
                    if (!data.status) {
@@ -233,9 +233,9 @@
 				//console.log('Entra a signIn');
                var data1 = this.data;
                data1.password = btoa(data1.password);
-               console.log('da password', data1.password);
+               //console.log('da password', data1.password);
                data1.password_verify = btoa(data1.password_verify);
-               console.log('da other password', data1.password_verify);
+               //console.log('da other password', data1.password_verify);
                $http.post(endpoint + type + '/Authenticate', data1)
                .success(function(data) {
                    if (!data.status) {
@@ -387,6 +387,7 @@
 	mapView.controller('MapCtrl', function ($scope, $http, $routeParams) {
 
 		var docData = this;
+		var type = "Doctor";
 
 		docData.docs = $scope.getDrCtrl.data1;
 
@@ -394,7 +395,7 @@
 
 		var This = this;
 
-      	$http.post(endpoint + "Doctor" + '/GetByParams', docData.docs)
+      	$http.post(endpoint + type + '/GetByParams', docData.docs)
       		.success(function(data) {
             	if (!data.status) {
                		console.log("No se encontraron doctores",data.error);
@@ -537,6 +538,13 @@
 	            headers: {'Content-Type': undefined}
 	        })
 	        .success(function(){
+	        	var success_msg = 'Su foto de perfil ha sido guardada con exito';
+           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
+				$("body").prepend(alert_div);
+				$(".alert").alert();
+				setTimeout(function() {
+				      alert_div.fadeOut(1800);
+				}, 800);
 	        })
 	        .error(function(){
 	        });
@@ -562,7 +570,7 @@
     	var type = 'Doctor';
 	    $scope.uploadFile = function(doc_id){
 	        var file = $scope.myFile;
-	        console.log('file is ' + JSON.stringify(file));
+	        //console.log('file is ' + JSON.stringify(file));
 	        var uploadUrl = endpoint + type + '/UpdateProfilePic/'+doc_id;
 	        fileUpload.uploadFileToUrl(file, uploadUrl);
 	    };
@@ -632,6 +640,36 @@
        //this.data = data1;
        };
 	}]);
+	docDash.directive('pictures', function() {
+	    return {
+	    	restrict: 'E',
+	    	templateUrl: 'www/partials/doctor/pictures.html'
+	    };
+	});
+	docDash.directive('passwordChange', function() {
+	    return {
+	    	restrict: 'E',
+	    	templateUrl: 'www/partials/doctor/password_change.html'
+	    };
+	});
+	docDash.directive('personal', function() {
+	    return {
+	    	restrict: 'E',
+	    	templateUrl: 'www/partials/doctor/personal.html'
+	    };
+	});
+	docDash.directive('studies', function() {
+	    return {
+	    	restrict: 'E',
+	    	templateUrl: 'www/partials/doctor/studies.html'
+	    };
+	});
+	docDash.directive('locations', function() {
+	    return {
+	    	restrict: 'E',
+	    	templateUrl: 'www/partials/doctor/locations.html'
+	    };
+	});
 
 })();
 

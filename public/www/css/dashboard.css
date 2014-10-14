@@ -11,10 +11,8 @@ header {
   padding-bottom: 10px;
   border-bottom: 1px solid #eee;
 }
-/*
- * Top navigation
- * Hide default border to remove 1px line.
- */
+.success,
+padding-right 0,
 .navbar-fixed-top {
   border: 0;
 }
