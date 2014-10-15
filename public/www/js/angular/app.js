@@ -12,7 +12,7 @@
 	]);
 
 	var endpoint = "http://192.241.187.135:1414/api_1.0/";
-	//var endpoint = "http://192.168.1.100:1414/api_1.0/";
+	//var endpoint = "http://192.168.1.109:1414/api_1.0/";
 	app.config(['$routeProvider',
 		function($routeProvider) {
 		$routeProvider.
@@ -47,7 +47,9 @@
 				templateUrl: '../www/doctor_sign_in.html',
 			}).
 			when('/doctor_dashboard/:id', {
-				templateUrl: '../www/doctor_dashboard.html#personal',
+				templateUrl: '../www/doctor_dashboard.html',
+				controller: 'DocDashboardController',
+				controllerAs : 'docDashCtrl',
 			}).
 			otherwise({
 				redirectTo: '/404'
@@ -584,16 +586,15 @@
 
 		$scope.localidades = localidades;
 		var id = $routeParams.id;
-		data1 = {};
+		//data1 = {};
 
-		if(id !== "undefined") {
-			data1.id = id;
-		}
-		$scope.$log = $log;
-		this.practices = [ "Pediatra", "Fonoaudiólogo", "Ginecólogo", "Ortopedista", "Odontólogo" ];
+		// if(id !== "undefined") {
+		// 	data1.id = id;
+		// }
+		//this.practices = [ "Pediatra", "Fonoaudiólogo", "Ginecólogo", "Ortopedista", "Odontólogo" ];
 		var doctorData = this;
 
-		$http.get(endpoint + "Doctor" + '/GetById/' + data1.id)
+		$http.get(endpoint + "Doctor" + '/GetById/' + id)
       		.success(function(data) {
             	if (!data.status) {
                		console.log("No se encontraron doctores",data.error);
@@ -602,8 +603,6 @@
            		} else {
                		// if successful, bind success message to message
                		console.log("Resultado de busqueda de doctores:");
-               		console.log(data);
-
                		doctorData.info = data.response;
                		console.log(doctorData.info);
            		}
@@ -640,6 +639,7 @@
        //this.data = data1;
        };
 	}]);
+
 	docDash.directive('pictures', function() {
 	    return {
 	    	restrict: 'E',
@@ -655,9 +655,14 @@
 	docDash.directive('personal', function() {
 	    return {
 	    	restrict: 'E',
-	    	templateUrl: 'www/partials/doctor/personal.html'
+	    	templateUrl: 'www/partials/doctor/personal.html',
+	    	controller: 'DocDashboardController',
+	    	controllerAs: 'dashPersonalCtrl',
 	    };
 	});
+	// docDash.controller('DocDashboardController', function() {
+
+	// });
 	docDash.directive('studies', function() {
 	    return {
 	    	restrict: 'E',
