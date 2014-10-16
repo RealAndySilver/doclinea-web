@@ -515,86 +515,83 @@
 	});
 
 
-	var docDash = angular.module('doctorDashboard', []);
-	docDash.directive('fileModel', ['$parse', function ($parse) {
-	    return {
-	        restrict: 'A',
-	        link: function(scope, element, attrs) {
-	            var model = $parse(attrs.fileModel);
-	            var modelSetter = model.assign;
+	docDash = angular.module('doctorDashboard', []);
+	// docDash.directive('fileModel', ['$parse', function ($parse) {
+	//     return {
+	//         restrict: 'A',
+	//         link: function(scope, element, attrs) {
+	//             var model = $parse(attrs.fileModel);
+	//             var modelSetter = model.assign;
 	            
-	            element.bind('change', function(){
-	                scope.$apply(function(){
-	                    modelSetter(scope, element[0].files[0]);
-	                });
-	            });
-	        }
-	    };
-	}]);
-	docDash.service('fileUpload', ['$http', function ($http) {
-	    this.uploadFileToUrl = function(file, uploadUrl){
-	        var fd = new FormData();
-	        fd.append('image', file);
-	        $http.post(uploadUrl, fd, {
-	            transformRequest: angular.identity,
-	            headers: {'Content-Type': undefined}
-	        })
-	        .success(function(){
-	        	var success_msg = 'Su foto de perfil ha sido guardada con exito';
-           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
-				$("body").prepend(alert_div);
-				$(".alert").alert();
-				setTimeout(function() {
-				      alert_div.fadeOut(1800);
-				}, 800);
-	        })
-	        .error(function(){
-	        });
-	    }
-	}]);
-	docDash.controller('uploadPic', ['$scope', 'fileUpload', function($scope, fileUpload){
-		function readURL(input) {
-	        if (input.files && input.files[0]) {
-	            var reader = new FileReader();
+	//             element.bind('change', function(){
+	//                 scope.$apply(function(){
+	//                     modelSetter(scope, element[0].files[0]);
+	//                 });
+	//             });
+	//         }
+	//     };
+	// }]);
+	// docDash.service('fileUpload', ['$http', function ($http) {
+	//     this.uploadFileToUrl = function(file, uploadUrl){
+	//         var fd = new FormData();
+	//         fd.append('image', file);
+	//         $http.post(uploadUrl, fd, {
+	//             transformRequest: angular.identity,
+	//             headers: {'Content-Type': undefined}
+	//         })
+	//         .success(function(){
+	//         	var success_msg = 'Su foto de perfil ha sido guardada con exito';
+ //           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
+	// 			$("body").prepend(alert_div);
+	// 			$(".alert").alert();
+	// 			setTimeout(function() {
+	// 			      alert_div.fadeOut(1800);
+	// 			}, 800);
+	//         })
+	//         .error(function(){
+	//         });
+	//     }
+	// }]);
+	// docDash.controller('uploadPic', ['$scope', 'fileUpload', function($scope, fileUpload){
+	// 	function readURL(input) {
+	//         if (input.files && input.files[0]) {
+	//             var reader = new FileReader();
 
-	            reader.onload = function (e) {
-	                $('#profile-pic').attr('src', e.target.result);
-	            }
+	//             reader.onload = function (e) {
+	//                 $('#profile-pic').attr('src', e.target.result);
+	//             }
 
-	            reader.readAsDataURL(input.files[0]);
-	        }
-	    }
+	//             reader.readAsDataURL(input.files[0]);
+	//         }
+	//     }
 
-	    $("#image").change(function(){
-	        readURL(this);
-	    });
+	//     $("#image").change(function(){
+	//         readURL(this);
+	//     });
 
-    	var type = 'Doctor';
-	    $scope.uploadFile = function(doc_id){
-	        var file = $scope.myFile;
-	        //console.log('file is ' + JSON.stringify(file));
-	        var uploadUrl = endpoint + type + '/UpdateProfilePic/'+doc_id;
-	        fileUpload.uploadFileToUrl(file, uploadUrl);
-	    };
+ //    	var type = 'Doctor';
+	//     $scope.uploadFile = function(doc_id){
+	//         var file = $scope.myFile;
+	//         //console.log('file is ' + JSON.stringify(file));
+	//         var uploadUrl = endpoint + type + '/UpdateProfilePic/' + doc_id;
+	//         fileUpload.uploadFileToUrl(file, uploadUrl);
+	//     };
 	    
-	}]);
-	docDash.controller('DocDashboardController', ['$http', '$log', '$scope', '$routeParams', function($http, $log, $scope, $routeParams){
+	// }]);
+	docDash.controller('DocDashboardController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams){
+		var type = 'Doctor';
+
 		$('#myTab a').click(function (e) {
-		  e.preventDefault()
-		  $(this).tab('show')
+		  e.preventDefault();
+		  $(this).tab('show');
 		})
 
 		$scope.localidades = localidades;
 		var id = $routeParams.id;
-		//data1 = {};
+		
+		$scope.doctorData = this;
 
-		// if(id !== "undefined") {
-		// 	data1.id = id;
-		// }
-		//this.practices = [ "Pediatra", "Fonoaudiólogo", "Ginecólogo", "Ortopedista", "Odontólogo" ];
-		var doctorData = this;
-
-		$http.get(endpoint + "Doctor" + '/GetById/' + id)
+		$http.get(endpoint + type + '/GetById/' + id)
       		.success(function(data) {
             	if (!data.status) {
                		console.log("No se encontraron doctores",data.error);
@@ -603,78 +600,70 @@
            		} else {
                		// if successful, bind success message to message
                		console.log("Resultado de busqueda de doctores:");
-               		doctorData.info = data.response;
-               		console.log(doctorData.info);
+               		$scope.doctorData.info = data.response;
+               		console.log($scope.doctorData.info);
            		}
         	});
-
-		var mapOptions = {
-			zoom: 6,
-			center: new google.maps.LatLng(3.8953322, -74.1678375),
-			mapTypeId: google.maps.MapTypeId.ROADMAP
-		}
-		$scope.map = new google.maps.Map(document.getElementById('location-map'), mapOptions);
-      	google.maps.event.trigger($scope.map, 'resize');
-
-      	this.updateDoctor = function() {
-			//console.log('Entra a signUp');
-			var type = "Doctor";
-            var data1 = doctorData.info;
-            data1.education_list = {};
-            data1.education_list.institute_name = data1.institute_name;
-            delete data1.institute_name;
-            console.log('Llega', data1);
-            $http.post(endpoint + type + '/Update/' + data1._id, data1)
-            .success(function(data) {
-               if (!data.status) {
-                    console.log("Paila, no se actualizó", data);
-                    //console.log(JSON.stringify(data1));
-               } else {
-                       // if successful, bind success message to message
-                   console.log("Listo, doctor actualizado", data.response);
-                   //console.log(JSON.stringify(data1));
-                   this.data = data.response;
-               }
-       });
-       //this.data = data1;
-       };
 	}]);
 
-	docDash.directive('pictures', function() {
-	    return {
-	    	restrict: 'E',
-	    	templateUrl: 'www/partials/doctor/pictures.html'
-	    };
-	});
-	docDash.directive('passwordChange', function() {
-	    return {
-	    	restrict: 'E',
-	    	templateUrl: 'www/partials/doctor/password_change.html'
-	    };
-	});
+	// docDash.directive('pictures', function() {
+	//     return {
+	//     	restrict: 'E',
+	//     	templateUrl: 'www/partials/doctor/pictures.html'
+	//     };
+	// });
+	// docDash.directive('passwordChange', function() {
+	//     return {
+	//     	restrict: 'E',
+	//     	templateUrl: 'www/partials/doctor/password_change.html'
+	//     };
+	// });
 	docDash.directive('personal', function() {
 	    return {
 	    	restrict: 'E',
 	    	templateUrl: 'www/partials/doctor/personal.html',
-	    	controller: 'DocDashboardController',
-	    	controllerAs: 'dashPersonalCtrl',
+	    	//controller: 'DashboardPersonalController',
+	    	//controllerAs: 'dashPersonalCtrl',
 	    };
 	});
-	// docDash.controller('DocDashboardController', function() {
+	docDash.controller('DashboardPersonalController', ['$http', '$scope',function($http, $scope){
+		//TERMINAR ESTE CONTROLLER PARA UPDATE DE DATOS PERSONALES DE DOCTOR
+		$scope.personalInfo = DocDashboardController.doctorData.info;
+		console.log(personalInfo);
 
+		this.updateDoctor = function() {
+            //var data1 = $scope.doctorData;
+            //data1.education_list = {};
+            //data1.education_list.institute_name = data1.institute_name;
+            //delete data1.institute_name;
+            //console.log('Llega', data1);
+         //    $http.post(endpoint + type + '/Update/' + data1._id, data1)
+         //    .success(function(data) {
+         //        if (!data.status) {
+         //            console.log("Paila, no se actualizó", data);
+         //            //console.log(JSON.stringify(data1));
+         //        } else {
+         //           // if successful, bind success message to message
+         //           console.log("Listo, doctor actualizado", data.response);
+         //           //console.log(JSON.stringify(data1));
+         //           this.data = data.response;
+         //        }
+      		 // });
+       //this.data = data1;
+       };
+	}]);
+	// docDash.directive('studies', function() {
+	//     return {
+	//     	restrict: 'E',
+	//     	templateUrl: 'www/partials/doctor/studies.html'
+	//     };
 	// });
-	docDash.directive('studies', function() {
-	    return {
-	    	restrict: 'E',
-	    	templateUrl: 'www/partials/doctor/studies.html'
-	    };
-	});
-	docDash.directive('locations', function() {
-	    return {
-	    	restrict: 'E',
-	    	templateUrl: 'www/partials/doctor/locations.html'
-	    };
-	});
+	// docDash.directive('locations', function() {
+	//     return {
+	//     	restrict: 'E',
+	//     	templateUrl: 'www/partials/doctor/locations.html'
+	//     };
+	// });
 
 })();
 
