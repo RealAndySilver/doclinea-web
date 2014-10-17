@@ -413,7 +413,6 @@
                		console.log(data);
 
                		This.docs = data.response;
-
                		//console.log(JSON.stringify(this.docs));
            		}
 
@@ -461,8 +460,6 @@
 
 	var profileView = angular.module('docProfile', [])
 	.controller('ProfileCtrl', function ($scope, $http, $routeParams) {
-
-		//this.dProfile = {};
 
 		var type = "Doctor";
 		var id = $routeParams.id;
@@ -515,69 +512,8 @@
 	});
 
 
+	//Module and Controllers for Doctor Dashboard
 	docDash = angular.module('doctorDashboard', []);
-	// docDash.directive('fileModel', ['$parse', function ($parse) {
-	//     return {
-	//         restrict: 'A',
-	//         link: function(scope, element, attrs) {
-	//             var model = $parse(attrs.fileModel);
-	//             var modelSetter = model.assign;
-	            
-	//             element.bind('change', function(){
-	//                 scope.$apply(function(){
-	//                     modelSetter(scope, element[0].files[0]);
-	//                 });
-	//             });
-	//         }
-	//     };
-	// }]);
-	// docDash.service('fileUpload', ['$http', function ($http) {
-	//     this.uploadFileToUrl = function(file, uploadUrl){
-	//         var fd = new FormData();
-	//         fd.append('image', file);
-	//         $http.post(uploadUrl, fd, {
-	//             transformRequest: angular.identity,
-	//             headers: {'Content-Type': undefined}
-	//         })
-	//         .success(function(){
-	//         	var success_msg = 'Su foto de perfil ha sido guardada con exito';
- //           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
-	// 			$("body").prepend(alert_div);
-	// 			$(".alert").alert();
-	// 			setTimeout(function() {
-	// 			      alert_div.fadeOut(1800);
-	// 			}, 800);
-	//         })
-	//         .error(function(){
-	//         });
-	//     }
-	// }]);
-	// docDash.controller('uploadPic', ['$scope', 'fileUpload', function($scope, fileUpload){
-	// 	function readURL(input) {
-	//         if (input.files && input.files[0]) {
-	//             var reader = new FileReader();
-
-	//             reader.onload = function (e) {
-	//                 $('#profile-pic').attr('src', e.target.result);
-	//             }
-
-	//             reader.readAsDataURL(input.files[0]);
-	//         }
-	//     }
-
-	//     $("#image").change(function(){
-	//         readURL(this);
-	//     });
-
- //    	var type = 'Doctor';
-	//     $scope.uploadFile = function(doc_id){
-	//         var file = $scope.myFile;
-	//         //console.log('file is ' + JSON.stringify(file));
-	//         var uploadUrl = endpoint + type + '/UpdateProfilePic/' + doc_id;
-	//         fileUpload.uploadFileToUrl(file, uploadUrl);
-	//     };
-	    
-	// }]);
 	docDash.controller('DocDashboardController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams){
 		var type = 'Doctor';
 
@@ -606,24 +542,115 @@
         	});
 	}]);
 
-	// docDash.directive('pictures', function() {
-	//     return {
-	//     	restrict: 'E',
-	//     	templateUrl: 'www/partials/doctor/pictures.html'
-	//     };
-	// });
-	// docDash.directive('passwordChange', function() {
-	//     return {
-	//     	restrict: 'E',
-	//     	templateUrl: 'www/partials/doctor/password_change.html'
-	//     };
-	// });
+	//Controller for Pictures - Doctor
+	docDash.directive('pictures', function() {
+	    return {
+	    	restrict: 'E',
+	    	templateUrl: 'www/partials/doctor/pictures.html',
+	    	controller: 'DashboardPicturesController',
+	    	controllerAs: 'dashPicturesCtrl',
+	    };
+	});
+	docDash.directive('fileModel', ['$parse', function ($parse) {
+	    return {
+	        restrict: 'A',
+	        link: function(scope, element, attrs) {
+	            var model = $parse(attrs.fileModel);
+	            var modelSetter = model.assign;
+	            
+	            element.bind('change', function(){
+	                scope.$apply(function(){
+	                    modelSetter(scope, element[0].files[0]);
+	                });
+	            });
+	        }
+	    };
+	}]);
+	docDash.service('fileUpload', ['$http', function ($http) {
+	    this.uploadFileToUrl = function(file, uploadUrl){
+	        var fd = new FormData();
+	        fd.append('image', file);
+	        $http.post(uploadUrl, fd, {
+	            transformRequest: angular.identity,
+	            headers: {'Content-Type': undefined}
+	        })
+	        .success(function(){
+	        	console.log('se ha subido la imagen');
+	        	var success_msg = 'Su foto de perfil ha sido guardada con éxito!';
+           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
+				$("body").prepend(alert_div);
+				$(".alert").alert();
+				setTimeout(function() {
+				      alert_div.fadeOut(1800);
+				}, 800);
+	        })
+	        .error(function(){
+	        });
+	    }
+	}]);
+	docDash.controller('DashboardPicturesController', ['$scope', 'fileUpload', function($scope, fileUpload){
+		function readURL(input) {
+	        if (input.files && input.files[0]) {
+	            var reader = new FileReader();
+
+	            reader.onload = function (e) {
+	                $('#profile-pic').attr('src', e.target.result);
+	            }
+
+	            reader.readAsDataURL(input.files[0]);
+	        }
+	    }
+
+	    $("#image").change(function(){
+	        readURL(this);
+	    });
+
+    	var type = 'Doctor';
+	    $scope.uploadFile = function(doc_id){
+	        var file = $scope.myFile;
+	        //console.log('file is ' + JSON.stringify(file));
+	        var uploadUrl = endpoint + type + '/UpdateProfilePic/' + doc_id;
+	        fileUpload.uploadFileToUrl(file, uploadUrl);
+	    };
+	    
+	}]);
+
+	//Controller for change Password - Doctor
+	docDash.directive('passwordChange', function() {
+	    return {
+	    	restrict: 'E',
+	    	templateUrl: 'www/partials/doctor/password_change.html',
+	    	controller: 'DashboardPasswordController',
+	    	controllerAs: 'dashPasswordCtrl',
+	    };
+	});
+	docDash.controller('DashboardPersonalController', ['$http', '$scope',function($http, $scope){
+		//$scope.doctorData.personalInfo = {};
+		//var personalInfo = $scope.doctorData.personalInfo;
+
+		this.updateDoctor = function(doc_id) {
+			var type = 'Doctor';
+			
+            $http.post(endpoint + type + '/Update/' + doc_id, personalInfo)
+            .success(function(data) {
+                if (!data.status) {
+                    console.log("Paila, no se actualizó", data);
+                    //console.log(JSON.stringify(data1));
+                } else {
+                   // if successful, bind success message to message
+                   console.log("Listo, doctor actualizado", data.response);
+                }
+      		});
+       };
+	}]);
+
+	//Controller for Personal Info - Doctor
 	docDash.directive('personal', function() {
 	    return {
 	    	restrict: 'E',
 	    	templateUrl: 'www/partials/doctor/personal.html',
-	    	//controller: 'DashboardPersonalController',
-	    	//controllerAs: 'dashPersonalCtrl',
+	    	controller: 'DashboardPersonalController',
+	    	controllerAs: 'dashPersonalCtrl',
 	    };
 	});
 	docDash.controller('DashboardPersonalController', ['$http', '$scope',function($http, $scope){
@@ -653,25 +680,86 @@
                 } else {
                    // if successful, bind success message to message
                    console.log("Listo, doctor actualizado", data.response);
-                   //console.log(JSON.stringify(data1));
-                   //this.data = data.response;
                 }
       		 });
        //this.data = data1;
        };
 	}]);
-	// docDash.directive('studies', function() {
-	//     return {
-	//     	restrict: 'E',
-	//     	templateUrl: 'www/partials/doctor/studies.html'
-	//     };
-	// });
-	// docDash.directive('locations', function() {
-	//     return {
-	//     	restrict: 'E',
-	//     	templateUrl: 'www/partials/doctor/locations.html'
-	//     };
-	// });
+
+	//Controller for studies and working information
+	docDash.directive('studies', function() {
+	    return {
+	    	restrict: 'E',
+	    	templateUrl: 'www/partials/doctor/studies.html',
+	    	controller: 'DashboardStudiesController',
+	    	controllerAs: 'dashStudiesCtrl',
+	    };
+	});
+	docDash.controller('DashboardStudiesController', ['$http', '$scope',function($http, $scope){
+		$scope.doctorData.studiesInfo = {};
+		var studiesInfo = $scope.doctorData.studiesInfo;
+
+		this.updateDoctor = function(doc_id) {
+			var type = 'Doctor';
+			
+			studiesInfo.profesional_membership = $scope.doctorData.info.profesional_membership;
+			studiesInfo.description = $scope.doctorData.info.description;
+			console.log(studiesInfo);
+			console.log(doc_id);
+            //data1.education_list = {};
+            //data1.education_list.institute_name = data1.institute_name;
+            //delete data1.institute_name;
+            //console.log('Llega', data1);
+            $http.post(endpoint + type + '/Update/' + doc_id, studiesInfo)
+            .success(function(data) {
+                if (!data.status) {
+                    console.log("Paila, no se actualizó", data);
+                    //console.log(JSON.stringify(data1));
+                } else {
+                   // if successful, bind success message to message
+                   console.log("Listo, doctor actualizado", data.response);
+                }
+      		 });
+       //this.data = data1;
+       };
+	}]);
+
+	//Controller for doctor locations
+	docDash.directive('locations', function() {
+	    return {
+	    	restrict: 'E',
+	    	templateUrl: 'www/partials/doctor/locations.html',
+	    	controller: 'DashboardLocationsController',
+	    	controllerAs: 'dashLocationsCtrl',
+	    };
+	});
+	docDash.controller('DashboardStudiesController', ['$http', '$scope',function($http, $scope){
+		$scope.doctorData.locationsInfo = {};
+		var locationsInfo = $scope.doctorData.locationsInfo;
+
+		this.updateDoctor = function(doc_id) {
+			var type = 'Doctor';
+			
+			locationsInfo.city = $scope.doctorData.info.city;
+			console.log(locationsInfo);
+			console.log(doc_id);
+            //data1.education_list = {};
+            //data1.education_list.institute_name = data1.institute_name;
+            //delete data1.institute_name;
+            //console.log('Llega', data1);
+            $http.post(endpoint + type + '/Update/' + doc_id, locationsInfo)
+            .success(function(data) {
+                if (!data.status) {
+                    console.log("Paila, no se actualizó", data);
+                    //console.log(JSON.stringify(data1));
+                } else {
+                   // if successful, bind success message to message
+                   console.log("Listo, doctor actualizado", data.response);
+                }
+      		 });
+       //this.data = data1;
+       };
+	}]);
 
 })();
 
