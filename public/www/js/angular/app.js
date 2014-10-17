@@ -627,28 +627,36 @@
 	    };
 	});
 	docDash.controller('DashboardPersonalController', ['$http', '$scope',function($http, $scope){
-		//TERMINAR ESTE CONTROLLER PARA UPDATE DE DATOS PERSONALES DE DOCTOR
-		$scope.personalInfo = DocDashboardController.doctorData.info;
-		console.log(personalInfo);
+		$scope.doctorData.personalInfo = {};
+		var personalInfo = $scope.doctorData.personalInfo;
 
-		this.updateDoctor = function() {
-            //var data1 = $scope.doctorData;
+		this.updateDoctor = function(doc_id) {
+			var type = 'Doctor';
+			
+			personalInfo.name = $scope.doctorData.info.name;
+			personalInfo.lastname = $scope.doctorData.info.lastname;
+			personalInfo.email = $scope.doctorData.info.email;
+			personalInfo.gender = $scope.doctorData.info.gender;
+			personalInfo.patient_gender = $scope.doctorData.info.patient_gender;
+			personalInfo.phone = $scope.doctorData.info.phone;
+			console.log(personalInfo);
+			console.log(doc_id);
             //data1.education_list = {};
             //data1.education_list.institute_name = data1.institute_name;
             //delete data1.institute_name;
             //console.log('Llega', data1);
-         //    $http.post(endpoint + type + '/Update/' + data1._id, data1)
-         //    .success(function(data) {
-         //        if (!data.status) {
-         //            console.log("Paila, no se actualizó", data);
-         //            //console.log(JSON.stringify(data1));
-         //        } else {
-         //           // if successful, bind success message to message
-         //           console.log("Listo, doctor actualizado", data.response);
-         //           //console.log(JSON.stringify(data1));
-         //           this.data = data.response;
-         //        }
-      		 // });
+            $http.post(endpoint + type + '/Update/' + doc_id, personalInfo)
+            .success(function(data) {
+                if (!data.status) {
+                    console.log("Paila, no se actualizó", data);
+                    //console.log(JSON.stringify(data1));
+                } else {
+                   // if successful, bind success message to message
+                   console.log("Listo, doctor actualizado", data.response);
+                   //console.log(JSON.stringify(data1));
+                   //this.data = data.response;
+                }
+      		 });
        //this.data = data1;
        };
 	}]);
