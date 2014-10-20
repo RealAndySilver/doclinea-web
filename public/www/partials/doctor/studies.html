@@ -6,17 +6,15 @@
 				<div class="form-group">
 				  <label class="col-md-4 control-label" for="practice_list">Especialidad</label>
 				  <div class="col-md-6">
-					<select id="practice_list" name="practice_list" class="form-control" ng-model="docDashCtrl.info.practice_list" ng-options="op for op in docDashCtrl.practices" ng-init="docDashCtrl.info.practice_list">
+					<select id="practice_list" name="practice_list" class="form-control" ng-model="docDashCtrl.info.practice_list" ng-options="practice.name for practice in docDashCtrl.practices">
 					</select>
 				  </div>
 				</div>
 				<div class="form-group">
-				<div ng-repeat"edObj in docDashCtrl.info.education_list">
 				  <label class="col-md-4 control-label" for="education_list">Formación académica</label>  
 				  <div class="col-md-6">
-				  <input id="institute_name" name="institute_name" type="text" placeholder="" class="form-control input-md" ng-model="docDashCtrl.info.education_list[0].institute_name">
+				  <input id="institute_name" name="institute_name" type="text" placeholder="" class="form-control input-md" ng-model="docDashCtrl.info.education_list[0].institute_name"><!-- CAMBIAR POR UN REPEAT CON INDEX DINAMICO -->
 				  </div>
-				</div>
 				</div>
 				<div class="form-group">
 				  <label class="col-md-4 control-label" for="description">Descripción</label>  

@@ -255,6 +255,7 @@
 	}]);
 
 
+	//Parent Controller for Doctors Searching
 	app.controller('GetDoctorsController', ['$http', '$routeParams', function($http, $routeParams){
 
 		var encodedParam = btoa("undefined");
@@ -300,10 +301,6 @@
 		var city = $routeParams.city;
 		var practice_list = $routeParams.practice_list;
 		var insurance_list = $routeParams.insurance_list;
-
-		// var encodedCity = btoa(city);
-		// var encodedPractice = btoa(practice_list);
-		// var encodedInsurance = btoa(insurance_list);
 
 		var data1 = {};
 
@@ -523,6 +520,14 @@
 		})
 
 		$scope.localidades = localidades;
+		this.practices = [ 
+			{name: "Pediatra", id: 1}, 
+			{name: "Fonoaudiólogo", id: 2}, 
+			{name: "Ginecólogo", id: 3}, 
+			{name: "Ortopedista", id: 4}, 
+			{name: "Odontólogo", id: 5}, 
+		];
+
 		var id = $routeParams.id;
 		
 		$scope.doctorData = this;
@@ -605,8 +610,6 @@
 	        readURL(this);
 	    });
 
-	    console.log('todo good!');
-
     	var type = 'Doctor';
 	    $scope.uploadFile = function(doc_id){
 	        var file = $scope.myFile;
@@ -626,9 +629,7 @@
 	    	controllerAs: 'dashPasswordCtrl',
 	    };
 	});
-	docDash.controller('DashboardPersonalController', ['$http', '$scope',function($http, $scope){
-		//$scope.doctorData.personalInfo = {};
-		//var personalInfo = $scope.doctorData.personalInfo;
+	docDash.controller('DashboardPasswordController', ['$http', '$scope',function($http, $scope){
 
 		this.updateDoctor = function(doc_id) {
 			var type = 'Doctor';
@@ -670,10 +671,7 @@
 			personalInfo.phone = $scope.doctorData.info.phone;
 			console.log(personalInfo);
 			console.log(doc_id);
-            //data1.education_list = {};
-            //data1.education_list.institute_name = data1.institute_name;
-            //delete data1.institute_name;
-            //console.log('Llega', data1);
+
             $http.post(endpoint + type + '/Update/' + doc_id, personalInfo)
             .success(function(data) {
                 if (!data.status) {
@@ -704,14 +702,13 @@
 		this.updateDoctor = function(doc_id) {
 			var type = 'Doctor';
 			
+			studiesInfo.practice_list = $scope.doctorData.info.practice_list;
+			studiesInfo.education_list = {};
+			studiesInfo.education_list.institute_name = $scope.doctorData.info.education_list.institute_name;
 			studiesInfo.profesional_membership = $scope.doctorData.info.profesional_membership;
 			studiesInfo.description = $scope.doctorData.info.description;
 			console.log(studiesInfo);
 			console.log(doc_id);
-            //data1.education_list = {};
-            //data1.education_list.institute_name = data1.institute_name;
-            //delete data1.institute_name;
-            //console.log('Llega', data1);
             $http.post(endpoint + type + '/Update/' + doc_id, studiesInfo)
             .success(function(data) {
                 if (!data.status) {
@@ -735,7 +732,7 @@
 	    	controllerAs: 'dashLocationsCtrl',
 	    };
 	});
-	docDash.controller('DashboardStudiesController', ['$http', '$scope',function($http, $scope){
+	docDash.controller('DashboardLocationsController', ['$http', '$scope',function($http, $scope){
 		$scope.doctorData.locationsInfo = {};
 		var locationsInfo = $scope.doctorData.locationsInfo;
 
@@ -745,10 +742,6 @@
 			locationsInfo.city = $scope.doctorData.info.city;
 			console.log(locationsInfo);
 			console.log(doc_id);
-            //data1.education_list = {};
-            //data1.education_list.institute_name = data1.institute_name;
-            //delete data1.institute_name;
-            //console.log('Llega', data1);
             $http.post(endpoint + type + '/Update/' + doc_id, locationsInfo)
             .success(function(data) {
                 if (!data.status) {
