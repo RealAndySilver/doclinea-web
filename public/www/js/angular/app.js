@@ -605,10 +605,12 @@
 	        readURL(this);
 	    });
 
+	    console.log('todo good!');
+
     	var type = 'Doctor';
 	    $scope.uploadFile = function(doc_id){
 	        var file = $scope.myFile;
-	        //console.log('file is ' + JSON.stringify(file));
+	        console.log('file is ' + JSON.stringify(file));
 	        var uploadUrl = endpoint + type + '/UpdateProfilePic/' + doc_id;
 	        fileUpload.uploadFileToUrl(file, uploadUrl);
 	    };
