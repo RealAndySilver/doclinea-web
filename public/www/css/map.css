@@ -37,7 +37,7 @@
   margin-bottom: 0 !important;
   margin-top: 0 !important;
 }
-.location-map img {
+#location-map img {
   max-width: none !important;
 }
 .location-map {

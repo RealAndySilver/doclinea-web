@@ -517,7 +517,21 @@
 		$('#myTab a').click(function (e) {
 		  e.preventDefault();
 		  $(this).tab('show');
-		})
+		});
+
+		$('#myTab a[href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#locations"]').on('shown.bs.tab', function (e) {
+			console.log('entraaaaa');
+		    e.preventDefault();
+		    //$(this).tab('show');
+		    //$(window).trigger('resize');
+		    var mapOptions = {
+				zoom: 11,
+				center: new google.maps.LatLng(4.6777333, -74.0956373),
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			}
+
+			$scope.map = new google.maps.Map(document.getElementById('location-map'), mapOptions);
+		});
 
 		$scope.localidades = localidades;
 		this.practices = [ 
@@ -543,6 +557,14 @@
                		console.log("Resultado de busqueda de doctores:");
                		$scope.doctorData.info = data.response;
                		console.log($scope.doctorData.info);
+
+     //           		var mapOptions = {
+					// 	zoom: 1,
+					// 	center: new google.maps.LatLng(15.0000, -98.0000),
+					// 	mapTypeId: google.maps.MapTypeId.ROADMAP
+					// }
+
+					// $scope.map = new google.maps.Map(document.getElementById('location-map'), mapOptions);
            		}
         	});
 	}]);
@@ -707,6 +729,7 @@
 			studiesInfo.education_list.institute_name = $scope.doctorData.info.education_list.institute_name;
 			studiesInfo.profesional_membership = $scope.doctorData.info.profesional_membership;
 			studiesInfo.description = $scope.doctorData.info.description;
+			studiesInfo.insurance_list = $scope.doctorData.info.insurance_list;
 			console.log(studiesInfo);
 			console.log(doc_id);
             $http.post(endpoint + type + '/Update/' + doc_id, studiesInfo)
@@ -719,7 +742,7 @@
                    console.log("Listo, doctor actualizado", data.response);
                 }
       		 });
-       //this.data = data1;
+        this.data = studiesInfo;
        };
 	}]);
 
