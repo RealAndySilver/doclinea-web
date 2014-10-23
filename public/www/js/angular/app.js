@@ -202,14 +202,20 @@
 		
 		$scope.localidades = localidades;
 
+		$scope.practices = [ 
+			{name: "Pediatra", id: 1}, 
+			{name: "Fonoaudiólogo", id: 2}, 
+			{name: "Ginecólogo", id: 3}, 
+			{name: "Ortopedista", id: 4}, 
+			{name: "Odontólogo", id: 5}, 
+		];
+
 		var type = "Doctor";
 		this.signUp = function() {
 				//console.log('Entra a signUp');
                var data1 = this.data;
                data1.password = btoa(data1.password);
-               //console.log('da password', data1.password);
                data1.password_verify = btoa(data1.password_verify);
-               //console.log('da other password', data1.password_verify);
                $http.post(endpoint + type + '/Create', data1)
                .success(function(data) {
                    if (!data.status) {
@@ -223,9 +229,9 @@
                        //console.log('la data es', doc);
                        window.location = "/#/doctor_dashboard/" + doc._id;
                    }
-       });
-       this.data = {};
-       };
+        });
+        this.data = {};
+        };
 	}]);
 
 	var loginDoctor = angular.module('loginDoctor', []);
@@ -235,9 +241,7 @@
 				//console.log('Entra a signIn');
                var data1 = this.data;
                data1.password = btoa(data1.password);
-               //console.log('da password', data1.password);
                data1.password_verify = btoa(data1.password_verify);
-               //console.log('da other password', data1.password_verify);
                $http.post(endpoint + type + '/Authenticate', data1)
                .success(function(data) {
                    if (!data.status) {
@@ -265,10 +269,6 @@
 		var city = $routeParams.city;
 		var practice_list = $routeParams.practice_list;
 		var insurance_list = $routeParams.insurance_list;
-
-		// var encodedCity = btoa(city);
-		// var encodedPractice = btoa(practice_list);
-		// var encodedInsurance = btoa(insurance_list);
 
 		docData.data1 = {};
 
@@ -731,7 +731,7 @@
 			var type = 'Doctor';
 
 			studiesInfo.practice_list = [];
-			studiesInfo.practice_list = $scope.doctorData.info.practice_list.name;
+			studiesInfo.practice_list = $scope.doctorData.info.practice_list[0];
 			console.log(studiesInfo.practice_list);
 			studiesInfo.education_list = {};
 			studiesInfo.education_list.institute_name = $scope.doctorData.info.education_list.institute_name;
