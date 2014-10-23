@@ -6,13 +6,13 @@
 								<div class="form-group">
 									<label class="col-md-4 control-label" for="city">Ciudad</label>
 									<div class="col-md-6">
-									<select class="form-control" name="city" id="city" ng-model="docDashCtrl.data.city">
-									  <option>Bogotá</option>
+									<select class="form-control" name="city" id="city" ng-model="docDashCtrl.info.city" ng-options="city for city in cities">
+									  <!--<option>Bogotá</option>
 									  <option>Medellín</option>
 									  <option>Cali</option>
 									  <option>Barranquilla</option>
 									  <option>Pereira</option>
-									  <option>Bucaramanga</option>
+									  <option>Bucaramanga</option>-->
 									</select>
 									</div>
 								</div>

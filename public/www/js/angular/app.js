@@ -543,6 +543,8 @@
 			{name: "Odontólogo", id: 5}, 
 		];
 
+		$scope.cities = ["Bogotá", "Medellín", "Cali", "Barranquilla", "Pereira", "Bucaramanga"];
+
 		var id = $routeParams.id;
 		
 		$scope.doctorData = this;
@@ -702,7 +704,7 @@
 					      alert_div.fadeOut(1800);
 					}, 800);
                 }
-      		 });
+      		});
        };
 	}]);
 
@@ -742,7 +744,7 @@
                    // if successful, bind success message to message
                    console.log("Listo, doctor actualizado", data.response);
                 }
-      		 });
+      		});
        };
 	}]);
 
@@ -759,11 +761,13 @@
 		$scope.doctorData.locationsInfo = {};
 		var locationsInfo = $scope.doctorData.locationsInfo;
 
+		var cities = $scope.cities;
+
 		this.updateDoctor = function(doc_id) {
 			var type = 'Doctor';
 			
-			//locationsInfo.city = $scope.doctorData.info.city;
-			locationsInfo.city = 'Cali';
+			locationsInfo.city = $scope.doctorData.info.city;
+			//locationsInfo.city = 'Cali';
 			console.log(locationsInfo);
             $http.post(endpoint + type + '/Update/' + doc_id, locationsInfo)
             .success(function(data) {
@@ -774,7 +778,7 @@
                    // if successful, bind success message to message
                    console.log("Listo, doctor actualizado", data.response);
                 }
-      		 });
+      		});
        };
 	}]);
 
