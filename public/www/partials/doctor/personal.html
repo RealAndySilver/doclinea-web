@@ -1,7 +1,7 @@
 <div class="center">
 	<div class="inner-info-box">
 		<div class="form-box">
-			<form class="form-horizontal" name="personalDocInfo" ng-submit="dashPersonalCtrl.updateDoctor(docDashCtrl.info._id)" ng-init="docDashCtrl.info">
+			<form class="form-horizontal" name="personalDocInfo" ng-submit="dashPersonalCtrl.updateDoctor(docDashCtrl.info._id)">
 			<fieldset>
 				<div class="form-group">
 				  <label class="col-md-4 control-label" for="name">Nombres</label>  
@@ -19,7 +19,7 @@
 				  <label class="col-md-4 control-label" for="email">Email</label>  
 				  <div class="col-md-6">
 				  <input disabled id="email" name="email" type="text" placeholder="" class="form-control input-md" ng-model="docDashCtrl.info.email" style="margin-bottom: 10px;">
-				  <div class="alert alert-info" role="alert">Para cambiar su correo debe contactarnos a contacto@doclinea.com</div>
+				  <div class="alert alert-warning" role="alert">Para cambiar su correo debe contactarnos a contacto@doclinea.com</div>
 				  </div>
 				</div>
 				<div class="form-group last-form-element">

@@ -6,35 +6,17 @@
 						<p>Encuentre un médico y pida una cita ahora mismo</p>
 						<form id="main-form" name="searchDoctorForm" ng-controller="LandpageDocSearchController as landDocSearchCtrl"  ng-submit="landDocSearchCtrl.searchDoctor()" novalidate>
 							<label for="practice_list">Especialidad</label>
-							<!--<select class="form-control" name="practice_list" id="practice_list" ng-model="docSearchCtrl.data.practice_list">-->
 							<select class="form-control" name="practice_list" id="practice_list" ng-model="landDocSearchCtrl.selectedPractice" ng-options="op.name for op in landDocSearchCtrl.practices">
 							  <option value="" >- Seleccione una especialidad -</option>
-							  <!--<option>Pediatra</option>
-							  <option>Fonoaudiólogo</option>
-							  <option>Ginecólogo</option>
-							  <option>Ortopedista</option>
-							  <option>Odontólogo</option>-->
 							</select>
 							<label for="city_list">Ciudad</label>
-							<!--<select class="form-control" name="city_list" id="city_list" ng-model="docSearchCtrl.data.city">-->
 							<select class="form-control" name="city" id="city" ng-model="landDocSearchCtrl.selectedCity" ng-options="op.name for op in landDocSearchCtrl.cities">
 							  <option value="" >- Seleccione una ciudad -</option>
-							  <!--<option>Bogotá</option>
-							  <option>Medellín</option>
-							  <option>Cali</option>
-							  <option>Barranquilla</option>
-							  <option>Pereira</option>
-							  <option>Bucaramanga</option>-->
 							</select>
 							<label for="insurance_list">Aseguradora</label>
-							<!--<select class="form-control" name="insurance_list" id="insurance_list" ng-model="docSearchCtrl.data.insurance_list">-->
 							<select class="form-control" name="insurance_list" id="insurance_list" ng-model="landDocSearchCtrl.selectedInsurance" ng-options="op.name for op in landDocSearchCtrl.insurances">
 							  <option value="" >- Seleccione una aseguradora -</option>
-							  <!--<option value="1">Colpatria</option>
-							  <option value="2">Sura</option>
-							  <option value="3">Compensar</option>-->
 							</select>
-							<!--<a href="#/search" class="btn btn-success btn-block btn-lg">Encontrar doctor</a>-->
 							<button id="search_doctor" name="search_doctor" class="btn btn-success btn-block btn-lg" >Encontrar doctor</button>
 						</form>
 					</div>

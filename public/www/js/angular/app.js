@@ -332,6 +332,8 @@
 
 			var selectedCity = !this.selectedCity ? encodedParam : this.selectedCity.name;
 			var selectedPractice = !this.selectedPractice ? encodedParam : this.selectedPractice.name;
+			console.log('LA PRACTICA ES:');
+			console.log(selectedPractice);
 			var selectedInsurance = !this.selectedInsurance ? encodedParam : this.selectedInsurance.name;
 
 			window.location = "/#/search/" + selectedCity + "/" + selectedPractice + "/" + selectedInsurance;
@@ -509,7 +511,7 @@
 	});
 
 
-	//Module and Controllers for Doctor Dashboard
+	//Module and Controllers for Doctor Dashboard - PARENT CONTROLLER
 	docDash = angular.module('doctorDashboard', []);
 	docDash.controller('DocDashboardController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams){
 		var type = 'Doctor';
@@ -531,14 +533,6 @@
 
 			$scope.map = new google.maps.Map(document.getElementById('location-map'), mapOptions);
 		});
-
-		var getPosition = function(list, option) {
-			for(var i in list) {
-				if(list[i].name === option) {
-					return list[i];
-				}
-			}
-		};
 
 		$scope.localidades = localidades;
 		$scope.practices = [ 
@@ -564,11 +558,6 @@
                		console.log("Resultado de busqueda de doctores:");
                		$scope.doctorData.info = data.response;
                		console.log($scope.doctorData.info);
-               		//console.log('Practica Seleccionada');
-               		//console.log($scope.doctorData.info.practice_list[0]);
-               		// $scope.selectedPractice = getPosition($scope.practices, $scope.doctorData.info.practice_list[0]);
-               		// console.log('Resultado final de seleccion');
-               		// console.log($scope.selectedPractice.name);
            		}
         	});
 	}]);
@@ -606,7 +595,6 @@
 	            headers: {'Content-Type': undefined}
 	        })
 	        .success(function(){
-	        	console.log('se ha subido la imagen');
 	        	var success_msg = 'Su foto de perfil ha sido guardada con éxito!';
            		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
 				$("body").prepend(alert_div);
@@ -706,9 +694,15 @@
                 } else {
                    // if successful, bind success message to message
                    console.log("Listo, doctor actualizado", data.response);
+                   var success_msg = 'Sus datos han sido actualizados con éxito!';
+	           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
+					$("body").prepend(alert_div);
+					$(".alert").alert();
+					setTimeout(function() {
+					      alert_div.fadeOut(1800);
+					}, 800);
                 }
       		 });
-       //this.data = data1;
        };
 	}]);
 
@@ -749,7 +743,6 @@
                    console.log("Listo, doctor actualizado", data.response);
                 }
       		 });
-        //this.data = studiesInfo;
        };
 	}]);
 
@@ -769,9 +762,9 @@
 		this.updateDoctor = function(doc_id) {
 			var type = 'Doctor';
 			
-			locationsInfo.city = $scope.doctorData.info.city;
+			//locationsInfo.city = $scope.doctorData.info.city;
+			locationsInfo.city = 'Cali';
 			console.log(locationsInfo);
-			console.log(doc_id);
             $http.post(endpoint + type + '/Update/' + doc_id, locationsInfo)
             .success(function(data) {
                 if (!data.status) {
@@ -782,7 +775,6 @@
                    console.log("Listo, doctor actualizado", data.response);
                 }
       		 });
-       //this.data = data1;
        };
 	}]);
 
