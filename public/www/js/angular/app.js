@@ -12,7 +12,7 @@
 	]);
 
 	var endpoint = "http://192.241.187.135:1414/api_1.0/";
-	//var endpoint = "http://192.168.1.109:1414/api_1.0/";
+	//var endpoint = "http://192.168.1.114:1414/api_1.0/";
 	app.config(['$routeProvider',
 		function($routeProvider) {
 		$routeProvider.
@@ -767,13 +767,15 @@
 			var type = 'Doctor';
 			
 			locationsInfo.city = $scope.doctorData.info.city;
-			//locationsInfo.city = 'Cali';
+			locationsInfo.location_list = {};
+			locationsInfo.location_list.location_name = $scope.doctorData.info.location_list.location_name;
+			locationsInfo.location_list.location_address = $scope.doctorData.info.location_list.location_address;
 			console.log(locationsInfo);
             $http.post(endpoint + type + '/Update/' + doc_id, locationsInfo)
             .success(function(data) {
                 if (!data.status) {
                     console.log("Paila, no se actualizó", data);
-                    //console.log(JSON.stringify(data1));
+                    //console.log(JSON.stringify(locationsInfo));
                 } else {
                    // if successful, bind success message to message
                    console.log("Listo, doctor actualizado", data.response);
