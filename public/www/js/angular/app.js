@@ -533,18 +533,32 @@
 
 			$scope.map = new google.maps.Map(document.getElementById('location-map'), mapOptions);
 
-			google.maps.event.addListener($scope.map, 'click', function(event) {
-			  addMark(event.latLng);
-			  console.log(this.center);
-			});
-
-			function addMark(location){
-			    marker = new google.maps.Marker({
-			    position: location,
-			    map: $scope.map
-			  });
+			google.maps.event.addListener($scope.map, 'click', addPoint);
+ 
+			function addPoint(event) { 
+			    var marker = new google.maps.Marker({
+			        position: event.latLng,
+			        map: $scope.map,
+			        //draggable: true
+			    });
+			    var markers = [];
+			    markers.push(marker);
+			    console.log('MIS MARCADORES');
+			    console.log(markers);
+			    console.log('MIS COORDENADAS');
+			    $scope.lat = event.latLng.lat();
+			    $scope.lng = event.latLng.lng();
+			    //console.log($scope.lat);
+			    //console.log($scope.lng);
+			    google.maps.event.addListener($scope.map, 'click', function() {
+			        marker.setMap(null);
+			        for (var i = 0, I = markers.length; i < I && markers[i] != marker; ++i);
+			        markers.splice(i, 1);
+			    });
+			    // google.maps.event.addListener(marker, 'dragend', function() {
+			 
+			    // });
 			}
-
 		});
 
 		$scope.localidades = localidades;
@@ -784,6 +798,8 @@
 			locationsInfo.location_list.location_name = $scope.doctorData.info.location_list[0].location_name;
 			locationsInfo.location_list.location_address = $scope.doctorData.info.location_list[0].location_address;
 			console.log(locationsInfo);
+			//console.log($scope.lat);
+		    //console.log($scope.lng);
             $http.post(endpoint + type + '/Update/' + doc_id, locationsInfo)
             .success(function(data) {
                 if (!data.status) {
