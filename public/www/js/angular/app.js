@@ -532,6 +532,19 @@
 			}
 
 			$scope.map = new google.maps.Map(document.getElementById('location-map'), mapOptions);
+
+			google.maps.event.addListener($scope.map, 'click', function(event) {
+			  addMark(event.latLng);
+			  console.log(this.center);
+			});
+
+			function addMark(location){
+			    marker = new google.maps.Marker({
+			    position: location,
+			    map: $scope.map
+			  });
+			}
+
 		});
 
 		$scope.localidades = localidades;
@@ -730,7 +743,7 @@
 			studiesInfo.practice_list = $scope.doctorData.info.practice_list[0];
 			console.log(studiesInfo.practice_list);
 			studiesInfo.education_list = {};
-			studiesInfo.education_list.institute_name = $scope.doctorData.info.education_list.institute_name;
+			studiesInfo.education_list.institute_name = $scope.doctorData.info.education_list[0].institute_name;
 			studiesInfo.profesional_membership = $scope.doctorData.info.profesional_membership;
 			studiesInfo.description = $scope.doctorData.info.description;
 			studiesInfo.insurance_list = $scope.doctorData.info.insurance_list;
@@ -768,8 +781,8 @@
 			
 			locationsInfo.city = $scope.doctorData.info.city;
 			locationsInfo.location_list = {};
-			locationsInfo.location_list.location_name = $scope.doctorData.info.location_list.location_name;
-			locationsInfo.location_list.location_address = $scope.doctorData.info.location_list.location_address;
+			locationsInfo.location_list.location_name = $scope.doctorData.info.location_list[0].location_name;
+			locationsInfo.location_list.location_address = $scope.doctorData.info.location_list[0].location_address;
 			console.log(locationsInfo);
             $http.post(endpoint + type + '/Update/' + doc_id, locationsInfo)
             .success(function(data) {
