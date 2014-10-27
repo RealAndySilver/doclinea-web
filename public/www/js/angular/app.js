@@ -543,22 +543,19 @@
 			    });
 			    var markers = [];
 			    markers.push(marker);
-			    console.log('MIS MARCADORES');
-			    console.log(markers);
-			    console.log('MIS COORDENADAS');
 			    $scope.lat = event.latLng.lat();
 			    $scope.lng = event.latLng.lng();
-			    //console.log($scope.lat);
-			    //console.log($scope.lng);
 			    google.maps.event.addListener($scope.map, 'click', function() {
 			        marker.setMap(null);
 			        for (var i = 0, I = markers.length; i < I && markers[i] != marker; ++i);
 			        markers.splice(i, 1);
 			    });
+			    //$scope.loadLocation($scope.lat, $scope.lng);
 			    // google.maps.event.addListener(marker, 'dragend', function() {
 			 
 			    // });
 			}
+
 		});
 
 		$scope.localidades = localidades;
@@ -797,6 +794,8 @@
 			locationsInfo.location_list = {};
 			locationsInfo.location_list.location_name = $scope.doctorData.info.location_list[0].location_name;
 			locationsInfo.location_list.location_address = $scope.doctorData.info.location_list[0].location_address;
+			locationsInfo.location_list.lat = $scope.lat;
+			locationsInfo.location_list.lon = $scope.lng;
 			console.log(locationsInfo);
 			//console.log($scope.lat);
 		    //console.log($scope.lng);
