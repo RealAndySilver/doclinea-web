@@ -99,3 +99,17 @@ header {
   cursor: inherit;
   display: block;
 }
+.practice_list {
+  width: 80%;
+  margin-right: 15px;
+  display: inline-block;
+  margin-bottom: 10px !important;
+}
+.remove-btn {
+  padding: 4px 12px;
+}
+.add-btn {
+  margin-bottom: 25px;
+  font-size: 12px;
+  font-weight: bold;
+}

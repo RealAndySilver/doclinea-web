@@ -550,7 +550,6 @@
 			        for (var i = 0, I = markers.length; i < I && markers[i] != marker; ++i);
 			        markers.splice(i, 1);
 			    });
-			    //$scope.loadLocation($scope.lat, $scope.lng);
 			    // google.maps.event.addListener(marker, 'dragend', function() {
 			 
 			    // });
@@ -747,14 +746,18 @@
 
 		var practices = $scope.practices;
 
+		this.addPractice = function() {
+			$scope.doctorData.info.practice_list.push(practices);
+		};
+
 		this.updateDoctor = function(doc_id) {
 			var type = 'Doctor';
 
 			studiesInfo.practice_list = [];
-			studiesInfo.practice_list = $scope.doctorData.info.practice_list[0];
+			studiesInfo.practice_list = $scope.doctorData.info.practice_list;
 			console.log(studiesInfo.practice_list);
 			studiesInfo.education_list = {};
-			studiesInfo.education_list.institute_name = $scope.doctorData.info.education_list[0].institute_name;
+			studiesInfo.education_list.institute_name = $scope.doctorData.info.education_list.institute_name;
 			studiesInfo.profesional_membership = $scope.doctorData.info.profesional_membership;
 			studiesInfo.description = $scope.doctorData.info.description;
 			studiesInfo.insurance_list = $scope.doctorData.info.insurance_list;
