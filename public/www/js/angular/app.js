@@ -750,9 +750,17 @@
 			$scope.doctorData.info.practice_list.push(practices);
 		};
 
+		this.removePractice = function(practiceToRemove) {
+			var index = $scope.doctorData.info.practice_list.indexOf(practiceToRemove);
+			$scope.doctorData.info.practice_list.splice(index, 1);
+		};
+
 		this.updateDoctor = function(doc_id) {
 			var type = 'Doctor';
 
+			var lastPractice =$scope.doctorData.info.practice_list;
+			console.log(lastPractice);
+			
 			studiesInfo.practice_list = [];
 			studiesInfo.practice_list = $scope.doctorData.info.practice_list;
 			console.log(studiesInfo.practice_list);
@@ -792,16 +800,21 @@
 
 		this.updateDoctor = function(doc_id) {
 			var type = 'Doctor';
-			
+
+			// var locIndex = $scope.doctorData.info.location_list.length;
+			// console.log('Numero de locaciones: ', locIndex);
+			// for(i = 0; i < locIndex; i++) {
+			// 	console.log('Resultado for: ', i);
+			// }
+			// console.log('Resultado for afuera: ', i);
+
 			locationsInfo.city = $scope.doctorData.info.city;
 			locationsInfo.location_list = {};
-			locationsInfo.location_list.location_name = $scope.doctorData.info.location_list[0].location_name;
-			locationsInfo.location_list.location_address = $scope.doctorData.info.location_list[0].location_address;
+			locationsInfo.location_list.location_name = $scope.doctorData.info.location_list.location_name;
+			locationsInfo.location_list.location_address = $scope.doctorData.info.location_list.location_address;
 			locationsInfo.location_list.lat = $scope.lat;
 			locationsInfo.location_list.lon = $scope.lng;
 			console.log(locationsInfo);
-			//console.log($scope.lat);
-		    //console.log($scope.lng);
             $http.post(endpoint + type + '/Update/' + doc_id, locationsInfo)
             .success(function(data) {
                 if (!data.status) {
