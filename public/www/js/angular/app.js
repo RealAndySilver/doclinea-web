@@ -583,7 +583,24 @@
                		console.log("Resultado de busqueda de doctores:");
                		$scope.doctorData.info = data.response;
                		console.log($scope.doctorData.info);
-           		}
+
+               		var createMarker = function (info){
+						console.log('ENTRA A CREAR MARKER');
+						var marker = new google.maps.Marker({
+							map: $scope.map,
+							position: new google.maps.LatLng(info.location_list[0].lat, info.location_list[0].lon),
+							//title: info.name +' '+ info.lastname
+						});
+						// marker.content = '<div class="infoWindowContent"><div class="map-inner-info"><h4>' + info.practice_list[0] + '</h4><br><h4>' + info.address + '</h4><br><a href="#/" class="btn btn-success">Pedir cita</a></div></div>';
+						
+						// google.maps.event.addListener(marker, 'click', function(){
+						// 	infoWindow.setContent('<h3>' + marker.title + '</h3>' + marker.content);
+						// 	infoWindow.open($scope.map, marker);
+						// });
+					}
+
+					createMarker($scope.doctorData.info);
+           		}//end else
         	});
 	}]);
 
@@ -765,7 +782,7 @@
 			studiesInfo.practice_list = $scope.doctorData.info.practice_list;
 			//console.log(studiesInfo.practice_list);
 			studiesInfo.education_list = {};
-			studiesInfo.education_list.institute_name = $scope.doctorData.info.education_list[0].institute_name;
+			studiesInfo.education_list.institute_name = $scope.doctorData.info.education_list.institute_name;
 			studiesInfo.profesional_membership = $scope.doctorData.info.profesional_membership;
 			studiesInfo.description = $scope.doctorData.info.description;
 			studiesInfo.insurance_list = $scope.doctorData.info.insurance_list;
@@ -810,8 +827,8 @@
 
 			locationsInfo.city = $scope.doctorData.info.city;
 			locationsInfo.location_list = {};
-			locationsInfo.location_list.location_name = $scope.doctorData.info.location_list.location_name;
-			locationsInfo.location_list.location_address = $scope.doctorData.info.location_list.location_address;
+			locationsInfo.location_list.location_name = $scope.doctorData.info.location_list[0].location_name;
+			locationsInfo.location_list.location_address = $scope.doctorData.info.location_list[0].location_address;
 			locationsInfo.location_list.lat = $scope.lat;
 			locationsInfo.location_list.lon = $scope.lng;
 			console.log(locationsInfo);
