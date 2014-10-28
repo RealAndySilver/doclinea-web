@@ -99,8 +99,8 @@ header {
   cursor: inherit;
   display: block;
 }
-.practice_list {
-  width: 80%;
+.small-input {
+  width: 80% !important;
   margin-right: 15px;
   display: inline-block;
   margin-bottom: 10px !important;

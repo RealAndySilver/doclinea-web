@@ -11,8 +11,8 @@
 	  'doctorDashboard',
 	]);
 
-	var endpoint = "http://192.241.187.135:1414/api_1.0/";
-	//var endpoint = "http://192.168.1.114:1414/api_1.0/";
+	//var endpoint = "http://192.241.187.135:1414/api_1.0/";
+	var endpoint = "http://192.168.1.120:1414/api_1.0/";
 	app.config(['$routeProvider',
 		function($routeProvider) {
 		$routeProvider.
@@ -584,22 +584,26 @@
                		$scope.doctorData.info = data.response;
                		console.log($scope.doctorData.info);
 
-               		var createMarker = function (info){
-						console.log('ENTRA A CREAR MARKER');
-						var marker = new google.maps.Marker({
-							map: $scope.map,
-							position: new google.maps.LatLng(info.location_list[0].lat, info.location_list[0].lon),
-							//title: info.name +' '+ info.lastname
-						});
-						// marker.content = '<div class="infoWindowContent"><div class="map-inner-info"><h4>' + info.practice_list[0] + '</h4><br><h4>' + info.address + '</h4><br><a href="#/" class="btn btn-success">Pedir cita</a></div></div>';
+     //           		var createMarker = function (lat, lng){
+					// 	console.log('ENTRA A CREAR MARKER');
+					// 	var marker = new google.maps.Marker({
+					// 		map: $scope.map,
+					// 		position: new google.maps.LatLng(lat, lng),
+					// 		//title: info.name +' '+ info.lastname
+					// 	});
+					// 	console.log('ALGO DE LA FUNTIOCN');
+					// 	console.log(marker);
+					// 	// marker.content = '<div class="infoWindowContent"><div class="map-inner-info"><h4>' + info.practice_list[0] + '</h4><br><h4>' + info.address + '</h4><br><a href="#/" class="btn btn-success">Pedir cita</a></div></div>';
 						
-						// google.maps.event.addListener(marker, 'click', function(){
-						// 	infoWindow.setContent('<h3>' + marker.title + '</h3>' + marker.content);
-						// 	infoWindow.open($scope.map, marker);
-						// });
-					}
+					// 	// google.maps.event.addListener(marker, 'click', function(){
+					// 	// 	infoWindow.setContent('<h3>' + marker.title + '</h3>' + marker.content);
+					// 	// 	infoWindow.open($scope.map, marker);
+					// 	// });
+					// }
 
-					createMarker($scope.doctorData.info);
+					// console.log('Data post createMarker');
+					// console.log($scope.doctorData.info);
+					// createMarker($scope.doctorData.info.location_list[0].lat, $scope.doctorData.info.location_list[0].lon);
            		}//end else
         	});
 	}]);
@@ -766,22 +770,26 @@
 		this.addPractice = function() {
 			$scope.doctorData.info.practice_list.push(practices);
 		};
-
 		this.removePractice = function(practiceToRemove) {
 			var index = $scope.doctorData.info.practice_list.indexOf(practiceToRemove);
 			$scope.doctorData.info.practice_list.splice(index, 1);
 		};
+		this.addInstitute = function() {
+			$scope.doctorData.info.education_list.push({institute_name: ''});
+		}
+		// this.removeInstitute = function(instituteToRemove) {
+		// 	var index = $scope.doctorData.info.education_list.indexOf(instituteToRemove);
+		// 	$scope.doctorData.info.education_list[.splice(index, 1)];
+		// };
 
 		this.updateDoctor = function(doc_id) {
 			var type = 'Doctor';
-
-			// var lastPractice =$scope.doctorData.info.practice_list;
-			// console.log(lastPractice);
 			
+			//degree, year_start, year_end, highlights
 			studiesInfo.practice_list = [];
 			studiesInfo.practice_list = $scope.doctorData.info.practice_list;
-			//console.log(studiesInfo.practice_list);
 			studiesInfo.education_list = {};
+			studiesInfo.education_list = $scope.doctorData.info.education_list;
 			studiesInfo.education_list.institute_name = $scope.doctorData.info.education_list.institute_name;
 			studiesInfo.profesional_membership = $scope.doctorData.info.profesional_membership;
 			studiesInfo.description = $scope.doctorData.info.description;
@@ -817,13 +825,6 @@
 
 		this.updateDoctor = function(doc_id) {
 			var type = 'Doctor';
-
-			// var locIndex = $scope.doctorData.info.location_list.length;
-			// console.log('Numero de locaciones: ', locIndex);
-			// for(i = 0; i < locIndex; i++) {
-			// 	console.log('Resultado for: ', i);
-			// }
-			// console.log('Resultado for afuera: ', i);
 
 			locationsInfo.city = $scope.doctorData.info.city;
 			locationsInfo.location_list = {};
