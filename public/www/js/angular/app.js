@@ -758,14 +758,14 @@
 		this.updateDoctor = function(doc_id) {
 			var type = 'Doctor';
 
-			var lastPractice =$scope.doctorData.info.practice_list;
-			console.log(lastPractice);
+			// var lastPractice =$scope.doctorData.info.practice_list;
+			// console.log(lastPractice);
 			
 			studiesInfo.practice_list = [];
 			studiesInfo.practice_list = $scope.doctorData.info.practice_list;
-			console.log(studiesInfo.practice_list);
+			//console.log(studiesInfo.practice_list);
 			studiesInfo.education_list = {};
-			studiesInfo.education_list.institute_name = $scope.doctorData.info.education_list.institute_name;
+			studiesInfo.education_list.institute_name = $scope.doctorData.info.education_list[0].institute_name;
 			studiesInfo.profesional_membership = $scope.doctorData.info.profesional_membership;
 			studiesInfo.description = $scope.doctorData.info.description;
 			studiesInfo.insurance_list = $scope.doctorData.info.insurance_list;
