@@ -479,6 +479,7 @@
                		This.dProfile = data.response;
                		//console.log(JSON.stringify(dProfile.name));
            		}
+
 	       		var mapOptions = {
 					zoom: 2,
 					center: new google.maps.LatLng(40.0000, -98.0000),
@@ -508,6 +509,10 @@
 				}
 
 				createMarker(This.dProfile);
+
+				$scope.encodedParam = btoa("undefined");
+				console.log('HERE WE GO');
+				console.log($scope.encodedParam);
            	});
 	});
 

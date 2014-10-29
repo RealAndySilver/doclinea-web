@@ -35,7 +35,7 @@
 						<div class="doc-specs">
 							<span class="specs-title">Especialidades</span>
 							<ul>
-								<li ng-repeat="practice in profile.dProfile.practice_list"><a href="/#/search/undefined/{{practice.name}}/undefined">{{practice.name}}</a></li>
+								<li ng-repeat="practice in profile.dProfile.practice_list"><a href="/#/search/{{encodedParam}}/{{practice.name}}/{{encodedParam}}">{{practice.name}}</a></li>
 							</ul>
 						</div>
 						<div class="doc-profile-description">
@@ -114,7 +114,7 @@
 				<div class="doc-practices">
 					<span>Especialidades</span>
 					<ul>
-						<li ng-repeat="practice in profile.dProfile.practice_list"><a href="/#/search/undefined/{{practice.name}}/undefined">{{practice.name}}</a></li>
+						<li ng-repeat="practice in profile.dProfile.practice_list"><a href="/#/search/{{encodedParam}}/{{practice.name}}/{{encodedParam}}">{{practice.name}}</a></li>
 					</ul>
 				</div>
 			</div>
