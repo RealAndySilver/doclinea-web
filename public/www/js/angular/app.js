@@ -162,9 +162,9 @@
         console.log('da password', data1.password);
 		this.signUp = function() {
 				//console.log('Entra a signUp');
-               var data1 = this.data;
-               $http.post(endpoint + type + '/Create', data1)
-               .success(function(data) {
+                var data1 = this.data;
+                $http.post(endpoint + type + '/Create', data1)
+                .success(function(data) {
                    if (!data.status) {
                            console.log("Paila, no se creó",data);
                    } else {
@@ -184,9 +184,9 @@
         console.log('da password', data1.password);
 		this.signIn = function() {
 				//console.log('Entra a signIn');
-               var data1 = this.data;
-               $http.post(endpoint + type + '/Authenticate', data1)
-               .success(function(data) {
+                var data1 = this.data;
+                $http.post(endpoint + type + '/Authenticate', data1)
+                .success(function(data) {
                    if (!data.status) {
                            console.log("Paila, no se autenticó",data);
                    } else {
@@ -742,8 +742,8 @@
                     //console.log(JSON.stringify(data1));
                 } else {
                    // if successful, bind success message to message
-                   console.log("Listo, doctor actualizado", data.response);
-                   var success_msg = 'Sus datos han sido actualizados con éxito!';
+                    console.log("Listo, doctor actualizado", data.response);
+                    var success_msg = 'Sus datos han sido actualizados con éxito!';
 	           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
 					$("body").prepend(alert_div);
 					$(".alert").alert();
@@ -795,9 +795,13 @@
 			for(var i in studiesInfo.practice_list) {
 				//console.log(studiesInfo.practice_list[i]);
 				if (studiesInfo.practice_list[i] instanceof Array) {
-					console.log(i + 'Esto es un array');
-					alert('Recuerde agregar una especialidad');
-					console.log(parseInt(i)+1);
+					console.log(i + 'Selección inválida');
+					//alert('Recuerde agregar una especialidad');
+					var invalid_practice = 'Verifique la lista de especialidades.';
+               		var alert_div = $("<div class=\"alert alert-danger alert-dismissible noty_dash noty fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">x</span><span class=\"sr-only\"></span></button>"+invalid_practice+"</div>");
+					$("body").prepend(alert_div);
+					$(".alert").alert();
+					//console.log(parseInt(i)+1);
 					//$('#practice_list_'+(parseInt(i)+1)).css('background', 'red');
 					$('#practice_list_'+(parseInt(i)+1)).removeClass('ng-valid');
 					$('#practice_list_'+(parseInt(i)+1)).removeClass('ng-pristine');
@@ -805,7 +809,7 @@
 					$('#practice_list_'+(parseInt(i)+1)).addClass('ng-dirty');
 					return;
 				} else {
-					console.log(i + 'Esto NO es un array');
+					console.log(i + 'Selección válida');
 				}
 			}
 
