@@ -19,7 +19,7 @@
 				  <label class="col-md-4 control-label" for="institute_name">Universidad/Instituto</label>  
 				  <div class="col-md-6">
 					  <div class="in-container" ng-repeat="institute_name in docDashCtrl.info.education_list">
-					  	<input id="institute_name" name="institute_name" type="text" placeholder="" class="form-control input-md small-input" ng-model="docDashCtrl.info.education_list[$index].institute_name">
+					  	<input id="institute_name_{{$index + 1}}" name="institute_name" type="text" placeholder="" class="form-control input-md small-input" ng-model="docDashCtrl.info.education_list[$index].institute_name">
 					  	 <a href="" ng-click="dashStudiesCtrl.removeInstitute(institute_name)" class="btn btn-danger btn-small remove-btn"><i class="fa fa-times"></i></a>
 					  </div>
 					  <a href="" ng-click="dashStudiesCtrl.addInstitute()" class="btn btn-primary btn-small add-btn"><i class="fa fa-plus"></i> Agregar</a>

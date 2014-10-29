@@ -509,10 +509,7 @@
 				}
 
 				createMarker(This.dProfile);
-
 				$scope.encodedParam = btoa("undefined");
-				console.log('HERE WE GO');
-				console.log($scope.encodedParam);
            	});
 	});
 
@@ -783,10 +780,10 @@
 		this.addInstitute = function() {
 			$scope.doctorData.info.education_list.push({institute_name: ''});
 		}
-		// this.removeInstitute = function(instituteToRemove) {
-		// 	var index = $scope.doctorData.info.education_list.indexOf(instituteToRemove);
-		// 	$scope.doctorData.info.education_list[.splice(index, 1)];
-		// };
+		this.removeInstitute = function(instituteToRemove) {
+			var index = $scope.doctorData.info.education_list.indexOf(instituteToRemove);
+			$scope.doctorData.info.education_list.splice(index, 1);
+		};
 
 		this.updateDoctor = function(doc_id) {
 			var type = 'Doctor';
@@ -794,6 +791,24 @@
 			//degree, year_start, year_end, highlights
 			studiesInfo.practice_list = [];
 			studiesInfo.practice_list = $scope.doctorData.info.practice_list;
+
+			for(var i in studiesInfo.practice_list) {
+				//console.log(studiesInfo.practice_list[i]);
+				if (studiesInfo.practice_list[i] instanceof Array) {
+					console.log(i + 'Esto es un array');
+					alert('Recuerde agregar una especialidad');
+					console.log(parseInt(i)+1);
+					//$('#practice_list_'+(parseInt(i)+1)).css('background', 'red');
+					$('#practice_list_'+(parseInt(i)+1)).removeClass('ng-valid');
+					$('#practice_list_'+(parseInt(i)+1)).removeClass('ng-pristine');
+					$('#practice_list_'+(parseInt(i)+1)).addClass('ng-invalid');
+					$('#practice_list_'+(parseInt(i)+1)).addClass('ng-dirty');
+					return;
+				} else {
+					console.log(i + 'Esto NO es un array');
+				}
+			}
+
 			studiesInfo.education_list = {};
 			studiesInfo.education_list = $scope.doctorData.info.education_list;
 			studiesInfo.education_list.institute_name = $scope.doctorData.info.education_list.institute_name;
