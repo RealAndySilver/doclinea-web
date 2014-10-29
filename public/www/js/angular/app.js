@@ -11,8 +11,8 @@
 	  'doctorDashboard',
 	]);
 
-	//var endpoint = "http://192.241.187.135:1414/api_1.0/";
-	var endpoint = "http://192.168.1.120:1414/api_1.0/";
+	var endpoint = "http://192.241.187.135:1414/api_1.0/";
+	//var endpoint = "http://192.168.1.120:1414/api_1.0/";
 	app.config(['$routeProvider',
 		function($routeProvider) {
 		$routeProvider.
@@ -38,7 +38,8 @@
 			}).
 			when('/doctor/:id', {
 				templateUrl: '../www/doctor.html',
-				//controller: 'ProfileCtrl',
+				controller: 'ProfileCtrl',
+				controllerAs : 'profile',
 			}).
 			when('/doctor_sign_up', {
 				templateUrl: '../www/doctor_sign_up.html',
