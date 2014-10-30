@@ -770,6 +770,18 @@
 
 		var practices = $scope.practices;
 
+		var myDate = new Date();
+		var currentYear = myDate.getFullYear();
+		$scope.yearsList = [];
+		var loadYears = function() {
+			for (var i = 0; i < ((currentYear+1)-1950); i++) {
+				$scope.yearsList[i] = 1950+i;
+			};
+			return $scope.yearsList;
+		}
+		loadYears();
+		console.log($scope.yearsList);
+
 		this.addPractice = function() {
 			$scope.doctorData.info.practice_list.push(practices);
 		};
@@ -816,6 +828,7 @@
 			studiesInfo.education_list = {};
 			studiesInfo.education_list = $scope.doctorData.info.education_list;
 			studiesInfo.education_list.institute_name = $scope.doctorData.info.education_list.institute_name;
+			studiesInfo.education_list.institute_name = $scope.doctorData.info.education_list.degree;
 			studiesInfo.profesional_membership = $scope.doctorData.info.profesional_membership;
 			studiesInfo.description = $scope.doctorData.info.description;
 			studiesInfo.insurance_list = $scope.doctorData.info.insurance_list;
