@@ -780,7 +780,7 @@
 			return $scope.yearsList;
 		}
 		loadYears();
-		console.log($scope.yearsList);
+		//console.log($scope.yearsList);
 
 		this.addPractice = function() {
 			$scope.doctorData.info.practice_list.push(practices);
@@ -789,18 +789,17 @@
 			var index = $scope.doctorData.info.practice_list.indexOf(practiceToRemove);
 			$scope.doctorData.info.practice_list.splice(index, 1);
 		};
-		this.addInstitute = function() {
-			$scope.doctorData.info.education_list.push({institute_name: ''});
+		this.addStudiesInfo = function() {
+			$scope.doctorData.info.education_list.push({institute_name: '', degree: '', year_start: '', year_end: '', hilights: ''});
 		}
-		this.removeInstitute = function(instituteToRemove) {
-			var index = $scope.doctorData.info.education_list.indexOf(instituteToRemove);
+		this.removeStudiesInfo = function(studiesToRemove) {
+			var index = $scope.doctorData.info.education_list.indexOf(studiesToRemove);
 			$scope.doctorData.info.education_list.splice(index, 1);
 		};
 
 		this.updateDoctor = function(doc_id) {
 			var type = 'Doctor';
 			
-			//degree, year_start, year_end, highlights
 			studiesInfo.practice_list = [];
 			studiesInfo.practice_list = $scope.doctorData.info.practice_list;
 
@@ -827,8 +826,11 @@
 
 			studiesInfo.education_list = {};
 			studiesInfo.education_list = $scope.doctorData.info.education_list;
-			studiesInfo.education_list.institute_name = $scope.doctorData.info.education_list.institute_name;
-			studiesInfo.education_list.institute_name = $scope.doctorData.info.education_list.degree;
+			// studiesInfo.education_list.institute_name = $scope.doctorData.info.education_list.institute_name;
+			// studiesInfo.education_list.degree = $scope.doctorData.info.education_list.degree;
+			// studiesInfo.education_list.year_start = $scope.doctorData.info.education_list.year_start;
+			// studiesInfo.education_list.year_end = $scope.doctorData.info.education_list.year_end;
+			// studiesInfo.education_list.highlights = $scope.doctorData.info.education_list.highlights;
 			studiesInfo.profesional_membership = $scope.doctorData.info.profesional_membership;
 			studiesInfo.description = $scope.doctorData.info.description;
 			studiesInfo.insurance_list = $scope.doctorData.info.insurance_list;

@@ -24,27 +24,38 @@
 					  <label class="col-md-4 control-label" for="institute_name">Universidad/Instituto</label>  
 					  <div class="col-md-6">
 						  <div class="in-container">
-						  	<input id="institute_name_{{$index + 1}}" name="institute_name" type="text" placeholder="" class="form-control input-md small-input" ng-model="docDashCtrl.info.education_list[$index].institute_name">
-						  	 <a href="" ng-click="dashStudiesCtrl.removeInstitute(institute_name)" class="btn btn-danger btn-small remove-btn"><i class="fa fa-times"></i></a>
+						  	<input id="institute_name_{{$index + 1}}" name="institute_name" type="text" placeholder="" class="form-control input-md" ng-model="docDashCtrl.info.education_list[$index].institute_name">
 						  </div>
-						  <!-- <a href="" ng-click="dashStudiesCtrl.addInstitute()" class="btn btn-primary btn-small add-btn"><i class="fa fa-plus"></i> Agregar</a> -->
 					  </div>
 					  <label class="col-md-4 control-label" for="degree">Carrera Profesional</label>  
 					  <div class="col-md-6">
 						  <div class="in-container">
-						  	<input id="degree_{{$index + 1}}" name="degree" type="text" placeholder="" class="form-control input-md small-input" ng-model="docDashCtrl.info.education_list[$index].degree">
-						  	 <a href="" ng-click="dashStudiesCtrl.removeInstitute(institute_name)" class="btn btn-danger btn-small remove-btn"><i class="fa fa-times"></i></a>
+						  	<input id="degree_{{$index + 1}}" name="degree" type="text" placeholder="" class="form-control input-md" ng-model="docDashCtrl.info.education_list[$index].degree">
 						  </div>
 					  </div>
 					  <label class="col-md-4 control-label" for="year_start">Año de Inicio</label>  
 					  <div class="col-md-6">
 						  <div class="in-container">
-						  	 <select id="year_start_{{$index + 1}}" name="year_start"  class="form-control small-input" ng-model="docDashCtrl.info.education_list[$index].year_start" ng-options="year for year in yearsList">
+						  	 <select id="year_start_{{$index + 1}}" name="year_start"  class="form-control" ng-model="docDashCtrl.info.education_list[$index].year_start" ng-options="year for year in yearsList">
 							</select>
-						  	 <a href="" ng-click="dashStudiesCtrl.removeInstitute(institute_name)" class="btn btn-danger btn-small remove-btn"><i class="fa fa-times"></i></a>
 						  </div>
 					  </div>
+					  <label class="col-md-4 control-label" for="year_start">Año de Finalización</label>  
+					  <div class="col-md-6">
+						  <div class="in-container">
+						  	 <select id="year_end_{{$index + 1}}" name="year_end"  class="form-control" ng-model="docDashCtrl.info.education_list[$index].year_end" ng-options="year for year in yearsList">
+						  	 </select>
+						  </div>
+					  </div>
+					  <label class="col-md-4 control-label" for="hilights">Destacados</label>  
+					  <div class="col-md-6">
+						  <div class="in-container">
+						  	<textarea id="hilights_{{$index + 1}}" name="hilights" type="text" placeholder="" class="form-control input-md" ng-model="docDashCtrl.info.education_list[$index].hilights"></textarea>
+						  </div>
+					  </div>
+					  <a href="" ng-click="dashStudiesCtrl.removeStudiesInfo(education_list)" class="btn btn-danger btn-small remove-btn"><i class="fa fa-times"></i>Eliminar</a>
 					</div>
+					<a href="" ng-click="dashStudiesCtrl.addStudiesInfo()" class="btn btn-primary btn-small add-btn pull-right"><i class="fa fa-plus"></i> Agregar</a>
 				</fieldset>
 				<fieldset>
 				<legend>Información adicional</legend>
