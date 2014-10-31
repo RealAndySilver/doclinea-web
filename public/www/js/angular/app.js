@@ -698,20 +698,28 @@
 	    };
 	});
 	docDash.controller('DashboardPasswordController', ['$http', '$scope',function($http, $scope){
+		$scope.doctorData.securityInfo = {};
+		var securityInfo = $scope.doctorData.securityInfo;
 
 		this.updateDoctor = function(doc_id) {
 			var type = 'Doctor';
+
+			securityInfo.password = $scope.doctorData.info.password;
+			securityInfo.new_password = $scope.doctorData.info.new_password;
+
+			console.log('Prueba Password');
+			console.log(securityInfo);
 			
-            $http.post(endpoint + type + '/Update/' + doc_id, personalInfo)
-            .success(function(data) {
-                if (!data.status) {
-                    console.log("Paila, no se actualizó", data);
-                    //console.log(JSON.stringify(data1));
-                } else {
-                   // if successful, bind success message to message
-                   console.log("Listo, doctor actualizado", data.response);
-                }
-      		});
+        //     $http.post(endpoint + type + '/changePassword/' + doc_id, security)
+        //     .success(function(data) {
+        //         if (!data.status) {
+        //             console.log("Paila, no se actualizó", data);
+        //             //console.log(JSON.stringify(data1));
+        //         } else {
+        //            // if successful, bind success message to message
+        //            console.log("Listo, doctor actualizado", data.response);
+        //         }
+      		// });
        };
 	}]);
 
@@ -748,7 +756,7 @@
                 } else {
                    // if successful, bind success message to message
                     console.log("Listo, doctor actualizado", data.response);
-                    var success_msg = 'Sus datos han sido actualizados con éxito!';
+                    var success_msg = 'Sus datos personales han sido actualizados con éxito!';
 	           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
 					$("body").prepend(alert_div);
 					$(".alert").alert();
@@ -841,6 +849,13 @@
                 } else {
                    // if successful, bind success message to message
                    console.log("Listo, doctor actualizado", data.response);
+                   var success_msg = 'Sus datos de formación académica han sido actualizados con éxito!';
+	           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
+					$("body").prepend(alert_div);
+					$(".alert").alert();
+					setTimeout(function() {
+					      alert_div.fadeOut(1800);
+					}, 800);
                 }
       		});
        };
