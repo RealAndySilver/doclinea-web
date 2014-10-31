@@ -688,7 +688,7 @@
 	    
 	}]);
 
-	//Controller for change Password - Doctor
+	//Controller for change Password - Doctor     -->changePassword/id  password, new_password
 	docDash.directive('passwordChange', function() {
 	    return {
 	    	restrict: 'E',
@@ -829,11 +829,6 @@
 
 			studiesInfo.education_list = {};
 			studiesInfo.education_list = $scope.doctorData.info.education_list;
-			// studiesInfo.education_list.institute_name = $scope.doctorData.info.education_list.institute_name;
-			// studiesInfo.education_list.degree = $scope.doctorData.info.education_list.degree;
-			// studiesInfo.education_list.year_start = $scope.doctorData.info.education_list.year_start;
-			// studiesInfo.education_list.year_end = $scope.doctorData.info.education_list.year_end;
-			// studiesInfo.education_list.highlights = $scope.doctorData.info.education_list.highlights;
 			studiesInfo.profesional_membership = $scope.doctorData.info.profesional_membership;
 			studiesInfo.description = $scope.doctorData.info.description;
 			studiesInfo.insurance_list = $scope.doctorData.info.insurance_list;
@@ -871,8 +866,9 @@
 
 			locationsInfo.city = $scope.doctorData.info.city;
 			locationsInfo.location_list = {};
-			locationsInfo.location_list.location_name = $scope.doctorData.info.location_list[0].location_name;
-			locationsInfo.location_list.location_address = $scope.doctorData.info.location_list[0].location_address;
+			locationsInfo.location_list = $scope.doctorData.info.location_list;
+			// locationsInfo.location_list.location_name = $scope.doctorData.info.location_list[0].location_name;
+			// locationsInfo.location_list.location_address = $scope.doctorData.info.location_list[0].location_address;
 			locationsInfo.location_list.lat = $scope.lat;
 			locationsInfo.location_list.lon = $scope.lng;
 			console.log(locationsInfo);
