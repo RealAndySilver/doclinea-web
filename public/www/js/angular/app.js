@@ -705,21 +705,21 @@
 			var type = 'Doctor';
 
 			securityInfo.password = $scope.doctorData.info.password;
-			securityInfo.new_password = $scope.doctorData.info.new_password;
+			securityInfo.new_password = btoa($scope.doctorData.info.new_password);
 
 			console.log('Prueba Password');
 			console.log(securityInfo);
 			
-        //     $http.post(endpoint + type + '/changePassword/' + doc_id, security)
-        //     .success(function(data) {
-        //         if (!data.status) {
-        //             console.log("Paila, no se actualizó", data);
-        //             //console.log(JSON.stringify(data1));
-        //         } else {
-        //            // if successful, bind success message to message
-        //            console.log("Listo, doctor actualizado", data.response);
-        //         }
-      		// });
+            $http.post(endpoint + type + '/changePassword/' + doc_id, securityInfo)
+            .success(function(data) {
+                if (!data.status) {
+                    console.log("Paila, no se actualizó", data);
+                    //console.log(JSON.stringify(data1));
+                } else {
+                   // if successful, bind success message to message
+                   console.log("Listo, doctor actualizado", data.response);
+                }
+      		});
        };
 	}]);
 
