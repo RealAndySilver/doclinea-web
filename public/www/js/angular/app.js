@@ -865,6 +865,7 @@
 			var type = 'Doctor';
 
 			locationsInfo.city = $scope.doctorData.info.city;
+			locationsInfo.localidad = $scope.doctorData.info.localidad;
 			locationsInfo.location_list = {};
 			locationsInfo.location_list = $scope.doctorData.info.location_list;
 			// locationsInfo.location_list.location_name = $scope.doctorData.info.location_list[0].location_name;
