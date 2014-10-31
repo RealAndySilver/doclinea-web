@@ -587,6 +587,11 @@
                		$scope.doctorData.info = data.response;
                		console.log($scope.doctorData.info);
 
+               		if ($scope.doctorData.info.education_list.length == 0) {
+               			console.log('Halloween!!');
+               			$scope.doctorData.info.education_list.push({institute_name: '', degree: '', year_start: '', year_end: '', hilights: ''});
+               		};
+
      //           		var createMarker = function (lat, lng){
 					// 	console.log('ENTRA A CREAR MARKER');
 					// 	var marker = new google.maps.Marker({
@@ -780,7 +785,6 @@
 			return $scope.yearsList;
 		}
 		loadYears();
-		//console.log($scope.yearsList);
 
 		this.addPractice = function() {
 			$scope.doctorData.info.practice_list.push(practices);
@@ -791,10 +795,13 @@
 		};
 		this.addStudiesInfo = function() {
 			$scope.doctorData.info.education_list.push({institute_name: '', degree: '', year_start: '', year_end: '', hilights: ''});
-		}
+		};
 		this.removeStudiesInfo = function(studiesToRemove) {
 			var index = $scope.doctorData.info.education_list.indexOf(studiesToRemove);
 			$scope.doctorData.info.education_list.splice(index, 1);
+		};
+		this.initStudiesInfo = function() {
+			var studies = $scope.doctorData.info.education_list;
 		};
 
 		this.updateDoctor = function(doc_id) {
@@ -804,16 +811,12 @@
 			studiesInfo.practice_list = $scope.doctorData.info.practice_list;
 
 			for(var i in studiesInfo.practice_list) {
-				//console.log(studiesInfo.practice_list[i]);
 				if (studiesInfo.practice_list[i] instanceof Array) {
 					console.log(i + 'Selección inválida');
-					//alert('Recuerde agregar una especialidad');
 					var invalid_practice = 'Verifique la lista de especialidades.';
                		var alert_div = $("<div class=\"alert alert-danger alert-dismissible noty_dash noty fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">x</span><span class=\"sr-only\"></span></button>"+invalid_practice+"</div>");
 					$("body").prepend(alert_div);
 					$(".alert").alert();
-					//console.log(parseInt(i)+1);
-					//$('#practice_list_'+(parseInt(i)+1)).css('background', 'red');
 					$('#practice_list_'+(parseInt(i)+1)).removeClass('ng-valid');
 					$('#practice_list_'+(parseInt(i)+1)).removeClass('ng-pristine');
 					$('#practice_list_'+(parseInt(i)+1)).addClass('ng-invalid');
