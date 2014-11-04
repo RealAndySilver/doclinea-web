@@ -12,7 +12,7 @@
 	]);
 
 	var endpoint = "http://192.241.187.135:1414/api_1.0/";
-	//var endpoint = "http://192.168.1.120:1414/api_1.0/";
+	//var endpoint = "http://192.168.1.107:1414/api_1.0/";
 	app.config(['$routeProvider',
 		function($routeProvider) {
 		$routeProvider.
@@ -698,21 +698,25 @@
 	    };
 	});
 	docDash.controller('DashboardPasswordController', ['$http', '$scope',function($http, $scope){
-		$scope.doctorData.securityInfo = {};
-		var securityInfo = $scope.doctorData.securityInfo;
+		$scope.doctorData.security = {};
+		var securityInfo = $scope.doctorData.security;
+
+		//$scope.doctorData.security = btoa($scope.dashPasswordCtrl.security.password);
+		//data1.new_password = btoa(data1.new_password);
 
 		this.updateDoctor = function(doc_id) {
 			var type = 'Doctor';
 
-			var password = btoa($scope.current_password);
-			var new_password = btoa($scope.new_password);
+			securityInfo.password = btoa(securityInfo.password);
+			securityInfo.new_password = btoa(securityInfo.new_password);
+			// data1.new_password = btoa(data1.new_password);
 
 			console.log('Current Password');
-			console.log(password);
+			console.log(securityInfo.password);
 			console.log('New Password');
-			console.log(new_password);
+			console.log(securityInfo.new_password);
 			
-        //     $http.post(endpoint + type + '/changePassword/' + doc_id, securityInfo)
+        //     $http.post(endpoint + type + '/ChangePassword/' + doc_id, password, new_password)
         //     .success(function(data) {
         //         if (!data.status) {
         //             console.log("Paila, no se actualizó", data);
@@ -722,7 +726,7 @@
         //            console.log("Listo, doctor actualizado", data.response);
         //         }
       		// });
-       };
+        };
 	}]);
 
 	//Controller for Personal Info - Doctor
