@@ -11,8 +11,8 @@
 	  'doctorDashboard',
 	]);
 
-	var endpoint = "http://192.241.187.135:1414/api_1.0/";
-	//var endpoint = "http://192.168.1.107:1414/api_1.0/";
+	//var endpoint = "http://192.241.187.135:1414/api_1.0/";
+	var endpoint = "http://192.168.1.110:1414/api_1.0/";
 	app.config(['$routeProvider',
 		function($routeProvider) {
 		$routeProvider.
@@ -707,25 +707,28 @@
 		this.updateDoctor = function(doc_id) {
 			var type = 'Doctor';
 
-			securityInfo.password = btoa(securityInfo.password);
-			securityInfo.new_password = btoa(securityInfo.new_password);
+			securityInfo.password = btoa($scope.security.password);
+			//var password = securityInfo.password;
+			securityInfo.new_password = btoa($scope.security.new_password);
+			//var new_password = securityInfo.new_password;
 			// data1.new_password = btoa(data1.new_password);
 
+			console.log(securityInfo);
 			console.log('Current Password');
 			console.log(securityInfo.password);
 			console.log('New Password');
 			console.log(securityInfo.new_password);
 			
-        //     $http.post(endpoint + type + '/ChangePassword/' + doc_id, password, new_password)
-        //     .success(function(data) {
-        //         if (!data.status) {
-        //             console.log("Paila, no se actualizó", data);
-        //             //console.log(JSON.stringify(data1));
-        //         } else {
-        //            // if successful, bind success message to message
-        //            console.log("Listo, doctor actualizado", data.response);
-        //         }
-      		// });
+            $http.post(endpoint + type + '/ChangePassword/' + doc_id, securityInfo)
+            .success(function(data) {
+                if (!data.status) {
+                    console.log("Paila, no se actualizó", data);
+                    //console.log(JSON.stringify(data1));
+                } else {
+                   // if successful, bind success message to message
+                   console.log("Listo, doctor actualizado", data.response);
+                }
+      		});
         };
 	}]);
 
