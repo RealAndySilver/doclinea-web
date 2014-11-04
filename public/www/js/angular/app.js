@@ -498,7 +498,7 @@
 						position: new google.maps.LatLng(info.location_list[0].lat, info.location_list[0].lon),
 						title: info.name +' '+ info.lastname
 					});
-					marker.content = '<div class="infoWindowContent"><div class="map-inner-info"><h4>' + info.practice_list[0] + '</h4><br><h4>' + info.address + '</h4><br><a href="#/" class="btn btn-success">Pedir cita</a></div></div>';
+					marker.content = '<div class="infoWindowContent"><div class="map-inner-info"><h4>' + info.practice_list[0].name + '</h4><br><h4>' + info.address + '</h4><br><a href="#/" class="btn btn-success">Pedir cita</a></div></div>';
 					
 					google.maps.event.addListener(marker, 'click', function(){
 						infoWindow.setContent('<h3>' + marker.title + '</h3>' + marker.content);
@@ -704,22 +704,24 @@
 		this.updateDoctor = function(doc_id) {
 			var type = 'Doctor';
 
-			securityInfo.password = $scope.doctorData.info.password;
-			securityInfo.new_password = btoa($scope.doctorData.info.new_password);
+			var password = btoa($scope.current_password);
+			var new_password = btoa($scope.new_password);
 
-			console.log('Prueba Password');
-			console.log(securityInfo);
+			console.log('Current Password');
+			console.log(password);
+			console.log('New Password');
+			console.log(new_password);
 			
-            $http.post(endpoint + type + '/changePassword/' + doc_id, securityInfo)
-            .success(function(data) {
-                if (!data.status) {
-                    console.log("Paila, no se actualizó", data);
-                    //console.log(JSON.stringify(data1));
-                } else {
-                   // if successful, bind success message to message
-                   console.log("Listo, doctor actualizado", data.response);
-                }
-      		});
+        //     $http.post(endpoint + type + '/changePassword/' + doc_id, securityInfo)
+        //     .success(function(data) {
+        //         if (!data.status) {
+        //             console.log("Paila, no se actualizó", data);
+        //             //console.log(JSON.stringify(data1));
+        //         } else {
+        //            // if successful, bind success message to message
+        //            console.log("Listo, doctor actualizado", data.response);
+        //         }
+      		// });
        };
 	}]);
 
@@ -794,6 +796,7 @@
 		}
 		loadYears();
 
+		//add or remove form fields
 		this.addPractice = function() {
 			$scope.doctorData.info.practice_list.push(practices);
 		};
