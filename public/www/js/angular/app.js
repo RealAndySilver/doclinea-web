@@ -246,7 +246,11 @@
                $http.post(endpoint + type + '/Authenticate', data1)
                .success(function(data) {
                    if (!data.status) {
-                           console.log("Paila, no se autenticó",data);
+                            console.log("Paila, no se autenticó",data);
+                            var auth_error = 'El usuario o la contraseña estan incorrectos.';
+		               		var alert_div = $("<div class=\"alert alert-danger alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">x</span><span class=\"sr-only\"></span></button>"+auth_error+"</div>");
+							$("body").prepend(alert_div);
+							$(".alert").alert();
                    } else {
                            // if successful, bind success message to message
                        console.log("Listo, doctor autenticado", data.response);
@@ -588,7 +592,9 @@
                		console.log($scope.doctorData.info);
 
                		if ($scope.doctorData.info.education_list.length == 0) {
-               			console.log('Halloween!!');
+               			$scope.doctorData.info.education_list.push({institute_name: '', degree: '', year_start: '', year_end: '', hilights: ''});
+               		};
+               		if ($scope.doctorData.info.education_list.length == 0) {
                			$scope.doctorData.info.education_list.push({institute_name: '', degree: '', year_start: '', year_end: '', hilights: ''});
                		};
 
