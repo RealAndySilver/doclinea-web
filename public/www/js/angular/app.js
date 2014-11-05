@@ -594,8 +594,8 @@
                		if ($scope.doctorData.info.education_list.length == 0) {
                			$scope.doctorData.info.education_list.push({institute_name: '', degree: '', year_start: '', year_end: '', hilights: ''});
                		};
-               		if ($scope.doctorData.info.education_list.length == 0) {
-               			$scope.doctorData.info.education_list.push({institute_name: '', degree: '', year_start: '', year_end: '', hilights: ''});
+               		if ($scope.doctorData.info.location_list.length == 0) {
+               			$scope.doctorData.info.location_list.push({location_name: '', location_address: ''});
                		};
 
      //           		var createMarker = function (lat, lng){
