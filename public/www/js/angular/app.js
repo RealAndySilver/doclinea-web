@@ -562,6 +562,31 @@
 			    // });
 			}
 
+
+			//cargar mapa
+			var createMarker = function (lat, lng){
+						console.log('ENTRA A CREAR MARKER');
+						var marker = new google.maps.Marker({
+							map: $scope.map,
+							position: new google.maps.LatLng(lat, lng),
+							//title: info.name +' '+ info.lastname
+						});
+						console.log('ALGO DE LA FUNTIOCN');
+						console.log(marker);
+						// marker.content = '<div class="infoWindowContent"><div class="map-inner-info"><h4>' + info.practice_list[0] + '</h4><br><h4>' + info.address + '</h4><br><a href="#/" class="btn btn-success">Pedir cita</a></div></div>';
+						
+						// google.maps.event.addListener(marker, 'click', function(){
+						// 	infoWindow.setContent('<h3>' + marker.title + '</h3>' + marker.content);
+						// 	infoWindow.open($scope.map, marker);
+						// });
+					}
+
+					console.log('Data post createMarker');
+					console.log($scope.doctorData.info);
+					doctorLat = $scope.doctorData.info.location_list[0].lat;
+					doctorLon = $scope.doctorData.info.location_list[0].lon;
+					createMarker(doctorLat, doctorLon);
+
 		});
 
 		$scope.localidades = localidades;
@@ -597,28 +622,7 @@
                		if ($scope.doctorData.info.location_list.length == 0) {
                			$scope.doctorData.info.location_list.push({location_name: '', location_address: ''});
                		};
-
-     //           		var createMarker = function (lat, lng){
-					// 	console.log('ENTRA A CREAR MARKER');
-					// 	var marker = new google.maps.Marker({
-					// 		map: $scope.map,
-					// 		position: new google.maps.LatLng(lat, lng),
-					// 		//title: info.name +' '+ info.lastname
-					// 	});
-					// 	console.log('ALGO DE LA FUNTIOCN');
-					// 	console.log(marker);
-					// 	// marker.content = '<div class="infoWindowContent"><div class="map-inner-info"><h4>' + info.practice_list[0] + '</h4><br><h4>' + info.address + '</h4><br><a href="#/" class="btn btn-success">Pedir cita</a></div></div>';
-						
-					// 	// google.maps.event.addListener(marker, 'click', function(){
-					// 	// 	infoWindow.setContent('<h3>' + marker.title + '</h3>' + marker.content);
-					// 	// 	infoWindow.open($scope.map, marker);
-					// 	// });
-					// }
-
-					// console.log('Data post createMarker');
-					// console.log($scope.doctorData.info);
-					// createMarker($scope.doctorData.info.location_list[0].lat, $scope.doctorData.info.location_list[0].lon);
-           		}//end else
+           		}
         	});
 	}]);
 
@@ -707,17 +711,11 @@
 		$scope.doctorData.security = {};
 		var securityInfo = $scope.doctorData.security;
 
-		//$scope.doctorData.security = btoa($scope.dashPasswordCtrl.security.password);
-		//data1.new_password = btoa(data1.new_password);
-
 		this.updateDoctor = function(doc_id) {
 			var type = 'Doctor';
 
 			securityInfo.password = btoa($scope.security.password);
-			//var password = securityInfo.password;
 			securityInfo.new_password = btoa($scope.security.new_password);
-			//var new_password = securityInfo.new_password;
-			// data1.new_password = btoa(data1.new_password);
 
 			console.log(securityInfo);
 			console.log('Current Password');
@@ -901,8 +899,8 @@
 			locationsInfo.location_list = $scope.doctorData.info.location_list;
 			// locationsInfo.location_list.location_name = $scope.doctorData.info.location_list[0].location_name;
 			// locationsInfo.location_list.location_address = $scope.doctorData.info.location_list[0].location_address;
-			locationsInfo.location_list.lat = $scope.lat;
-			locationsInfo.location_list.lon = $scope.lng;
+			locationsInfo.location_list[0].lat = $scope.lat;
+			locationsInfo.location_list[0].lon = $scope.lng;
 			console.log(locationsInfo);
             $http.post(endpoint + type + '/Update/' + doc_id, locationsInfo)
             .success(function(data) {
