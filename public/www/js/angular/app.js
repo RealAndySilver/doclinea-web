@@ -536,59 +536,52 @@
 				mapTypeId: google.maps.MapTypeId.ROADMAP
 			}
 
-			var markers = [];
-
+			//var initialMarker = 
 			$scope.map = new google.maps.Map(document.getElementById('location-map'), mapOptions);
 
 			google.maps.event.addListener($scope.map, 'click', addPoint);
 
- 			//añadir ubicación a mapa
+			//cargar ubicación en mapa
+			var createMarker = function (lat, lng){
+				console.log('ENTRA A CREAR MARKER');
+				var marker = new google.maps.Marker({
+					map: $scope.map,
+					position: new google.maps.LatLng(lat, lng),
+					//title: info.name +' '+ info.lastname
+				});
+				// marker.content = '<div class="infoWindowContent"><div class="map-inner-info"><h4>' + info.practice_list[0] + '</h4><br><h4>' + info.address + '</h4><br><a href="#/" class="btn btn-success">Pedir cita</a></div></div>';
+				
+				// google.maps.event.addListener(marker, 'click', function(){
+				// 	infoWindow.setContent('<h3>' + marker.title + '</h3>' + marker.content);
+				// 	infoWindow.open($scope.map, marker);
+				// });
+			}
+			doctorLat = $scope.doctorData.info.location_list[0].lat;
+			doctorLon = $scope.doctorData.info.location_list[0].lon;
+			createMarker(doctorLat, doctorLon);
+
+		    //añadir ubicación a mapa
 			function addPoint(event) { 
 			    var marker = new google.maps.Marker({
 			        position: event.latLng,
 			        map: $scope.map,
 			        //draggable: true
 			    });
-			    // var markers = [];
-			    if (markers.length == 0) {
-			    	markers.push(marker);
-			    	$scope.lat = event.latLng.lat();
-				    $scope.lng = event.latLng.lng();
-				    google.maps.event.addListener($scope.map, 'click', function() {
-				        marker.setMap(null);
-				        for (var i = 0, I = markers.length; i < I && markers[i] != marker; ++i);
-				        markers.splice(i, 1);
-				    });
+			    var markers = [];
+		    	markers.push(marker);
+		    	$scope.lat = event.latLng.lat();
+			    $scope.lng = event.latLng.lng();
+			    console.log($scope.doctorData.info.location_list);
+			    if ($scope.doctorData.info.location_list[0].lat && $scope.doctorData.info.location_list[0].lon) {
+			    	//confirm("Desea reemplazar su ubicación actual?");
+			    	//alert('reemplazar este sitio');
 			    };
-			    
-			    
-			    // google.maps.event.addListener(marker, 'dragend', function() {
-			 
-			    // });
+			    google.maps.event.addListener($scope.map, 'click', function() {
+		    		marker.setMap(null);
+			        for (var i = 0, I = markers.length; i < I && markers[i] != marker; ++i);
+			        markers.splice(i, 1);
+			    });
 			}
-
-
-			//cargar ubicación en mapa
-			var createMarker = function (lat, lng){
-						console.log('ENTRA A CREAR MARKER');
-						var marker = new google.maps.Marker({
-							map: $scope.map,
-							position: new google.maps.LatLng(lat, lng),
-							//title: info.name +' '+ info.lastname
-						});
-						// marker.content = '<div class="infoWindowContent"><div class="map-inner-info"><h4>' + info.practice_list[0] + '</h4><br><h4>' + info.address + '</h4><br><a href="#/" class="btn btn-success">Pedir cita</a></div></div>';
-						
-						// google.maps.event.addListener(marker, 'click', function(){
-						// 	infoWindow.setContent('<h3>' + marker.title + '</h3>' + marker.content);
-						// 	infoWindow.open($scope.map, marker);
-						// });
-					}
-
-					console.log('Data post createMarker');
-					console.log($scope.doctorData.info);
-					doctorLat = $scope.doctorData.info.location_list[0].lat;
-					doctorLon = $scope.doctorData.info.location_list[0].lon;
-					createMarker(doctorLat, doctorLon);
 
 		});
 
