@@ -315,29 +315,32 @@
 			var data1 = this.data;
 			data1.password = btoa(data1.password);
             //data1.password_verify = btoa(data1.password_verify);
-			console.log(data1.password);
-			// $http.get(endpoint + 'Doctor' + '/Recover/' + email)
-	  //           .success(function(data) {
-	  //               if (!data.status) {
-	  //                   //console.log("El correo no existe o no pudo ser enviado", data);
-	  //                   var email_error = 'El correo no existe o no pudo ser enviado.';
-	  //              		var alert_div = $("<div class=\"alert alert-danger alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">x</span><span class=\"sr-only\"></span></button>"+email_error+"</div>");
-			// 			$("body").prepend(alert_div);
-			// 			$(".alert").alert();
-			// 			$("#doctor-recover-password #email").val('');
-	  //               } else {
-	  //                      // if successful, bind success message to message
-	  //                  //console.log("Ha sido enviado el correo" + data);
-	  //                  var success_msg = 'Su solicitud ha sido enviada con éxito!';
-		 //           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
-			// 			$("body").prepend(alert_div);
-			// 			$(".alert").alert();
-			// 			setTimeout(function() {
-			// 			      alert_div.fadeOut(1800);
-			// 			      window.location = "/#";
-			// 			}, 800);
-	  //               }
-	  //   		});
+			//console.log(data1.password);
+			if (type == 'doctor') {
+				type = 'Doctor';
+			};
+			$http.post(endpoint + type + '/NewPassword/' + token, data1)
+	            .success(function(data) {
+	                if (!data.status) {
+	                    //console.log("El correo no existe o no pudo ser enviado", data);
+	                    var send_error = 'Ha ocurrido un error, verifique la contraseña de nuevo.';
+	               		var alert_div = $("<div class=\"alert alert-danger alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">x</span><span class=\"sr-only\"></span></button>"+send_error+"</div>");
+						$("body").prepend(alert_div);
+						$(".alert").alert();
+						//$("#doctor-recover-password #email").val('');
+	                } else {
+	                       // if successful, bind success message to message
+	                   //console.log("Ha sido enviado el correo" + data);
+	                   var success_msg = 'Su solicitud ha sido enviada con éxito!';
+		           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
+						$("body").prepend(alert_div);
+						$(".alert").alert();
+						setTimeout(function() {
+						      alert_div.fadeOut(1800);
+						      window.location = "/#";
+						}, 800);
+	                }
+	    		});
 		};
 	}]);
 
