@@ -52,6 +52,11 @@
 				controller: 'PasswordRecoverController',
 				controllerAs: 'recoverCtrl',
 			}).
+			when('/NewPassword/:token/:type/new_password/:email', {
+				templateUrl: '../www/new_password.html',
+				controller: 'NewPasswordController',
+				controllerAs: 'newPassCtrl',
+			}).
 			when('/doctor_dashboard/:id', {
 				templateUrl: '../www/doctor_dashboard.html',
 				controller: 'DocDashboardController',
@@ -268,7 +273,7 @@
        };
 	}]);
 
-	//Controller for Password Recovering
+	//Controllers for Password Recovering
 	app.controller('PasswordRecoverController', ['$http', function($http){
 		//console.log('Entra a recover');
 		this.docRecover = function() {
@@ -296,6 +301,43 @@
 						}, 800);
 	                }
 	    		});
+		};
+	}]);
+	app.controller('NewPasswordController', ['$http', '$routeParams', function($http, $routeParams){
+		console.log('Entra a new password');
+
+		var token = $routeParams.token;
+		var type = $routeParams.type;
+		var email = $routeParams.email;
+		console.log(token, type, email);
+
+		this.sendPassword = function() {
+			var data1 = this.data;
+			data1.password = btoa(data1.password);
+            //data1.password_verify = btoa(data1.password_verify);
+			console.log(data1.password);
+			// $http.get(endpoint + 'Doctor' + '/Recover/' + email)
+	  //           .success(function(data) {
+	  //               if (!data.status) {
+	  //                   //console.log("El correo no existe o no pudo ser enviado", data);
+	  //                   var email_error = 'El correo no existe o no pudo ser enviado.';
+	  //              		var alert_div = $("<div class=\"alert alert-danger alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">x</span><span class=\"sr-only\"></span></button>"+email_error+"</div>");
+			// 			$("body").prepend(alert_div);
+			// 			$(".alert").alert();
+			// 			$("#doctor-recover-password #email").val('');
+	  //               } else {
+	  //                      // if successful, bind success message to message
+	  //                  //console.log("Ha sido enviado el correo" + data);
+	  //                  var success_msg = 'Su solicitud ha sido enviada con éxito!';
+		 //           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
+			// 			$("body").prepend(alert_div);
+			// 			$(".alert").alert();
+			// 			setTimeout(function() {
+			// 			      alert_div.fadeOut(1800);
+			// 			      window.location = "/#";
+			// 			}, 800);
+	  //               }
+	  //   		});
 		};
 	}]);
 
