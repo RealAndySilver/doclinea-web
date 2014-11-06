@@ -11,8 +11,8 @@
 	  'doctorDashboard',
 	]);
 
-	var endpoint = "http://192.241.187.135:1414/api_1.0/";
-	//var endpoint = "http://192.168.1.110:1414/api_1.0/";
+	//var endpoint = "http://192.241.187.135:1414/api_1.0/";
+	var endpoint = "http://192.168.1.112:1414/api_1.0/";
 	app.config(['$routeProvider',
 		function($routeProvider) {
 		$routeProvider.
@@ -46,6 +46,11 @@
 			}).
 			when('/doctor_sign_in', {
 				templateUrl: '../www/doctor_sign_in.html',
+			}).
+			when('/password_recover', {
+				templateUrl: '../www/password_recover.html',
+				controller: 'PasswordRecoverController',
+				controllerAs: 'recoverCtrl',
 			}).
 			when('/doctor_dashboard/:id', {
 				templateUrl: '../www/doctor_dashboard.html',
@@ -218,19 +223,19 @@
                data1.password = btoa(data1.password);
                data1.password_verify = btoa(data1.password_verify);
                $http.post(endpoint + type + '/Create', data1)
-               .success(function(data) {
-                   if (!data.status) {
-                        console.log("Paila, no se creó",data);
-                        console.log(JSON.stringify(data1));
-                   } else {
-                           // if successful, bind success message to message
-                       console.log("Listo, creado" + data);
-                       console.log(JSON.stringify(data1));
-                       var doc = data.response;
-                       //console.log('la data es', doc);
-                       window.location = "/#/doctor_dashboard/" + doc._id;
-                   }
-        });
+	               .success(function(data) {
+	                   if (!data.status) {
+	                        console.log("Paila, no se creó",data);
+	                        console.log(JSON.stringify(data1));
+	                   } else {
+	                           // if successful, bind success message to message
+	                       console.log("Listo, creado" + data);
+	                       console.log(JSON.stringify(data1));
+	                       var doc = data.response;
+	                       //console.log('la data es', doc);
+	                       window.location = "/#/doctor_dashboard/" + doc._id;
+	                   }
+	        		});
         this.data = {};
         };
 	}]);
@@ -239,30 +244,49 @@
 	loginDoctor.controller('DoctorSignInController', ['$http', '$routeParams', function($http, $routeParams){
 		var type = "Doctor";
 		this.signIn = function() {
-				//console.log('Entra a signIn');
-               var data1 = this.data;
-               data1.password = btoa(data1.password);
-               data1.password_verify = btoa(data1.password_verify);
-               $http.post(endpoint + type + '/Authenticate', data1)
-               .success(function(data) {
-                   if (!data.status) {
-                            console.log("Paila, no se autenticó",data);
-                            var auth_error = 'El usuario o la contraseña estan incorrectos.';
+			//console.log('Entra a signIn');
+           var data1 = this.data;
+           data1.password = btoa(data1.password);
+           data1.password_verify = btoa(data1.password_verify);
+           $http.post(endpoint + type + '/Authenticate', data1)
+	           .success(function(data) {
+	               if (!data.status) {
+	                        console.log("Paila, no se autenticó",data);
+	                        var auth_error = 'El usuario o la contraseña estan incorrectos.';
 		               		var alert_div = $("<div class=\"alert alert-danger alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">x</span><span class=\"sr-only\"></span></button>"+auth_error+"</div>");
 							$("body").prepend(alert_div);
 							$(".alert").alert();
-                   } else {
-                           // if successful, bind success message to message
-                       console.log("Listo, doctor autenticado", data.response);
-                       var doc = data.response;
-                       //console.log('la data es', doc);
-                       window.location = "/#/doctor_dashboard/" + doc._id;
-                   }
-       });
+	               } else {
+	                       // if successful, bind success message to message
+	                   console.log("Listo, doctor autenticado", data.response);
+	                   var doc = data.response;
+	                   //console.log('la data es', doc);
+	                   window.location = "/#/doctor_dashboard/" + doc._id;
+	               }
+	       		});
        this.data = {};
        };
 	}]);
 
+	//Controller for Password Recovering
+	app.controller('PasswordRecoverController', ['$http', function($http){
+		//console.log('Entra a recover');
+		this.docRecover = function() {
+			var email = this.data.email;
+			console.log(email);
+			$http.get(endpoint + 'Doctor' + '/Recover/' + email)
+	            .success(function(data) {
+	                if (!data.status) {
+	                    console.log("El correo no existe o no pudo ser enviado", data);
+	                } else {
+	                       // if successful, bind success message to message
+	                   console.log("Ha sido enviado el correo" + data);
+	                   var doc = data.response;
+	                   window.location = "/#";
+	                }
+	    		});
+		};
+	}]);
 
 	//Parent Controller for Doctors Searching
 	app.controller('GetDoctorsController', ['$http', '$routeParams', function($http, $routeParams){
@@ -895,8 +919,6 @@
 			locationsInfo.localidad = $scope.doctorData.info.localidad;
 			locationsInfo.location_list = {};
 			locationsInfo.location_list = $scope.doctorData.info.location_list;
-			// locationsInfo.location_list.location_name = $scope.doctorData.info.location_list[0].location_name;
-			// locationsInfo.location_list.location_address = $scope.doctorData.info.location_list[0].location_address;
 			locationsInfo.location_list[0].lat = $scope.lat;
 			locationsInfo.location_list[0].lon = $scope.lng;
 			console.log(locationsInfo);
