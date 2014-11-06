@@ -277,12 +277,23 @@
 			$http.get(endpoint + 'Doctor' + '/Recover/' + email)
 	            .success(function(data) {
 	                if (!data.status) {
-	                    console.log("El correo no existe o no pudo ser enviado", data);
+	                    //console.log("El correo no existe o no pudo ser enviado", data);
+	                    var email_error = 'El correo no existe o no pudo ser enviado.';
+	               		var alert_div = $("<div class=\"alert alert-danger alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">x</span><span class=\"sr-only\"></span></button>"+email_error+"</div>");
+						$("body").prepend(alert_div);
+						$(".alert").alert();
+						$("#doctor-recover-password #email").val('');
 	                } else {
 	                       // if successful, bind success message to message
-	                   console.log("Ha sido enviado el correo" + data);
-	                   var doc = data.response;
-	                   window.location = "/#";
+	                   //console.log("Ha sido enviado el correo" + data);
+	                   var success_msg = 'Su solicitud ha sido enviada con éxito!';
+		           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
+						$("body").prepend(alert_div);
+						$(".alert").alert();
+						setTimeout(function() {
+						      alert_div.fadeOut(1800);
+						      window.location = "/#";
+						}, 800);
 	                }
 	    		});
 		};
@@ -739,11 +750,11 @@
 			securityInfo.password = btoa($scope.security.password);
 			securityInfo.new_password = btoa($scope.security.new_password);
 
-			console.log(securityInfo);
-			console.log('Current Password');
-			console.log(securityInfo.password);
-			console.log('New Password');
-			console.log(securityInfo.new_password);
+			// console.log(securityInfo);
+			// console.log('Current Password');
+			// console.log(securityInfo.password);
+			// console.log('New Password');
+			// console.log(securityInfo.new_password);
 			
             $http.post(endpoint + type + '/ChangePassword/' + doc_id, securityInfo)
             .success(function(data) {
