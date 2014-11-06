@@ -9,10 +9,11 @@
 	  'createDoctor',
 	  'docProfile',
 	  'doctorDashboard',
+	  'userDashboard',
 	]);
 
-	//var endpoint = "http://192.241.187.135:1414/api_1.0/";
-	var endpoint = "http://192.168.1.112:1414/api_1.0/";
+	var endpoint = "http://192.241.187.135:1414/api_1.0/";
+	//var endpoint = "http://192.168.1.112:1414/api_1.0/";
 	app.config(['$routeProvider',
 		function($routeProvider) {
 		$routeProvider.
@@ -32,9 +33,10 @@
 				templateUrl: '../www/sign_in.html',
 				//controller: 'SignInController',
 			}).
-			when('/user/:userId', {
+			when('/user/:id', {
 				templateUrl: '../www/user.html',
-				controller: 'SignInController',
+				controller: 'UserDashboardController',
+				controllerAs: 'userDashCtrl',
 			}).
 			when('/doctor/:id', {
 				templateUrl: '../www/doctor.html',
@@ -597,6 +599,61 @@
            	});
 	});
 
+
+	//Module and Controllers for User Dashboard - PARENT CONTROLLER
+	userDash = angular.module('userDashboard', []);
+	userDash.controller('UserDashboardController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams){
+		var type = 'User';
+
+		$('#myTab a').click(function (e) {
+		  e.preventDefault();
+		  $(this).tab('show');
+		});
+	}]);
+	//Controller for Personal Info - User
+	userDash.directive('personal', function() {
+	    return {
+	    	restrict: 'E',
+	    	templateUrl: 'www/partials/user/personal.html',
+	    	controller: 'UserDashboardController',
+	    	controllerAs: 'userDashCtrl',
+	    };
+	});
+	// userDash.controller('UserDashboardController', ['$http', '$scope',function($http, $scope){
+	// 	$scope.userData.personalInfo = {};
+	// 	var personalInfo = $scope.userData.personalInfo;
+
+	// 	this.updateDoctor = function(doc_id) {
+	// 		var type = 'Doctor';
+			
+	// 		personalInfo.name = $scope.doctorData.info.name;
+	// 		personalInfo.lastname = $scope.doctorData.info.lastname;
+	// 		personalInfo.email = $scope.doctorData.info.email;
+	// 		personalInfo.gender = $scope.doctorData.info.gender;
+	// 		personalInfo.patient_gender = $scope.doctorData.info.patient_gender;
+	// 		personalInfo.phone = $scope.doctorData.info.phone;
+	// 		console.log(personalInfo);
+	// 		console.log(doc_id);
+
+ //            $http.post(endpoint + type + '/Update/' + doc_id, personalInfo)
+ //            .success(function(data) {
+ //                if (!data.status) {
+ //                    console.log("Paila, no se actualizó", data);
+ //                    //console.log(JSON.stringify(data1));
+ //                } else {
+ //                   // if successful, bind success message to message
+ //                    console.log("Listo, doctor actualizado", data.response);
+ //                    var success_msg = 'Sus datos personales han sido actualizados con éxito!';
+	//            		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
+	// 				$("body").prepend(alert_div);
+	// 				$(".alert").alert();
+	// 				setTimeout(function() {
+	// 				      alert_div.fadeOut(1800);
+	// 				}, 800);
+ //                }
+ //      		});
+ //       };
+	// }]);
 
 	//Module and Controllers for Doctor Dashboard - PARENT CONTROLLER
 	docDash = angular.module('doctorDashboard', []);

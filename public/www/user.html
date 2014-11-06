@@ -1,0 +1,21 @@
+<div class="container-fluid">
+  <div class="row">
+	<div class="col-sm-3 col-md-2 sidebar">
+	  <ul class="nav nav-sidebar">
+		<li><a href="#">Citas</a></li>
+		<li class="active"><a href="#">Cuenta</a></li>
+	  </ul>
+	</div>
+	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+		<h2 class="sub-header">Cuenta</h2>
+		<ul class="nav nav-tabs" role="tablist" id="myTab">
+			<li class="active"><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#personal" role="tab" data-toggle="tab">Datos Personales</a></li>
+			<li><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#password_change" role="tab" data-toggle="tab">Contraseña</a></li>
+		</ul>
+	  	<div class="tab-content">
+			<personal class="tab-pane fade in active" id="personal"></personal>
+			<password_change class="tab-pane fade" id="password_change"></password_change>
+		</div>
+	</div>
+  </div>
+</div>
