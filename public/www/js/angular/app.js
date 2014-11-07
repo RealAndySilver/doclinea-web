@@ -49,10 +49,15 @@
 			when('/doctor_sign_in', {
 				templateUrl: '../www/doctor_sign_in.html',
 			}).
-			when('/password_recover', {
+			when('/password_recover/doctor', {
 				templateUrl: '../www/password_recover.html',
 				controller: 'PasswordRecoverController',
 				controllerAs: 'recoverCtrl',
+			}).
+			when('/password_recover/user', {
+				templateUrl: '../www/user_password_recover.html',
+				controller: 'UserPasswordRecoverController',
+				controllerAs: 'userRecoverCtrl',
 			}).
 			when('/NewPassword/:token/:type/new_password/:email', {
 				templateUrl: '../www/new_password.html',
@@ -280,12 +285,41 @@
 	}]);
 
 	//Controllers for Password Recovering
-	app.controller('PasswordRecoverController', ['$http', function($http){
+	app.controller('PasswordRecoverController', ['$http', '$routeParams', function($http, $routeParams){
 		//console.log('Entra a recover');
 		this.docRecover = function() {
 			var email = this.data.email;
 			console.log(email);
 			$http.get(endpoint + 'Doctor' + '/Recover/' + email)
+	            .success(function(data) {
+	                if (!data.status) {
+	                    //console.log("El correo no existe o no pudo ser enviado", data);
+	                    var email_error = 'El correo no existe o no pudo ser enviado.';
+	               		var alert_div = $("<div class=\"alert alert-danger alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">x</span><span class=\"sr-only\"></span></button>"+email_error+"</div>");
+						$("body").prepend(alert_div);
+						$(".alert").alert();
+						$("#doctor-recover-password #email").val('');
+	                } else {
+	                       // if successful, bind success message to message
+	                   //console.log("Ha sido enviado el correo" + data);
+	                   var success_msg = 'Su solicitud ha sido enviada con éxito!';
+		           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
+						$("body").prepend(alert_div);
+						$(".alert").alert();
+						setTimeout(function() {
+						      alert_div.fadeOut(1800);
+						      window.location = "/#";
+						}, 800);
+	                }
+	    		});
+		};
+	}]);
+	app.controller('UserPasswordRecoverController', ['$http', '$routeParams', function($http, $routeParams){
+		//console.log('Entra a recover');
+		this.userRecover = function() {
+			var email = this.data.email;
+			console.log(email);
+			$http.get(endpoint + 'User' + '/Recover/' + email)
 	            .success(function(data) {
 	                if (!data.status) {
 	                    //console.log("El correo no existe o no pudo ser enviado", data);
@@ -324,6 +358,9 @@
 			//console.log(data1.password);
 			if (type == 'doctor') {
 				type = 'Doctor';
+			};
+			if (type == 'user') {
+				type = 'User';
 			};
 			$http.post(endpoint + type + '/NewPassword/' + token, data1)
 	            .success(function(data) {
@@ -700,11 +737,11 @@
 			securityInfo.password = btoa($scope.security.password);
 			securityInfo.new_password = btoa($scope.security.new_password);
 
-			console.log(securityInfo);
-			console.log('Current Password');
-			console.log(securityInfo.password);
-			console.log('New Password');
-			console.log(securityInfo.new_password);
+			// console.log(securityInfo);
+			// console.log('Current Password');
+			// console.log(securityInfo.password);
+			// console.log('New Password');
+			// console.log(securityInfo.new_password);
 			
             $http.post(endpoint + type + '/ChangePassword/' + user_id, securityInfo)
             .success(function(data) {

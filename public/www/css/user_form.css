@@ -9,7 +9,8 @@
 }
 #sign-in-box .center .inner-info-box,
 #doctor-sign-in-box .inner-info-box,
-#doctor-recover-password .inner-info-box {
+#doctor-recover-password .inner-info-box,
+#user-recover-password .inner-info-box {
   padding: 115px 0;
 }
 #sign-up-box .inner-info-box .form-box,
@@ -38,7 +39,8 @@
 }
 #sign-in-box .inner-info-box .form-box,
 #doctor-sign-in-box .inner-info-box .form-box,
-#doctor-recover-password .inner-info-box .form-box {
+#doctor-recover-password .inner-info-box .form-box,
+#user-recover-password .inner-info-box .form-box {
   width: 45%;
   margin: 0 auto;
   padding: 25px;
@@ -49,7 +51,8 @@
 }
 #sign-in-box .col-md-6,
 #doctor-sign-in-box .col-md-6,
-#doctor-recover-password .col-md-6 {
+#doctor-recover-password .col-md-6,
+#user-recover-password .col-md-6 {
   width: 75%;
   float: none;
   margin: 0 auto;
