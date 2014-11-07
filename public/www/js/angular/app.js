@@ -170,11 +170,10 @@
 	var createUser = angular.module('createUser', []);
 	createUser.controller('SignUpController', ['$http',function($http){
 		var type = "User";
-		data1.password = btoa(data1.password);
-        console.log('da password', data1.password);
 		this.signUp = function() {
 				//console.log('Entra a signUp');
                 var data1 = this.data;
+                data1.password = btoa(data1.password);
                 $http.post(endpoint + type + '/Create', data1)
                 .success(function(data) {
                    if (!data.status) {
@@ -182,6 +181,9 @@
                    } else {
                            // if successful, bind success message to message
                        console.log("Listo, creado" + data);
+                       var user = data.response;
+	                   //console.log('la data es', user);
+	                   window.location = "/#/user/" + user._id;
                    }
        });
        this.data = {};
@@ -192,11 +194,10 @@
 	var login = angular.module('loginUser', []);
 	login.controller('SignInController', ['$http',function($http){
 		var type = "User";
-		data1.password = btoa(data1.password);
-        console.log('da password', data1.password);
 		this.signIn = function() {
 				//console.log('Entra a signIn');
                 var data1 = this.data;
+                data1.password = btoa(data1.password);
                 $http.post(endpoint + type + '/Authenticate', data1)
                 .success(function(data) {
                    if (!data.status) {
@@ -204,6 +205,9 @@
                    } else {
                            // if successful, bind success message to message
                        console.log("Listo, autenticado" + data);
+                       var user = data.response;
+	                   //console.log('la data es', user);
+	                   window.location = "/#/user/" + user._id;
                    }
        });
        this.data = {};
@@ -614,7 +618,7 @@
 
 		$scope.userData = this;
 
-		$http.get(endpoint + type + '/GetById/' + '543d8863a79465306c000007')
+		$http.get(endpoint + type + '/GetByID/' + id)
       		.success(function(data) {
             	if (!data.status) {
                		console.log("No se encontraron usuarios",data.error);
@@ -639,38 +643,40 @@
 	userDash.controller('UserInfoController', ['$http', '$scope',function($http, $scope){
 		$scope.userData.personalInfo = {};
 		var personalInfo = $scope.userData.personalInfo;
-		//console.log(personalInfo);
+		//console.log('info de usuario', personalInfo);
 
-		// this.updateDoctor = function(doc_id) {
-		// 	var type = 'Doctor';
+		this.updateUser = function(user_id) {
+			var type = 'User';
 			
-		// 	personalInfo.name = $scope.doctorData.info.name;
-		// 	personalInfo.lastname = $scope.doctorData.info.lastname;
-		// 	personalInfo.email = $scope.doctorData.info.email;
-		// 	personalInfo.gender = $scope.doctorData.info.gender;
-		// 	personalInfo.patient_gender = $scope.doctorData.info.patient_gender;
-		// 	personalInfo.phone = $scope.doctorData.info.phone;
-		// 	console.log(personalInfo);
-		// 	console.log(doc_id);
+			personalInfo.name = $scope.userData.info.name;
+			personalInfo.lastname = $scope.userData.info.lastname;
+			personalInfo.email = $scope.userData.info.email;
+			personalInfo.gender = $scope.userData.info.gender;
+			personalInfo.phone = $scope.userData.info.phone;
+			personalInfo.city = $scope.userData.info.city;
+			personalInfo.address = $scope.userData.info.address;
+			personalInfo.insurance_list = $scope.userData.info.insurance_list;
+			console.log(personalInfo);
+			console.log(user_id);
 
-  //           $http.post(endpoint + type + '/Update/' + doc_id, personalInfo)
-  //           .success(function(data) {
-  //               if (!data.status) {
-  //                   console.log("Paila, no se actualizó", data);
-  //                   //console.log(JSON.stringify(data1));
-  //               } else {
-  //                  // if successful, bind success message to message
-  //                   console.log("Listo, doctor actualizado", data.response);
-  //                   var success_msg = 'Sus datos personales han sido actualizados con éxito!';
-	 //           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
-		// 			$("body").prepend(alert_div);
-		// 			$(".alert").alert();
-		// 			setTimeout(function() {
-		// 			      alert_div.fadeOut(1800);
-		// 			}, 800);
-  //               }
-  //     		});
-  //       };
+            $http.post(endpoint + type + '/Update/' + user_id, personalInfo)
+            .success(function(data) {
+                if (!data.status) {
+                    console.log("Paila, no se actualizó", data);
+                    //console.log(JSON.stringify(data1));
+                } else {
+                   // if successful, bind success message to message
+                    console.log("Listo, usuario actualizado", data.response);
+                    var success_msg = 'Sus datos personales han sido actualizados con éxito!';
+	           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
+					$("body").prepend(alert_div);
+					$(".alert").alert();
+					setTimeout(function() {
+					      alert_div.fadeOut(1800);
+					}, 800);
+                }
+      		});
+        };
 
 	}]);
 
@@ -758,7 +764,7 @@
 		
 		$scope.doctorData = this;
 
-		$http.get(endpoint + type + '/GetById/' + id)
+		$http.get(endpoint + type + '/GetByID/' + id)
       		.success(function(data) {
             	if (!data.status) {
                		console.log("No se encontraron doctores",data.error);

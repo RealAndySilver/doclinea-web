@@ -1,7 +1,7 @@
 <div class="center">
 	<div class="inner-info-box">
 		<div class="form-box">
-			<form class="form-horizontal" name="personalUserInfo" ng-submit="userInfoCtrl.updateDoctor(userDashCtrl.info._id)">
+			<form class="form-horizontal" name="personalUserInfo" ng-submit="userInfoCtrl.updateUser(userDashCtrl.info._id)">
 			<fieldset>
 				<div class="form-group">
 				  <label class="col-md-4 control-label" for="name">Nombres</label>  
@@ -40,7 +40,36 @@
 				  <div class="col-md-6">
 				  <input id="phone" name="phone" type="text" placeholder="" class="form-control input-md" ng-model="userDashCtrl.info.phone">
 				  </div>
-				</div> 
+				</div>
+				<div class="form-group">
+						<label class="col-md-4 control-label" for="city">Ciudad</label>
+						<div class="col-md-6">
+						<select class="form-control" name="city" id="city" ng-model="userDashCtrl.info.city">
+						  <option>Bogotá</option>
+						  <option>Medellín</option>
+						  <option>Cali</option>
+						  <option>Barranquilla</option>
+						  <option>Pereira</option>
+						  <option>Bucaramanga</option>
+						</select>
+						</div>
+					</div>
+					<div class="form-group">
+					  <label class="col-md-4 control-label" for="address">Dirección</label>  
+					  <div class="col-md-6">
+					  <input id="address" name="address" type="text" placeholder="" class="form-control input-md"  ng-model="userDashCtrl.info.address">
+					  </div>
+					</div>
+					<div class="form-group last-form-element">
+					  <label class="col-md-4 control-label" for="insurance">Aseguradora</label>
+					  <div class="col-md-6">
+						<select id="insurance" name="insurance" class="form-control"  ng-model="userDashCtrl.info.insurance">
+						  <option value="1">Sura</option>
+						  <option value="2">Colpatria</option>
+						  <option value="3">Compensar</option>
+						</select>
+					  </div>
+					</div> 
 				<div class="form-group">
 				  <div class="col-md-4 center-button">
 					<input type="submit" class="btn btn-primary" value="Guardar">
