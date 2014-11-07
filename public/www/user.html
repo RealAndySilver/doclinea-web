@@ -11,10 +11,12 @@
 		<ul class="nav nav-tabs" role="tablist" id="myTab">
 			<li class="active"><a href="#/doctor_dashboard/{{userDashCtrl.info._id}}/#personal" role="tab" data-toggle="tab">Datos Personales</a></li>
 			<li><a href="#/doctor_dashboard/{{userDashCtrl.info._id}}/#password_change" role="tab" data-toggle="tab">Contraseña</a></li>
+			<li><a href="#/doctor_dashboard/{{userDashCtrl.info._id}}/#user_settings" role="tab" data-toggle="tab">Notificaciones</a></li>
 		</ul>
 	  	<div class="tab-content">
 			<personal_user class="tab-pane fade in active" id="personal"></personal_user>
-			<password_change_user class="tab-pane fade" id="password_change"></password_change>
+			<password_change_user class="tab-pane fade" id="password_change"></password_change_user>
+			<user_settings class="tab-pane fade" id="user_settings"></user_settings>
 		</div>
 	</div>
   </div>

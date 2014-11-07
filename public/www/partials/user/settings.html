@@ -1,0 +1,53 @@
+<div class="center">
+	<div class="inner-info-box">
+		<div class="form-box">
+			<form class="form-horizontal" name="userSettings" ng-submit="userPassCtrl.updateUser(userDashCtrl.info._id)">
+			<fieldset>
+			<legend>Emails</legend>
+				<div class="form-group">
+					<div class="col-md-4"> 
+						<label class="radio-inline settings-label" for="gender-0">
+						  <input type="checkbox" name="gender" id="gender-0" value="1" checked="checked" ng-model="signUpCtrl.data.gender">
+						  Recordatorios de Cita
+						</label>
+					</div>
+			    </div>
+			    <div class="form-group last-form-element">
+					<div class="col-md-4"> 
+						<label class="radio-inline settings-label" for="gender-0">
+						  <input type="checkbox" name="gender" id="gender-0" value="1" checked="checked" ng-model="signUpCtrl.data.gender">
+						  Boletines Informativos
+						</label>
+					</div>
+			    </div>
+				<div class="form-group">
+			</fieldset>
+			<fieldset>
+			<legend>Aplicación Móvil</legend>
+				<div class="form-group">
+					<div class="col-md-4"> 
+						<label class="radio-inline settings-label" for="gender-0">
+						  <input type="checkbox" name="gender" id="gender-0" value="1" checked="checked" ng-model="signUpCtrl.data.gender">
+						  Recordatorios de Cita
+						</label>
+					</div>
+			    </div>
+			    <div class="form-group last-form-element">
+					<div class="col-md-4"> 
+						<label class="radio-inline settings-label" for="gender-0">
+						  <input type="checkbox" name="gender" id="gender-0" value="1" checked="checked" ng-model="signUpCtrl.data.gender">
+						  Boletines Informativos
+						</label>
+					</div>
+			    </div>
+				<div class="form-group">
+			</fieldset>
+			<div class="col-md-4 center-button">
+				<input type="submit" class="btn btn-primary" value="Guardar">
+				<a href="#/user/{{userDashCtrl.info._id}}/#password_change" class="btn btn-warning">Cancelar</a>
+			</div>
+			</div>
+			</form>
+		</div> 
+	</div>
+</div>

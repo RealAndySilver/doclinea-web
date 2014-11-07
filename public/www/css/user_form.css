@@ -4,7 +4,8 @@
 #pictures .center .inner-info-box,
 #password_change .center .inner-info-box,
 #studies .center .inner-info-box,
-#locations .center .inner-info-box {
+#locations .center .inner-info-box,
+#user_settings .center .inner-info-box {
   padding: 55px 0;
 }
 #sign-in-box .center .inner-info-box,
@@ -26,7 +27,8 @@
 #pictures .center .inner-info-box,
 #password_change .inner-info-box .form-box,
 #studies .inner-info-box .form-box,
-#locations .inner-info-box .form-box {
+#locations .inner-info-box .form-box,
+#user_settings .center .inner-info-box {
   width: 80%;
   margin: 0 auto;
 }
@@ -81,6 +83,9 @@
   margin-top: 0;
   margin-left: 0px;
   width: 110px;
+}
+.settings-label {
+  font-size: 15px;
 }
 #sign-up-box .col-md-4.center-button,
 #doctor-sign-up-box .col-md-4.center-button {

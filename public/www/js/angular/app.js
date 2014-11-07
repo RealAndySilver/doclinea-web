@@ -766,8 +766,47 @@
       		});
         };
 	}]);
+	userDash.directive('userSettings', function() {
+	    return {
+	    	restrict: 'E',
+	    	templateUrl: 'www/partials/user/settings.html',
+	    	controller: 'UserSettingsController',
+	    	controllerAs: 'settingsCtrl',
+	    };
+	});
+	userDash.controller('UserSettingsController', ['$http', '$scope',function($http, $scope){
+		console.log('entra a settings');
 
-	//Module and Controllers for Doctor Dashboard - PARENT CONTROLLER
+		this.updateUser = function(user_id) {
+			
+     //        $http.post(endpoint + type + '/ChangePassword/' + user_id, securityInfo)
+     //        .success(function(data) {
+     //            if (!data.status) {
+     //                console.log("Paila, no se actualizó", data);
+     //                //console.log(JSON.stringify(data1));
+     //                var error_msg = 'No se pudo actualizar su contraseña, verifique la información de nuevo.';
+     //           		var alert_div = $("<div class=\"alert alert-danger alert-dismissible noty fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">x</span><span class=\"sr-only\"></span></button>"+error_msg+"</div>");
+					// $("body").prepend(alert_div);
+					// $(".alert").alert();
+     //            } else {
+     //               // if successful, bind success message to message
+     //               console.log("Listo, usuario actualizado", data.response);
+     //               var success_msg = 'Su contraseña ha sido cambiada con éxito!';
+	    //        		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
+					// $("body").prepend(alert_div);
+					// $(".alert").alert();
+					// setTimeout(function() {
+					//       alert_div.fadeOut(1800);
+					// }, 800);
+     //            }
+     //  		});
+        };
+	}]);
+
+	
+	///////////////////////////////////////////////////////////////////
+	//Module and Controllers for Doctor Dashboard - PARENT CONTROLLER//
+	///////////////////////////////////////////////////////////////////
 	docDash = angular.module('doctorDashboard', []);
 	docDash.controller('DocDashboardController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams){
 		var type = 'Doctor';
