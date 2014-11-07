@@ -643,7 +643,6 @@
 	userDash.controller('UserInfoController', ['$http', '$scope',function($http, $scope){
 		$scope.userData.personalInfo = {};
 		var personalInfo = $scope.userData.personalInfo;
-		//console.log('info de usuario', personalInfo);
 
 		this.updateUser = function(user_id) {
 			var type = 'User';
@@ -664,6 +663,10 @@
                 if (!data.status) {
                     console.log("Paila, no se actualizó", data);
                     //console.log(JSON.stringify(data1));
+                    var error_msg = 'No se pudieron actualizar sus datos personales, verifique la información de nuevo.';
+               		var alert_div = $("<div class=\"alert alert-danger alert-dismissible noty fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">x</span><span class=\"sr-only\"></span></button>"+error_msg+"</div>");
+					$("body").prepend(alert_div);
+					$(".alert").alert();
                 } else {
                    // if successful, bind success message to message
                     console.log("Listo, usuario actualizado", data.response);
@@ -678,6 +681,53 @@
       		});
         };
 
+	}]);
+	userDash.directive('passwordChangeUser', function() {
+	    return {
+	    	restrict: 'E',
+	    	templateUrl: 'www/partials/user/password_change.html',
+	    	controller: 'UserPasswordController',
+	    	controllerAs: 'userPassCtrl',
+	    };
+	});
+	userDash.controller('UserPasswordController', ['$http', '$scope',function($http, $scope){
+		$scope.userData.security = {};
+		var securityInfo = $scope.userData.security;
+
+		this.updateUser = function(user_id) {
+			var type = 'User';
+
+			securityInfo.password = btoa($scope.security.password);
+			securityInfo.new_password = btoa($scope.security.new_password);
+
+			console.log(securityInfo);
+			console.log('Current Password');
+			console.log(securityInfo.password);
+			console.log('New Password');
+			console.log(securityInfo.new_password);
+			
+            $http.post(endpoint + type + '/ChangePassword/' + user_id, securityInfo)
+            .success(function(data) {
+                if (!data.status) {
+                    console.log("Paila, no se actualizó", data);
+                    //console.log(JSON.stringify(data1));
+                    var error_msg = 'No se pudo actualizar su contraseña, verifique la información de nuevo.';
+               		var alert_div = $("<div class=\"alert alert-danger alert-dismissible noty fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">x</span><span class=\"sr-only\"></span></button>"+error_msg+"</div>");
+					$("body").prepend(alert_div);
+					$(".alert").alert();
+                } else {
+                   // if successful, bind success message to message
+                   console.log("Listo, usuario actualizado", data.response);
+                   var success_msg = 'Su contraseña ha sido cambiada con éxito!';
+	           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
+					$("body").prepend(alert_div);
+					$(".alert").alert();
+					setTimeout(function() {
+					      alert_div.fadeOut(1800);
+					}, 800);
+                }
+      		});
+        };
 	}]);
 
 	//Module and Controllers for Doctor Dashboard - PARENT CONTROLLER
@@ -891,6 +941,13 @@
                 } else {
                    // if successful, bind success message to message
                    console.log("Listo, doctor actualizado", data.response);
+                   var success_msg = 'Su contraseña ha sido cambiada con éxito!';
+	           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
+					$("body").prepend(alert_div);
+					$(".alert").alert();
+					setTimeout(function() {
+					      alert_div.fadeOut(1800);
+					}, 800);
                 }
       		});
         };
