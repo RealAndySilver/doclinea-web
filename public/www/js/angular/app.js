@@ -609,51 +609,70 @@
 		  e.preventDefault();
 		  $(this).tab('show');
 		});
+
+		var id = $routeParams.id;
+
+		$scope.userData = this;
+
+		$http.get(endpoint + type + '/GetById/' + '543d8863a79465306c000007')
+      		.success(function(data) {
+            	if (!data.status) {
+               		console.log("No se encontraron usuarios",data.error);
+               		console.log(data);
+           		} else {
+               		// if successful, bind success message to message
+               		console.log("Resultado de busqueda de usuarios:");
+               		$scope.userData.info = data.response;
+               		console.log($scope.userData.info);
+           		}
+        	});
 	}]);
 	//Controller for Personal Info - User
-	userDash.directive('personal', function() {
+	userDash.directive('personalUser', function() {
 	    return {
 	    	restrict: 'E',
 	    	templateUrl: 'www/partials/user/personal.html',
-	    	controller: 'UserDashboardController',
-	    	controllerAs: 'userDashCtrl',
+	    	controller: 'UserInfoController',
+	    	controllerAs: 'userInfoCtrl',
 	    };
 	});
-	// userDash.controller('UserDashboardController', ['$http', '$scope',function($http, $scope){
-	// 	$scope.userData.personalInfo = {};
-	// 	var personalInfo = $scope.userData.personalInfo;
+	userDash.controller('UserInfoController', ['$http', '$scope',function($http, $scope){
+		$scope.userData.personalInfo = {};
+		var personalInfo = $scope.userData.personalInfo;
+		//console.log(personalInfo);
 
-	// 	this.updateDoctor = function(doc_id) {
-	// 		var type = 'Doctor';
+		// this.updateDoctor = function(doc_id) {
+		// 	var type = 'Doctor';
 			
-	// 		personalInfo.name = $scope.doctorData.info.name;
-	// 		personalInfo.lastname = $scope.doctorData.info.lastname;
-	// 		personalInfo.email = $scope.doctorData.info.email;
-	// 		personalInfo.gender = $scope.doctorData.info.gender;
-	// 		personalInfo.patient_gender = $scope.doctorData.info.patient_gender;
-	// 		personalInfo.phone = $scope.doctorData.info.phone;
-	// 		console.log(personalInfo);
-	// 		console.log(doc_id);
+		// 	personalInfo.name = $scope.doctorData.info.name;
+		// 	personalInfo.lastname = $scope.doctorData.info.lastname;
+		// 	personalInfo.email = $scope.doctorData.info.email;
+		// 	personalInfo.gender = $scope.doctorData.info.gender;
+		// 	personalInfo.patient_gender = $scope.doctorData.info.patient_gender;
+		// 	personalInfo.phone = $scope.doctorData.info.phone;
+		// 	console.log(personalInfo);
+		// 	console.log(doc_id);
 
- //            $http.post(endpoint + type + '/Update/' + doc_id, personalInfo)
- //            .success(function(data) {
- //                if (!data.status) {
- //                    console.log("Paila, no se actualizó", data);
- //                    //console.log(JSON.stringify(data1));
- //                } else {
- //                   // if successful, bind success message to message
- //                    console.log("Listo, doctor actualizado", data.response);
- //                    var success_msg = 'Sus datos personales han sido actualizados con éxito!';
-	//            		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
-	// 				$("body").prepend(alert_div);
-	// 				$(".alert").alert();
-	// 				setTimeout(function() {
-	// 				      alert_div.fadeOut(1800);
-	// 				}, 800);
- //                }
- //      		});
- //       };
-	// }]);
+  //           $http.post(endpoint + type + '/Update/' + doc_id, personalInfo)
+  //           .success(function(data) {
+  //               if (!data.status) {
+  //                   console.log("Paila, no se actualizó", data);
+  //                   //console.log(JSON.stringify(data1));
+  //               } else {
+  //                  // if successful, bind success message to message
+  //                   console.log("Listo, doctor actualizado", data.response);
+  //                   var success_msg = 'Sus datos personales han sido actualizados con éxito!';
+	 //           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
+		// 			$("body").prepend(alert_div);
+		// 			$(".alert").alert();
+		// 			setTimeout(function() {
+		// 			      alert_div.fadeOut(1800);
+		// 			}, 800);
+  //               }
+  //     		});
+  //       };
+
+	}]);
 
 	//Module and Controllers for Doctor Dashboard - PARENT CONTROLLER
 	docDash = angular.module('doctorDashboard', []);

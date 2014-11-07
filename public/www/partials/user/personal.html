@@ -1,24 +1,24 @@
 <div class="center">
 	<div class="inner-info-box">
 		<div class="form-box">
-			<form class="form-horizontal" name="personalDocInfo" ng-submit="dashPersonalCtrl.updateDoctor(docDashCtrl.info._id)">
+			<form class="form-horizontal" name="personalUserInfo" ng-submit="userInfoCtrl.updateDoctor(userDashCtrl.info._id)">
 			<fieldset>
 				<div class="form-group">
 				  <label class="col-md-4 control-label" for="name">Nombres</label>  
 				  <div class="col-md-6">
-				  <input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="docDashCtrl.info.name">
+				  <input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="userDashCtrl.info.name">
 				  </div>
 				</div>
 				<div class="form-group">
 				  <label class="col-md-4 control-label" for="last_name">Apellidos</label>  
 				  <div class="col-md-6">
-				  <input id="last_name" name="last_name" type="text" placeholder="" class="form-control input-md"  ng-model="docDashCtrl.info.lastname">
+				  <input id="last_name" name="last_name" type="text" placeholder="" class="form-control input-md"  ng-model="userDashCtrl.info.lastname">
 				  </div>
 				</div>
 				<div class="form-group">
 				  <label class="col-md-4 control-label" for="email">Email</label>  
 				  <div class="col-md-6">
-				  <input disabled id="email" name="email" type="text" placeholder="" class="form-control input-md" ng-model="docDashCtrl.info.email" style="margin-bottom: 10px;">
+				  <input disabled id="email" name="email" type="text" placeholder="" class="form-control input-md" ng-model="userDashCtrl.info.email" style="margin-bottom: 10px;">
 				  <div class="alert alert-warning" role="alert">Para cambiar su correo debe contactarnos a contacto@doclinea.com</div>
 				  </div>
 				</div>
@@ -26,11 +26,11 @@
 				  <label class="col-md-4 control-label" for="gender">Género</label>
 				  <div class="col-md-4"> 
 					<label class="radio-inline" for="gender-0">
-					  <input type="radio" name="gender" id="gender-0" value="1" checked="checked" ng-model="docDashCtrl.info.gender">
+					  <input type="radio" name="gender" id="gender-0" value="1" checked="checked" ng-model="userDashCtrl.info.gender">
 					  Masculino
 					</label> 
 					<label class="radio-inline" for="gender-1">
-					  <input type="radio" name="gender" id="gender-1" value="2"  ng-model="docDashCtrl.info.gender">
+					  <input type="radio" name="gender" id="gender-1" value="2"  ng-model="userDashCtrl.info.gender">
 					  Femenino
 					</label>
 				  </div>
@@ -38,13 +38,13 @@
 				<div class="form-group">
 				  <label class="col-md-4 control-label" for="phone">Teléfono</label>  
 				  <div class="col-md-6">
-				  <input id="phone" name="phone" type="text" placeholder="" class="form-control input-md" ng-model="docDashCtrl.info.phone">
+				  <input id="phone" name="phone" type="text" placeholder="" class="form-control input-md" ng-model="userDashCtrl.info.phone">
 				  </div>
 				</div> 
 				<div class="form-group">
 				  <div class="col-md-4 center-button">
 					<input type="submit" class="btn btn-primary" value="Guardar">
-					<a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#personal" class="btn btn-warning">Cancelar</a>
+					<a href="#/doctor_dashboard/{{userDashCtrl.info._id}}/#personal" class="btn btn-warning">Cancelar</a>
 				  </div>
 				</div>
 			</fieldset>
