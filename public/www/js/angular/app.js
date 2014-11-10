@@ -1292,6 +1292,19 @@
         };
 	}]);
 
+	//Controller for doctor gallery
+	docDash.directive('gallery', function() {
+	    return {
+	    	restrict: 'E',
+	    	templateUrl: 'www/partials/doctor/gallery.html',
+	    	controller: 'DashboardGalleryController',
+	    	controllerAs: 'dashGalleryCtrl',
+	    };
+	});
+	docDash.controller('DashboardGalleryController', ['$http', '$scope',function($http, $scope){
+		console.log('this is gallery');
+	}]);
+
 })();
 
 
