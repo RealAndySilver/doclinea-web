@@ -1239,57 +1239,57 @@
 	    	controllerAs: 'dashSettingsCtrl',
 	    };
 	});
-	userDash.controller('DashboardSettingsController', ['$http', '$scope',function($http, $scope){
+	docDash.controller('DashboardSettingsController', ['$http', '$scope',function($http, $scope){
 		console.log('entra a settings');
-		// $scope.userData.settingsInfo = {};
-		// var settingsInfo = $scope.userData.settingsInfo;
+		$scope.doctorData.settingsInfo = {};
+		var settingsInfo = $scope.doctorData.settingsInfo;
 
-		// this.updateUser = function(user_id) {
-		// 	var type = 'User';
+		this.updateDoctor = function(doc_id) {
+			var type = 'Doctor';
 			
-		// 	settingsInfo.settings = {};
-		// 	//settingsInfo.settings = $scope.userData.info.settings;
+			settingsInfo.settings = {};
+			//settingsInfo.settings = $scope.doctorData.info.settings;
 			
-		// 	settingsInfo.settings.email_appointment_notifications = $scope.userData.info.settings.email_appointment_notifications;
-		// 	if (settingsInfo.settings.email_appointment_notifications == undefined) {
-		// 		settingsInfo.settings.email_appointment_notifications = false;
-		// 	};
-		// 	settingsInfo.settings.email_marketing_notifications = $scope.userData.info.settings.email_marketing_notifications;
-		// 	if (settingsInfo.settings.email_marketing_notifications == undefined) {
-		// 		settingsInfo.settings.email_marketing_notifications = false;
-		// 	};
-		// 	settingsInfo.settings.mobile_appointment_notifications = $scope.userData.info.settings.mobile_appointment_notifications;
-		// 	if (settingsInfo.settings.mobile_appointment_notifications == undefined) {
-		// 		settingsInfo.settings.mobile_appointment_notifications = false;
-		// 	};
-		// 	settingsInfo.settings.mobile_marketing_notifications = $scope.userData.info.settings.mobile_marketing_notifications;
-		// 	if (settingsInfo.settings.mobile_marketing_notifications == undefined) {
-		// 		settingsInfo.settings.mobile_marketing_notifications = false;
-		// 	};			
-		// 	console.log(settingsInfo);
+			settingsInfo.settings.email_appointment_notifications = $scope.doctorData.info.settings.email_appointment_notifications;
+			if (settingsInfo.settings.email_appointment_notifications == undefined) {
+				settingsInfo.settings.email_appointment_notifications = false;
+			};
+			settingsInfo.settings.email_marketing_notifications = $scope.doctorData.info.settings.email_marketing_notifications;
+			if (settingsInfo.settings.email_marketing_notifications == undefined) {
+				settingsInfo.settings.email_marketing_notifications = false;
+			};
+			settingsInfo.settings.mobile_appointment_notifications = $scope.doctorData.info.settings.mobile_appointment_notifications;
+			if (settingsInfo.settings.mobile_appointment_notifications == undefined) {
+				settingsInfo.settings.mobile_appointment_notifications = false;
+			};
+			settingsInfo.settings.mobile_marketing_notifications = $scope.doctorData.info.settings.mobile_marketing_notifications;
+			if (settingsInfo.settings.mobile_marketing_notifications == undefined) {
+				settingsInfo.settings.mobile_marketing_notifications = false;
+			};			
+			console.log(settingsInfo);
 			
-  //           $http.post(endpoint + type + '/Update/' + user_id, settingsInfo)
-  //           .success(function(data) {
-  //               if (!data.status) {
-  //                   console.log("Paila, no se actualizó", data);
-  //                   //console.log(JSON.stringify(data1));
-  //                   var error_msg = 'No se pudieron actualizar sus notificaciones, verifique la información de nuevo.';
-  //              		var alert_div = $("<div class=\"alert alert-danger alert-dismissible noty fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">x</span><span class=\"sr-only\"></span></button>"+error_msg+"</div>");
-		// 			$("body").prepend(alert_div);
-		// 			$(".alert").alert();
-  //               } else {
-  //                  // if successful, bind success message to message
-  //                  console.log("Listo, usuario actualizado", data.response);
-  //                  var success_msg = 'Sus notificaciones han sido actualizadas con éxito!';
-	 //           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
-		// 			$("body").prepend(alert_div);
-		// 			$(".alert").alert();
-		// 			setTimeout(function() {
-		// 			      alert_div.fadeOut(1800);
-		// 			}, 800);
-  //               }
-  //     		});
-  //       };
+            $http.post(endpoint + type + '/Update/' + doc_id, settingsInfo)
+            .success(function(data) {
+                if (!data.status) {
+                    console.log("Paila, no se actualizó", data);
+                    //console.log(JSON.stringify(data1));
+                    var error_msg = 'No se pudieron actualizar sus notificaciones, verifique la información de nuevo.';
+               		var alert_div = $("<div class=\"alert alert-danger alert-dismissible noty fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">x</span><span class=\"sr-only\"></span></button>"+error_msg+"</div>");
+					$("body").prepend(alert_div);
+					$(".alert").alert();
+                } else {
+                   // if successful, bind success message to message
+                   console.log("Listo, usuario actualizado", data.response);
+                   var success_msg = 'Sus notificaciones han sido actualizadas con éxito!';
+	           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
+					$("body").prepend(alert_div);
+					$(".alert").alert();
+					setTimeout(function() {
+					      alert_div.fadeOut(1800);
+					}, 800);
+                }
+      		});
+        };
 	}]);
 
 })();

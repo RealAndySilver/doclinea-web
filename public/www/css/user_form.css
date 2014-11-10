@@ -5,7 +5,8 @@
 #password_change .center .inner-info-box,
 #studies .center .inner-info-box,
 #locations .center .inner-info-box,
-#user_settings .center .inner-info-box {
+#user_settings .center .inner-info-box,
+#settings .center .inner-info-box {
   padding: 55px 0;
 }
 #sign-in-box .center .inner-info-box,
@@ -28,7 +29,8 @@
 #password_change .inner-info-box .form-box,
 #studies .inner-info-box .form-box,
 #locations .inner-info-box .form-box,
-#user_settings .center .inner-info-box {
+#user_settings .center .inner-info-box,
+#settings .center .inner-info-box {
   width: 80%;
   margin: 0 auto;
 }

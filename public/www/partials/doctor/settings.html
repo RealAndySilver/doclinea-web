@@ -1,1 +1,53 @@
-<p>Holi <3</p>
+<div class="center">
+	<div class="inner-info-box">
+		<div class="form-box">
+			<form class="form-horizontal" name="doctorSettings" ng-submit="dashSettingsCtrl.updateDoctor(docDashCtrl.info._id)">
+			<fieldset>
+			<legend>Emails</legend>
+				<div class="form-group">
+					<div class="col-md-4"> 
+						<label class="radio-inline settings-label" for="email_appointment">
+						  <input type="checkbox" name="email_appointment" id="email_appointment" ng-model="docDashCtrl.info.settings.email_appointment_notifications">
+						  Recordatorios de Cita
+						</label>
+					</div>
+			    </div>
+			    <div class="form-group last-form-element">
+					<div class="col-md-4"> 
+						<label class="radio-inline settings-label" for="email_marketing">
+						  <input type="checkbox" name="email_marketing" id="email_marketing" ng-model="docDashCtrl.info.settings.email_marketing_notifications">
+						  Boletines Informativos
+						</label>
+					</div>
+			    </div>
+				<div class="form-group">
+			</fieldset>
+			<fieldset>
+			<legend>Aplicación Móvil</legend>
+				<div class="form-group">
+					<div class="col-md-4"> 
+						<label class="radio-inline settings-label" for="mobile_appointment">
+						  <input type="checkbox" name="mobile_appointment" id="mobile_appointment" ng-model="docDashCtrl.info.settings.mobile_appointment_notifications">
+						  Recordatorios de Cita
+						</label>
+					</div>
+			    </div>
+			    <div class="form-group last-form-element">
+					<div class="col-md-4"> 
+						<label class="radio-inline settings-label" for="mobile_marketing">
+						  <input type="checkbox" name="mobile_marketing" id="mobile_marketing" ng-model="docDashCtrl.info.settings.mobile_marketing_notifications">
+						  Boletines Informativos
+						</label>
+					</div>
+			    </div>
+				<div class="form-group">
+			</fieldset>
+			<div class="col-md-4 center-button">
+				<input type="submit" class="btn btn-primary" value="Guardar">
+				<a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#settings" class="btn btn-warning">Cancelar</a>
+			</div>
+			</div>
+			</form>
+		</div> 
+	</div>
+</div>
