@@ -1,21 +1,21 @@
 <div class="center">
 	<div class="inner-info-box">
 		<div class="form-box">
-			<form class="form-horizontal" name="userSettings" ng-submit="userPassCtrl.updateUser(userDashCtrl.info._id)">
+			<form class="form-horizontal" name="userSettings" ng-submit="settingsCtrl.updateUser(userDashCtrl.info._id)">
 			<fieldset>
 			<legend>Emails</legend>
 				<div class="form-group">
 					<div class="col-md-4"> 
-						<label class="radio-inline settings-label" for="gender-0">
-						  <input type="checkbox" name="gender" id="gender-0" value="1" checked="checked" ng-model="signUpCtrl.data.gender">
+						<label class="radio-inline settings-label" for="email_appointment">
+						  <input type="checkbox" name="email_appointment" id="email_appointment" ng-model="userDashCtrl.info.settings.email_appointment_notifications">
 						  Recordatorios de Cita
 						</label>
 					</div>
 			    </div>
 			    <div class="form-group last-form-element">
 					<div class="col-md-4"> 
-						<label class="radio-inline settings-label" for="gender-0">
-						  <input type="checkbox" name="gender" id="gender-0" value="1" checked="checked" ng-model="signUpCtrl.data.gender">
+						<label class="radio-inline settings-label" for="email_marketing">
+						  <input type="checkbox" name="email_marketing" id="email_marketing" ng-model="userDashCtrl.info.settings.email_marketing_notifications">
 						  Boletines Informativos
 						</label>
 					</div>
@@ -26,16 +26,16 @@
 			<legend>Aplicación Móvil</legend>
 				<div class="form-group">
 					<div class="col-md-4"> 
-						<label class="radio-inline settings-label" for="gender-0">
-						  <input type="checkbox" name="gender" id="gender-0" value="1" checked="checked" ng-model="signUpCtrl.data.gender">
+						<label class="radio-inline settings-label" for="mobile_appointment">
+						  <input type="checkbox" name="mobile_appointment" id="mobile_appointment" ng-model="userDashCtrl.info.settings.mobile_appointment_notifications">
 						  Recordatorios de Cita
 						</label>
 					</div>
 			    </div>
 			    <div class="form-group last-form-element">
 					<div class="col-md-4"> 
-						<label class="radio-inline settings-label" for="gender-0">
-						  <input type="checkbox" name="gender" id="gender-0" value="1" checked="checked" ng-model="signUpCtrl.data.gender">
+						<label class="radio-inline settings-label" for="mobile_marketing">
+						  <input type="checkbox" name="mobile_marketing" id="mobile_marketing" ng-model="userDashCtrl.info.settings.mobile_marketing_notifications">
 						  Boletines Informativos
 						</label>
 					</div>
@@ -44,7 +44,7 @@
 			</fieldset>
 			<div class="col-md-4 center-button">
 				<input type="submit" class="btn btn-primary" value="Guardar">
-				<a href="#/user/{{userDashCtrl.info._id}}/#password_change" class="btn btn-warning">Cancelar</a>
+				<a href="#/user/{{userDashCtrl.info._id}}/#user_settings" class="btn btn-warning">Cancelar</a>
 			</div>
 			</div>
 			</form>
