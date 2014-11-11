@@ -736,12 +736,6 @@
 
 			securityInfo.password = btoa($scope.security.password);
 			securityInfo.new_password = btoa($scope.security.new_password);
-
-			// console.log(securityInfo);
-			// console.log('Current Password');
-			// console.log(securityInfo.password);
-			// console.log('New Password');
-			// console.log(securityInfo.new_password);
 			
             $http.post(endpoint + type + '/ChangePassword/' + user_id, securityInfo)
             .success(function(data) {
@@ -1341,7 +1335,7 @@
 	            var reader = new FileReader();
 
 	            reader.onload = function (e) {
-	                $('#gallery-pic').attr('src', e.target.result);
+	                $('.gallery-pic').attr('src', e.target.result);
 	            }
 
 	            reader.readAsDataURL(input.files[0]);
@@ -1351,6 +1345,10 @@
 	    $("#image-gallery").change(function(){
 	        readURL(this);
 	    });
+
+	    this.addImage = function() {
+			$scope.doctorData.info.gallery.push({name: '', image_url: ''});
+		};
 	}]);
 
 })();
