@@ -1284,14 +1284,14 @@
 	}]);
 
 	//Controller for doctor gallery
-	docDash.directive('gallery', function() {
-	    return {
-	    	restrict: 'E',
-	    	templateUrl: 'www/partials/doctor/gallery.html',
-	    	controller: 'DashboardGalleryController',
-	    	controllerAs: 'dashGalleryCtrl',
-	    };
-	});
+	// docDash.directive('gallery', function() {
+	//     return {
+	//     	restrict: 'E',
+	//     	templateUrl: 'www/partials/doctor/gallery.html',
+	//     	controller: 'DashboardGalleryController',
+	//     	controllerAs: 'dashGalleryCtrl',
+	//     };
+	// });
 	// docDash.directive('imagesModel', ['$parse', function ($parse) {
 	//     return {
 	//         restrict: 'A',
@@ -1307,7 +1307,7 @@
 	//         }
 	//     };
 	// }]);
-	// docDash.service('fileUpload', ['$http', function ($http) {
+	// docDash.service('galleryUpload', ['$http', function ($http) {
 	//     this.uploadFileToUrl = function(file, uploadUrl){
 	//         var fd = new FormData();
 	//         fd.append('image', file);
@@ -1328,28 +1328,36 @@
 	//         });
 	//     }
 	// }]);
-	docDash.controller('DashboardGalleryController', ['$http', '$scope',function($http, $scope){
-		console.log('entra a gallery');
-		function readURL(input) {
-	        if (input.files && input.files[0]) {
-	            var reader = new FileReader();
+	// docDash.controller('DashboardGalleryController', ['$http', '$scope',function($http, $scope){
+	// 	console.log('entra a gallery');
+	// 	function readURL(input) {
+	//         if (input.files && input.files[0]) {
+	//             var reader = new FileReader();
 
-	            reader.onload = function (e) {
-	                $('.gallery-pic').attr('src', e.target.result);
-	            }
+	//             reader.onload = function (e) {
+	//                 $('#gallery-pic').attr('src', e.target.result);
+	//             }
 
-	            reader.readAsDataURL(input.files[0]);
-	        }
-	    }
+	//             reader.readAsDataURL(input.files[0]);
+	//         }
+	//     }
 
-	    $("#image-gallery").change(function(){
-	        readURL(this);
-	    });
+	//     $("#image-gallery").change(function(){
+	//         readURL(this);
+	//     });
 
-	    this.addImage = function() {
-			$scope.doctorData.info.gallery.push({name: '', image_url: ''});
-		};
-	}]);
+	//     this.addImage = function() {
+	// 		$scope.doctorData.info.gallery.push({name: '', image_url: ''});
+	// 	};
+
+	// 	var type = 'Doctor';
+	//     $scope.uploadFile = function(doc_id){
+	//         var file = $scope.myFile;
+	//         console.log('file is ' + JSON.stringify(file));
+	//         var uploadUrl = endpoint + type + '/UpdateProfilePic/' + doc_id;
+	//         galleryUpload.uploadFileToUrl(file, uploadUrl);
+	//     };
+	// }]);
 
 })();
 

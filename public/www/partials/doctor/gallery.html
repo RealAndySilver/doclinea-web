@@ -8,10 +8,11 @@
 				  <div class="col-md-6">
 					  <div class="list-group-item-info" ng-repeat="gallery in docDashCtrl.info.gallery">
 					  	  <!-- <img id="placeholder-pic" ng-if="!docDashCtrl.info.gallery[0]" src="http://www.cootharababeefgenes.com.au/assets/placeholder-81127a71a07cd5c12cde6fc9ac9b1b6e.png" class="img-thumbnail"> -->
-						  <img class="gallery-pic img-thumbnail" ng-src="{{docDashCtrl.info.gallery[0].image_url}}">
+						  <img id="gallery-pic" class="img-thumbnail" ng-src="{{docDashCtrl.info.gallery[0].image_url}}">
 						  <a href="" ng-click="dashStudiesCtrl.removeStudiesInfo(education_list)" class="btn btn-danger btn-small remove-btn"><i class="fa fa-times"></i></a>
 					  </div>
-					  <span class="btn btn-info btn-file">Subir imagen
+					  <!-- <a href="" ng-click="dashGalleryCtrl.addImage()" class="btn btn-primary btn-small add-btn"><i class="fa fa-plus"></i>Agregar</a> --> 
+					  <span class="btn btn-info btn-file">Buscar imagen
 					  	<input type="file" id="image-gallery" class="form-control input-md" images-model="myFile" ng-model="image">
 					  </span>
 				  </div>
