@@ -31,10 +31,10 @@ header {
 @media (min-width: 768px) {
   .sidebar {
     position: fixed;
-    top: 51px;
+    top: 90px;
     bottom: 0;
     left: 0;
-    z-index: 1000;
+    z-index: 10;
     display: block;
     padding: 20px;
     overflow-x: hidden;
@@ -88,7 +88,7 @@ header {
   position: relative;
   overflow: hidden;
   display: block;
-  width: 160px;
+  width: 132px;
 }
 .btn-file input {
   position: absolute;

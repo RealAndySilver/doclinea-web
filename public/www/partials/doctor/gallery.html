@@ -1,1 +1,30 @@
-<p>gallery <3</p>
+<div class="center">
+	<div class="inner-info-box">
+		<div class="form-box">
+			<form class="form-horizontal" name="loadDocGallery" enctype="multipart/form-data" ng-submit="uploadFile(docDashCtrl.info._id)">
+			<fieldset>
+				<div class="form-group">
+				  <label class="col-md-4 control-label" for="email">Imágenes Galería</label>  
+				  <div class="col-md-6">
+					  <!-- <img id="profile-pic" ng-src="{{docDashCtrl.info.profile_pic.image_url}}" class="img-thumbnail" /> -->
+					  <div class="list-group-item-info" ng-repeat="gallery in docDashCtrl.info.gallery">
+						  <img ng-if="!docDashCtrl.info.gallery[$index]" src="http://img2.wikia.nocookie.net/__cb20140518071050/towerofsaviors/images/archive/4/47/20140518072131!Placeholder.png" class="img-thumbnail">
+						  <img class="gallery_pic" ng-if="docDashCtrl.info.gallery[$index]" ng-src="docDashCtrl.info.gallery[$index].image_url" class="img-thumbnail">
+						  <a href="" ng-click="dashStudiesCtrl.removeStudiesInfo(education_list)" class="btn btn-danger btn-small remove-btn"><i class="fa fa-times"></i></a>
+					  </div>
+					  <span class="btn btn-info btn-file">Agregar imagen
+					  	<input type="file" id="image" class="form-control input-md" images-model="myFile" ng-model="image">
+					  </span>
+				  </div>
+				</div>
+				<div class="form-group">
+				  <div class="col-md-4 center-button">
+					<input type="submit" class="btn btn-primary" value="Guardar">
+					<a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#gallery" class="btn btn-warning">Cancelar</a>
+				  </div>
+				</div>
+			</fieldset>
+			</form>
+		</div> 
+	</div>
+</div>

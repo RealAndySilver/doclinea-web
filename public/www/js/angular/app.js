@@ -1026,12 +1026,6 @@
 
 			securityInfo.password = btoa($scope.security.password);
 			securityInfo.new_password = btoa($scope.security.new_password);
-
-			// console.log(securityInfo);
-			// console.log('Current Password');
-			// console.log(securityInfo.password);
-			// console.log('New Password');
-			// console.log(securityInfo.new_password);
 			
             $http.post(endpoint + type + '/ChangePassword/' + doc_id, securityInfo)
             .success(function(data) {
@@ -1151,7 +1145,7 @@
 
 			for(var i in studiesInfo.practice_list) {
 				if (studiesInfo.practice_list[i] instanceof Array) {
-					console.log(i + 'Selección inválida');
+					//console.log(i + 'Selección inválida');
 					var invalid_practice = 'Verifique la lista de especialidades.';
                		var alert_div = $("<div class=\"alert alert-danger alert-dismissible noty_dash noty fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">x</span><span class=\"sr-only\"></span></button>"+invalid_practice+"</div>");
 					$("body").prepend(alert_div);
@@ -1301,8 +1295,44 @@
 	    	controllerAs: 'dashGalleryCtrl',
 	    };
 	});
+	// docDash.directive('imagesModel', ['$parse', function ($parse) {
+	//     return {
+	//         restrict: 'A',
+	//         link: function(scope, element, attrs) {
+	//             var model = $parse(attrs.imagesModel);
+	//             var modelSetter = model.assign;
+	            
+	//             element.bind('change', function(){
+	//                 scope.$apply(function(){
+	//                     modelSetter(scope, element[0].files[0]);
+	//                 });
+	//             });
+	//         }
+	//     };
+	// }]);
+	// docDash.service('fileUpload', ['$http', function ($http) {
+	//     this.uploadFileToUrl = function(file, uploadUrl){
+	//         var fd = new FormData();
+	//         fd.append('image', file);
+	//         $http.post(uploadUrl, fd, {
+	//             transformRequest: angular.identity,
+	//             headers: {'Content-Type': undefined}
+	//         })
+	//         .success(function(){
+	//         	var success_msg = 'Sus imágenes han sido actualizadas con éxito!';
+ //           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
+	// 			$("body").prepend(alert_div);
+	// 			$(".alert").alert();
+	// 			setTimeout(function() {
+	// 			      alert_div.fadeOut(1800);
+	// 			}, 800);
+	//         })
+	//         .error(function(){
+	//         });
+	//     }
+	// }]);
 	docDash.controller('DashboardGalleryController', ['$http', '$scope',function($http, $scope){
-		console.log('this is gallery');
+		console.log('entra a gallery');
 	}]);
 
 })();
