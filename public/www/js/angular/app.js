@@ -932,6 +932,9 @@
                		if ($scope.doctorData.info.location_list.length == 0) {
                			$scope.doctorData.info.location_list.push({location_name: '', location_address: ''});
                		};
+               		if ($scope.doctorData.info.gallery.length == 0) {
+               			$scope.doctorData.info.gallery.push({name: '', image_url: ''});
+               		};
            		}
         	});
 	}]);
@@ -1333,6 +1336,21 @@
 	// }]);
 	docDash.controller('DashboardGalleryController', ['$http', '$scope',function($http, $scope){
 		console.log('entra a gallery');
+		function readURL(input) {
+	        if (input.files && input.files[0]) {
+	            var reader = new FileReader();
+
+	            reader.onload = function (e) {
+	                $('#gallery-pic').attr('src', e.target.result);
+	            }
+
+	            reader.readAsDataURL(input.files[0]);
+	        }
+	    }
+
+	    $("#image-gallery").change(function(){
+	        readURL(this);
+	    });
 	}]);
 
 })();
