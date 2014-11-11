@@ -106,3 +106,8 @@
 .ng-valid.ng-dirty {
   border-color: #78fa89;
 }
+.error {
+  color: #f4464d;
+  margin-bottom: 15px;
+  font-size: 14px;
+}

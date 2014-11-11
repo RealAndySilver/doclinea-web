@@ -54,7 +54,7 @@ body {
   top: 14px;
 }
 form input.form-control {
-  margin-bottom: 25px;
+  margin-bottom: 10px;
   width: 95%;
 }
 form textarea.form-control {

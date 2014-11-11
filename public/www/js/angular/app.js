@@ -173,8 +173,9 @@
 
 	//ACCOUNTS AND AUTHENTICATION
 	var createUser = angular.module('createUser', []);
-	createUser.controller('SignUpController', ['$http',function($http){
+	createUser.controller('SignUpController', ['$http', '$scope', function($http, $scope){
 		var type = "User";
+		//$scope.submitted = false;
 		this.signUp = function() {
 				//console.log('Entra a signUp');
                 var data1 = this.data;
@@ -182,7 +183,8 @@
                 $http.post(endpoint + type + '/Create', data1)
                 .success(function(data) {
                    if (!data.status) {
-                           console.log("Paila, no se creó",data);
+                           //console.log("Paila, no se creó",data);
+                           $scope.signUpForm.submitted = true;
                    } else {
                            // if successful, bind success message to message
                        console.log("Listo, creado" + data);
@@ -537,7 +539,7 @@
            		} else {
                		// if successful, bind success message to message
                		console.log("Resultado de busqueda de doctores:");
-               		console.log(data);
+               		console.log(data.response);
 
                		This.docs = data.response;
                		//console.log(JSON.stringify(this.docs));
