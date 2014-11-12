@@ -175,19 +175,21 @@
 	var createUser = angular.module('createUser', []);
 	createUser.controller('SignUpController', ['$http', '$scope', function($http, $scope){
 		var type = "User";
-		//$scope.submitted = false;
+		$scope.submitted = false;
 		this.signUp = function() {
 				//console.log('Entra a signUp');
-                var data1 = this.data;
+				var data1 = this.data;
+				console.log(data1);
                 data1.password = btoa(data1.password);
+
                 $http.post(endpoint + type + '/Create', data1)
                 .success(function(data) {
                    if (!data.status) {
-                           //console.log("Paila, no se creó",data);
+                           //console.log("No se pudo crear usuario",data);
                            $scope.signUpForm.submitted = true;
                    } else {
                            // if successful, bind success message to message
-                       console.log("Listo, creado" + data);
+                       console.log("Listo, creado usuario" + data);
                        var user = data.response;
 	                   //console.log('la data es', user);
 	                   window.location = "/#/user/" + user._id;
@@ -203,7 +205,7 @@
 		var type = "User";
 		this.signIn = function() {
 				//console.log('Entra a signIn');
-                var data1 = this.data;
+				var data1 = this.data;
                 data1.password = btoa(data1.password);
                 $http.post(endpoint + type + '/Authenticate', data1)
                 .success(function(data) {
