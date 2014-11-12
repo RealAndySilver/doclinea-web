@@ -6,20 +6,28 @@
 				<div class="form-group">
 				  <label class="col-md-4 control-label" for="name">Nombres</label>  
 				  <div class="col-md-6">
-				  <input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="docDashCtrl.info.name">
+				  <input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="docDashCtrl.info.name" ng-minlength=3 ng-pattern="/^(\D)+$/">
+				  <div class="error" ng-show="personalDocInfo.name.$dirty && personalDocInfo.name.$invalid">
+					  <small class="error" ng-show="personalDocInfo.name.$error.minlength">Su nombre debe contener por lo menos 3 letras.</small>
+					  <small class="error" ng-show="personalDocInfo.name.$error.pattern">Su nombre solo debe contener letras.</small>
+				  </div>
 				  </div>
 				</div>
 				<div class="form-group">
 				  <label class="col-md-4 control-label" for="last_name">Apellidos</label>  
 				  <div class="col-md-6">
-				  <input id="last_name" name="last_name" type="text" placeholder="" class="form-control input-md"  ng-model="docDashCtrl.info.lastname">
+				  <input id="last_name" name="last_name" type="text" placeholder="" class="form-control input-md" ng-model="docDashCtrl.info.lastname" ng-minlength=3 ng-pattern="/^(\D)+$/">
+				  <div class="error" ng-show="personalDocInfo.last_name.$dirty && personalDocInfo.last_name.$invalid">
+					  <small class="error" ng-show="personalDocInfo.last_name.$error.minlength">Su apellido debe contener por lo menos 3 letras.</small>
+					  <small class="error" ng-show="personalDocInfo.last_name.$error.pattern">Su apellido solo debe contener letras.</small>
+				  </div>
 				  </div>
 				</div>
 				<div class="form-group">
 				  <label class="col-md-4 control-label" for="email">Email</label>  
 				  <div class="col-md-6">
 				  <input disabled id="email" name="email" type="text" placeholder="" class="form-control input-md" ng-model="docDashCtrl.info.email" style="margin-bottom: 10px;">
-				  <div class="alert alert-warning" role="alert">Para cambiar su correo debe contactarnos a contacto@doclinea.com</div>
+				  <div class="alert alert-info" role="alert">Para cambiar su correo debe contactarnos a contacto@doclinea.com</div>
 				  </div>
 				</div>
 				<div class="form-group last-form-element">
@@ -30,7 +38,7 @@
 					  Masculino
 					</label> 
 					<label class="radio-inline" for="gender-1">
-					  <input type="radio" name="gender" id="gender-1" value="2"  ng-model="docDashCtrl.info.gender">
+					  <input type="radio" name="gender" id="gender-1" value="2" ng-model="docDashCtrl.info.gender">
 					  Femenino
 					</label>
 				  </div>
@@ -55,7 +63,10 @@
 				<div class="form-group">
 				  <label class="col-md-4 control-label" for="phone">Teléfono</label>  
 				  <div class="col-md-6">
-				  <input id="phone" name="phone" type="text" placeholder="" class="form-control input-md" ng-model="docDashCtrl.info.phone">
+				  <input id="phone" name="phone" type="text" placeholder="" class="form-control input-md" ng-model="docDashCtrl.info.phone" ng-pattern="/^\d+$/">
+				  <div class="error" ng-show="personalDocInfo.phone.$dirty && personalDocInfo.phone.$invalid">
+					  <small class="error" ng-show="personalDocInfo.phone.$error.pattern">Su número telefónico solo debe contener números y ningún espacio.</small>
+				  </div>
 				  </div>
 				</div> 
 				<div class="form-group">

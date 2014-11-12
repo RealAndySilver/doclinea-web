@@ -63,7 +63,7 @@
 						  Masculino
 						</label> 
 						<label class="radio-inline" for="gender-1">
-						  <input type="radio" name="gender" id="gender-1" value="2"  ng-model="docSignUpCtrl.data.gender" required>
+						  <input type="radio" name="gender" id="gender-1" value="2" ng-model="docSignUpCtrl.data.gender" required>
 						  Femenino
 						</label>
 						<div class="error" ng-show="doctorSignUpForm.gender.$dirty && doctorSignUpForm.gender.$invalid">
@@ -79,11 +79,11 @@
 						  Masculino
 						</label> 
 						<label class="radio-inline" for="patient_gender-1">
-						  <input type="radio" name="patient_gender" id="patient_gender-1" value="2"  ng-model="docSignUpCtrl.data.patient_gender" required>
+						  <input type="radio" name="patient_gender" id="patient_gender-1" value="2" ng-model="docSignUpCtrl.data.patient_gender" required>
 						  Femenino
 						</label>
 						<label class="radio-inline" for="patient_gender-2">
-						  <input type="radio" name="patient_gender" id="patient_gender-2" value="3"  ng-model="docSignUpCtrl.data.patient_gender" required>
+						  <input type="radio" name="patient_gender" id="patient_gender-2" value="3" ng-model="docSignUpCtrl.data.patient_gender" required>
 						  Ambos
 						</label>
 						<div class="error" ng-show="doctorSignUpForm.patient_gender.$dirty && doctorSignUpForm.patient_gender.$invalid">
@@ -94,7 +94,7 @@
 					<div class="form-group">
 					  <label class="col-md-4 control-label" for="phone">Teléfono</label>  
 					  <div class="col-md-6">
-					  <input id="phone" name="phone" type="text" placeholder="" class="form-control input-md"  ng-model="docSignUpCtrl.data.phone" ng-pattern="/^\d+$/" required>
+					  <input id="phone" name="phone" type="text" placeholder="" class="form-control input-md" ng-model="docSignUpCtrl.data.phone" ng-pattern="/^\d+$/" required>
 					  <div class="error" ng-show="doctorSignUpForm.phone.$dirty && doctorSignUpForm.phone.$invalid">
 					  	  <small class="error" ng-show="doctorSignUpForm.phone.$error.required">Teléfono es obligatorio.</small>
 						  <small class="error" ng-show="doctorSignUpForm.phone.$error.pattern">Su número telefónico solo debe contener números y ningún espacio.</small>
