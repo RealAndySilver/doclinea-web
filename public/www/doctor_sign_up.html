@@ -4,7 +4,6 @@
 			<div class="form-box" >
 				<h2>Registro de Doctores</h2>
 				<form class="form-horizontal" name="doctorSignUpForm" ng-controller="DoctorSignUpController as docSignUpCtrl" ng-submit="docSignUpCtrl.signUp()" novalidate>
-				<!-- <form class="form-horizontal" name="signUpForm" ng-controller="SignUpController as signUpCtrl" ng-submit="signUpCtrl.signUp()" novalidate> -->
 				<fieldset>
 					<div class="form-group">
 					  <label class="col-md-4 control-label" for="name">Nombres</label>  
@@ -34,7 +33,7 @@
 					<div class="form-group">
 					  <label class="col-md-4 control-label" for="password">Confirmar contraseña</label>
 					  <div class="col-md-6">
-						<input id="password" name="confirm_password" type="password" placeholder="" class="form-control input-md" ng-model="docSignUpCtrl.data.password_verify" data-password-verify="docSignUpCtrl.data.password" equals="{{docSignUpCtrl.data.password}}" required>
+						<input id="confirm_password" name="confirm_password" type="password" placeholder="" class="form-control input-md" ng-model="docSignUpCtrl.data.password_verify" data-password-verify="docSignUpCtrl.data.password" equals="{{docSignUpCtrl.data.password}}" required>
 						<div ng-show="form.confirm_password.$error.required" class="alert alert-danger" role="alert">Campo obligatorio</div>
 						<div ng-show="form.confirm_password.$error.passwordVerify" class="alert alert-danger" role="alert">Las contraseñas no coinciden</div>
 					  </div>
@@ -114,7 +113,6 @@
 					  </div>
 					</div>
 				</fieldset>
-				<!-- </form> -->
 				</form>
 			</div> 
 		</div>

@@ -175,7 +175,6 @@
 	var createUser = angular.module('createUser', []);
 	createUser.controller('SignUpController', ['$http', '$scope', function($http, $scope){
 		var type = "User";
-		$scope.submitted = false;
 		this.signUp = function() {
 				//console.log('Entra a signUp');
 				var data1 = this.data;
@@ -186,7 +185,6 @@
                 .success(function(data) {
                    if (!data.status) {
                            //console.log("No se pudo crear usuario",data);
-                           $scope.signUpForm.submitted = true;
                    } else {
                            // if successful, bind success message to message
                        console.log("Listo, creado usuario" + data);
