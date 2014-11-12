@@ -3,81 +3,108 @@
 		<div class="inner-info-box">
 			<div class="form-box" >
 				<h2>Registro de Doctores</h2>
-				<form class="form-horizontal" name="doctorSignUpForm" ng-controller="DoctorSignUpController as docSignUpCtrl" ng-submit="docSignUpCtrl.signUp()" novalidate>
+				<form class="form-horizontal" name="doctorSignUpForm" ng-controller="DoctorSignUpController as docSignUpCtrl" ng-submit="doctorSignUpForm.$valid && docSignUpCtrl.signUp()" novalidate>
 				<fieldset>
 					<div class="form-group">
 					  <label class="col-md-4 control-label" for="name">Nombres</label>  
 					  <div class="col-md-6">
-					  <input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="docSignUpCtrl.data.name">
+					  <input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="docSignUpCtrl.data.name" ng-minlength=3 ng-pattern="/^(\D)+$/" required>
+					  <div class="error" ng-show="doctorSignUpForm.name.$dirty && doctorSignUpForm.name.$invalid">
+					    <small class="error" ng-show="doctorSignUpForm.name.$error.required">Nombre es obligatorio.</small>
+					    <small class="error" ng-show="doctorSignUpForm.name.$error.minlength">Su nombre debe contener por lo menos 3 letras.</small>
+					    <small class="error" ng-show="doctorSignUpForm.name.$error.pattern">Su nombre solo debe contener letras.</small>
+					  </div>
 					  </div>
 					</div>
 					<div class="form-group">
 					  <label class="col-md-4 control-label" for="last_name">Apellidos</label>  
 					  <div class="col-md-6">
-					  <input id="last_name" name="last_name" type="text" placeholder="" class="form-control input-md"  ng-model="docSignUpCtrl.data.lastname">
+					  <input id="last_name" name="last_name" type="text" placeholder="" class="form-control input-md"  ng-model="docSignUpCtrl.data.lastname" ng-minlength=3 ng-pattern="/^(\D)+$/" required>
+					  <div class="error" ng-show="doctorSignUpForm.last_name.$dirty && doctorSignUpForm.last_name.$invalid">
+					    <small class="error" ng-show="doctorSignUpForm.last_name.$error.required">Apellido es obligatorio.</small>
+					    <small class="error" ng-show="doctorSignUpForm.last_name.$error.minlength">Su apellido debe contener por lo menos 3 letras.</small>
+					    <small class="error" ng-show="doctorSignUpForm.last_name.$error.pattern">Su apellido solo debe contener letras.</small>
+					  </div>
 					  </div>
 					</div>
 					<div class="form-group">
 					  <label class="col-md-4 control-label" for="email">Email</label>  
 					  <div class="col-md-6">
-					  <input id="email" name="email" type="text" placeholder="" class="form-control input-md"  ng-model="docSignUpCtrl.data.email">
+					  <input id="email" name="email" type="text" placeholder="" class="form-control input-md" ng-model="docSignUpCtrl.data.email" ng-pattern="/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,5}$/" required>
+					  <div class="error" ng-show="doctorSignUpForm.email.$dirty && doctorSignUpForm.email.$invalid">
+					    <small class="error" ng-show="doctorSignUpForm.email.$error.required">Email es obligatorio.</small>
+					    <small class="error" ng-show="doctorSignUpForm.email.$error.pattern">No es un email válido.</small>
+					  </div>
 					  </div>
 					</div>
 					<div class="form-group">
 					  <label class="col-md-4 control-label" for="password">Contraseña</label>
 					  <div class="col-md-6">
 						<input id="password" name="password" type="password" placeholder="" class="form-control input-md" ng-model="docSignUpCtrl.data.password" equals="{{docSignUpCtrl.data.password_verify}}" required>
-						<div ng-show="form.password.$error.required" class="alert alert-danger" role="alert">Campo obligatorio</div>
+						<div class="error" ng-show="doctorSignUpForm.password.$dirty && doctorSignUpForm.password.$invalid">
+						    <small class="error" ng-show="doctorSignUpForm.password.$error.required">Contraseña es obligatoria.</small>
+						</div>
 					  </div>
 					</div>
 					<div class="form-group">
 					  <label class="col-md-4 control-label" for="password">Confirmar contraseña</label>
 					  <div class="col-md-6">
 						<input id="confirm_password" name="confirm_password" type="password" placeholder="" class="form-control input-md" ng-model="docSignUpCtrl.data.password_verify" data-password-verify="docSignUpCtrl.data.password" equals="{{docSignUpCtrl.data.password}}" required>
-						<div ng-show="form.confirm_password.$error.required" class="alert alert-danger" role="alert">Campo obligatorio</div>
-						<div ng-show="form.confirm_password.$error.passwordVerify" class="alert alert-danger" role="alert">Las contraseñas no coinciden</div>
+						<div class="error" ng-show="doctorSignUpForm.confirm_password.$dirty && doctorSignUpForm.confirm_password.$invalid">
+						    <small class="error" ng-show="doctorSignUpForm.confirm_password.$error.equals">Las contraseñas no coinciden.</small>
+						</div>
 					  </div>
 					</div>
 					<div class="form-group last-form-element">
 					  <label class="col-md-4 control-label" for="gender">Género</label>
 					  <div class="col-md-4"> 
 						<label class="radio-inline" for="gender-0">
-						  <input type="radio" name="gender" id="gender-0" value="1" checked="checked" ng-model="docSignUpCtrl.data.gender">
+						  <input type="radio" name="gender" id="gender-0" value="1" checked="checked" ng-model="docSignUpCtrl.data.gender" required>
 						  Masculino
 						</label> 
 						<label class="radio-inline" for="gender-1">
-						  <input type="radio" name="gender" id="gender-1" value="2"  ng-model="docSignUpCtrl.data.gender">
+						  <input type="radio" name="gender" id="gender-1" value="2"  ng-model="docSignUpCtrl.data.gender" required>
 						  Femenino
 						</label>
+						<div class="error" ng-show="doctorSignUpForm.gender.$dirty && doctorSignUpForm.gender.$invalid">
+						    <small class="error" ng-show="doctorSignUpForm.gender.$error.required">Género es obligatorio.</small>
+						</div>
 					  </div>
 					</div>
 					<div class="form-group last-form-element">
 					  <label class="col-md-4 control-label" for="patient_gender">Género de paciente</label>
 					  <div class="col-md-4"> 
 						<label class="radio-inline" for="patient_gender-0">
-						  <input type="radio" name="patient_gender" id="patient_gender-0" value="1" checked="checked" ng-model="docSignUpCtrl.data.patient_gender">
+						  <input type="radio" name="patient_gender" id="patient_gender-0" value="1" checked="checked" ng-model="docSignUpCtrl.data.patient_gender" required>
 						  Masculino
 						</label> 
 						<label class="radio-inline" for="patient_gender-1">
-						  <input type="radio" name="patient_gender" id="patient_gender-1" value="2"  ng-model="docSignUpCtrl.data.patient_gender">
+						  <input type="radio" name="patient_gender" id="patient_gender-1" value="2"  ng-model="docSignUpCtrl.data.patient_gender" required>
 						  Femenino
 						</label>
 						<label class="radio-inline" for="patient_gender-2">
-						  <input type="radio" name="patient_gender" id="patient_gender-2" value="3"  ng-model="docSignUpCtrl.data.patient_gender">
+						  <input type="radio" name="patient_gender" id="patient_gender-2" value="3"  ng-model="docSignUpCtrl.data.patient_gender" required>
 						  Ambos
 						</label>
+						<div class="error" ng-show="doctorSignUpForm.patient_gender.$dirty && doctorSignUpForm.patient_gender.$invalid">
+						    <small class="error" ng-show="doctorSignUpForm.patient_gender.$error.required">Género de pacientes es obligatorio.</small>
+						</div>
 					  </div>
 					</div>
 					<div class="form-group">
 					  <label class="col-md-4 control-label" for="phone">Teléfono</label>  
 					  <div class="col-md-6">
-					  <input id="phone" name="phone" type="text" placeholder="" class="form-control input-md"  ng-model="docSignUpCtrl.data.phone">
+					  <input id="phone" name="phone" type="text" placeholder="" class="form-control input-md"  ng-model="docSignUpCtrl.data.phone" ng-pattern="/^\d+$/" required>
+					  <div class="error" ng-show="doctorSignUpForm.phone.$dirty && doctorSignUpForm.phone.$invalid">
+					  	  <small class="error" ng-show="doctorSignUpForm.phone.$error.required">Teléfono es obligatorio.</small>
+						  <small class="error" ng-show="doctorSignUpForm.phone.$error.pattern">Su número telefónico solo debe contener números y ningún espacio.</small>
+					  </div>
 					  </div>
 					</div>
 					<div class="form-group">
 						<label class="col-md-4 control-label" for="city">Ciudad</label>
 						<div class="col-md-6">
-						<select class="form-control" name="city" id="city" ng-model="docSignUpCtrl.data.city">
+						<select class="form-control" name="city" id="city" ng-model="docSignUpCtrl.data.city" required>
 						  <option>Bogotá</option>
 						  <option>Medellín</option>
 						  <option>Cali</option>
@@ -85,27 +112,42 @@
 						  <option>Pereira</option>
 						  <option>Bucaramanga</option>
 						</select>
+						<div class="error" ng-show="doctorSignUpForm.city.$dirty && doctorSignUpForm.city.$invalid">
+						    <small class="error" ng-show="doctorSignUpForm.city.$error.required">Ciudad es obligatoria.</small>
+						</div>
 						</div>
 					</div>
 					<div class="form-group" ng-if="docSignUpCtrl.data.city == 'Bogotá'">
 						<label class="col-md-4 control-label" for="localidad">Localidad</label>
 						<div class="col-md-6">
-						<select class="form-control" name="localidad" id="localidad" ng-model="docSignUpCtrl.data.localidad" ng-options="localidad.name for localidad in localidades">
+						<select class="form-control" name="localidad" id="localidad" ng-model="docSignUpCtrl.data.localidad" ng-options="localidad.name for localidad in localidades" required>
 						</select>
+						<div class="error" ng-show="doctorSignUpForm.localidad.$dirty && doctorSignUpForm.localidad.$invalid">
+						    <small class="error" ng-show="doctorSignUpForm.localidad.$error.required">Localidad es obligatoria.</small>
+						</div>
 						</div>
 					</div>
 					<div class="form-group">
 					  <label class="col-md-4 control-label" for="address">Dirección</label>  
 					  <div class="col-md-6">
-					  <input id="address" name="address" type="text" placeholder="" class="form-control input-md"  ng-model="docSignUpCtrl.data.address">
+					  <input id="address" name="address" type="text" placeholder="" class="form-control input-md" ng-model="docSignUpCtrl.data.address" required>
+					  <div class="error" ng-show="doctorSignUpForm.address.$dirty && doctorSignUpForm.address.$invalid">
+						  <small class="error" ng-show="doctorSignUpForm.address.$error.required">Dirección es obligatoria.</small>
+					  </div>
 					  </div>
 					</div>
 					<div class="form-group last-form-element">
 					  <label class="col-md-4 control-label" for="practice">Especialidad</label>
 					  <div class="col-md-6">
-						<select id="practice_list" name="practice_list" class="form-control" ng-model="docSignUpCtrl.data.practice_list"  ng-options="practice.name for practice in practices track by practice.id">
+						<select id="practice_list" name="practice_list" class="form-control" ng-model="docSignUpCtrl.data.practice_list" ng-options="practice.name for practice in practices track by practice.id" required>
 						</select>
+						<div class="error" ng-show="doctorSignUpForm.practice_list.$dirty && doctorSignUpForm.practice_list.$invalid">
+						  <small class="error" ng-show="doctorSignUpForm.practice_list.$error.required">Especialidad es obligatoria.</small>
 					  </div>
+					  </div>
+					</div>
+					<div class="error warning" ng-show="doctorSignUpForm.$invalid">
+					    <small class="error warning">Recuerde diligenciar todo el formulario para poder registrarse.</small>
 					</div>
 					<div class="form-group">
 					  <div class="col-md-4 center-button">

@@ -180,7 +180,6 @@
 				var data1 = this.data;
 				console.log(data1);
                 data1.password = btoa(data1.password);
-
                 $http.post(endpoint + type + '/Create', data1)
                 .success(function(data) {
                    if (!data.status) {
