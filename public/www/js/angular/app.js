@@ -883,8 +883,6 @@
 			    $scope.lng = event.latLng.lng();
 			    console.log($scope.doctorData.info.location_list);
 			    if ($scope.doctorData.info.location_list[0].lat && $scope.doctorData.info.location_list[0].lon) {
-			    	//confirm("Desea reemplazar su ubicación actual?");
-			    	//alert('reemplazar este sitio');
 			    	initialMarker[0].setMap(null);
 			    };
 			    google.maps.event.addListener($scope.map, 'click', function() {
@@ -1120,6 +1118,7 @@
 
 		//add or remove form fields
 		this.addPractice = function() {
+			//console.log($scope.doctorData.info.practice_list[0]);
 			$scope.doctorData.info.practice_list.push(practices);
 		};
 		this.removePractice = function(practiceToRemove) {
@@ -1145,7 +1144,7 @@
 
 			for(var i in studiesInfo.practice_list) {
 				if (studiesInfo.practice_list[i] instanceof Array) {
-					//console.log(i + 'Selección inválida');
+					console.log(i + 'Selección inválida');
 					var invalid_practice = 'Verifique la lista de especialidades.';
                		var alert_div = $("<div class=\"alert alert-danger alert-dismissible noty_dash noty fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">x</span><span class=\"sr-only\"></span></button>"+invalid_practice+"</div>");
 					$("body").prepend(alert_div);
@@ -1158,6 +1157,10 @@
 				} else {
 					console.log(i + 'Selección válida');
 				}
+				console.log('Prueba para validar', studiesInfo.practice_list[i].name);
+				if (studiesInfo.practice_list[i].name ==  studiesInfo.practice_list[0].name) {
+					console.log('Ya valimos verga');
+				};
 			}
 
 			studiesInfo.education_list = {};
