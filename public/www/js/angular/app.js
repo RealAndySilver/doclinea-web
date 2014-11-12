@@ -178,7 +178,6 @@
 		this.signUp = function() {
 				//console.log('Entra a signUp');
 				var data1 = this.data;
-				console.log(data1);
                 data1.password = btoa(data1.password);
                 $http.post(endpoint + type + '/Create', data1)
                 .success(function(data) {
@@ -196,7 +195,6 @@
        };
 	}]);
 
-
 	var login = angular.module('loginUser', []);
 	login.controller('SignInController', ['$http',function($http){
 		var type = "User";
@@ -207,7 +205,11 @@
                 $http.post(endpoint + type + '/Authenticate', data1)
                 .success(function(data) {
                    if (!data.status) {
-                           console.log("Paila, no se autenticó",data);
+                           //console.log("Paila, no se autenticó",data);
+                           var auth_error = 'El usuario o la contraseña estan incorrectos.';
+		               		var alert_div = $("<div class=\"alert alert-danger alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">x</span><span class=\"sr-only\"></span></button>"+auth_error+"</div>");
+							$("body").prepend(alert_div);
+							$(".alert").alert();
                    } else {
                            // if successful, bind success message to message
                        console.log("Listo, autenticado" + data);
@@ -268,7 +270,7 @@
            $http.post(endpoint + type + '/Authenticate', data1)
 	           .success(function(data) {
 	               if (!data.status) {
-	                        console.log("Paila, no se autenticó",data);
+	                        //console.log("Paila, no se autenticó",data);
 	                        var auth_error = 'El usuario o la contraseña estan incorrectos.';
 		               		var alert_div = $("<div class=\"alert alert-danger alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">x</span><span class=\"sr-only\"></span></button>"+auth_error+"</div>");
 							$("body").prepend(alert_div);
