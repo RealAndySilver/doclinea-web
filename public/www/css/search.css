@@ -57,12 +57,16 @@ hr {
   margin-bottom: 20px;
   border-bottom: solid 1px #e2e2e2;
 }
-#results-box .center .results-page .docs-container {
+#results-box .center .results-page .docs-container,
+#results-box .center .results-page .filters-container {
   float: left;
   width: 40%;
   height: 100%;
   overflow: scroll;
   border-right: solid 1px #e2e2e2;
+}
+#results-box .center .results-page .filters-container {
+  padding: 30px;
 }
 #results-box .center .results-page .location-container {
   float: left;

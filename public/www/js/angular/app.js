@@ -10,6 +10,7 @@
 	  'docProfile',
 	  'doctorDashboard',
 	  'userDashboard',
+	  'adminDashboard',
 	]);
 
 	var endpoint = "http://192.241.187.135:1414/api_1.0/";
@@ -68,6 +69,11 @@
 				templateUrl: '../www/doctor_dashboard.html',
 				controller: 'DocDashboardController',
 				controllerAs : 'docDashCtrl',
+			}).
+			when('/admin_dashboard', {
+				templateUrl: '../www/admin_dashboard.html',
+				controller: 'AdminDashboardController',
+				controllerAs : 'adminCtrl',
 			}).
 			otherwise({
 				redirectTo: '/404'
@@ -1377,6 +1383,19 @@
 	//         galleryUpload.uploadFileToUrl(file, uploadUrl);
 	//     };
 	// }]);
+
+
+	//Module and Controllers for User Dashboard - PARENT CONTROLLER
+	adminDash = angular.module('adminDashboard', []);
+	adminDash.controller('AdminDashboardController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams){
+
+		// $('#myTab a').click(function (e) {
+		//   e.preventDefault();
+		//   $(this).tab('show');
+		// });
+
+		console.log('THIS IS ADMIN');
+	}]);
 
 })();
 
