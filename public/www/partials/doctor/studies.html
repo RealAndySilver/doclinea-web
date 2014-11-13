@@ -36,7 +36,7 @@
 					  <label class="col-md-4 control-label" for="year_start">Año de Inicio</label>  
 					  <div class="col-md-6">
 						  <div class="in-container">
-						  	 <select id="year_start_{{$index + 1}}" name="year_start"  class="form-control" ng-model="docDashCtrl.selectedYearStart" ng-options="year for year in yearsList">
+						  	 <select id="year_start_{{$index + 1}}" name="year_start"  class="form-control" ng-model="docDashCtrl.info.education_list[$index].year_start" ng-options="year for year in yearsList">
 							</select>
 						  </div>
 					  </div>

@@ -1149,22 +1149,6 @@
 			var studies = $scope.doctorData.info.education_list;
 		};
 
-		var getYear = function(list, option) {
-			for(var i in list) {
-				if(list[i] === option) {
-					return list[i];
-				}
-			}
-		};
-		console.log($scope.doctorData.info.education_list[0].year_start);
-		console.log($scope.yearsList);
-		var yearStart = $scope.doctorData.info.education_list[0].year_start;
-		console.log('Año Inicial: '+ yearStart);
-
-		//this.practices = [ {name: "Pediatra", id: 1}, {name: "Fonoaudiólogo", id: 2}, {name: "Ginecólogo", id: 3}, {name: "Ortopedista", id: 4}, {name: "Odontólogo", id: 5} ];
-		this.selectedYearStart = getYear($scope.yearsList, parseInt(yearStart));
-		console.log(this.selectedYearStart);
-
 		this.updateDoctor = function(doc_id) {
 			var type = 'Doctor';
 			
