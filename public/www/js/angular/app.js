@@ -903,6 +903,17 @@
 			{name: "Odontólogo", id: 5}, 
 		];
 
+		var myDate = new Date();
+		var currentYear = myDate.getFullYear();
+		$scope.yearsList = [];
+		var loadYears = function() {
+			for (var i = 0; i < ((currentYear+1)-1950); i++) {
+				$scope.yearsList[i] = 1950+i;
+			};
+			return $scope.yearsList;
+		}
+		loadYears();
+
 		$scope.cities = ["Bogotá", "Medellín", "Cali", "Barranquilla", "Pereira", "Bucaramanga"];
 
 		var id = $routeParams.id;
@@ -1105,16 +1116,18 @@
 
 		var practices = $scope.practices;
 
-		var myDate = new Date();
-		var currentYear = myDate.getFullYear();
-		$scope.yearsList = [];
-		var loadYears = function() {
-			for (var i = 0; i < ((currentYear+1)-1950); i++) {
-				$scope.yearsList[i] = 1950+i;
-			};
-			return $scope.yearsList;
-		}
-		loadYears();
+		//var yearsList = $scope.yearsList;
+
+		// var myDate = new Date();
+		// var currentYear = myDate.getFullYear();
+		// $scope.yearsList = [];
+		// var loadYears = function() {
+		// 	for (var i = 0; i < ((currentYear+1)-1950); i++) {
+		// 		$scope.yearsList[i] = 1950+i;
+		// 	};
+		// 	return $scope.yearsList;
+		// }
+		// loadYears();
 
 		//add or remove form fields
 		this.addPractice = function() {
@@ -1135,6 +1148,22 @@
 		this.initStudiesInfo = function() {
 			var studies = $scope.doctorData.info.education_list;
 		};
+
+		var getYear = function(list, option) {
+			for(var i in list) {
+				if(list[i] === option) {
+					return list[i];
+				}
+			}
+		};
+		console.log($scope.doctorData.info.education_list[0].year_start);
+		console.log($scope.yearsList);
+		var yearStart = $scope.doctorData.info.education_list[0].year_start;
+		console.log('Año Inicial: '+ yearStart);
+
+		//this.practices = [ {name: "Pediatra", id: 1}, {name: "Fonoaudiólogo", id: 2}, {name: "Ginecólogo", id: 3}, {name: "Ortopedista", id: 4}, {name: "Odontólogo", id: 5} ];
+		this.selectedYearStart = getYear($scope.yearsList, parseInt(yearStart));
+		console.log(this.selectedYearStart);
 
 		this.updateDoctor = function(doc_id) {
 			var type = 'Doctor';
@@ -1157,10 +1186,10 @@
 				} else {
 					console.log(i + 'Selección válida');
 				}
-				console.log('Prueba para validar', studiesInfo.practice_list[i].name);
-				if (studiesInfo.practice_list[i].name ==  studiesInfo.practice_list[0].name) {
-					console.log('Ya valimos verga');
-				};
+				// console.log('Prueba para validar', studiesInfo.practice_list[i].name);
+				// if (studiesInfo.practice_list[i].name ==  studiesInfo.practice_list[0].name) {
+				// 	console.log('Ya valimos verga');
+				// };
 			}
 
 			studiesInfo.education_list = {};
