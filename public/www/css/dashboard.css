@@ -80,6 +80,9 @@ header {
 .main .page-header {
   margin-top: 30px;
 }
+.top-fix {
+  height: 100%;
+}
 .img-thumbnail {
   width: 130px;
   margin-bottom: 15px;

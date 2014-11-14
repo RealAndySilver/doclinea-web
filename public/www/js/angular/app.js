@@ -1394,10 +1394,10 @@
 		console.log('THIS IS ADMIN');
 	}]);
 	//Controller for Search Doctors - Admin
-	adminDash.directive('doctors', function() {
+	adminDash.directive('filters', function() {
 	    return {
 	    	restrict: 'E',
-	    	templateUrl: 'www/partials/admin/doctors.html',
+	    	templateUrl: 'www/partials/admin/filters.html',
 	    	controller: 'SearchDoctorsController',
 	    	controllerAs: 'searchDocsCtrl',
 	    };
@@ -1439,17 +1439,29 @@
 					$(".alert").alert();
            		} else {
                		// if successful, bind success message to message
-               		console.log("Resultado de busqueda de doctores:");
-               		console.log(data.response);
-
-               		This.docs = data.response;
-               		//console.log(JSON.stringify(this.docs));
+               		$scope.doctors = data.response
+               		console.log('Resultado de la busqueda de doctores!!! ', $scope.doctors);
            		}	
 
 	    	});
 
 		};
 	}]);
+	//Controller for List Doctors - Admin
+	// adminDash.directive('doctors', function() {
+	//     return {
+	//     	restrict: 'E',
+	//     	templateUrl: 'www/partials/admin/doctors.html',
+	//     	controller: 'DoctorsListController',
+	//     	controllerAs: 'docsListCtrl',
+	//     };
+	// });
+	// adminDash.controller('DoctorsListController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams){
+
+	// 	console.log('THIS IS LIST');
+	// 	console.log($scope.doctors);
+		
+	// }]);
 
 })();
 

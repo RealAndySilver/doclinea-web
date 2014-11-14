@@ -1,0 +1,24 @@
+<form name="getDoctors" ng-submit="searchDocsCtrl.getDoctors()" novalidate>
+	<div>
+		<label for="practice_list">Especialidad</label>
+		<select class="form-control" name="practice_list" id="practice_list" ng-model="searchDocsCtrl.practice" ng-options="op.name for op in adminCtrl.practices">
+		  <option value="">- Seleccione una especialidad -</option>
+        </select>
+	</div>
+	<div>
+		<label for="city_list">Ciudad</label>
+		<select class="form-control" name="city" id="city" ng-model="searchDocsCtrl.city" ng-options="op.name for op in adminCtrl.cities">
+          <option value="">- Seleccione una ciudad -</option>
+        </select>
+	</div>
+	<div>
+		<label for="insurance_list">Aseguradora</label>
+		<select class="form-control" name="insurance_list" id="insurance_list" ng-model="searchDocsCtrl.insurance" ng-options="op.name for op in adminCtrl.insurances">
+          <option value="">- Seleccione una aseguradora -</option>
+        </select>
+	</div>
+	<div>
+		<button id="search_doctor" name="search_doctor" class="btn btn-success btn-block btn-lg">Buscar</button>
+	</div>
+</form>
+			
