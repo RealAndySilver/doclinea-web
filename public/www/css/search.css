@@ -68,7 +68,8 @@ hr {
 #results-box .center .results-page .filters-container {
   padding: 30px;
 }
-#results-box .center .results-page .location-container {
+#results-box .center .results-page .location-container,
+#results-box .center .results-page .results-container {
   float: left;
   width: 60%;
   height: 100%;

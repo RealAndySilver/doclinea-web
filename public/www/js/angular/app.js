@@ -466,11 +466,8 @@
 		this.selectedInsurance = getPosition(this.insurances, this.insurance_list);
 
 		this.searchDoctor = function() {
-
 			var selectedCity = !this.selectedCity ? encodedParam : this.selectedCity.name;
 			var selectedPractice = !this.selectedPractice ? encodedParam : this.selectedPractice.name;
-			console.log('LA PRACTICA ES:');
-			console.log(selectedPractice);
 			var selectedInsurance = !this.selectedInsurance ? encodedParam : this.selectedInsurance.name;
 
 			window.location = "/#/search/" + selectedCity + "/" + selectedPractice + "/" + selectedInsurance;
@@ -1389,12 +1386,18 @@
 	adminDash = angular.module('adminDashboard', []);
 	adminDash.controller('AdminDashboardController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams){
 
-		// $('#myTab a').click(function (e) {
-		//   e.preventDefault();
-		//   $(this).tab('show');
-		// });
+		this.practices = [ {name: "Pediatra", id: 1}, {name: "Fonoaudiólogo", id: 2}, {name: "Ginecólogo", id: 3}, {name: "Ortopedista", id: 4}, {name: "Odontólogo", id: 5} ];
+		this.cities = [ {name: "Bogotá", id: 1}, {name: "Medellín", id: 2}, {name: "Cali", id: 3}, {name: "Barranquilla", id: 4}, {name: "Pereira", id: 5}, {name: "Bucaramanga", id: 6} ];
+		this.insurances = [ {name: "Colpatria", id: 1}, {name: "Compensar", id: 2}, {name: "Sura", id: 3} ];
 
 		console.log('THIS IS ADMIN');
+		var params = this;
+
+		this.getDoctors = function() {
+			params.city = $scope.adminCtrl.city;
+			console.log('Parametros de busqueda ', params);
+
+		};
 	}]);
 
 })();
