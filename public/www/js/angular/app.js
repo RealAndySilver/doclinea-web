@@ -526,7 +526,7 @@
 
 		docData.docs = $scope.getDrCtrl.data1;
 
-		console.log('Mi data es ', docData);
+		console.log('Mi data es ', docData.docs);
 
 		var This = this;
 
@@ -1381,8 +1381,9 @@
 	//     };
 	// }]);
 
-
-	//Module and Controllers for User Dashboard - PARENT CONTROLLER
+	//////////////////////////////////////////////////////////////////
+	//Module and Controllers for Admin Dashboard - PARENT CONTROLLER//
+	//////////////////////////////////////////////////////////////////
 	adminDash = angular.module('adminDashboard', []);
 	adminDash.controller('AdminDashboardController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams){
 
@@ -1391,11 +1392,61 @@
 		this.insurances = [ {name: "Colpatria", id: 1}, {name: "Compensar", id: 2}, {name: "Sura", id: 3} ];
 
 		console.log('THIS IS ADMIN');
-		var params = this;
+	}]);
+	//Controller for Search Doctors - Admin
+	adminDash.directive('doctors', function() {
+	    return {
+	    	restrict: 'E',
+	    	templateUrl: 'www/partials/admin/doctors.html',
+	    	controller: 'SearchDoctorsController',
+	    	controllerAs: 'searchDocsCtrl',
+	    };
+	});
+	adminDash.controller('SearchDoctorsController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams){
+
+		console.log('THIS IS SEARCH');
+		var encodedParam = btoa("undefined");
+		var params = {};
 
 		this.getDoctors = function() {
-			params.city = $scope.adminCtrl.city;
+
+			if($scope.searchDocsCtrl.practice == undefined || $scope.searchDocsCtrl.practice == null) {
+				delete params.practice;
+			}else{
+				params.practice_list = $scope.searchDocsCtrl.practice.name;
+			}
+			if($scope.searchDocsCtrl.city == undefined || $scope.searchDocsCtrl.city == null) {
+				delete params.city;
+			}else{
+				params.city = $scope.searchDocsCtrl.city.name;
+			}
+			if($scope.searchDocsCtrl.insurance == undefined || $scope.searchDocsCtrl.insurance == null) {
+				delete params.insurance;
+			}else{
+				params.insurance_list = $scope.searchDocsCtrl.insurance.name;
+			}
+
 			console.log('Parametros de busqueda ', params);
+
+			$http.post(endpoint + 'Doctor' + '/GetByParams', params)
+      		.success(function(data) {
+            	if (!data.status) {
+               		console.log("No se encontraron doctores",data);
+               		$(".doc-box").css('visibility', 'hidden');
+               		var not_found_msg = 'No se encontraron doctores con los criteros de búsqueda introducidos, vuelva a intentarlo.';
+               		var alert_div = $("<div class=\"alert alert-danger alert-dismissible noty fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">x</span><span class=\"sr-only\"></span></button>"+not_found_msg+"</div>");
+					$("body").prepend(alert_div);
+					$(".alert").alert();
+           		} else {
+               		// if successful, bind success message to message
+               		console.log("Resultado de busqueda de doctores:");
+               		console.log(data.response);
+
+               		This.docs = data.response;
+               		//console.log(JSON.stringify(this.docs));
+           		}	
+
+	    	});
 
 		};
 	}]);

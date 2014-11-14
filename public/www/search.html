@@ -2,7 +2,7 @@
 	<div id="search-bar">
 		<div class="center">
 			<div class="inner-search-bar">
-				<form name="searchDoctorForm" ng-controller="DoctorSearchController as docSearchCtrl"  ng-submit="docSearchCtrl.searchDoctor()" novalidate>
+				<form name="searchDoctorForm" ng-controller="DoctorSearchController as docSearchCtrl" ng-submit="docSearchCtrl.searchDoctor()" novalidate>
 					<div class="column-c">
 						<label for="practice_list">Especialidad</label>
 						<select class="form-control" name="practice_list" id="practice_list" ng-model="docSearchCtrl.selectedPractice" ng-options="op.name for op in docSearchCtrl.practices">
