@@ -75,6 +75,11 @@
 				controller: 'AdminDashboardController',
 				controllerAs : 'adminCtrl',
 			}).
+			when('/admin_dashboard/edit_doctor/:id', {
+				templateUrl: '../www/doctors_management.html',
+				controller: 'DoctorsManagementController',
+				controllerAs : 'docManageCtrl',
+			}).
 			otherwise({
 				redirectTo: '/404'
 			});
@@ -1440,29 +1445,17 @@
            		} else {
                		// if successful, bind success message to message
                		$scope.doctors = data.response
-               		console.log('Resultado de la busqueda de doctores!!! ', $scope.doctors);
+               		console.log('Resultado de la busqueda de doctores!', $scope.doctors);
            		}
 	    	});
 		};
 	}]);
-	//Controller for List Doctors - Admin
-	// adminDash.directive('doctors', function() {
-	//     return {
-	//     	restrict: 'E',
-	//     	templateUrl: 'www/partials/admin/doctors.html',
-	//     	controller: 'DoctorsListController',
-	//     	controllerAs: 'docsListCtrl',
-	//     };
-	// });
-	// adminDash.controller('DoctorsListController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams){
-
-	// 	console.log('THIS IS LIST');
-	// 	console.log($scope.doctors);
-	// 	this.loadProfiles = function() {
-
-	// 	};
-		
-	// }]);
+	adminDash.directive('doctors', function() {
+	    return {
+	    	restrict: 'E',
+	    	templateUrl: 'www/partials/admin/doctors.html',
+	    };
+	});
 
 })();
 

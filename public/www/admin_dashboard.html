@@ -1,62 +1,25 @@
 <div class="container-fluid">
-  <div class="row">
-	<div class="col-sm-3 col-md-2 sidebar">
-	  <ul class="nav nav-sidebar">
-		<li><a href="#">Cuenta</a></li>
-		<li class="active"><a href="#">Doctores</a></li>
-		<li><a href="#">Usuarios</a></li>
-		<li><a href="#">Pagos</a></li>
-		<li><a href="#">Estadísticas</a></li>
-	  </ul>
-	</div>
-	<div>
-		<div id="results-box">
-			<div class="center">
-				<div class="results-page">
-					<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main top-fix">
-						<filters class="filters-container"></filters>
-						<!-- <doctors class="results-container"></doctors> -->
-						<div class="results-container">
-							<div class="docs-list" ng-repeat="doctor in doctors">
-							<div class="docs-list">
-								<div class="doc-box">
-									<div class="doc-photo">
-										<div class="inner-doc-photo">
-											<div ng-if="doctor.gender == 1">
-												<img ng-if="!doctor.profile_pic" ng-src="http://medicalappjournal.com/images/Male_Doctor.png">
-												<img ng-if="doctor.profile_pic" ng-src="{{doctor.profile_pic.image_url}}">
-											</div>	
-											<div ng-if="doctor.gender != 1">
-												<img ng-if="!doctor.profile_pic" src="http://www.medicalappjournal.com/images/Female_Doctor.png">
-												<img ng-if="doctor.profile_pic" ng-src="{{doctor.profile_pic.image_url}}">
-											</div>
-										</div>
-									</div>
-									<div class="doc-info">
-										<div class="doc-name"><span>
-												<a href="#/doctor/{{doctor._id}}">
-												<label ng-if="doctor.gender == 1">Dr.</label>
-												<label ng-if="doctor.gender != 1">Dra.</label>
-												{{doctor.name}}  
-												{{doctor.lastname}}</a>
-											</span></div>
-										<div class="doc-address">
-											<div class="doc-speciality"><b>{{doctor.practice_list[0].name}}</b></div>
-											<div class="doc-adress-location"><p>{{doctor.address}}</p></div>
-										</div>
-										<div class="doc-review"></div>
-										<div class="book-options">
-											<a href="#/" class="btn btn-success btn-lg">Ver pagos</a>
-											<a href="#/doctor/{{doctor._id}}" class="btn btn-info btn-lg">Editar perfil</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+	<div class="row">
+		<div class="col-sm-3 col-md-2 sidebar">
+		  <ul class="nav nav-sidebar">
+			<li><a href="#">Cuenta</a></li>
+			<li class="active"><a href="#">Doctores</a></li>
+			<li><a href="#">Usuarios</a></li>
+			<li><a href="#">Pagos</a></li>
+			<li><a href="#">Estadísticas</a></li>
+		  </ul>
 		</div>
+		<div>
+			<div id="results-box">
+				<div class="center">
+					<div class="results-page">
+						<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main top-fix">
+							<filters class="filters-container"></filters>
+							<doctors class="results-container"></doctors>
+					    </div>
+				    </div>
+			    </div>
+		    </div>
+	    </div>
 	</div>
-  </div>
 </div>
