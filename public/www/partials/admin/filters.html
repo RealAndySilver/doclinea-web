@@ -21,4 +21,40 @@
 		<button id="search_doctor" name="search_doctor" class="btn btn-success btn-block btn-lg">Buscar</button>
 	</div>
 </form>
+<!-- <div>
+	<div class="docs-list" ng-repeat="doctor in doc.docs">
+		<div class="doc-box">
+			<div class="doc-photo">
+				<div class="inner-doc-photo">
+					<div ng-if="doctor.gender == 1">
+						<img ng-if="!doctor.profile_pic" ng-src="http://medicalappjournal.com/images/Male_Doctor.png">
+						<img ng-if="doctor.profile_pic" ng-src="{{doctor.profile_pic.image_url}}">
+					</div>	
+					<div ng-if="doctor.gender != 1">
+						<img ng-if="!doctor.profile_pic" src="http://www.medicalappjournal.com/images/Female_Doctor.png">
+						<img ng-if="doctor.profile_pic" ng-src="{{doctor.profile_pic.image_url}}">
+					</div>
+				</div>
+			</div>
+			<div class="doc-info">
+				<div class="doc-name"><span>
+						<a href="#/doctor/{{doctor._id}}">
+						<label ng-if="doctor.gender == 1">Dr.</label>
+						<label ng-if="doctor.gender != 1">Dra.</label>
+						{{doctor.name}}  
+						{{doctor.lastname}}</a>
+					</span></div>
+				<div class="doc-address">
+					<div class="doc-speciality"><b>{{doctor.practice_list[0].name}}</b></div>
+					<div class="doc-adress-location"><p>{{doctor.address}}</p></div>
+				</div>
+				<div class="doc-review"></div>
+				<div class="book-options">
+					<a href="#/" class="btn btn-success btn-lg">Pedir cita</a>
+					<a href="#/doctor/{{doctor._id}}" class="btn btn-info btn-lg">Ver perfil</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div> -->
 			
