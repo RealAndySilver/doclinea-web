@@ -1,25 +1,55 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-sm-3 col-md-2 sidebar">
-		  <ul class="nav nav-sidebar">
+		  <ul class="nav nav-sidebar" role="tablist">
 			<li><a href="#">Cuenta</a></li>
-			<li class="active"><a href="#">Doctores</a></li>
+			<li><a href="#/admin_dashboard/#sections" role="tab" data-toggle="tab">Secciones</a></li>
+			<li class="active"><a href="#/admin_dashboard/#results-page" role="tab" data-toggle="tab">Doctores</a></li>
 			<li><a href="#">Usuarios</a></li>
 			<li><a href="#">Pagos</a></li>
 			<li><a href="#">Estadísticas</a></li>
 		  </ul>
 		</div>
 		<div>
-			<div id="results-box">
-				<div class="center">
-					<div class="results-page">
-						<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main top-fix">
-							<filters class="filters-container"></filters>
-							<doctors class="results-container"></doctors>
+			<div class="tab-content">
+				<div id="results-box" class="tab-pane fade in active">
+					<div class="center">
+						<div class="results-page">
+							<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main top-fix">
+								<filters class="filters-container"></filters>
+								<doctors class="results-container"></doctors>
+						    </div>
 					    </div>
 				    </div>
 			    </div>
-		    </div>
+			    <div id="sections" class="tab-pane fade">
+			    	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+						<h2 class="sub-header">Secciones</h2>
+						<ul class="nav nav-tabs" role="tablist" id="myTab">
+							<li class="active"><a href="#/admin_dashboard/#hospitals" role="tab" data-toggle="tab">Hospitales</a></li>
+							<li><a href="#/admin_dashboard/#insurances" role="tab" data-toggle="tab">Aseguradoras</a></li>
+						</ul>
+					  	<div class="tab-content">
+							<div class="tab-pane fade in active" id="hospitals">
+								<p>hola</p>
+								<p>hola</p>
+								<p>hola</p>
+								<p>hola</p>
+								<p>hola</p>
+								<p>hola</p>
+							</div>
+							<div class="tab-pane fade" id="insurances">
+								<p>hola</p>
+								<p>hola</p>
+								<p>hola</p>
+								<p>hola</p>
+								<p>hola</p>
+								<p>hola</p>
+							</div>
+						</div>
+					</div>
+			    </div>
+			</div>
 	    </div>
 	</div>
 </div>

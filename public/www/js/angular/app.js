@@ -1397,6 +1397,11 @@
 		this.insurances = [ {name: "Colpatria", id: 1}, {name: "Compensar", id: 2}, {name: "Sura", id: 3} ];
 
 		console.log('THIS IS ADMIN');
+
+		$("ul.nav-tabs a").click(function (e) {
+		  e.preventDefault();
+		  $(this).tab('show');
+		});
 	}]);
 	//Controller for Search Doctors - Admin
 	adminDash.directive('filters', function() {
