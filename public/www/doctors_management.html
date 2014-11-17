@@ -1,24 +1,27 @@
 <div class="container-fluid">
   <div class="row">
-	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main center">
+  <div class="col-sm-3 col-md-2 sidebar">
+	  <ul class="nav nav-sidebar">
+		<li class="active"><a href="#">Atrás</a></li>
+	  </ul>
+	</div>
+	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 		<h2 class="sub-header">Cuenta</h2>
 		<ul class="nav nav-tabs" role="tablist" id="myTab">
-			<li class="active"><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#personal" role="tab" data-toggle="tab">Datos Personales</a></li>
-			<li><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#pictures" role="tab" data-toggle="tab">Imágenes</a></li>
+			<li class="active"><a href="#/admin_dashboard/edit_doctor/{{docManageCtrl.info._id}}/#personal" role="tab" data-toggle="tab">Datos Personales</a></li>
+			<!-- <li><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#pictures" role="tab" data-toggle="tab">Imágenes</a></li>
 			<li><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#password_change" role="tab" data-toggle="tab">Contraseña</a></li>
 			<li><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#studies" role="tab" data-toggle="tab">Formación académica</a></li>
 			<li><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#locations" role="tab" data-toggle="tab">Consultorio</a></li>
-			<!-- <li><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#gallery" role="tab" data-toggle="tab">Galería</a></li> -->
-			<li><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#settings" role="tab" data-toggle="tab">Notificaciones</a></li>
+			<li><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#settings" role="tab" data-toggle="tab">Notificaciones</a></li> -->
 		</ul>
 	  	<div class="tab-content">
-			<personal class="tab-pane fade in active" id="personal"></personal>
-			<pictures class="tab-pane fade" id="pictures"></pictures>
+			<doc-personal class="tab-pane fade in active" id="personal"></doc-personal>
+			<!-- <pictures class="tab-pane fade" id="pictures"></pictures>
 			<password_change class="tab-pane fade" id="password_change"></password_change>
 			<studies class="tab-pane fade" id="studies"></studies>
 			<locations class="tab-pane fade" id="locations"></locations>
-			<!-- <gallery class="tab-pane fade" id="gallery"></gallery> -->
-			<settings class="tab-pane fade" id="settings"></settings>
+			<settings class="tab-pane fade" id="settings"></settings> -->
 		</div>
 	</div>
   </div>
