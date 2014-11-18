@@ -1529,42 +1529,56 @@
 	    return {
 	    	restrict: 'E',
 	    	templateUrl: 'www/partials/admin/hospitals.html',
-	    	// controller: 'AdminHospitalsController',
-	    	// controllerAs: 'hospitalsCtrl',
+	    	controller: 'AdminHospitalsController',
+	    	controllerAs: 'hospitalsCtrl',
 	    };
 	});
-	// adminDash.controller('AdminHospitalsController', ['$http', '$scope',function($http, $scope){
-	// 	//$scope.docInfo.personalInfo = {};
-	// 	//var personalInfo = $scope.docInfo.personalInfo;
-	// 	var hospitals = {};
+	adminDash.controller('AdminHospitalsController', ['$http', '$scope',function($http, $scope){
+		console.log('THIS IS HOSPITALS');
+		var type = 'Hospital';
 
-	// 	this.updateDoctor = function() {
-	// 		var type = 'Doctor';
+		this.createHospital = function() {
+			console.log('THIS IS CREATE HOSPITALS');
+			var data1 = this.info;
 			
-	// 		hospitals.name = $scope.docInfo.info.name;
-	// 		hospitals.address = $scope.docInfo.info.lastname;
-	// 		console.log(personalInfo);
-	// 		console.log();
+			console.log('datos para crear hospital');
+			console.log(data1);
 
- //            $http.post(endpoint + type + '/Update/' + doc_id, personalInfo)
- //            .success(function(data) {
- //                if (!data.status) {
- //                    console.log("Paila, no se actualizó", data);
- //                    //console.log(JSON.stringify(data1));
- //                } else {
- //                   // if successful, bind success message to message
- //                    console.log("Listo, doctor actualizado", data.response);
- //                    var success_msg = 'Los datos personales de ' +personalInfo.name+ ' han sido actualizados con éxito!';
-	//            		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
-	// 				$("body").prepend(alert_div);
-	// 				$(".alert").alert();
-	// 				setTimeout(function() {
-	// 				      alert_div.fadeOut(1800);
-	// 				}, 800);
- //                }
- //      		});
- //       };
-	// }]);
+            $http.post(endpoint + type + '/Create', data1)
+            .success(function(data) {
+                if (!data.status) {
+                    console.log("Paila, no se creó", data);
+                    //console.log(JSON.stringify(data1));
+                } else {
+                   // if successful, bind success message to message
+                    console.log("Listo, hospital creado", data);
+     //                var success_msg = 'Los datos personales de ' +personalInfo.name+ ' han sido actualizados con éxito!';
+	    //        		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
+					// $("body").prepend(alert_div);
+					// $(".alert").alert();
+					// setTimeout(function() {
+					//       alert_div.fadeOut(1800);
+					// }, 800);
+                }
+      		});
+       };
+       var This = this;
+
+		$http.get(endpoint + type + '/GetAll')
+      		.success(function(data) {
+            	if (!data.status) {
+               		console.log("No se encontraron hospitales", data);
+           		} else {
+               		// if successful, bind success message to message
+               		console.log("Lista de hospitales");
+               		console.log(data);
+
+               		This.hospitals = data.response;
+               		//console.log(JSON.stringify(dProfile.name));
+           		}
+           	});
+
+	}]);
 
 })();
 

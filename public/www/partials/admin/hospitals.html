@@ -1,26 +1,27 @@
 <div class="center">
 	<div class="inner-info-box">
-		<div class="form-box">
-			<form class="form-horizontal" name="hospitalsForm" ng-submit="docPersonalManageCtrl.updateDoctor(docManageCtrl.info._id)">
+		<div class="form-box mid-box">
+			<form class="form-horizontal" name="hospitalsForm" ng-submit="hospitalsCtrl.createHospital()">
 			<fieldset>
+				<legend>Agregar hospital</legend>
 				<div class="form-group">
 				  <label class="col-md-4 control-label" for="name">Nombre</label>  
 				  <div class="col-md-6">
-				  <input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="docManageCtrl.info.name" ng-minlength=3 ng-pattern="/^(\D)+$/">
-				  <div class="error" ng-show="personalDocInfo.name.$dirty && personalDocInfo.name.$invalid">
+				  <input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="hospitalsCtrl.info.name" ng-minlength=3 ng-pattern="/^(\D)+$/">
+				  <!-- <div class="error" ng-show="personalDocInfo.name.$dirty && personalDocInfo.name.$invalid">
 					  <small class="error" ng-show="personalDocInfo.name.$error.minlength">Su nombre debe contener por lo menos 3 letras.</small>
 					  <small class="error" ng-show="personalDocInfo.name.$error.pattern">Su nombre solo debe contener letras.</small>
-				  </div>
+				  </div> -->
 				  </div>
 				</div>
 				<div class="form-group">
-				  <label class="col-md-4 control-label" for="last_name">Ubicación</label>  
+				  <label class="col-md-4 control-label" for="last_name">Dirección</label>  
 				  <div class="col-md-6">
-				  <input id="last_name" name="last_name" type="text" placeholder="" class="form-control input-md" ng-model="docManageCtrl.info.lastname" ng-minlength=3 ng-pattern="/^(\D)+$/">
-				  <div class="error" ng-show="personalDocInfo.last_name.$dirty && personalDocInfo.last_name.$invalid">
+				  <input id="last_name" name="last_name" type="text" placeholder="" class="form-control input-md" ng-model="hospitalsCtrl.info.address" ng-minlength=3>
+				  <!-- <div class="error" ng-show="personalDocInfo.last_name.$dirty && personalDocInfo.last_name.$invalid">
 					  <small class="error" ng-show="personalDocInfo.last_name.$error.minlength">Su apellido debe contener por lo menos 3 letras.</small>
 					  <small class="error" ng-show="personalDocInfo.last_name.$error.pattern">Su apellido solo debe contener letras.</small>
-				  </div>
+				  </div> -->
 				  </div>
 				</div>
 				<div class="form-group">
@@ -32,5 +33,12 @@
 			</fieldset>
 			</form>
 		</div> 
+		<div class="mid-box">
+			<p>Lista de hospitales</p>
+			<div ng-repeat="hospital in hospitalsCtrl.hospitals">
+				<h4>{{hospital.name}}</h4>
+				<span>{{hospital.address}}</span>
+			</div>
+		</div>
 	</div>
 </div>

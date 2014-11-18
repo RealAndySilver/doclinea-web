@@ -83,6 +83,10 @@ header {
 .top-fix {
   height: 100%;
 }
+.mid-box {
+  width: 50%;
+  float: left;
+}
 .img-thumbnail {
   width: 130px;
   margin-bottom: 15px;
