@@ -1607,7 +1607,7 @@
                     console.log("Paila, no se creó", data);
                 } else {
                    // if successful, bind success message to message
-                    console.log("Listo, hospital creado", data);
+                    console.log("Listo, aseguradora creada", data);
                     var success_msg = 'La aseguradora ha sido creada con éxito!';
 	           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
 					$("body").prepend(alert_div);
@@ -1632,6 +1632,63 @@
 	               		console.log(data);
 
 	               		This.insurances = data.response;
+	               		//console.log(JSON.stringify(dProfile.name));
+	           		}
+	           	});
+        };
+	}]);
+	//Controller for Practices - Seccions in Admin
+	adminDash.directive('practices', function() {
+	    return {
+	    	restrict: 'E',
+	    	templateUrl: 'www/partials/admin/practices.html',
+	    	controller: 'AdminPracticesController',
+	    	controllerAs: 'practicesCtrl',
+	    };
+	});
+	adminDash.controller('AdminPracticesController', ['$http', '$scope',function($http, $scope){
+		console.log('THIS IS PRACTICES');
+		var type = 'Practice';
+
+		this.createPractice = function() {
+			console.log('THIS IS CREATE PRACTICES');
+			var data1 = this.info;
+			//data1.type_list = [];
+			
+			console.log('datos para crear especialidad');
+			console.log(data1);
+
+            $http.post(endpoint + type + '/Create', data1)
+            .success(function(data) {
+                if (!data.status) {
+                    console.log("Paila, no se creó", data);
+                } else {
+                   // if successful, bind success message to message
+                    console.log("Listo, especialidad creada", data);
+                    var success_msg = 'La especialidad ha sido creada con éxito!';
+	           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
+					$("body").prepend(alert_div);
+					$(".alert").alert();
+					setTimeout(function() {
+					    alert_div.fadeOut(1800);
+					}, 800);
+                }
+      		});
+      		this.data = {};
+        };
+
+        this.showPractices = function() {
+        	var This = this;
+			$http.get(endpoint + type + '/GetAll')
+	      		.success(function(data) {
+	            	if (!data.status) {
+	               		console.log("No se encontraron especialidades", data);
+	           		} else {
+	               		// if successful, bind success message to message
+	               		console.log("Lista de especialidades");
+	               		console.log(data);
+
+	               		This.practices = data.response;
 	               		//console.log(JSON.stringify(dProfile.name));
 	           		}
 	           	});

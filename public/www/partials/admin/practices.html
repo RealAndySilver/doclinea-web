@@ -1,0 +1,34 @@
+<div class="center">
+	<div class="inner-info-box">
+		<div class="form-box mid-box-a">
+			<form class="form-horizontal" name="practicesForm" ng-submit="practicesCtrl.createPractice()">
+			<fieldset>
+				<legend>Agregar especialidad</legend>
+				<div class="form-group">
+				  <label class="col-md-4 control-label" for="name">Nombre</label>  
+				  <div class="col-md-6">
+				  <input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="practicesCtrl.info.name" ng-minlength=3 ng-pattern="/^(\D)+$/">
+				  <!-- <div class="error" ng-show="personalDocInfo.name.$dirty && personalDocInfo.name.$invalid">
+					  <small class="error" ng-show="personalDocInfo.name.$error.minlength">Su nombre debe contener por lo menos 3 letras.</small>
+					  <small class="error" ng-show="personalDocInfo.name.$error.pattern">Su nombre solo debe contener letras.</small>
+				  </div> -->
+				  </div>
+				</div>
+				<div class="form-group">
+				  <div class="col-md-4 center-button">
+					<input type="submit" class="btn btn-primary" value="Guardar">
+					<a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#personal" class="btn btn-warning">Cancelar</a>
+				  </div>
+				</div>
+			</fieldset>
+			</form>
+		</div> 
+		<div class="mid-box-b">
+			<p>Lista de especialidades</p>
+			<button class="btn btn-info" ng-click="practicesCtrl.showPractices()">Ver especialidades</button>
+			<div ng-repeat="practice in practicesCtrl.practices">
+				<h4>{{practice.name}}</h4>
+			</div>
+		</div>
+	</div>
+</div>
