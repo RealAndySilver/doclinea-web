@@ -43,6 +43,7 @@
 		</div> 
 		<div class="mid-box-b">
 			<p>Lista de aseguradoras</p>
+			<button class="btn btn-info" ng-click="insurancesCtrl.showInsurances()">Ver aseguradoras</button>
 			<div ng-repeat="insurance in insurancesCtrl.insurances">
 				<h4>{{insurance.name}}</h4>
 			</div>

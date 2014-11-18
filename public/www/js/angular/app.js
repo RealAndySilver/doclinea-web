@@ -1560,23 +1560,25 @@
 					}, 800);
                 }
       		});
+      		this.data = {};
         };
 
-        var This = this;
-		$http.get(endpoint + type + '/GetAll')
-      		.success(function(data) {
-            	if (!data.status) {
-               		console.log("No se encontraron hospitales", data);
-           		} else {
-               		// if successful, bind success message to message
-               		console.log("Lista de hospitales");
-               		console.log(data);
+        this.showHospitals = function() {
+        	var This = this;
+			$http.get(endpoint + type + '/GetAll')
+	      		.success(function(data) {
+	            	if (!data.status) {
+	               		console.log("No se encontraron hospitales", data);
+	           		} else {
+	               		// if successful, bind success message to message
+	               		console.log("Lista de hospitales");
+	               		console.log(data);
 
-               		This.hospitals = data.response;
-               		//console.log(JSON.stringify(dProfile.name));
-           		}
-           	});
-
+	               		This.hospitals = data.response;
+	               		//console.log(JSON.stringify(dProfile.name));
+	           		}
+	           	});
+        };
 	}]);
 	//Controller for Insurances - Seccions in Admin
 	adminDash.directive('insurances', function() {
@@ -1615,23 +1617,25 @@
 					}, 800);
                 }
       		});
+      		this.data = {};
         };
 
-        var This = this;
-		$http.get(endpoint + type + '/GetAll')
-      		.success(function(data) {
-            	if (!data.status) {
-               		console.log("No se encontraron aseguradoras", data);
-           		} else {
-               		// if successful, bind success message to message
-               		console.log("Lista de aseguradoras");
-               		console.log(data);
+        this.showInsurances = function() {
+        	var This = this;
+			$http.get(endpoint + type + '/GetAll')
+	      		.success(function(data) {
+	            	if (!data.status) {
+	               		console.log("No se encontraron aseguradoras", data);
+	           		} else {
+	               		// if successful, bind success message to message
+	               		console.log("Lista de aseguradoras");
+	               		console.log(data);
 
-               		This.insurances = data.response;
-               		//console.log(JSON.stringify(dProfile.name));
-           		}
-           	});
-
+	               		This.insurances = data.response;
+	               		//console.log(JSON.stringify(dProfile.name));
+	           		}
+	           	});
+        };
 	}]);
 
 })();
