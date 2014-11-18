@@ -1,6 +1,6 @@
 <div class="center">
 	<div class="inner-info-box">
-		<div class="form-box mid-box">
+		<div class="form-box mid-box-a">
 			<form class="form-horizontal" name="hospitalsForm" ng-submit="hospitalsCtrl.createHospital()">
 			<fieldset>
 				<legend>Agregar hospital</legend>
@@ -33,7 +33,7 @@
 			</fieldset>
 			</form>
 		</div> 
-		<div class="mid-box">
+		<div class="mid-box-b">
 			<p>Lista de hospitales</p>
 			<div ng-repeat="hospital in hospitalsCtrl.hospitals">
 				<h4>{{hospital.name}}</h4>

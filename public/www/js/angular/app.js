@@ -13,8 +13,8 @@
 	  'adminDashboard',
 	]);
 
-	var endpoint = "http://192.241.187.135:1414/api_1.0/";
-	//var endpoint = "http://192.168.1.101:1414/api_1.0/";
+	//var endpoint = "http://192.241.187.135:1414/api_1.0/";
+	var endpoint = "http://192.168.1.107:1414/api_1.0/";
 	app.config(['$routeProvider',
 		function($routeProvider) {
 		$routeProvider.
@@ -1518,7 +1518,7 @@
 					$("body").prepend(alert_div);
 					$(".alert").alert();
 					setTimeout(function() {
-					      alert_div.fadeOut(1800);
+					    alert_div.fadeOut(1800);
 					}, 800);
                 }
       		});
@@ -1548,22 +1548,21 @@
             .success(function(data) {
                 if (!data.status) {
                     console.log("Paila, no se creó", data);
-                    //console.log(JSON.stringify(data1));
                 } else {
                    // if successful, bind success message to message
                     console.log("Listo, hospital creado", data);
-     //                var success_msg = 'Los datos personales de ' +personalInfo.name+ ' han sido actualizados con éxito!';
-	    //        		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
-					// $("body").prepend(alert_div);
-					// $(".alert").alert();
-					// setTimeout(function() {
-					//       alert_div.fadeOut(1800);
-					// }, 800);
+                    var success_msg = 'El hospital ha sido creado con éxito!';
+	           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
+					$("body").prepend(alert_div);
+					$(".alert").alert();
+					setTimeout(function() {
+					    alert_div.fadeOut(1800);
+					}, 800);
                 }
       		});
-       };
-       var This = this;
+        };
 
+        var This = this;
 		$http.get(endpoint + type + '/GetAll')
       		.success(function(data) {
             	if (!data.status) {
@@ -1574,6 +1573,61 @@
                		console.log(data);
 
                		This.hospitals = data.response;
+               		//console.log(JSON.stringify(dProfile.name));
+           		}
+           	});
+
+	}]);
+	//Controller for Insurances - Seccions in Admin
+	adminDash.directive('insurances', function() {
+	    return {
+	    	restrict: 'E',
+	    	templateUrl: 'www/partials/admin/insurances.html',
+	    	controller: 'AdminInsurancesController',
+	    	controllerAs: 'insurancesCtrl',
+	    };
+	});
+	adminDash.controller('AdminInsurancesController', ['$http', '$scope',function($http, $scope){
+		console.log('THIS IS INSURANCES');
+		var type = 'InsuranceCompany';
+
+		this.createInsurance = function() {
+			console.log('THIS IS CREATE INSURANCES');
+			var data1 = this.info;
+			//data1.type_list = [];
+			
+			console.log('datos para crear aseguradora');
+			console.log(data1);
+
+            $http.post(endpoint + type + '/Create', data1)
+            .success(function(data) {
+                if (!data.status) {
+                    console.log("Paila, no se creó", data);
+                } else {
+                   // if successful, bind success message to message
+                    console.log("Listo, hospital creado", data);
+                    var success_msg = 'La aseguradora ha sido creada con éxito!';
+	           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
+					$("body").prepend(alert_div);
+					$(".alert").alert();
+					setTimeout(function() {
+					    alert_div.fadeOut(1800);
+					}, 800);
+                }
+      		});
+        };
+
+        var This = this;
+		$http.get(endpoint + type + '/GetAll')
+      		.success(function(data) {
+            	if (!data.status) {
+               		console.log("No se encontraron aseguradoras", data);
+           		} else {
+               		// if successful, bind success message to message
+               		console.log("Lista de aseguradoras");
+               		console.log(data);
+
+               		This.insurances = data.response;
                		//console.log(JSON.stringify(dProfile.name));
            		}
            	});

@@ -8,7 +8,8 @@
 #user_settings .center .inner-info-box,
 #settings .center .inner-info-box,
 #gallery .center .inner-info-box,
-#hospitals .center .inner-info-box {
+#hospitals .center .inner-info-box,
+#insurances .center .inner-info-box {
   padding: 55px 0;
 }
 #sign-in-box .center .inner-info-box,
@@ -34,7 +35,8 @@
 #user_settings .center .inner-info-box,
 #settings .center .inner-info-box,
 #gallery .center .inner-info-box,
-#hospitals .center .inner-info-box {
+#hospitals .center .inner-info-box,
+#insurances .center .inner-info-box {
   width: 80%;
   margin: 0 auto;
 }
@@ -93,6 +95,9 @@
 }
 .settings-label {
   font-size: 15px;
+}
+.form-block {
+  padding: 15px 0;
 }
 #sign-up-box .col-md-4.center-button,
 #doctor-sign-up-box .col-md-4.center-button {
