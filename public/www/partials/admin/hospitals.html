@@ -7,21 +7,27 @@
 				<div class="form-group">
 				  <label class="col-md-4 control-label" for="name">Nombre</label>  
 				  <div class="col-md-6">
-				  <input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="hospitalsCtrl.info.name" ng-minlength=3 ng-pattern="/^(\D)+$/">
-				  <!-- <div class="error" ng-show="personalDocInfo.name.$dirty && personalDocInfo.name.$invalid">
-					  <small class="error" ng-show="personalDocInfo.name.$error.minlength">Su nombre debe contener por lo menos 3 letras.</small>
-					  <small class="error" ng-show="personalDocInfo.name.$error.pattern">Su nombre solo debe contener letras.</small>
-				  </div> -->
+				  <input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="hospitalsCtrl.info.name" ng-minlength=3 required>
+				  <div class="error" ng-show="hospitalsForm.name.$dirty && hospitalsForm.name.$invalid">
+				  	<small class="error" ng-show="hospitalsForm.name.$error.required">Nombre es obligatorio.</small>
+					  <small class="error" ng-show="hospitalsForm.name.$error.minlength">El nombre debe contener por lo menos 3 letras.</small>
+				  </div>
 				  </div>
 				</div>
 				<div class="form-group">
+				  <label class="col-md-4 control-label" for="email">Email</label>  
+				  <div class="col-md-6">
+				  <input id="email" name="email" type="text" placeholder="" class="form-control input-md" ng-model="hospitalsCtrl.info.email" ng-pattern="/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,5}$/" required>
+				  <div class="error" ng-show="hospitalsForm.email.$dirty && hospitalsForm.email.$invalid">
+				    <small class="error" ng-show="hospitalsForm.email.$error.required">Email es obligatorio.</small>
+				    <small class="error" ng-show="hospitalsForm.email.$error.pattern">No es un email válido.</small>
+				  </div>
+				  </div>
+				</div>
+				<!-- <div class="form-group">
 				  <label class="col-md-4 control-label" for="last_name">Dirección</label>  
 				  <div class="col-md-6">
 				  <input id="last_name" name="last_name" type="text" placeholder="" class="form-control input-md" ng-model="hospitalsCtrl.info.address" ng-minlength=3>
-				  <!-- <div class="error" ng-show="personalDocInfo.last_name.$dirty && personalDocInfo.last_name.$invalid">
-					  <small class="error" ng-show="personalDocInfo.last_name.$error.minlength">Su apellido debe contener por lo menos 3 letras.</small>
-					  <small class="error" ng-show="personalDocInfo.last_name.$error.pattern">Su apellido solo debe contener letras.</small>
-				  </div> -->
 				  </div>
 				</div>
 				<div class="form-group">
@@ -32,7 +38,7 @@
 				  	<input type="file" id="image" class="form-control input-md" file-model="myFile" ng-model="image">
 				  </span>
 				  </div>
-				</div>
+				</div> -->
 				<div class="form-group">
 				  <div class="col-md-4 center-button">
 					<input type="submit" class="btn btn-primary" value="Guardar">
@@ -42,12 +48,21 @@
 			</fieldset>
 			</form>
 		</div> 
-		<div class="mid-box-b">
-			<p>Lista de hospitales</p>
-			<button class="btn btn-info" ng-click="hospitalsCtrl.showHospitals()">Ver hospitales</button>
-			<div ng-repeat="hospital in hospitalsCtrl.hospitals">
-				<h4>{{hospital.name}}</h4>
+		<div class="mid-box-b panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Hospitales</h3>
+				<button class="btn btn-info btn-mini" ng-click="hospitalsCtrl.showHospitals()"><i class="fa fa-eye"></i></button>
 			</div>
+			<!-- <div ng-repeat="hospital in hospitalsCtrl.hospitals">
+				<h4>{{hospital.name}}</h4>
+			</div> -->
+			<ul class="list-group scroll-list">
+				<li class="list-group-item" ng-repeat="hospital in hospitalsCtrl.hospitals">
+					<span class="list-element">{{hospital.name}}</span>
+					<button class="btn btn-info"><i class="fa fa-pencil-square-o"></i></button>
+					<button class="btn btn-danger"><i class="fa fa-times"></i></button>
+				</li>
+			</ul>
 		</div>
 	</div>
 </div>

@@ -13,8 +13,8 @@
 	  'adminDashboard',
 	]);
 
-	//var endpoint = "http://192.241.187.135:1414/api_1.0/";
-	var endpoint = "http://192.168.1.107:1414/api_1.0/";
+	var endpoint = "http://192.241.187.135:1414/api_1.0/";
+	//var endpoint = "http://192.168.1.112:1414/api_1.0/";
 	app.config(['$routeProvider',
 		function($routeProvider) {
 		$routeProvider.
@@ -79,6 +79,11 @@
 				templateUrl: '../www/doctors_management.html',
 				controller: 'DoctorsManagementController',
 				controllerAs : 'docManageCtrl',
+			}).
+			when('/admin_dashboard/edit_hospital/:id', {
+				templateUrl: '../www/hospitals_management.html',
+				controller: 'HospitalsManagementController',
+				controllerAs : 'hospitalManageCtrl',
 			}).
 			otherwise({
 				redirectTo: '/404'
@@ -1455,6 +1460,7 @@
 	    	});
 		};
 	}]);
+	//Controller for Doctor Management in Admin Dashboard
 	adminDash.directive('doctors', function() {
 	    return {
 	    	restrict: 'E',
@@ -1548,6 +1554,10 @@
             .success(function(data) {
                 if (!data.status) {
                     console.log("Paila, no se creó", data);
+                    var error_msg = 'No se pudo agregar el hospital, verifique la información de nuevo.';
+               		var alert_div = $("<div class=\"alert alert-danger alert-dismissible noty fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">x</span><span class=\"sr-only\"></span></button>"+error_msg+"</div>");
+					$("body").prepend(alert_div);
+					$(".alert").alert();
                 } else {
                    // if successful, bind success message to message
                     console.log("Listo, hospital creado", data);
@@ -1558,6 +1568,8 @@
 					setTimeout(function() {
 					    alert_div.fadeOut(1800);
 					}, 800);
+					$("form #name").val('');
+					$("form #email").val('');
                 }
       		});
       		this.data = {};
@@ -1579,6 +1591,32 @@
 	           		}
 	           	});
         };
+	}]);
+	//Controller for Hospital Management in Admin Dashboard
+	// adminDash.directive('doctors', function() {
+	//     return {
+	//     	restrict: 'E',
+	//     	templateUrl: 'www/partials/admin/doctors.html',
+	//     };
+	// });
+	adminDash.controller('HospitalsManagementController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams){
+
+		var id = $routeParams.id;
+
+		$scope.docInfo = this;
+
+		$http.get(endpoint + 'Hospital' + '/GetByID/' + id)
+      		.success(function(data) {
+            	if (!data.status) {
+               		console.log("No se encontraron hospitales",data.error);
+               		console.log(data);
+           		} else {
+               		// if successful, bind success message to message
+               		console.log("Resultado de busqueda de hospitales:");
+               		$scope.docInfo.info = data.response;
+               		console.log($scope.docInfo.info);
+           		}
+        	});
 	}]);
 	//Controller for Insurances - Seccions in Admin
 	adminDash.directive('insurances', function() {
@@ -1672,6 +1710,8 @@
 					setTimeout(function() {
 					    alert_div.fadeOut(1800);
 					}, 800);
+					$("form #name").val('');
+					$("form #email").val('');
                 }
       		});
       		this.data = {};
