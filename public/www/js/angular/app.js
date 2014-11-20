@@ -1602,10 +1602,11 @@
 	adminDash.controller('HospitalsManagementController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams){
 
 		var id = $routeParams.id;
+		var type = "Hospital";
 
-		$scope.docInfo = this;
+		$scope.hospitalInfo = this;
 
-		$http.get(endpoint + 'Hospital' + '/GetByID/' + id)
+		$http.get(endpoint + type + '/GetByID/' + id)
       		.success(function(data) {
             	if (!data.status) {
                		console.log("No se encontraron hospitales",data.error);
@@ -1613,10 +1614,43 @@
            		} else {
                		// if successful, bind success message to message
                		console.log("Resultado de busqueda de hospitales:");
-               		$scope.docInfo.info = data.response;
-               		console.log($scope.docInfo.info);
+               		$scope.hospitalInfo.info = data.response;
+               		console.log($scope.hospitalInfo.info);
            		}
         	});
+
+  //     	$scope.hospitalInfo.basicInfo = {};
+		// var basicInfo = $scope.hospitalInfo.basicInfo;
+  //       this.updateHospital = function(hospital_id) {
+			
+		// 	basicInfo.name = $scope.hospitalInfo.info.name;
+		// 	basicInfo.email = $scope.hospitalInfo.info.email;
+		// 	basicInfo.location_list = {};
+		// 	basicInfo.location_list.address = $scope.hospitalInfo.info.location_list.address;
+		// 	console.log(basicInfo);
+		// 	console.log(hospital_id);
+
+		// 	console.log(basicInfo);
+		// 	console.log(hospital_id);
+
+  //           $http.post(endpoint + type + '/Update/' + hospital_id, basicInfo)
+  //           .success(function(data) {
+  //               if (!data.status) {
+  //                   console.log("Paila, no se actualizó", data);
+  //                   //console.log(JSON.stringify(data1));
+  //               } else {
+  //                  // if successful, bind success message to message
+  //                   console.log("Listo, doctor actualizado", data);
+  //                   var success_msg = 'El hospital ha sido actualizado con éxito!';
+	 //           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
+		// 			$("body").prepend(alert_div);
+		// 			$(".alert").alert();
+		// 			setTimeout(function() {
+		// 			    alert_div.fadeOut(1800);
+		// 			}, 800);
+  //               }
+  //     		});
+  //      };
 	}]);
 	//Controller for Insurances - Seccions in Admin
 	adminDash.directive('insurances', function() {

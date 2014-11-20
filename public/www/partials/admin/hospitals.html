@@ -59,7 +59,7 @@
 			<ul class="list-group scroll-list">
 				<li class="list-group-item" ng-repeat="hospital in hospitalsCtrl.hospitals">
 					<span class="list-element">{{hospital.name}}</span>
-					<button class="btn btn-info"><i class="fa fa-pencil-square-o"></i></button>
+					<a href="#/admin_dashboard/edit_hospital/{{hospital._id}}" class="btn btn-info"><i class="fa fa-pencil-square-o"></i></a>
 					<button class="btn btn-danger"><i class="fa fa-times"></i></button>
 				</li>
 			</ul>

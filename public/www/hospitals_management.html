@@ -16,7 +16,7 @@
 				<div class="center">
 					<div class="inner-info-box">
 						<div class="form-box">
-							<form class="form-horizontal" name="hospitalsForm" ng-submit="hospitalsCtrl.createHospital()">
+							<form class="form-horizontal" name="hospitalsForm" ng-submit="hospitalManageCtrl.updateHospital(hospitalManageCtrl.info._id)">
 							<fieldset>
 								<div class="form-group">
 								  <label class="col-md-4 control-label" for="name">Nombre</label>  
@@ -38,13 +38,13 @@
 								  </div>
 								  </div>
 								</div>
-								<!-- <div class="form-group">
+								<div class="form-group">
 								  <label class="col-md-4 control-label" for="last_name">Dirección</label>  
 								  <div class="col-md-6">
-								  <input id="last_name" name="last_name" type="text" placeholder="" class="form-control input-md" ng-model="hospitalsCtrl.info.address" ng-minlength=3>
+								  <input id="last_name" name="last_name" type="text" placeholder="" class="form-control input-md" ng-model="hospitalManageCtrl.info.location_list[0].address" ng-minlength=3>
 								  </div>
 								</div>
-								<div class="form-group">
+								<!--<div class="form-group">
 								  <label class="col-md-4 control-label" for="email">Logo</label>  
 								  <div class="col-md-6">
 								  <img id="profile-pic" ng-src="http://img2.wikia.nocookie.net/__cb20140518071050/towerofsaviors/images/archive/4/47/20140518072131!Placeholder.png" class="img-thumbnail" />
