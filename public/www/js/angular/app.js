@@ -1593,14 +1593,12 @@
         };
 	}]);
 	//Controller for Hospital Management in Admin Dashboard
-	// adminDash.directive('doctors', function() {
-	//     return {
-	//     	restrict: 'E',
-	//     	templateUrl: 'www/partials/admin/doctors.html',
-	//     };
-	// });
 	adminDash.controller('HospitalsManagementController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams){
-
+		$('#hospi-tab a').click(function (e) {
+		  e.preventDefault();
+		  $(this).tab('show');
+		});
+		
 		var id = $routeParams.id;
 		var type = "Hospital";
 
@@ -1641,7 +1639,7 @@
   //               } else {
   //                  // if successful, bind success message to message
   //                   console.log("Listo, doctor actualizado", data);
-  //                   var success_msg = 'El hospital ha sido actualizado con éxito!';
+  //                   var success_msg = 'La información del hospital ha sido actualizada con éxito!';
 	 //           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
 		// 			$("body").prepend(alert_div);
 		// 			$(".alert").alert();
@@ -1652,6 +1650,24 @@
   //     		});
   //      };
 	}]);
+	//Controller for Basic Info - Admin Hospitals
+	adminDash.directive('basicHospital', function() {
+	    return {
+	    	restrict: 'E',
+	    	templateUrl: 'www/partials/hospital/basic.html',
+	    	// controller: 'BasicHospitalController',
+	    	// controllerAs: 'basicHospitalCtrl',
+	    };
+	});
+	//Controller for Logo - Admin Hospitals
+	adminDash.directive('hospitalLogo', function() {
+	    return {
+	    	restrict: 'E',
+	    	templateUrl: 'www/partials/hospital/logo.html',
+	    	// controller: 'BasicHospitalController',
+	    	// controllerAs: 'basicHospitalCtrl',
+	    };
+	});
 	//Controller for Insurances - Seccions in Admin
 	adminDash.directive('insurances', function() {
 	    return {

@@ -7,65 +7,13 @@
 	</div>
 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 		<h2 class="sub-header">Hospitales</h2>
-		<ul class="nav nav-tabs" role="tablist" id="myTab">
+		<ul class="nav nav-tabs" role="tablist" id="hospi-tab">
 			<li class="active"><a href="#/admin_dashboard/edit_hospital/{{hospitalManageCtrl.info._id}}/#hospital_info" role="tab" data-toggle="tab">Información básica</a></li>
-			<!-- <li><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#pictures" role="tab" data-toggle="tab">Imágenes</a></li>-->
+			<li><a href="#/admin_dashboard/edit_hospital/{{hospitalManageCtrl.info._id}}/#hospital_pic" role="tab" data-toggle="tab">Logo</a></li>
 		</ul>
 	  	<div class="tab-content">
-			<div class="tab-pane fade in active" id="hospital_info">
-				<div class="center">
-					<div class="inner-info-box">
-						<div class="form-box">
-							<form class="form-horizontal" name="hospitalsForm" ng-submit="hospitalManageCtrl.updateHospital(hospitalManageCtrl.info._id)">
-							<fieldset>
-								<div class="form-group">
-								  <label class="col-md-4 control-label" for="name">Nombre</label>  
-								  <div class="col-md-6">
-								  <input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="hospitalManageCtrl.info.name" ng-minlength=3 required>
-								  <div class="error" ng-show="hospitalsForm.name.$dirty && hospitalsForm.name.$invalid">
-								  	<small class="error" ng-show="hospitalsForm.name.$error.required">Nombre es obligatorio.</small>
-									<small class="error" ng-show="hospitalsForm.name.$error.minlength">El nombre debe contener por lo menos 3 letras.</small>
-								  </div>
-								  </div>
-								</div>
-								<div class="form-group">
-								  <label class="col-md-4 control-label" for="email">Email</label>  
-								  <div class="col-md-6">
-								  <input id="email" name="email" type="text" placeholder="" class="form-control input-md" ng-model="hospitalManageCtrl.info.email" ng-pattern="/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,5}$/" required>
-								  <div class="error" ng-show="hospitalsForm.email.$dirty && hospitalsForm.email.$invalid">
-								    <small class="error" ng-show="hospitalsForm.email.$error.required">Email es obligatorio.</small>
-								    <small class="error" ng-show="hospitalsForm.email.$error.pattern">No es un email válido.</small>
-								  </div>
-								  </div>
-								</div>
-								<div class="form-group">
-								  <label class="col-md-4 control-label" for="last_name">Dirección</label>  
-								  <div class="col-md-6">
-								  <input id="last_name" name="last_name" type="text" placeholder="" class="form-control input-md" ng-model="hospitalManageCtrl.info.location_list[0].address" ng-minlength=3>
-								  </div>
-								</div>
-								<!--<div class="form-group">
-								  <label class="col-md-4 control-label" for="email">Logo</label>  
-								  <div class="col-md-6">
-								  <img id="profile-pic" ng-src="http://img2.wikia.nocookie.net/__cb20140518071050/towerofsaviors/images/archive/4/47/20140518072131!Placeholder.png" class="img-thumbnail" />
-								  <span class="btn btn-info btn-file">Subir imagen
-								  	<input type="file" id="image" class="form-control input-md" file-model="myFile" ng-model="image">
-								  </span>
-								  </div>
-								</div> -->
-								<div class="form-group">
-								  <div class="col-md-4 center-button">
-									<input type="submit" class="btn btn-primary" value="Guardar">
-									<a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#personal" class="btn btn-warning">Cancelar</a>
-								  </div>
-								</div>
-							</fieldset>
-							</form>
-						</div> 
-					</div>
-				</div>
-			</div>
-			<!-- <pictures class="tab-pane fade" id="pictures"></pictures>-->
+			<basic-hospital class="tab-pane fade in active" id="hospital_info"></basic-hospital>
+			<hospital-logo class="tab-pane fade" id="hospital_pic"></hospital-logo>
 		</div>
 	</div>
   </div>
