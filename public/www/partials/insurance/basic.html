@@ -1,13 +1,12 @@
 <div class="center">
 	<div class="inner-info-box">
-		<div class="form-box mid-box-a">
-			<form class="form-horizontal" name="insurancesForm" ng-submit="insurancesCtrl.createInsurance()">
+		<div class="form-box">
+			<form class="form-horizontal" name="insurancesForm" ng-submit="basicInsuranceCtrl.updateInsurance(insuranceManageCtrl.info._id)">
 			<fieldset>
-				<legend>Agregar aseguradora</legend>
 				<div class="form-group">
 				  <label class="col-md-4 control-label" for="name">Nombre</label>  
 				  <div class="col-md-6">
-				  <input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="insurancesCtrl.info.name" ng-minlength=3 ng-pattern="/^(\D)+$/">
+				  <input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="insuranceManageCtrl.info.name" ng-minlength=3 ng-pattern="/^(\D)+$/">
 				  <div class="error" ng-show="insurancesForm.name.$dirty && insurancesForm.name.$invalid">
 				  	  <small class="error" ng-show="insurancesForm.name.$error.required">Nombre es obligatorio.</small>
 					  <small class="error" ng-show="insurancesForm.name.$error.minlength">El nombre debe contener por lo menos 3 letras.</small>
@@ -17,7 +16,7 @@
 				<div class="form-group">
 				  <label class="col-md-4 control-label" for="email">Email</label>  
 				  <div class="col-md-6">
-				  <input id="email" name="email" type="text" placeholder="" class="form-control input-md" ng-model="insurancesCtrl.info.email" ng-pattern="/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,5}$/" required>
+				  <input id="email" name="email" type="text" placeholder="" class="form-control input-md" ng-model="insuranceManageCtrl.info.email" ng-pattern="/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,5}$/" required>
 				  <div class="error" ng-show="insurancesForm.email.$dirty && insurancesForm.email.$invalid">
 				    <small class="error" ng-show="insurancesForm.email.$error.required">Email es obligatorio.</small>
 				    <small class="error" ng-show="insurancesForm.email.$error.pattern">No es un email válido.</small>
@@ -33,18 +32,5 @@
 			</fieldset>
 			</form>
 		</div> 
-		<div class="mid-box-b panel panel-default">
-			<div class="panel-heading">
-				<h3 class="panel-title">Aseguradoras</h3>
-				<button class="btn btn-info btn-mini" ng-click="insurancesCtrl.showInsurances()"><i class="fa fa-eye"></i></button>
-			</div>
-			<ul class="list-group scroll-list">
-				<li class="list-group-item" ng-repeat="insurance in insurancesCtrl.insurances">
-					<span class="list-element">{{insurance.name}}</span>
-					<a href="#/admin_dashboard/edit_hospital/{{hospital._id}}" class="btn btn-info"><i class="fa fa-pencil-square-o"></i></a>
-					<button class="btn btn-danger"><i class="fa fa-times"></i></button>
-				</li>
-			</ul>
-		</div>
 	</div>
 </div>

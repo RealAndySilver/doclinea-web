@@ -13,8 +13,8 @@
 	  'adminDashboard',
 	]);
 
-	var endpoint = "http://192.241.187.135:1414/api_1.0/";
-	//var endpoint = "http://192.168.1.112:1414/api_1.0/";
+	//var endpoint = "http://192.241.187.135:1414/api_1.0/";
+	var endpoint = "http://192.168.1.112:1414/api_1.0/";
 	app.config(['$routeProvider',
 		function($routeProvider) {
 		$routeProvider.
@@ -84,6 +84,11 @@
 				templateUrl: '../www/hospitals_management.html',
 				controller: 'HospitalsManagementController',
 				controllerAs : 'hospitalManageCtrl',
+			}).
+			when('/admin_dashboard/edit_insurance/:id', {
+				templateUrl: '../www/insurances_management.html',
+				controller: 'InsurancesManagementController',
+				controllerAs : 'insuranceManageCtrl',
 			}).
 			otherwise({
 				redirectTo: '/404'
@@ -1667,8 +1672,8 @@
 	    return {
 	    	restrict: 'E',
 	    	templateUrl: 'www/partials/hospital/logo.html',
-	    	// controller: 'BasicHospitalController',
-	    	// controllerAs: 'basicHospitalCtrl',
+	    	// controller: 'LogoHospitalController',
+	    	// controllerAs: 'logoHospitalCtrl',
 	    };
 	});
 	//Controller for Insurances - Seccions in Admin
@@ -1727,6 +1732,75 @@
 	           		}
 	           	});
         };
+	}]);
+	//Controller for Insurance Management in Admin Dashboard
+	adminDash.controller('InsurancesManagementController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams){
+		$('#insu-tab a').click(function (e) {
+		  e.preventDefault();
+		  $(this).tab('show');
+		});
+
+		var id = $routeParams.id;
+		var type = "InsuranceCompany";
+
+		$scope.insuranceInfo = this;
+
+		$http.get(endpoint + type + '/GetByID/' + id)
+      		.success(function(data) {
+            	if (!data.status) {
+               		console.log("No se encontraron aseguradoras",data.error);
+               		console.log(data);
+           		} else {
+               		// if successful, bind success message to message
+               		console.log("Resultado de busqueda de aseguradoras:");
+               		$scope.insuranceInfo.info = data.response;
+               		console.log($scope.insuranceInfo.info);
+
+               		// if ($scope.hospitalInfo.info.location_list.length == 0) {
+               		// 	$scope.hospitalInfo.info.location_list.push({address: ''});
+               		// };
+           		}
+        	});
+	}]);
+	//Controller for Basic Info - Admin Insurances
+	adminDash.directive('basicInsurance', function() {
+	    return {
+	    	restrict: 'E',
+	    	templateUrl: 'www/partials/insurance/basic.html',
+	    	controller: 'BasicInsuranceController',
+	    	controllerAs: 'basicInsuranceCtrl',
+	    };
+	});
+	adminDash.controller('BasicInsuranceController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams){
+		var type = "InsuranceCompany";
+      	$scope.insuranceInfo.basicInfo = {};
+		var basicInfo = $scope.insuranceInfo.basicInfo;
+
+        this.updateInsurance = function(id) {
+			
+			basicInfo.name = $scope.insuranceInfo.info.name;
+			basicInfo.email = $scope.insuranceInfo.info.email;
+			console.log(basicInfo);
+			console.log(id);
+
+            $http.post(endpoint + type + '/Update/' + id, basicInfo)
+            .success(function(data) {
+                if (!data.status) {
+                    console.log("Paila, no se actualizó", data);
+                    //console.log(JSON.stringify(data1));
+                } else {
+                   // if successful, bind success message to message
+                    console.log("Listo, doctor actualizado", data);
+                    var success_msg = 'La información de la aseguradora ha sido actualizada con éxito!';
+	           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
+					$("body").prepend(alert_div);
+					$(".alert").alert();
+					setTimeout(function() {
+					    alert_div.fadeOut(1800);
+					}, 800);
+                }
+      		});
+       };
 	}]);
 	//Controller for Practices - Seccions in Admin
 	adminDash.directive('practices', function() {
