@@ -13,8 +13,8 @@
 	  'adminDashboard',
 	]);
 
-	//var endpoint = "http://192.241.187.135:1414/api_1.0/";
-	var endpoint = "http://192.168.1.112:1414/api_1.0/";
+	var endpoint = "http://192.241.187.135:1414/api_1.0/";
+	//var endpoint = "http://192.168.1.112:1414/api_1.0/";
 	app.config(['$routeProvider',
 		function($routeProvider) {
 		$routeProvider.
@@ -1784,6 +1784,47 @@
 			console.log(id);
 
             $http.post(endpoint + type + '/Update/' + id, basicInfo)
+            .success(function(data) {
+                if (!data.status) {
+                    console.log("Paila, no se actualizó", data);
+                    //console.log(JSON.stringify(data1));
+                } else {
+                   // if successful, bind success message to message
+                    console.log("Listo, doctor actualizado", data);
+                    var success_msg = 'La información de la aseguradora ha sido actualizada con éxito!';
+	           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
+					$("body").prepend(alert_div);
+					$(".alert").alert();
+					setTimeout(function() {
+					    alert_div.fadeOut(1800);
+					}, 800);
+                }
+      		});
+       };
+	}]);
+	//Controller for Type List - Admin Insurances
+	adminDash.directive('typeList', function() {
+	    return {
+	    	restrict: 'E',
+	    	templateUrl: 'www/partials/insurance/type_list.html',
+	    	controller: 'TypeListController',
+	    	controllerAs: 'typeListCtrl',
+	    };
+	});
+	adminDash.controller('TypeListController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams){
+		var type = "InsuranceCompany";
+      	$scope.insuranceInfo.typeList = {};
+		var typeList = $scope.insuranceInfo.typeList;
+
+        this.updateInsurance = function(insuranceCompanyID) {
+
+			typeList = {};
+			typeList.name = $scope.insuranceInfo.info.type_list.name;
+			typeList.category = $scope.insuranceInfo.info.type_list.category;
+			console.log(typeList);
+			console.log(insuranceCompanyID);
+
+            $http.post(endpoint + type + '/AddInsuranceType/' + insuranceCompanyID, typeList)
             .success(function(data) {
                 if (!data.status) {
                     console.log("Paila, no se actualizó", data);
