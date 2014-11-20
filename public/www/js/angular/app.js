@@ -1598,7 +1598,7 @@
 		  e.preventDefault();
 		  $(this).tab('show');
 		});
-		
+
 		var id = $routeParams.id;
 		var type = "Hospital";
 
@@ -1614,51 +1614,54 @@
                		console.log("Resultado de busqueda de hospitales:");
                		$scope.hospitalInfo.info = data.response;
                		console.log($scope.hospitalInfo.info);
+
+               		if ($scope.hospitalInfo.info.location_list.length == 0) {
+               			$scope.hospitalInfo.info.location_list.push({address: ''});
+               		};
            		}
         	});
-
-  //     	$scope.hospitalInfo.basicInfo = {};
-		// var basicInfo = $scope.hospitalInfo.basicInfo;
-  //       this.updateHospital = function(hospital_id) {
-			
-		// 	basicInfo.name = $scope.hospitalInfo.info.name;
-		// 	basicInfo.email = $scope.hospitalInfo.info.email;
-		// 	basicInfo.location_list = {};
-		// 	basicInfo.location_list.address = $scope.hospitalInfo.info.location_list.address;
-		// 	console.log(basicInfo);
-		// 	console.log(hospital_id);
-
-		// 	console.log(basicInfo);
-		// 	console.log(hospital_id);
-
-  //           $http.post(endpoint + type + '/Update/' + hospital_id, basicInfo)
-  //           .success(function(data) {
-  //               if (!data.status) {
-  //                   console.log("Paila, no se actualizó", data);
-  //                   //console.log(JSON.stringify(data1));
-  //               } else {
-  //                  // if successful, bind success message to message
-  //                   console.log("Listo, doctor actualizado", data);
-  //                   var success_msg = 'La información del hospital ha sido actualizada con éxito!';
-	 //           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
-		// 			$("body").prepend(alert_div);
-		// 			$(".alert").alert();
-		// 			setTimeout(function() {
-		// 			    alert_div.fadeOut(1800);
-		// 			}, 800);
-  //               }
-  //     		});
-  //      };
 	}]);
 	//Controller for Basic Info - Admin Hospitals
 	adminDash.directive('basicHospital', function() {
 	    return {
 	    	restrict: 'E',
 	    	templateUrl: 'www/partials/hospital/basic.html',
-	    	// controller: 'BasicHospitalController',
-	    	// controllerAs: 'basicHospitalCtrl',
+	    	controller: 'BasicHospitalController',
+	    	controllerAs: 'basicHospitalCtrl',
 	    };
 	});
+	adminDash.controller('BasicHospitalController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams){
+		var type = "Hospital";
+      	$scope.hospitalInfo.basicInfo = {};
+		var basicInfo = $scope.hospitalInfo.basicInfo;
+        this.updateHospital = function(hospital_id) {
+			
+			basicInfo.name = $scope.hospitalInfo.info.name;
+			basicInfo.email = $scope.hospitalInfo.info.email;
+			basicInfo.location_list = {};
+			basicInfo.location_list.address = $scope.hospitalInfo.info.location_list[0].address;
+			console.log(basicInfo);
+			console.log(hospital_id);
+
+            $http.post(endpoint + type + '/Update/' + hospital_id, basicInfo)
+            .success(function(data) {
+                if (!data.status) {
+                    console.log("Paila, no se actualizó", data);
+                    //console.log(JSON.stringify(data1));
+                } else {
+                   // if successful, bind success message to message
+                    console.log("Listo, doctor actualizado", data);
+                    var success_msg = 'La información del hospital ha sido actualizada con éxito!';
+	           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
+					$("body").prepend(alert_div);
+					$(".alert").alert();
+					setTimeout(function() {
+					    alert_div.fadeOut(1800);
+					}, 800);
+                }
+      		});
+       };
+	}]);
 	//Controller for Logo - Admin Hospitals
 	adminDash.directive('hospitalLogo', function() {
 	    return {
