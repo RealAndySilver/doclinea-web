@@ -1678,10 +1678,71 @@
 	    return {
 	    	restrict: 'E',
 	    	templateUrl: 'www/partials/hospital/logo.html',
-	    	// controller: 'LogoHospitalController',
-	    	// controllerAs: 'logoHospitalCtrl',
+	    	controller: 'LogoHospitalController',
+	    	controllerAs: 'logoHospitalCtrl',
 	    };
 	});
+	docDash.directive('hospitalFile', ['$parse', function ($parse) {
+	    return {
+	        restrict: 'A',
+	        link: function(scope, element, attrs) {
+	            var model = $parse(attrs.hospitalFile);
+	            var modelSetter = model.assign;
+	            
+	            element.bind('change', function(){
+	                scope.$apply(function(){
+	                    modelSetter(scope, element[0].files[0]);
+	                });
+	            });
+	        }
+	    };
+	}]);
+	docDash.service('fileUpload', ['$http', function ($http) {
+	    this.uploadFileToUrl = function(file, uploadUrl){
+	        var fd = new FormData();
+	        fd.append('image', file);
+	        $http.post(uploadUrl, fd, {
+	            transformRequest: angular.identity,
+	            headers: {'Content-Type': undefined}
+	        })
+	        .success(function(){
+	        	var success_msg = 'El logo del hospital ha sido guardada con éxito!';
+           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
+				$("body").prepend(alert_div);
+				$(".alert").alert();
+				setTimeout(function() {
+				      alert_div.fadeOut(1800);
+				}, 800);
+	        })
+	        .error(function(){
+	        });
+	    }
+	}]);
+	adminDash.controller('LogoHospitalController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams){
+		function readURL(input) {
+	        if (input.files && input.files[0]) {
+	            var reader = new FileReader();
+
+	            reader.onload = function (e) {
+	                $('#hospital-logo').attr('src', e.target.result);
+	            }
+
+	            reader.readAsDataURL(input.files[0]);
+	        }
+	    }
+
+	    $("#image").change(function(){
+	        readURL(this);
+	    });
+
+    	var type = 'Doctor';
+	    $scope.uploadFile = function(hospital_id){
+	        var file = $scope.myFile;
+	        console.log('file is ' + JSON.stringify(file));
+	        var uploadUrl = endpoint + type + '/UpdatePic/' + hospital_id;
+	        fileUpload.uploadFileToUrl(file, uploadUrl);
+	    };
+	}]);
 	//Controller for Insurances - Seccions in Admin
 	adminDash.directive('insurances', function() {
 	    return {
