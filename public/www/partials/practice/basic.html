@@ -1,13 +1,13 @@
 <div class="center">
 	<div class="inner-info-box">
 		<div class="form-box mid-box-a">
-			<form class="form-horizontal" name="practicesForm" ng-submit="practicesCtrl.createPractice()">
+			<form class="form-horizontal" name="practicesForm" ng-submit="basicPracticeCtrl.updatePractice(practiceManageCtrl.info._id)">
 			<fieldset>
 				<legend>Agregar especialidad</legend>
 				<div class="form-group">
 				  <label class="col-md-4 control-label" for="name">Nombre</label>  
 				  <div class="col-md-6">
-				  <input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="practicesCtrl.info.name" ng-minlength=3 ng-pattern="/^(\D)+$/">
+				  <input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="practiceManageCtrl.info.name" ng-minlength=3 ng-pattern="/^(\D)+$/">
 				  <div class="error" ng-show="practicesForm.name.$dirty && practicesForm.name.$invalid">
 					  <small class="error" ng-show="practicesForm.name.$error.minlength">Su nombre debe contener por lo menos 3 letras.</small>
 					  <small class="error" ng-show="practicesForm.name.$error.pattern">Su nombre solo debe contener letras.</small>
@@ -17,7 +17,7 @@
 				<div class="form-group">
 				  <label class="col-md-4 control-label" for="type">Tipo</label>  
 				  <div class="col-md-6">
-				  <input id="type" name="type" type="text" placeholder="" class="form-control input-md" ng-model="practicesCtrl.info.type" ng-minlength=3 ng-pattern="/^(\D)+$/">
+				  <input id="type" name="type" type="text" placeholder="" class="form-control input-md" ng-model="practiceManageCtrl.info.type" ng-minlength=3 ng-pattern="/^(\D)+$/">
 				  <div class="error" ng-show="practicesForm.type.$dirty && practicesForm.type.$invalid">
 					  <small class="error" ng-show="practicesForm.type.$error.minlength">Su nombre debe contener por lo menos 3 letras.</small>
 					  <small class="error" ng-show="practicesForm.type.$error.pattern">Su nombre solo debe contener letras.</small>
@@ -33,18 +33,18 @@
 			</fieldset>
 			</form>
 		</div> 
-		<div class="mid-box-b panel panel-default">
+		<!-- <div class="mid-box-b panel panel-default">
 			<div class="panel-heading">
 				<h3 class="panel-title">Especialidades</h3>
-				<button class="btn btn-info btn-mini" ng-click="practicesCtrl.showPractices()"><i class="fa fa-eye"></i></button>
+				<button class="btn btn-info btn-mini" ng-click="practiceManageCtrl.showPractices()"><i class="fa fa-eye"></i></button>
 			</div>
 			<ul class="list-group scroll-list">
-				<li class="list-group-item" ng-repeat="practice in practicesCtrl.practices">
+				<li class="list-group-item" ng-repeat="practice in practiceManageCtrl.practices">
 					<span class="list-element">{{practice.name}}</span>
 					<a href="#/admin_dashboard/edit_practice/{{practice._id}}" class="btn btn-info"><i class="fa fa-pencil-square-o"></i></a>
 					<button class="btn btn-danger"><i class="fa fa-times"></i></button>
 				</li>
 			</ul>
-		</div>
+		</div> -->
 	</div>
 </div>

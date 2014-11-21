@@ -90,6 +90,11 @@
 				controller: 'InsurancesManagementController',
 				controllerAs : 'insuranceManageCtrl',
 			}).
+			when('/admin_dashboard/edit_practice/:id', {
+				templateUrl: '../www/practices_management.html',
+				controller: 'PracticesManagementController',
+				controllerAs : 'practiceManageCtrl',
+			}).
 			otherwise({
 				redirectTo: '/404'
 			});
@@ -1408,6 +1413,11 @@
 		  e.preventDefault();
 		  $(this).tab('show');
 		});
+
+		$('#admin-tab a').click(function (e) {
+		  e.preventDefault();
+		  $(this).tab('show');
+		});
 	}]);
 	//Controller for Search Doctors - Admin
 	adminDash.directive('filters', function() {
@@ -1812,10 +1822,6 @@
       	$scope.insuranceInfo.typeList = {};
 		var typeList = $scope.insuranceInfo.typeList;
 
-		this.addType = function() {
-			$scope.insuranceInfo.info.type_list.push({name: '', category: ''});
-		};
-
         this.createType = function(insuranceCompanyID) {
 
 			typeList = {};
@@ -1824,24 +1830,24 @@
 			console.log(typeList);
 			console.log(insuranceCompanyID);
 
-     //        $http.post(endpoint + type + '/AddInsuranceType/' + insuranceCompanyID, typeList)
-     //        .success(function(data) {
-     //            if (!data.status) {
-     //                console.log("Paila, no se actualizó", data);
-     //                //console.log(JSON.stringify(data1));
-     //            } else {
-     //               // if successful, bind success message to message
-     //                console.log("Listo, doctor actualizado", data);
-     //                var success_msg = 'La información de la aseguradora ha sido actualizada con éxito!';
-	    //        		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
-					// $("body").prepend(alert_div);
-					// $(".alert").alert();
-					// setTimeout(function() {
-					//     alert_div.fadeOut(1800);
-					// }, 800);
+            $http.post(endpoint + type + '/AddInsuranceType/' + insuranceCompanyID, typeList)
+            .success(function(data) {
+                if (!data.status) {
+                    console.log("Paila, no se actualizó", data);
+                    //console.log(JSON.stringify(data1));
+                } else {
+                   // if successful, bind success message to message
+                    console.log("Listo, doctor actualizado", data);
+                    var success_msg = 'La información de la aseguradora ha sido actualizada con éxito!';
+	           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
+					$("body").prepend(alert_div);
+					$(".alert").alert();
+					setTimeout(function() {
+					    alert_div.fadeOut(1800);
+					}, 800);
 
-     //            }
-     //  		});
+                }
+      		});
        };
 	}]);
 	//Controller for Practices - Seccions in Admin
@@ -1880,7 +1886,7 @@
 					    alert_div.fadeOut(1800);
 					}, 800);
 					$("form #name").val('');
-					$("form #email").val('');
+					$("form #type").val('');
                 }
       		});
       		this.data = {};
@@ -1902,6 +1908,75 @@
 	           		}
 	           	});
         };
+	}]);
+	//Controller for Practice Management in Admin Dashboard
+	adminDash.controller('PracticesManagementController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams){
+		$('#prac-tab a').click(function (e) {
+		  e.preventDefault();
+		  $(this).tab('show');
+		});
+
+		var id = $routeParams.id;
+		var type = "Practice";
+
+		$scope.practiceInfo = this;
+
+		$http.get(endpoint + type + '/GetByID/' + id)
+      		.success(function(data) {
+            	if (!data.status) {
+               		console.log("No se encontraron especialidades",data.error);
+               		console.log(data);
+           		} else {
+               		// if successful, bind success message to message
+               		console.log("Resultado de busqueda de especialidades:");
+               		$scope.practiceInfo.info = data.response;
+               		console.log($scope.practiceInfo.info);
+
+               		// if ($scope.insuranceInfo.info.type_list.length == 0) {
+               		// 	$scope.insuranceInfo.info.type_list.push({name: '', category: ''});
+               		// };
+           		}
+        	});
+	}]);
+	//Controller for Basic Info - Admin Practices
+	adminDash.directive('basicPractice', function() {
+	    return {
+	    	restrict: 'E',
+	    	templateUrl: 'www/partials/practice/basic.html',
+	    	controller: 'BasicPracticeController',
+	    	controllerAs: 'basicPracticeCtrl',
+	    };
+	});
+	adminDash.controller('BasicPracticeController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams){
+		var type = "Practice";
+      	$scope.practiceInfo.basicInfo = {};
+		var basicInfo = $scope.practiceInfo.basicInfo;
+
+        this.updatePractice = function(practice_id) {
+			
+			basicInfo.name = $scope.practiceInfo.info.name;
+			basicInfo.type = $scope.practiceInfo.info.type;
+			console.log(basicInfo);
+			console.log(practice_id);
+
+            $http.post(endpoint + type + '/Update/' + practice_id, basicInfo)
+            .success(function(data) {
+                if (!data.status) {
+                    console.log("Paila, no se actualizó", data);
+                    //console.log(JSON.stringify(data1));
+                } else {
+                   // if successful, bind success message to message
+                    console.log("Listo, doctor actualizado", data);
+                    var success_msg = 'La información de la aseguradora ha sido actualizada con éxito!';
+	           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
+					$("body").prepend(alert_div);
+					$(".alert").alert();
+					setTimeout(function() {
+					    alert_div.fadeOut(1800);
+					}, 800);
+                }
+      		});
+       };
 	}]);
 
 })();
