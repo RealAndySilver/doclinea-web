@@ -1978,6 +1978,45 @@
       		});
        };
 	}]);
+	//Controller for Appointment Reasons Info - Admin Practices
+	adminDash.directive('reasonsPractice', function() {
+	    return {
+	    	restrict: 'E',
+	    	templateUrl: 'www/partials/practice/reasons.html',
+	    	controller: 'ReasonsPracticeController',
+	    	controllerAs: 'reasonsPracticeCtrl',
+	    };
+	});
+	adminDash.controller('ReasonsPracticeController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams){
+		var type = "Practice";
+      	$scope.practiceInfo.reasons = {};
+		var reasons = $scope.practiceInfo.reasons;
+
+        this.createReason = function(practice_id) {
+			
+			reasons.reason = $scope.practiceInfo.info.reason_list.reason;
+			console.log(reasons);
+			console.log(practice_id);
+
+            $http.post(endpoint + type + '/AddAppointmentReason/' + practice_id, reasons)
+            .success(function(data) {
+                if (!data.status) {
+                    console.log("Paila, no se actualizó", data);
+                    //console.log(JSON.stringify(data1));
+                } else {
+                   // if successful, bind success message to message
+                    console.log("Listo, motivo de consulta actualizado", data);
+                    var success_msg = 'El motivo de consulta ha sido agregado con éxito!';
+	           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
+					$("body").prepend(alert_div);
+					$(".alert").alert();
+					setTimeout(function() {
+					    alert_div.fadeOut(1800);
+					}, 800);
+                }
+      		});
+       };
+	}]);
 
 })();
 

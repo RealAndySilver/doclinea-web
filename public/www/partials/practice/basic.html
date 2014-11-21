@@ -3,7 +3,6 @@
 		<div class="form-box mid-box-a">
 			<form class="form-horizontal" name="practicesForm" ng-submit="basicPracticeCtrl.updatePractice(practiceManageCtrl.info._id)">
 			<fieldset>
-				<legend>Agregar especialidad</legend>
 				<div class="form-group">
 				  <label class="col-md-4 control-label" for="name">Nombre</label>  
 				  <div class="col-md-6">
@@ -33,18 +32,5 @@
 			</fieldset>
 			</form>
 		</div> 
-		<!-- <div class="mid-box-b panel panel-default">
-			<div class="panel-heading">
-				<h3 class="panel-title">Especialidades</h3>
-				<button class="btn btn-info btn-mini" ng-click="practiceManageCtrl.showPractices()"><i class="fa fa-eye"></i></button>
-			</div>
-			<ul class="list-group scroll-list">
-				<li class="list-group-item" ng-repeat="practice in practiceManageCtrl.practices">
-					<span class="list-element">{{practice.name}}</span>
-					<a href="#/admin_dashboard/edit_practice/{{practice._id}}" class="btn btn-info"><i class="fa fa-pencil-square-o"></i></a>
-					<button class="btn btn-danger"><i class="fa fa-times"></i></button>
-				</li>
-			</ul>
-		</div> -->
 	</div>
 </div>

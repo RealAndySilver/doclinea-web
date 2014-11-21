@@ -11,6 +11,7 @@
 					  <div class="error" ng-show="typeListForm.name.$dirty && typeListForm.name.$invalid">
 					  	  <small class="error" ng-show="typeListForm.name.$error.required">Nombre es obligatorio.</small>
 						  <small class="error" ng-show="typeListForm.name.$error.minlength">El nombre debe contener por lo menos 3 letras.</small>
+						  <small class="error" ng-show="typeListForm.name.$error.pattern">El nombre solo debe contener letras.</small>
 					  </div>
 					  </div>
 					</div>
@@ -21,6 +22,7 @@
 					  <div class="error" ng-show="typeListForm.category.$dirty && typeListForm.category.$invalid">
 					  	  <small class="error" ng-show="typeListForm.category.$error.required">Categoría es obligatorio.</small>
 						  <small class="error" ng-show="typeListForm.category.$error.minlength">La categoría debe contener por lo menos 3 letras.</small>
+						  <small class="error" ng-show="typeListForm.category.$error.pattern">La categoría solo debe contener letras.</small>
 					  </div>
 					  </div>
 					</div>

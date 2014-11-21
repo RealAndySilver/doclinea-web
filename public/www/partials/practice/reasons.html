@@ -1,0 +1,39 @@
+<div class="center">
+	<div class="inner-info-box">
+		<div class="form-box mid-box-a">
+			<form class="form-horizontal" name="reasonsForm" ng-submit="reasonsPracticeCtrl.createReason(practiceManageCtrl.info._id)">
+			<fieldset>
+				<div class="form-group">
+				  <label class="col-md-4 control-label" for="name">Motivo</label>  
+				  <div class="col-md-6">
+				  <textarea id="reason" name="reason" type="text" placeholder="" class="form-control input-md" ng-model="practiceManageCtrl.info.reason_list.reason" ng-minlength=3 required></textarea>
+				  <div class="error" ng-show="reasonsForm.reason.$dirty && reasonsForm.reason.$invalid">
+				  	  <small class="error" ng-show="reasonsForm.reason.$error.required">Motivo es obligatorio.</small>
+					  <small class="error" ng-show="reasonsForm.reason.$error.minlength">El motivo debe contener por lo menos 3 letras.</small>
+				  </div>
+				  </div>
+				</div>
+				<div class="form-group">
+				  <div class="col-md-4 center-button">
+					<input type="submit" class="btn btn-primary" value="Guardar">
+					<a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#personal" class="btn btn-warning">Cancelar</a>
+				  </div>
+				</div>
+			</fieldset>
+			</form>
+		</div> 
+		<!-- <div class="mid-box-b panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Especialidades</h3>
+				<button class="btn btn-info btn-mini" ng-click="practiceManageCtrl.showPractices()"><i class="fa fa-eye"></i></button>
+			</div>
+			<ul class="list-group scroll-list">
+				<li class="list-group-item" ng-repeat="practice in practiceManageCtrl.practices">
+					<span class="list-element">{{practice.name}}</span>
+					<a href="#/admin_dashboard/edit_practice/{{practice._id}}" class="btn btn-info"><i class="fa fa-pencil-square-o"></i></a>
+					<button class="btn btn-danger"><i class="fa fa-times"></i></button>
+				</li>
+			</ul>
+		</div> -->
+	</div>
+</div>
