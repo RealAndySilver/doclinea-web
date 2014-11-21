@@ -1188,10 +1188,6 @@
 				} else {
 					console.log(i + 'Selección válida');
 				}
-				// console.log('Prueba para validar', studiesInfo.practice_list[i].name);
-				// if (studiesInfo.practice_list[i].name ==  studiesInfo.practice_list[0].name) {
-				// 	console.log('Ya valimos verga');
-				// };
 			}
 
 			studiesInfo.education_list = {};
@@ -1756,9 +1752,9 @@
                		$scope.insuranceInfo.info = data.response;
                		console.log($scope.insuranceInfo.info);
 
-               		// if ($scope.hospitalInfo.info.location_list.length == 0) {
-               		// 	$scope.hospitalInfo.info.location_list.push({address: ''});
-               		// };
+               		if ($scope.insuranceInfo.info.type_list.length == 0) {
+               			$scope.insuranceInfo.info.type_list.push({name: '', category: ''});
+               		};
            		}
         	});
 	}]);
@@ -1816,7 +1812,11 @@
       	$scope.insuranceInfo.typeList = {};
 		var typeList = $scope.insuranceInfo.typeList;
 
-        this.updateInsurance = function(insuranceCompanyID) {
+		this.addType = function() {
+			$scope.insuranceInfo.info.type_list.push({name: '', category: ''});
+		};
+
+        this.createType = function(insuranceCompanyID) {
 
 			typeList = {};
 			typeList.name = $scope.insuranceInfo.info.type_list.name;
@@ -1824,23 +1824,24 @@
 			console.log(typeList);
 			console.log(insuranceCompanyID);
 
-            $http.post(endpoint + type + '/AddInsuranceType/' + insuranceCompanyID, typeList)
-            .success(function(data) {
-                if (!data.status) {
-                    console.log("Paila, no se actualizó", data);
-                    //console.log(JSON.stringify(data1));
-                } else {
-                   // if successful, bind success message to message
-                    console.log("Listo, doctor actualizado", data);
-                    var success_msg = 'La información de la aseguradora ha sido actualizada con éxito!';
-	           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
-					$("body").prepend(alert_div);
-					$(".alert").alert();
-					setTimeout(function() {
-					    alert_div.fadeOut(1800);
-					}, 800);
-                }
-      		});
+     //        $http.post(endpoint + type + '/AddInsuranceType/' + insuranceCompanyID, typeList)
+     //        .success(function(data) {
+     //            if (!data.status) {
+     //                console.log("Paila, no se actualizó", data);
+     //                //console.log(JSON.stringify(data1));
+     //            } else {
+     //               // if successful, bind success message to message
+     //                console.log("Listo, doctor actualizado", data);
+     //                var success_msg = 'La información de la aseguradora ha sido actualizada con éxito!';
+	    //        		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
+					// $("body").prepend(alert_div);
+					// $(".alert").alert();
+					// setTimeout(function() {
+					//     alert_div.fadeOut(1800);
+					// }, 800);
+
+     //            }
+     //  		});
        };
 	}]);
 	//Controller for Practices - Seccions in Admin

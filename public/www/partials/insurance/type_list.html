@@ -1,28 +1,31 @@
 <div class="center">
 	<div class="inner-info-box">
 		<div class="form-box">
-			<form class="form-horizontal" name="typeListForm" ng-submit="typeListCtrl.updateInsurance(insuranceManageCtrl.info._id)">
+			<form class="form-horizontal" name="typeListForm" ng-submit="typeListCtrl.createType(insuranceManageCtrl.info._id)">
 			<fieldset>
-				<div class="form-group">
-				  <label class="col-md-4 control-label" for="name">Nombre</label>  
-				  <div class="col-md-6">
-				  <input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="insuranceManageCtrl.info.type_list.name" ng-minlength=3 ng-pattern="/^(\D)+$/">
-				  <div class="error" ng-show="typeListForm.name.$dirty && typeListForm.name.$invalid">
-				  	  <small class="error" ng-show="typeListForm.name.$error.required">Nombre es obligatorio.</small>
-					  <small class="error" ng-show="typeListForm.name.$error.minlength">El nombre debe contener por lo menos 3 letras.</small>
-				  </div>
-				  </div>
+				<div class="list-group-item-info form-block" ng-repeat="type_list in insuranceManageCtrl.info.type_list">
+					<div class="form-group">
+					  <label class="col-md-4 control-label" for="name">Nombre</label>  
+					  <div class="col-md-6">
+					  <input id="name_{{$index + 1}}" name="name" type="text" placeholder="" class="form-control input-md" ng-model="insuranceManageCtrl.info.type_list[$index].name" ng-minlength=3 ng-pattern="/^(\D)+$/">
+					  <div class="error" ng-show="typeListForm.name.$dirty && typeListForm.name.$invalid">
+					  	  <small class="error" ng-show="typeListForm.name.$error.required">Nombre es obligatorio.</small>
+						  <small class="error" ng-show="typeListForm.name.$error.minlength">El nombre debe contener por lo menos 3 letras.</small>
+					  </div>
+					  </div>
+					</div>
+					<div class="form-group">
+					  <label class="col-md-4 control-label" for="category">Categoría</label>  
+					  <div class="col-md-6">
+					  <input id="category_{{$index + 1}}" name="category" type="text" placeholder="" class="form-control input-md" ng-model="insuranceManageCtrl.info.type_list[$index].category" ng-minlength=3 ng-pattern="/^(\D)+$/">
+					  <div class="error" ng-show="typeListForm.category.$dirty && typeListForm.category.$invalid">
+					  	  <small class="error" ng-show="typeListForm.category.$error.required">Categoría es obligatorio.</small>
+						  <small class="error" ng-show="typeListForm.category.$error.minlength">La categoría debe contener por lo menos 3 letras.</small>
+					  </div>
+					  </div>
+					</div>
 				</div>
-				<div class="form-group">
-				  <label class="col-md-4 control-label" for="category">Categoría</label>  
-				  <div class="col-md-6">
-				  <input id="category" name="category" type="text" placeholder="" class="form-control input-md" ng-model="insuranceManageCtrl.info.type_list.category" ng-minlength=3 ng-pattern="/^(\D)+$/">
-				  <div class="error" ng-show="typeListForm.category.$dirty && typeListForm.category.$invalid">
-				  	  <small class="error" ng-show="typeListForm.category.$error.required">Categoría es obligatorio.</small>
-					  <small class="error" ng-show="typeListForm.category.$error.minlength">La categoría debe contener por lo menos 3 letras.</small>
-				  </div>
-				  </div>
-				</div>
+				<a href="" id="add_type_list" ng-click="typeListCtrl.addType()" class="btn btn-primary btn-small add-btn pull-right"><i class="fa fa-plus"></i> Agregar</a>
 				<div class="form-group">
 				  <div class="col-md-4 center-button">
 					<input type="submit" class="btn btn-primary" value="Guardar">
