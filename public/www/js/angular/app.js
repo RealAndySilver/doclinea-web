@@ -1479,6 +1479,10 @@
 	    };
 	});
 	adminDash.controller('DoctorsManagementController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams){
+		$('#doc-dash a').click(function (e) {
+		  e.preventDefault();
+		  $(this).tab('show');
+		});
 
 		var id = $routeParams.id;
 
@@ -1541,6 +1545,51 @@
       		});
        };
 	}]);
+	//Controller for Profile Pic - Doctor by Admin
+	adminDash.directive('docPictures', function() {
+	    return {
+	    	restrict: 'E',
+	    	templateUrl: 'www/partials/admin/doctor_pictures.html',
+	    	// controller: 'ManageDocPersonalController',
+	    	// controllerAs: 'docPersonalManageCtrl',
+	    };
+	});
+	//Controller for Password Change - Doctor by Admin
+	adminDash.directive('docPassword', function() {
+	    return {
+	    	restrict: 'E',
+	    	templateUrl: 'www/partials/admin/doctor_password.html',
+	    	// controller: 'ManageDocPersonalController',
+	    	// controllerAs: 'docPersonalManageCtrl',
+	    };
+	});
+	//Controller for Studies - Doctor by Admin
+	adminDash.directive('docStudies', function() {
+	    return {
+	    	restrict: 'E',
+	    	templateUrl: 'www/partials/admin/doctor_studies.html',
+	    	// controller: 'ManageDocPersonalController',
+	    	// controllerAs: 'docPersonalManageCtrl',
+	    };
+	});
+	//Controller for Locations - Doctor by Admin
+	adminDash.directive('docLocations', function() {
+	    return {
+	    	restrict: 'E',
+	    	templateUrl: 'www/partials/admin/doctor_locations.html',
+	    	// controller: 'ManageDocPersonalController',
+	    	// controllerAs: 'docPersonalManageCtrl',
+	    };
+	});
+	//Controller for Settings - Doctor by Admin
+	adminDash.directive('docSettings', function() {
+	    return {
+	    	restrict: 'E',
+	    	templateUrl: 'www/partials/admin/doctor_settings.html',
+	    	// controller: 'ManageDocPersonalController',
+	    	// controllerAs: 'docPersonalManageCtrl',
+	    };
+	});
 	//Controller for Hospitals - Seccions in Admin
 	adminDash.directive('hospitals', function() {
 	    return {

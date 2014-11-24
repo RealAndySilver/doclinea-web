@@ -7,21 +7,21 @@
 	</div>
 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 		<h2 class="sub-header">Doctores</h2>
-		<ul class="nav nav-tabs" role="tablist" id="myTab">
+		<ul class="nav nav-tabs" role="tablist" id="doc-dash">
 			<li class="active"><a href="#/admin_dashboard/edit_doctor/{{docManageCtrl.info._id}}/#personal" role="tab" data-toggle="tab">Datos Personales</a></li>
-			<!-- <li><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#pictures" role="tab" data-toggle="tab">Imágenes</a></li>
-			<li><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#password_change" role="tab" data-toggle="tab">Contraseña</a></li>
-			<li><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#studies" role="tab" data-toggle="tab">Formación académica</a></li>
-			<li><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#locations" role="tab" data-toggle="tab">Consultorio</a></li>
-			<li><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#settings" role="tab" data-toggle="tab">Notificaciones</a></li> -->
+			<li><a href="#/admin_dashboard/edit_doctor/{{docManageCtrl.info._id}}/#pictures" role="tab" data-toggle="tab">Imágenes</a></li>
+			<li><a href="#/admin_dashboard/edit_doctor/{{docManageCtrl.info._id}}/#password_change" role="tab" data-toggle="tab">Contraseña</a></li>
+			<li><a href="#/admin_dashboard/edit_doctor/{{docManageCtrl.info._id}}/#studies" role="tab" data-toggle="tab">Formación académica</a></li>
+			<li><a href="#/admin_dashboard/edit_doctor/{{docManageCtrl.info._id}}/#locations" role="tab" data-toggle="tab">Consultorio</a></li>
+			<li><a href="#/admin_dashboard/edit_doctor/{{docManageCtrl.info._id}}/#settings" role="tab" data-toggle="tab">Notificaciones</a></li>
 		</ul>
 	  	<div class="tab-content">
 			<doc-personal class="tab-pane fade in active" id="personal"></doc-personal>
-			<!-- <pictures class="tab-pane fade" id="pictures"></pictures>
-			<password_change class="tab-pane fade" id="password_change"></password_change>
-			<studies class="tab-pane fade" id="studies"></studies>
-			<locations class="tab-pane fade" id="locations"></locations>
-			<settings class="tab-pane fade" id="settings"></settings> -->
+			<doc-pictures class="tab-pane fade" id="pictures"></doc-pictures>
+			<doc-password class="tab-pane fade" id="password_change"></doc-password>
+			<doc-studies class="tab-pane fade" id="studies"></doc-studies>
+			<doc-locations class="tab-pane fade" id="locations"></doc-locations>
+			<doc-settings class="tab-pane fade" id="settings"></doc-settings>
 		</div>
 	</div>
   </div>
