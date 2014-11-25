@@ -1579,7 +1579,7 @@
 	        })
 	        .success(function(){
 	        	var success_msg = 'La foto de perfil ha sido actualizada con éxito!';
-           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
+           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
 				$("body").prepend(alert_div);
 				$(".alert").alert();
 				setTimeout(function() {
@@ -1621,10 +1621,39 @@
 	    return {
 	    	restrict: 'E',
 	    	templateUrl: 'www/partials/admin/doctor_password.html',
-	    	// controller: 'ManageDocPersonalController',
-	    	// controllerAs: 'docPersonalManageCtrl',
+	    	controller: 'ManageDocPasswordController',
+	    	controllerAs: 'docPersonalManageCtrl',
 	    };
 	});
+	docDash.controller('ManageDocPasswordController', ['$http', '$scope',function($http, $scope){
+		$scope.docInfo.security = {};
+		var securityInfo = $scope.docInfo.security;
+
+		this.updateDoctor = function(doc_id) {
+			var type = 'Doctor';
+
+			securityInfo.password = btoa($scope.security.password);
+			securityInfo.new_password = btoa($scope.security.new_password);
+			
+            $http.post(endpoint + type + '/ChangePassword/' + doc_id, securityInfo)
+            .success(function(data) {
+                if (!data.status) {
+                    console.log("Paila, no se actualizó", data);
+                    //console.log(JSON.stringify(data1));
+                } else {
+                   // if successful, bind success message to message
+                   console.log("Listo, doctor actualizado", data.response);
+                   var success_msg = 'La contraseña ha sido cambiada con éxito!';
+	           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
+					$("body").prepend(alert_div);
+					$(".alert").alert();
+					setTimeout(function() {
+					      alert_div.fadeOut(1800);
+					}, 800);
+                }
+      		});
+        };
+	}]);
 	//Controller for Studies - Doctor by Admin
 	adminDash.directive('docStudies', function() {
 	    return {
