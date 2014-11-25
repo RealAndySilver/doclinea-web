@@ -1308,7 +1308,7 @@
         };
 	}]);
 
-	//Controller for doctor gallery
+	//Controller for doctor Gallery
 	// docDash.directive('gallery', function() {
 	//     return {
 	//     	restrict: 'E',
@@ -1746,10 +1746,62 @@
 	    return {
 	    	restrict: 'E',
 	    	templateUrl: 'www/partials/admin/doctor_settings.html',
-	    	// controller: 'ManageDocPersonalController',
-	    	// controllerAs: 'docPersonalManageCtrl',
+	    	controller: 'ManageDocSettingsController',
+	    	controllerAs: 'docSettingsManageCtrl',
 	    };
 	});
+	adminDash.controller('ManageDocSettingsController', ['$http', '$scope',function($http, $scope){
+		console.log('entra a settings');
+		$scope.docInfo.settingsInfo = {};
+		var settingsInfo = $scope.docInfo.settingsInfo;
+
+		this.updateDoctor = function(doc_id) {
+			var type = 'Doctor';
+			
+			settingsInfo.settings = {};
+			//settingsInfo.settings = $scope.docInfo.info.settings;
+			
+			settingsInfo.settings.email_appointment_notifications = $scope.docInfo.info.settings.email_appointment_notifications;
+			if (settingsInfo.settings.email_appointment_notifications == undefined) {
+				settingsInfo.settings.email_appointment_notifications = false;
+			};
+			settingsInfo.settings.email_marketing_notifications = $scope.docInfo.info.settings.email_marketing_notifications;
+			if (settingsInfo.settings.email_marketing_notifications == undefined) {
+				settingsInfo.settings.email_marketing_notifications = false;
+			};
+			settingsInfo.settings.mobile_appointment_notifications = $scope.docInfo.info.settings.mobile_appointment_notifications;
+			if (settingsInfo.settings.mobile_appointment_notifications == undefined) {
+				settingsInfo.settings.mobile_appointment_notifications = false;
+			};
+			settingsInfo.settings.mobile_marketing_notifications = $scope.docInfo.info.settings.mobile_marketing_notifications;
+			if (settingsInfo.settings.mobile_marketing_notifications == undefined) {
+				settingsInfo.settings.mobile_marketing_notifications = false;
+			};			
+			console.log(settingsInfo);
+			
+            $http.post(endpoint + type + '/Update/' + doc_id, settingsInfo)
+            .success(function(data) {
+                if (!data.status) {
+                    console.log("Paila, no se actualizó", data);
+                    //console.log(JSON.stringify(data1));
+                    var error_msg = 'No se pudieron actualizar sus notificaciones, verifique la información de nuevo.';
+               		var alert_div = $("<div class=\"alert alert-danger alert-dismissible noty fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">x</span><span class=\"sr-only\"></span></button>"+error_msg+"</div>");
+					$("body").prepend(alert_div);
+					$(".alert").alert();
+                } else {
+                   // if successful, bind success message to message
+                   console.log("Listo, usuario actualizado", data.response);
+                   var success_msg = 'Las notificaciones han sido actualizadas con éxito!';
+	           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
+					$("body").prepend(alert_div);
+					$(".alert").alert();
+					setTimeout(function() {
+					      alert_div.fadeOut(1800);
+					}, 800);
+                }
+      		});
+        };
+	}]);
 	//Controller for Hospitals - Seccions in Admin
 	adminDash.directive('hospitals', function() {
 	    return {
