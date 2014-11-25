@@ -1,33 +1,33 @@
 <div class="center">
 	<div class="inner-info-box">
 		<div class="form-box">
-			<form class="form-horizontal" name="changeDocLocation" ng-submit="dashLocationsCtrl.updateDoctor(docDashCtrl.info._id)">
+			<form class="form-horizontal" name="changeDocLocation" ng-submit="docLocationsManageCtrl.updateDoctor(docManageCtrl.info._id)">
 			<fieldset>
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="city">Ciudad</label>
 					<div class="col-md-6">
-					<select class="form-control" name="city" id="city" ng-model="docDashCtrl.info.city" ng-options="city for city in cities">
+					<select class="form-control" name="city" id="city" ng-model="docManageCtrl.info.city" ng-options="city for city in cities">
 					</select>
 					</div>
 				</div>
-				<div class="form-group" ng-if="docDashCtrl.info.city == 'Bogotá'">
+				<div class="form-group" ng-if="docManageCtrl.info.city == 'Bogotá'">
 					<label class="col-md-4 control-label" for="localidad">Localidad</label>
 					<div class="col-md-6">
-					<select class="form-control" name="localidad" id="localidad" ng-model="docDashCtrl.info.localidad" ng-options="localidad.name for localidad in localidades">
+					<select class="form-control" name="localidad" id="localidad" ng-model="docManageCtrl.info.localidad" ng-options="localidad.name for localidad in localidades">
 					</select>
 					</div>
 				</div>
-				<div class="locations" ng-repeat="location_list in docDashCtrl.info.location_list">
+				<div class="locations" ng-repeat="location_list in docManageCtrl.info.location_list">
 					<div class="form-group">
 					  <label class="col-md-4 control-label" for="location_name">Nombre de Consultorio</label>  
 					  <div class="col-md-6">
-					  <input id="location_name" name="location_name" type="text" placeholder="" class="form-control input-md" ng-model="docDashCtrl.info.location_list[$index].location_name">
+					  <input id="location_name" name="location_name" type="text" placeholder="" class="form-control input-md" ng-model="docManageCtrl.info.location_list[$index].location_name">
 					  </div>
 					</div>
 					<div class="form-group">
 					  <label class="col-md-4 control-label" for="location_address">Dirección de consultorio</label>  
 					  <div class="col-md-6">
-					  <input id="location_address" name="location_address" type="text" placeholder="" class="form-control input-md" ng-model="docDashCtrl.info.location_list[$index].location_address">
+					  <input id="location_address" name="location_address" type="text" placeholder="" class="form-control input-md" ng-model="docManageCtrl.info.location_list[$index].location_address">
 					  </div>
 					</div>
 				</div>

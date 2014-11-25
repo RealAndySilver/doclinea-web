@@ -1471,6 +1471,64 @@
 		  $(this).tab('show');
 		});
 
+		$('#doc-dash a[href="#/admin_dashboard/edit_doctor/{{docManageCtrl.info._id}}/#locations"]').on('shown.bs.tab', function (e) {
+		    e.preventDefault();
+		    var mapOptions = {
+				zoom: 11,
+				center: new google.maps.LatLng(4.6777333, -74.0956373),
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			}
+
+			var initialMarker = [];
+			$scope.map = new google.maps.Map(document.getElementById('location-map'), mapOptions);
+
+			google.maps.event.addListener($scope.map, 'click', addPoint);
+
+			//cargar ubicación en mapa
+			var createMarker = function (lat, lng){
+				console.log('ENTRA A CREAR MARKER');
+				var marker = new google.maps.Marker({
+					map: $scope.map,
+					position: new google.maps.LatLng(lat, lng),
+					//title: info.name +' '+ info.lastname
+				});
+				initialMarker.push(marker);
+				// marker.content = '<div class="infoWindowContent"><div class="map-inner-info"><h4>' + info.practice_list[0] + '</h4><br><h4>' + info.address + '</h4><br><a href="#/" class="btn btn-success">Pedir cita</a></div></div>';
+				
+				// google.maps.event.addListener(marker, 'click', function(){
+				// 	infoWindow.setContent('<h3>' + marker.title + '</h3>' + marker.content);
+				// 	infoWindow.open($scope.map, marker);
+				// });
+			}
+			doctorLat = $scope.docInfo.info.location_list[0].lat;
+			doctorLon = $scope.docInfo.info.location_list[0].lon;
+			createMarker(doctorLat, doctorLon);
+
+		    //añadir ubicación a mapa
+			function addPoint(event) { 
+			    var marker = new google.maps.Marker({
+			        position: event.latLng,
+			        map: $scope.map,
+			        //draggable: true
+			    });
+			    var markers = [];
+		    	markers.push(marker);
+		    	$scope.lat = event.latLng.lat();
+			    $scope.lng = event.latLng.lng();
+			    console.log($scope.docInfo.info.location_list);
+			    if ($scope.docInfo.info.location_list[0].lat && $scope.docInfo.info.location_list[0].lon) {
+			    	initialMarker[0].setMap(null);
+			    };
+			    google.maps.event.addListener($scope.map, 'click', function() {
+		    		marker.setMap(null);
+			        for (var i = 0, I = markers.length; i < I && markers[i] != marker; ++i);
+			        markers.splice(i, 1);
+			    });
+			}
+
+		});
+
+		$scope.localidades = localidades;
 		$scope.practices = [ 
 			{name: "Pediatra", id: 1}, 
 			{name: "Fonoaudiólogo", id: 2}, 
@@ -1478,6 +1536,19 @@
 			{name: "Ortopedista", id: 4}, 
 			{name: "Odontólogo", id: 5}, 
 		];
+
+		var myDate = new Date();
+		var currentYear = myDate.getFullYear();
+		$scope.yearsList = [];
+		var loadYears = function() {
+			for (var i = 0; i < ((currentYear+1)-1950); i++) {
+				$scope.yearsList[i] = 1950+i;
+			};
+			return $scope.yearsList;
+		}
+		loadYears();
+
+		$scope.cities = ["Bogotá", "Medellín", "Cali", "Barranquilla", "Pereira", "Bucaramanga"];
 
 		var id = $routeParams.id;
 
@@ -1737,10 +1808,38 @@
 	    return {
 	    	restrict: 'E',
 	    	templateUrl: 'www/partials/admin/doctor_locations.html',
-	    	// controller: 'ManageDocPersonalController',
-	    	// controllerAs: 'docPersonalManageCtrl',
+	    	controller: 'ManageDocLocationsController',
+	    	controllerAs: 'docLocationsManageCtrl',
 	    };
 	});
+	adminDash.controller('ManageDocLocationsController', ['$http', '$scope',function($http, $scope){
+		$scope.docInfo.locationsInfo = {};
+		var locationsInfo = $scope.docInfo.locationsInfo;
+
+		var cities = $scope.cities;
+
+		this.updateDoctor = function(doc_id) {
+			var type = 'Doctor';
+
+			locationsInfo.city = $scope.docInfo.info.city;
+			locationsInfo.localidad = $scope.docInfo.info.localidad;
+			locationsInfo.location_list = {};
+			locationsInfo.location_list = $scope.docInfo.info.location_list;
+			locationsInfo.location_list[0].lat = $scope.lat;
+			locationsInfo.location_list[0].lon = $scope.lng;
+			console.log(locationsInfo);
+            $http.post(endpoint + type + '/Update/' + doc_id, locationsInfo)
+            .success(function(data) {
+                if (!data.status) {
+                    console.log("Paila, no se actualizó", data);
+                    //console.log(JSON.stringify(locationsInfo));
+                } else {
+                   // if successful, bind success message to message
+                   console.log("Listo, doctor actualizado", data.response);
+                }
+      		});
+       };
+	}]);
 	//Controller for Settings - Doctor by Admin
 	adminDash.directive('docSettings', function() {
 	    return {
