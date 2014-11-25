@@ -1139,19 +1139,6 @@
 
 		var practices = $scope.practices;
 
-		//var yearsList = $scope.yearsList;
-
-		// var myDate = new Date();
-		// var currentYear = myDate.getFullYear();
-		// $scope.yearsList = [];
-		// var loadYears = function() {
-		// 	for (var i = 0; i < ((currentYear+1)-1950); i++) {
-		// 		$scope.yearsList[i] = 1950+i;
-		// 	};
-		// 	return $scope.yearsList;
-		// }
-		// loadYears();
-
 		//add or remove form fields
 		this.addPractice = function() {
 			//console.log($scope.doctorData.info.practice_list[0]);
@@ -1484,6 +1471,14 @@
 		  $(this).tab('show');
 		});
 
+		$scope.practices = [ 
+			{name: "Pediatra", id: 1}, 
+			{name: "Fonoaudiólogo", id: 2}, 
+			{name: "Ginecólogo", id: 3}, 
+			{name: "Ortopedista", id: 4}, 
+			{name: "Odontólogo", id: 5}, 
+		];
+
 		var id = $routeParams.id;
 
 		$scope.docInfo = this;
@@ -1554,7 +1549,7 @@
 	    	controllerAs: 'docPicManageCtrl',
 	    };
 	});
-	docDash.directive('doctorPic', ['$parse', function ($parse) {
+	adminDash.directive('doctorPic', ['$parse', function ($parse) {
 	    return {
 	        restrict: 'A',
 	        link: function(scope, element, attrs) {
@@ -1569,7 +1564,7 @@
 	        }
 	    };
 	}]);
-	docDash.service('fileUpload', ['$http', function ($http) {
+	adminDash.service('fileUpload', ['$http', function ($http) {
 	    this.uploadFileToUrl = function(file, uploadUrl){
 	        var fd = new FormData();
 	        fd.append('image', file);
@@ -1590,7 +1585,7 @@
 	        });
 	    }
 	}]);
-	docDash.controller('ManageDocPictureController', ['$scope', 'fileUpload', function($scope, fileUpload){
+	adminDash.controller('ManageDocPictureController', ['$scope', 'fileUpload', function($scope, fileUpload){
 		function readURL(input) {
 	        if (input.files && input.files[0]) {
 	            var reader = new FileReader();
@@ -1625,7 +1620,7 @@
 	    	controllerAs: 'docPersonalManageCtrl',
 	    };
 	});
-	docDash.controller('ManageDocPasswordController', ['$http', '$scope',function($http, $scope){
+	adminDash.controller('ManageDocPasswordController', ['$http', '$scope',function($http, $scope){
 		$scope.docInfo.security = {};
 		var securityInfo = $scope.docInfo.security;
 
@@ -1659,10 +1654,84 @@
 	    return {
 	    	restrict: 'E',
 	    	templateUrl: 'www/partials/admin/doctor_studies.html',
-	    	// controller: 'ManageDocPersonalController',
-	    	// controllerAs: 'docPersonalManageCtrl',
+	    	controller: 'ManageDocStudiesController',
+	    	controllerAs: 'docStudiesManageCtrl',
 	    };
 	});
+	adminDash.controller('ManageDocStudiesController', ['$http', '$scope',function($http, $scope){
+		$scope.docInfo.studiesInfo = {};
+		var studiesInfo = $scope.docInfo.studiesInfo;
+
+		var practices = $scope.practices;
+
+		//add or remove form fields
+		this.addPractice = function() {
+			//console.log($scope.docInfo.info.practice_list[0]);
+			$scope.docInfo.info.practice_list.push(practices);
+		};
+		this.removePractice = function(practiceToRemove) {
+			var index = $scope.docInfo.info.practice_list.indexOf(practiceToRemove);
+			$scope.docInfo.info.practice_list.splice(index, 1);
+		};
+		this.addStudiesInfo = function() {
+			$scope.docInfo.info.education_list.push({institute_name: '', degree: '', year_start: '', year_end: '', hilights: ''});
+		};
+		this.removeStudiesInfo = function(studiesToRemove) {
+			var index = $scope.docInfo.info.education_list.indexOf(studiesToRemove);
+			$scope.docInfo.info.education_list.splice(index, 1);
+		};
+		this.initStudiesInfo = function() {
+			var studies = $scope.docInfo.info.education_list;
+		};
+
+		this.updateDoctor = function(doc_id) {
+			var type = 'Doctor';
+			
+			studiesInfo.practice_list = [];
+			studiesInfo.practice_list = $scope.docInfo.info.practice_list;
+
+			for(var i in studiesInfo.practice_list) {
+				if (studiesInfo.practice_list[i] instanceof Array) {
+					console.log(i + 'Selección inválida');
+					var invalid_practice = 'Verifique la lista de especialidades.';
+               		var alert_div = $("<div class=\"alert alert-danger alert-dismissible noty_dash noty fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">x</span><span class=\"sr-only\"></span></button>"+invalid_practice+"</div>");
+					$("body").prepend(alert_div);
+					$(".alert").alert();
+					$('#practice_list_'+(parseInt(i)+1)).removeClass('ng-valid');
+					$('#practice_list_'+(parseInt(i)+1)).removeClass('ng-pristine');
+					$('#practice_list_'+(parseInt(i)+1)).addClass('ng-invalid');
+					$('#practice_list_'+(parseInt(i)+1)).addClass('ng-dirty');
+					return;
+				} else {
+					console.log(i + 'Selección válida');
+				}
+			}
+
+			studiesInfo.education_list = {};
+			studiesInfo.education_list = $scope.docInfo.info.education_list;
+			studiesInfo.profesional_membership = $scope.docInfo.info.profesional_membership;
+			studiesInfo.description = $scope.docInfo.info.description;
+			studiesInfo.insurance_list = $scope.docInfo.info.insurance_list;
+			console.log(studiesInfo);
+            $http.post(endpoint + type + '/Update/' + doc_id, studiesInfo)
+            .success(function(data) {
+                if (!data.status) {
+                    console.log("Paila, no se actualizó", data);
+                    //console.log(JSON.stringify(data1));
+                } else {
+                   // if successful, bind success message to message
+                   console.log("Listo, doctor actualizado", data.response);
+                   var success_msg = 'Los datos de formación académica han sido actualizados con éxito!';
+	           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
+					$("body").prepend(alert_div);
+					$(".alert").alert();
+					setTimeout(function() {
+					      alert_div.fadeOut(1800);
+					}, 800);
+                }
+      		});
+       };
+	}]);
 	//Controller for Locations - Doctor by Admin
 	adminDash.directive('docLocations', function() {
 	    return {

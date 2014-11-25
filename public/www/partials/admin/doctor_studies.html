@@ -1,80 +1,80 @@
 <div class="center">
 	<div class="inner-info-box">
 		<div class="form-box">
-			<form class="form-horizontal" name="changeStudiesInfo" ng-submit="changeStudiesInfo.$valid && dashStudiesCtrl.updateDoctor(docDashCtrl.info._id)" novalidate>
+			<form class="form-horizontal" name="changeStudiesInfo" ng-submit="changeStudiesInfo.$valid && docStudiesManageCtrl.updateDoctor(docManageCtrl.info._id)" novalidate>
 			<fieldset>
 				<fieldset>
 					<legend>Especialidades</legend>
 					<div class="form-group">
 					  <label class="col-md-4 control-label" for="practice_list">Especialidad</label>
 					  <div class="col-md-6">
-					  	<div class="pl-container" ng-repeat="practice_list in docDashCtrl.info.practice_list">
-							<select id="practice_list_{{$index + 1}}" name="practice_list" class="form-control small-input" ng-model="docDashCtrl.info.practice_list[$index]" ng-options="practice.name for practice in practices track by practice.id" required>
+					  	<div class="pl-container" ng-repeat="practice_list in docManageCtrl.info.practice_list">
+							<select id="practice_list_{{$index + 1}}" name="practice_list" class="form-control small-input" ng-model="docManageCtrl.info.practice_list[$index]" ng-options="practice.name for practice in practices track by practice.id" required>
 								<option value="" >- Agregue una especialidad -</option>
 							</select>
-							<a href="" ng-click="dashStudiesCtrl.removePractice(practice)" class="btn btn-danger btn-small remove-btn"><i class="fa fa-times"></i></a>
+							<a href="" ng-click="docStudiesManageCtrl.removePractice(practice)" class="btn btn-danger btn-small remove-btn"><i class="fa fa-times"></i></a>
 						</div>
-						<a href="" ng-click="dashStudiesCtrl.addPractice()" class="btn btn-primary btn-small add-btn"><i class="fa fa-plus"></i> Agregar</a>
+						<a href="" ng-click="docStudiesManageCtrl.addPractice()" class="btn btn-primary btn-small add-btn"><i class="fa fa-plus"></i> Agregar</a>
 					  </div>
 					</div>
 				</fieldset>
 				<fieldset>
 					<legend>Formación Académica</legend>
-					<div class="form-group list-group-item-info input-top-fix" ng-repeat="education_list in docDashCtrl.info.education_list">
+					<div class="form-group list-group-item-info input-top-fix" ng-repeat="education_list in docManageCtrl.info.education_list">
 					  <label class="col-md-4 control-label" for="institute_name">Universidad/Instituto</label>  
 					  <div class="col-md-6">
 						  <div class="in-container">
-						  	<input id="institute_name_{{$index + 1}}" name="institute_name" type="text" placeholder="" class="form-control input-md" ng-model="docDashCtrl.info.education_list[$index].institute_name">
+						  	<input id="institute_name_{{$index + 1}}" name="institute_name" type="text" placeholder="" class="form-control input-md" ng-model="docManageCtrl.info.education_list[$index].institute_name">
 						  </div>
 					  </div>
 					  <label class="col-md-4 control-label" for="degree">Carrera Profesional</label>  
 					  <div class="col-md-6">
 						  <div class="in-container">
-						  	<input id="degree_{{$index + 1}}" name="degree" type="text" placeholder="" class="form-control input-md" ng-model="docDashCtrl.info.education_list[$index].degree">
+						  	<input id="degree_{{$index + 1}}" name="degree" type="text" placeholder="" class="form-control input-md" ng-model="docManageCtrl.info.education_list[$index].degree">
 						  </div>
 					  </div>
 					  <label class="col-md-4 control-label" for="year_start">Año de Inicio</label>  
 					  <div class="col-md-6">
 						  <div class="in-container">
-						  	 <select id="year_start_{{$index + 1}}" name="year_start"  class="form-control" ng-model="docDashCtrl.info.education_list[$index].year_start" ng-options="year for year in yearsList">
+						  	 <select id="year_start_{{$index + 1}}" name="year_start"  class="form-control" ng-model="docManageCtrl.info.education_list[$index].year_start" ng-options="year for year in yearsList">
 							</select>
 						  </div>
 					  </div>
 					  <label class="col-md-4 control-label" for="year_start">Año de Finalización</label>  
 					  <div class="col-md-6">
 						  <div class="in-container">
-						  	 <select id="year_end_{{$index + 1}}" name="year_end"  class="form-control" ng-model="docDashCtrl.info.education_list[$index].year_end" ng-options="year for year in yearsList">
+						  	 <select id="year_end_{{$index + 1}}" name="year_end"  class="form-control" ng-model="docManageCtrl.info.education_list[$index].year_end" ng-options="year for year in yearsList">
 						  	 </select>
 						  </div>
 					  </div>
 					  <label class="col-md-4 control-label" for="hilights">Destacados</label>  
 					  <div class="col-md-6">
 						  <div class="in-container">
-						  	<textarea id="hilights_{{$index + 1}}" name="hilights" type="text" placeholder="" class="form-control input-md" ng-model="docDashCtrl.info.education_list[$index].hilights"></textarea>
+						  	<textarea id="hilights_{{$index + 1}}" name="hilights" type="text" placeholder="" class="form-control input-md" ng-model="docManageCtrl.info.education_list[$index].hilights"></textarea>
 						  </div>
 					  </div>
-					  <a href="" ng-click="dashStudiesCtrl.removeStudiesInfo(education_list)" class="btn btn-danger btn-small remove-btn"><i class="fa fa-times"></i>Eliminar</a>
+					  <a href="" ng-click="docStudiesManageCtrl.removeStudiesInfo(education_list)" class="btn btn-danger btn-small remove-btn"><i class="fa fa-times"></i>Eliminar</a>
 					</div>
-					<a href="" ng-click="dashStudiesCtrl.addStudiesInfo()" class="btn btn-primary btn-small add-btn pull-right"><i class="fa fa-plus"></i> Agregar</a>
+					<a href="" ng-click="docStudiesManageCtrl.addStudiesInfo()" class="btn btn-primary btn-small add-btn pull-right"><i class="fa fa-plus"></i> Agregar</a>
 				</fieldset>
 				<fieldset>
 				<legend>Información adicional</legend>
 					<div class="form-group">
 					  <label class="col-md-4 control-label" for="description">Descripción</label>  
 					  <div class="col-md-6">
-					  <textarea id="description" name="description" type="text" placeholder="" class="form-control input-md" ng-model="docDashCtrl.info.description"></textarea>
+					  <textarea id="description" name="description" type="text" placeholder="" class="form-control input-md" ng-model="docManageCtrl.info.description"></textarea>
 					  </div>
 					</div>
 					<div class="form-group">
 					  <label class="col-md-4 control-label" for="profesional_membership">Membresías Profesionales</label>  
 					  <div class="col-md-6">
-					  <input id="profesional_membership" name="profesional_membership" type="text" placeholder="" class="form-control input-md" ng-model="docDashCtrl.info.profesional_membership">
+					  <input id="profesional_membership" name="profesional_membership" type="text" placeholder="" class="form-control input-md" ng-model="docManageCtrl.info.profesional_membership">
 					  </div>
 					</div>
 					<div class="form-group last-form-element">
 					  <label class="col-md-4 control-label" for="insurance_list">Aseguradoras</label>
 					  <div class="col-md-6">
-						<select id="insurance_list" name="insurance_list" class="form-control"  ng-model="docDashCtrl.info.insurance_list">
+						<select id="insurance_list" name="insurance_list" class="form-control"  ng-model="docManageCtrl.info.insurance_list">
 						  <option value="Sura">Sura</option>
 						  <option value="Colpatria">Colpatria</option>
 						  <option value="Compensar">Compensar</option>
