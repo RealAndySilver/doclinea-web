@@ -961,9 +961,9 @@
                		if ($scope.doctorData.info.location_list.length == 0) {
                			$scope.doctorData.info.location_list.push({location_name: '', location_address: ''});
                		};
-               		if ($scope.doctorData.info.gallery.length == 0) {
-               			$scope.doctorData.info.gallery.push({name: '', image_url: ''});
-               		};
+               		// if ($scope.doctorData.info.gallery.length == 0) {
+               		// 	$scope.doctorData.info.gallery.push({name: '', image_url: ''});
+               		// };
            		}
         	});
 	}]);
@@ -1564,6 +1564,13 @@
                		console.log("Resultado de busqueda de usuarios:");
                		$scope.docInfo.info = data.response;
                		console.log($scope.docInfo.info);
+
+               		if ($scope.docInfo.info.education_list.length == 0) {
+               			$scope.docInfo.info.education_list.push({institute_name: '', degree: '', year_start: '', year_end: '', hilights: ''});
+               		};
+               		if ($scope.docInfo.info.location_list.length == 0) {
+               			$scope.docInfo.info.location_list.push({location_name: '', location_address: ''});
+               		};
            		}
         	});
 	}]);
