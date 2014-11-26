@@ -9,10 +9,12 @@
 		<h2 class="sub-header">Aseguradoras</h2>
 		<ul class="nav nav-tabs" role="tablist" id="insu-tab">
 			<li class="active"><a href="#/admin_dashboard/edit_insurance/{{insuranceManageCtrl.info._id}}/#insurance_info" role="tab" data-toggle="tab">Información básica</a></li>
+			<li><a href="#/admin_dashboard/edit_insurance/{{insuranceManageCtrl.info._id}}/#insurance_pic" role="tab" data-toggle="tab">Logo</a></li>
 			<li><a href="#/admin_dashboard/edit_insurance/{{insuranceManageCtrl.info._id}}/#type_list" role="tab" data-toggle="tab">Seguros</a></li>
 		</ul>
 	  	<div class="tab-content">
 			<basic-insurance class="tab-pane fade in active" id="insurance_info"></basic-insurance>
+			<insurance-logo class="tab-pane fade" id="insurance_pic"></insurance-logo>
 			<type-list class="tab-pane fade" id="type_list"></type-list> 
 		</div>
 	</div>

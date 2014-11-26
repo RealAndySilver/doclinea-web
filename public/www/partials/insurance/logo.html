@@ -1,12 +1,12 @@
 <div class="center">
 	<div class="inner-info-box">
 		<div class="form-box">
-			<form class="form-horizontal" name="hospitalLogo" ng-submit="uploadFile(hospitalManageCtrl.info._id)">
+			<form class="form-horizontal" name="insuranceLogo" ng-submit="uploadFile(insuranceManageCtrl.info._id)">
 			<fieldset>
 				<div class="form-group">
 				  <label class="col-md-4 control-label">Logo</label>  
 				  <div class="col-md-6">
-				  <img id="hospital-logo" ng-src="{{hospitalManageCtrl.info.logo.image_url}}" class="img-thumbnail" />
+				  <img id="insurance-logo" ng-src="{{insuranceManageCtrl.info.logo.image_url}}" class="img-thumbnail" />
 				  <span class="btn btn-info btn-file">Subir imagen
 				  	<input type="file" id="image" class="form-control input-md" hospital-file="myFile" ng-model="image">
 				  </span>

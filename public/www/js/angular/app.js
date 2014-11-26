@@ -2073,7 +2073,7 @@
 	            headers: {'Content-Type': undefined}
 	        })
 	        .success(function(){
-	        	var success_msg = 'El logo del hospital ha sido guardada con éxito!';
+	        	var success_msg = 'El logo del hospital ha sido guardado con éxito!';
            		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
 				$("body").prepend(alert_div);
 				$(".alert").alert();
@@ -2235,6 +2235,76 @@
                 }
       		});
        };
+	}]);
+	//Controller for Logo - Admin Insurances
+	adminDash.directive('insuranceLogo', function() {
+	    return {
+	    	restrict: 'E',
+	    	templateUrl: 'www/partials/insurance/logo.html',
+	    	controller: 'LogoInsuranceController',
+	    	controllerAs: 'logoInsuranceCtrl',
+	    };
+	});
+	adminDash.directive('insuranceFile', ['$parse', function ($parse) {
+	    return {
+	        restrict: 'A',
+	        link: function(scope, element, attrs) {
+	            var model = $parse(attrs.insuranceFile);
+	            var modelSetter = model.assign;
+	            
+	            element.bind('change', function(){
+	                scope.$apply(function(){
+	                    modelSetter(scope, element[0].files[0]);
+	                });
+	            });
+	        }
+	    };
+	}]);
+	adminDash.service('insuranceUpload', ['$http', function ($http) {
+	    this.uploadFileToUrl = function(file, uploadUrl){
+	        var fd = new FormData();
+	        fd.append('image', file);
+	        $http.post(uploadUrl, fd, {
+	            transformRequest: angular.identity,
+	            headers: {'Content-Type': undefined}
+	        })
+	        .success(function(){
+	        	var success_msg = 'El logo de la aseguradora ha sido guardado con éxito!';
+           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
+				$("body").prepend(alert_div);
+				$(".alert").alert();
+				setTimeout(function() {
+				      alert_div.fadeOut(1800);
+				}, 800);
+	        })
+	        .error(function(){
+	        });
+	    }
+	}]);
+	adminDash.controller('LogoInsuranceController', ['$http', '$scope', '$routeParams', 'insuranceUpload', function($http, $scope, $routeParams, insuranceUpload){
+		function readURL(input) {
+	        if (input.files && input.files[0]) {
+	            var reader = new FileReader();
+
+	            reader.onload = function (e) {
+	                $('#insurance-logo').attr('src', e.target.result);
+	            }
+
+	            reader.readAsDataURL(input.files[0]);
+	        }
+	    }
+
+	    $("#image").change(function(){
+	        readURL(this);
+	    });
+
+    	var type = 'InsuranceCompany';
+	    $scope.uploadFile = function(insurancecompany_id){
+	        var file = $scope.myFile;
+	        console.log('file is ' + JSON.stringify(file));
+	        var uploadUrl = endpoint + type + '/UpdatePic/' + insurancecompany_id;
+	        insuranceUpload.uploadFileToUrl(file, uploadUrl);
+	    };
 	}]);
 	//Controller for Type List - Admin Insurances
 	adminDash.directive('typeList', function() {
