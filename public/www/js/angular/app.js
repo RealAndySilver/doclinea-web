@@ -2049,7 +2049,7 @@
 	    	controllerAs: 'logoHospitalCtrl',
 	    };
 	});
-	docDash.directive('hospitalFile', ['$parse', function ($parse) {
+	adminDash.directive('hospitalFile', ['$parse', function ($parse) {
 	    return {
 	        restrict: 'A',
 	        link: function(scope, element, attrs) {
@@ -2064,7 +2064,7 @@
 	        }
 	    };
 	}]);
-	docDash.service('fileUpload', ['$http', function ($http) {
+	adminDash.service('hospitalUpload', ['$http', function ($http) {
 	    this.uploadFileToUrl = function(file, uploadUrl){
 	        var fd = new FormData();
 	        fd.append('image', file);
@@ -2085,7 +2085,7 @@
 	        });
 	    }
 	}]);
-	adminDash.controller('LogoHospitalController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams){
+	adminDash.controller('LogoHospitalController', ['$http', '$scope', '$routeParams', 'hospitalUpload', function($http, $scope, $routeParams, hospitalUpload){
 		function readURL(input) {
 	        if (input.files && input.files[0]) {
 	            var reader = new FileReader();
@@ -2102,12 +2102,12 @@
 	        readURL(this);
 	    });
 
-    	var type = 'Doctor';
+    	var type = 'Hospital';
 	    $scope.uploadFile = function(hospital_id){
 	        var file = $scope.myFile;
 	        console.log('file is ' + JSON.stringify(file));
 	        var uploadUrl = endpoint + type + '/UpdatePic/' + hospital_id;
-	        fileUpload.uploadFileToUrl(file, uploadUrl);
+	        hospitalUpload.uploadFileToUrl(file, uploadUrl);
 	    };
 	}]);
 	//Controller for Insurances - Seccions in Admin
