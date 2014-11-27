@@ -3,11 +3,11 @@
 		<div class="form-box">
 			<form class="form-horizontal" name="typeListForm" ng-submit="typeListCtrl.createType(insuranceManageCtrl.info._id)">
 			<fieldset>
-				<div class="list-group-item-info form-block">
+				<div class="form-block list-group-item-info" ng-repeat="type in insuranceManageCtrl.info.type_list">
 					<div class="form-group">
 					  <label class="col-md-4 control-label" for="name">Nombre</label>  
 					  <div class="col-md-6">
-					  <input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="insuranceManageCtrl.info.type_list.name" ng-minlength=3 ng-pattern="/^(\D)+$/">
+					  <input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="insuranceManageCtrl.info.type_list[0].name" ng-minlength=3 ng-pattern="/^(\D)+$/">
 					  <div class="error" ng-show="typeListForm.name.$dirty && typeListForm.name.$invalid">
 					  	  <small class="error" ng-show="typeListForm.name.$error.required">Nombre es obligatorio.</small>
 						  <small class="error" ng-show="typeListForm.name.$error.minlength">El nombre debe contener por lo menos 3 letras.</small>
@@ -18,7 +18,7 @@
 					<div class="form-group">
 					  <label class="col-md-4 control-label" for="category">Categoría</label>  
 					  <div class="col-md-6">
-					  <input id="category" name="category" type="text" placeholder="" class="form-control input-md" ng-model="insuranceManageCtrl.info.type_list.category" ng-minlength=3 ng-pattern="/^(\D)+$/">
+					  <input id="category" name="category" type="text" placeholder="" class="form-control input-md" ng-model="insuranceManageCtrl.info.type_list[0].category" ng-minlength=3 ng-pattern="/^(\D)+$/">
 					  <div class="error" ng-show="typeListForm.category.$dirty && typeListForm.category.$invalid">
 					  	  <small class="error" ng-show="typeListForm.category.$error.required">Categoría es obligatorio.</small>
 						  <small class="error" ng-show="typeListForm.category.$error.minlength">La categoría debe contener por lo menos 3 letras.</small>
@@ -35,6 +35,19 @@
 				</div>
 			</fieldset>
 			</form>
-		</div> 
+		</div>
+		<!-- <div class="mid-box-b panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Aseguradoras</h3>
+				<button class="btn btn-info btn-mini" ng-click="typeListCtrl.showTypes()"><i class="fa fa-eye"></i></button>
+			</div>
+			<ul class="list-group scroll-list">
+				<li class="list-group-item" ng-repeat="type in insurancesCtrl.insurances">
+					<span class="list-element">{{insurance.name}}</span>
+					<a href="#/admin_dashboard/edit_insurance/{{insurance._id}}" class="btn btn-info"><i class="fa fa-pencil-square-o"></i></a>
+					<button class="btn btn-danger"><i class="fa fa-times"></i></button>
+				</li>
+			</ul>
+		</div>  -->
 	</div>
 </div>

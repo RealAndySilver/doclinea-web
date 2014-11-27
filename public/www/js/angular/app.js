@@ -2346,7 +2346,11 @@
 
                 }
       		});
-       };
+        };
+
+        // this.showTypes = function() {
+        // 	alert('spabee');
+        // }
 	}]);
 	//Controller for Practices - Seccions in Admin
 	adminDash.directive('practices', function() {
