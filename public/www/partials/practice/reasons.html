@@ -22,18 +22,17 @@
 			</fieldset>
 			</form>
 		</div> 
-		<!-- <div class="mid-box-b panel panel-default">
+		<div class="mid-box-b panel panel-default">
 			<div class="panel-heading">
-				<h3 class="panel-title">Especialidades</h3>
-				<button class="btn btn-info btn-mini" ng-click="practiceManageCtrl.showPractices()"><i class="fa fa-eye"></i></button>
+				<h3 class="panel-title">Motivos</h3>
+				<button class="btn btn-info btn-mini"><i class="fa fa-eye"></i></button>
 			</div>
 			<ul class="list-group scroll-list">
-				<li class="list-group-item" ng-repeat="practice in practiceManageCtrl.practices">
-					<span class="list-element">{{practice.name}}</span>
-					<a href="#/admin_dashboard/edit_practice/{{practice._id}}" class="btn btn-info"><i class="fa fa-pencil-square-o"></i></a>
+				<li class="list-group-item" ng-repeat="reason in practiceManageCtrl.info.reason_list">
+					<span class="list-element reason">{{reason.reason}}...</span>
 					<button class="btn btn-danger"><i class="fa fa-times"></i></button>
 				</li>
 			</ul>
-		</div> -->
+		</div>
 	</div>
 </div>
