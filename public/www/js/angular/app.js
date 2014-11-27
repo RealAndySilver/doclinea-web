@@ -2320,6 +2320,10 @@
       	$scope.insuranceInfo.typeList = {};
 		var typeList = $scope.insuranceInfo.typeList;
 
+		this.addType = function() {
+        	$scope.insuranceInfo.info.type_list.push({name: '', category: ''});
+        };
+
         this.createType = function(insuranceCompanyID) {
 
 			typeList = {};
@@ -2347,10 +2351,6 @@
                 }
       		});
         };
-
-        // this.showTypes = function() {
-        // 	alert('spabee');
-        // }
 	}]);
 	//Controller for Practices - Seccions in Admin
 	adminDash.directive('practices', function() {
