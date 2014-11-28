@@ -2073,10 +2073,6 @@
 			
 			basicInfo.name = $scope.hospitalInfo.info.name;
 			basicInfo.email = $scope.hospitalInfo.info.email;
-			basicInfo.location_list = {};
-			basicInfo.location_list.address = $scope.hospitalInfo.info.location_list[0].address;
-			basicInfo.location_list.lat = $scope.lat;
-			basicInfo.location_list.lon = $scope.lng;
 			console.log(basicInfo);
 
             $http.post(endpoint + type + '/Update/' + hospital_id, basicInfo)
@@ -2173,10 +2169,41 @@
 	    return {
 	    	restrict: 'E',
 	    	templateUrl: 'www/partials/hospital/location.html',
-	    	// controller: 'BasicHospitalController',
-	    	// controllerAs: 'basicHospitalCtrl',
+	    	controller: 'LocationHospitalController',
+	    	controllerAs: 'locationHospitalCtrl',
 	    };
 	});
+	adminDash.controller('LocationHospitalController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams){
+		var type = "Hospital";
+      	$scope.hospitalInfo.location = {};
+		var location = $scope.hospitalInfo.location;
+        this.updateHospital = function(hospital_id) {
+			
+			location.location_list = {};
+			location.location_list.address = $scope.hospitalInfo.info.location_list[0].address;
+			location.location_list.lat = $scope.lat;
+			location.location_list.lon = $scope.lng;
+			console.log(location);
+
+            $http.post(endpoint + type + '/Update/' + hospital_id, location)
+            .success(function(data) {
+                if (!data.status) {
+                    console.log("Paila, no se actualizó", data);
+                    //console.log(JSON.stringify(data1));
+                } else {
+                   // if successful, bind success message to message
+                    console.log("Listo, doctor actualizado", data);
+                    var success_msg = 'La localización del hospital ha sido actualizada con éxito!';
+	           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
+					$("body").prepend(alert_div);
+					$(".alert").alert();
+					setTimeout(function() {
+					    alert_div.fadeOut(1800);
+					}, 800);
+                }
+      		});
+       };
+	}]);
 	//Controller for Insurances - Seccions in Admin
 	adminDash.directive('insurances', function() {
 	    return {
