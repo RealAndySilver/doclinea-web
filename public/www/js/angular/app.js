@@ -1977,7 +1977,7 @@
 		  $(this).tab('show');
 		});
 
-		$('#hospi-tab a[href="#/admin_dashboard/edit_hospital/{{hospitalManageCtrl.info._id}}/#hospital_info"]').on('shown.bs.tab', function (e) {
+		$('#hospi-tab a[href="#/admin_dashboard/edit_hospital/{{hospitalManageCtrl.info._id}}/#hospital_location"]').on('shown.bs.tab', function (e) {
 		    e.preventDefault();
 		    var mapOptions = {
 				zoom: 11,
@@ -2053,10 +2053,6 @@
                		if ($scope.hospitalInfo.info.location_list.length == 0) {
                			$scope.hospitalInfo.info.location_list.push({address: ''});
                		};
-        //        		if (!$scope.hospitalInfo.info.location_list[0].lat && !$scope.hospitalInfo.info.location_list[0].lon) {
-				    // 	$scope.hospitalInfo.info.location_list[0].lat = '';
-				    // 	$scope.hospitalInfo.info.location_list[0].lon = '';
-				    // };
            		}
         	});
 	}]);
@@ -2079,10 +2075,9 @@
 			basicInfo.email = $scope.hospitalInfo.info.email;
 			basicInfo.location_list = {};
 			basicInfo.location_list.address = $scope.hospitalInfo.info.location_list[0].address;
-			basicInfo.location_list[0].lat = $scope.lat;
-			basicInfo.location_list[0].lon = $scope.lng;
+			basicInfo.location_list.lat = $scope.lat;
+			basicInfo.location_list.lon = $scope.lng;
 			console.log(basicInfo);
-			console.log(hospital_id);
 
             $http.post(endpoint + type + '/Update/' + hospital_id, basicInfo)
             .success(function(data) {
@@ -2173,6 +2168,15 @@
 	        hospitalUpload.uploadFileToUrl(file, uploadUrl);
 	    };
 	}]);
+	//Controller for Location - Admin Hospitals
+	adminDash.directive('locationHospital', function() {
+	    return {
+	    	restrict: 'E',
+	    	templateUrl: 'www/partials/hospital/location.html',
+	    	// controller: 'BasicHospitalController',
+	    	// controllerAs: 'basicHospitalCtrl',
+	    };
+	});
 	//Controller for Insurances - Seccions in Admin
 	adminDash.directive('insurances', function() {
 	    return {
