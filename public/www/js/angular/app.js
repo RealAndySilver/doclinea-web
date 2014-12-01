@@ -2481,6 +2481,25 @@
                 }
       		});
         };
+
+        this.deleteType = function(id) {
+        	console.log(id);
+        	data1 = {};
+        	data1.id = id;
+        	console.log(data1);
+			$http.post(endpoint + type + '/RemoveInsuranceType/' + id)
+	      		.success(function(data) {
+	            	if (!data.status) {
+	               		console.log("No se pudo eliminar el seguro", data);
+	           		} else {
+	               		// if successful, bind success message to message
+	               		console.log("Seguro eliminado exitosamente.");
+	               		console.log(data);
+	     //           		var index = $scope.doctorData.info.practice_list.indexOf(practiceToRemove);
+						// $scope.doctorData.info.practice_list.splice(index, 1);
+	           		}
+	           	});
+        };
 	}]);
 	//Controller for Practices - Seccions in Admin
 	adminDash.directive('practices', function() {
