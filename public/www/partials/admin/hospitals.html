@@ -42,7 +42,7 @@
 				<li class="list-group-item" ng-repeat="hospital in hospitalsCtrl.hospitals">
 					<span class="list-element">{{hospital.name}}</span>
 					<a href="#/admin_dashboard/edit_hospital/{{hospital._id}}" class="btn btn-info"><i class="fa fa-pencil-square-o"></i></a>
-					<button class="btn btn-danger"><i class="fa fa-times"></i></button>
+					<button class="btn btn-danger" ng-click="hospitalsCtrl.deleteHospital(hospital._id)"><i class="fa fa-times"></i></button>
 				</li>
 			</ul>
 		</div>
