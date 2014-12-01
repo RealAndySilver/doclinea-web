@@ -42,7 +42,7 @@
 				<li class="list-group-item" ng-repeat="insurance in insurancesCtrl.insurances">
 					<span class="list-element">{{insurance.name}}</span>
 					<a href="#/admin_dashboard/edit_insurance/{{insurance._id}}" class="btn btn-info"><i class="fa fa-pencil-square-o"></i></a>
-					<button class="btn btn-danger"><i class="fa fa-times"></i></button>
+					<button class="btn btn-danger" ng-click="insurancesCtrl.deleteInsurance(insurance._id)"><i class="fa fa-times"></i></button>
 				</li>
 			</ul>
 		</div>

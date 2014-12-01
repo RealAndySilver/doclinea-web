@@ -1963,7 +1963,7 @@
 	               		// if successful, bind success message to message
 	               		console.log("Lista de hospitales");
 	               		console.log(data);
-	               		$scope.hospitals = data.response;
+	               		This.hospitals = data.response;
 	           		}
 	           	});
         };
@@ -1981,8 +1981,8 @@
 	               		// if successful, bind success message to message
 	               		console.log("Hospital eliminado exitosamente.");
 	               		console.log(data);
-	               		var index = $scope.doctorData.info.practice_list.indexOf(practiceToRemove);
-						$scope.doctorData.info.practice_list.splice(index, 1);
+	     //           		var index = $scope.doctorData.info.practice_list.indexOf(practiceToRemove);
+						// $scope.doctorData.info.practice_list.splice(index, 1);
 	           		}
 	           	});
         };
@@ -2274,6 +2274,25 @@
 
 	               		This.insurances = data.response;
 	               		//console.log(JSON.stringify(dProfile.name));
+	           		}
+	           	});
+        };
+
+        this.deleteInsurance = function(id) {
+        	console.log(id);
+        	data1 = {};
+        	data1.id = id;
+        	console.log(data1);
+			$http.post(endpoint + type + '/Delete', data1)
+	      		.success(function(data) {
+	            	if (!data.status) {
+	               		console.log("No se pudo eliminar la aseguradora", data);
+	           		} else {
+	               		// if successful, bind success message to message
+	               		console.log("Aseguradora eliminada exitosamente.");
+	               		console.log(data);
+	     //           		var index = $scope.doctorData.info.practice_list.indexOf(practiceToRemove);
+						// $scope.doctorData.info.practice_list.splice(index, 1);
 	           		}
 	           	});
         };
