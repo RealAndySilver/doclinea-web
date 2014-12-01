@@ -2683,6 +2683,22 @@
                 }
       		});
        };
+
+       this.deleteReason = function(practice_id) {
+        	console.log(practice_id);
+			$http.post(endpoint + type + '/RemoveAppointmentReason/' + practice_id)
+	      		.success(function(data) {
+	            	if (!data.status) {
+	               		console.log("No se pudo eliminar el motivo", data);
+	           		} else {
+	               		// if successful, bind success message to message
+	               		console.log("Motivo eliminado exitosamente.");
+	               		console.log(data);
+	     //           		var index = $scope.doctorData.info.practice_list.indexOf(practiceToRemove);
+						// $scope.doctorData.info.practice_list.splice(index, 1);
+	           		}
+	           	});
+        };
 	}]);
 
 })();
