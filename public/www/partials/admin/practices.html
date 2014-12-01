@@ -42,7 +42,7 @@
 				<li class="list-group-item" ng-repeat="practice in practicesCtrl.practices">
 					<span class="list-element">{{practice.name}}</span>
 					<a href="#/admin_dashboard/edit_practice/{{practice._id}}" class="btn btn-info"><i class="fa fa-pencil-square-o"></i></a>
-					<button class="btn btn-danger"><i class="fa fa-times"></i></button>
+					<button class="btn btn-danger" ng-click="practicesCtrl.deletePractice(practice._id)"><i class="fa fa-times"></i></button>
 				</li>
 			</ul>
 		</div>
