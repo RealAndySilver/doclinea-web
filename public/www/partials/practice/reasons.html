@@ -30,7 +30,7 @@
 			<ul class="list-group scroll-list">
 				<li class="list-group-item" ng-repeat="reason in practiceManageCtrl.info.reason_list">
 					<span class="list-element reason">{{reason.reason}}</span>
-					<button class="btn btn-danger" ng-click="reasonsPracticeCtrl.deleteReason(practiceManageCtrl.info._id)"><i class="fa fa-times"></i></button>
+					<button class="btn btn-danger" ng-click="reasonsPracticeCtrl.deleteReason(practiceManageCtrl.info._id, reason._id)"><i class="fa fa-times"></i></button>
 				</li>
 			</ul>
 		</div>

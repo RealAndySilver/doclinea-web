@@ -2482,9 +2482,12 @@
       		});
         };
 
-        this.deleteType = function(id) {
+        this.deleteType = function(id, type_id) {
         	console.log(id);
-			$http.post(endpoint + type + '/RemoveInsuranceType/' + id)
+        	data1 = {};
+        	data1.id = type_id;
+        	console.log(data1);
+			$http.post(endpoint + type + '/RemoveInsuranceType/' + id, data1)
 	      		.success(function(data) {
 	            	if (!data.status) {
 	               		console.log("No se pudo eliminar el seguro", data);
@@ -2559,9 +2562,6 @@
 
         this.deletePractice = function(id) {
         	console.log(id);
-        	data1 = {};
-        	data1.id = id;
-        	console.log(data1);
 			$http.post(endpoint + type + '/Delete', data1)
 	      		.success(function(data) {
 	            	if (!data.status) {
@@ -2684,9 +2684,12 @@
       		});
        };
 
-       this.deleteReason = function(practice_id) {
+       this.deleteReason = function(practice_id, reason_id) {
         	console.log(practice_id);
-			$http.post(endpoint + type + '/RemoveAppointmentReason/' + practice_id)
+        	data1 = {};
+        	data1.reason_id = reason_id;
+        	console.log(data1);
+			$http.post(endpoint + type + '/RemoveAppointmentReason/' + practice_id, data1)
 	      		.success(function(data) {
 	            	if (!data.status) {
 	               		console.log("No se pudo eliminar el motivo", data);
@@ -2694,8 +2697,8 @@
 	               		// if successful, bind success message to message
 	               		console.log("Motivo eliminado exitosamente.");
 	               		console.log(data);
-	     //           		var index = $scope.doctorData.info.practice_list.indexOf(practiceToRemove);
-						// $scope.doctorData.info.practice_list.splice(index, 1);
+	               		var index = $scope.practiceInfo.info.reason_list.indexOf(reason_id);
+						$scope.practiceInfo.info.reason_list.splice(index, 1);
 	           		}
 	           	});
         };
