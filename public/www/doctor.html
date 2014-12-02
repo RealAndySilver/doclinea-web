@@ -82,6 +82,58 @@
 				</div>-->
 				<div class="doc-schedule">
 					<div class="inner-doc-schedule">
+						<div role="main">
+						    <div class="container">
+						        <section id="directives-calendar" ng-controller="CalendarCtrl" ><div class="well">
+						                <div class="row-fluid">
+						                    <div class="span4">
+						                        <div class="btn-group calTools">
+						                          <button type="button" class="btn btn-primary" ng-click="addEvent(0)">
+						                            Evento Doclinea
+						                          </button>
+						                          <button type="button" class="btn btn-success" ng-click="addEvent(1)">
+						                            Evento Externo
+						                          </button>
+						                        </div>
+
+						                        <ul class="unstyled">
+						                            <li ng-repeat="e in events">
+						                                <div class="alert alert-info" style="background:{{e.color}}; color:{{e.textColor}};">
+						                                    <a class="close" ng-click="remove($index)"><i class="icon-remove"></i></a>
+						                                    <b> <input ng-model="e.title"></b> 
+						                                    {{e.start | date:"MMM dd"}} - {{e.end | date:"MMM dd"}}
+						                                </div>
+						                            </li>
+						                        </ul>
+						                    </div>
+
+						                    <div class="span8">
+						                        <tabset>
+						                            <tab select="renderCalender(myCalendar1);">
+						                              <tab-heading>
+						                               <i class="glyphicon glyphicon-bell"></i> Mi Calendario
+						                              </tab-heading>
+						                              <div class="alert-success calAlert" ng-show="alertMessage != undefined && alertMessage != ''">
+						                                <h4>{{alertMessage}}</h4>
+						                              </div>
+						                              <div class="btn-toolbar">
+						                                <p class="pull-right lead"></p>
+						                                <div class="btn-group">
+						                                    <button class="btn btn-success" ng-click="changeView('agendaDay', myCalendar1)">Día</button>
+						                                    <button class="btn btn-success" ng-click="changeView('agendaWeek', myCalendar1)">Semana</button>
+						                                    <button class="btn btn-success" ng-click="changeView('month', myCalendar1)">Mes</button>
+						                                </div>
+						                              </div>
+						                            <div class="calendar" ng-model="eventSources" calendar="myCalendar1" config="uiConfig.calendar" ui-calendar="uiConfig.calendar"></div>
+						                           <span ng-init="changeView('agendaWeek', myCalendar1)"></span>
+						                           </tab>
+						                        </tabset>
+						                    </div>
+						                </div>
+						            </div>
+						         </section>
+						    </div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -139,84 +191,14 @@
 						futuras citas.</p>
 					</div>
 				</div>
-				<div class="review-box">
-					<div class="items-reviewed">
-						<span class="rating-title">Opinión General</span>
-						<div class="visual-rating"></div>
-						<span class="rating-title">Trato al Paciente</span>
-						<div class="visual-rating"></div>
-						<span class="rating-title">Tiempo de Espera</span>
-						<div class="visual-rating"></div>
-					</div>
-					<div class="post-date">
-						<span>26 de Agosto de 2014</span>
-						<span>por Pepito Perez</span>
-					</div>
-					<div class="review-text">
-						<p>El doctor me pareció buena gente y de muy buen humor.
-						Me dió un buen diagnostico así que lo recomiendo para
-						futuras citas.</p>
-					</div>
-				</div>
-				<div class="review-box">
-					<div class="items-reviewed">
-						<span class="rating-title">Opinión General</span>
-						<div class="visual-rating"></div>
-						<span class="rating-title">Trato al Paciente</span>
-						<div class="visual-rating"></div>
-						<span class="rating-title">Tiempo de Espera</span>
-						<div class="visual-rating"></div>
-					</div>
-					<div class="post-date">
-						<span>26 de Agosto de 2014</span>
-						<span>por Pepito Perez</span>
-					</div>
-					<div class="review-text">
-						<p>El doctor me pareció buena gente y de muy buen humor.
-						Me dió un buen diagnostico así que lo recomiendo para
-						futuras citas.</p>
-					</div>
-				</div>
-				<div class="review-box">
-					<div class="items-reviewed">
-						<span class="rating-title">Opinión General</span>
-						<div class="visual-rating"></div>
-						<span class="rating-title">Trato al Paciente</span>
-						<div class="visual-rating"></div>
-						<span class="rating-title">Tiempo de Espera</span>
-						<div class="visual-rating"></div>
-					</div>
-					<div class="post-date">
-						<span>26 de Agosto de 2014</span>
-						<span>por Pepito Perez</span>
-					</div>
-					<div class="review-text">
-						<p>El doctor me pareció buena gente y de muy buen humor.
-						Me dió un buen diagnostico así que lo recomiendo para
-						futuras citas.</p>
-					</div>
-				</div>
-				<div class="review-box">
-					<div class="items-reviewed">
-						<span class="rating-title">Opinión General</span>
-						<div class="visual-rating"></div>
-						<span class="rating-title">Trato al Paciente</span>
-						<div class="visual-rating"></div>
-						<span class="rating-title">Tiempo de Espera</span>
-						<div class="visual-rating"></div>
-					</div>
-					<div class="post-date">
-						<span>26 de Agosto de 2014</span>
-						<span>por Pepito Perez</span>
-					</div>
-					<div class="review-text">
-						<p>El doctor me pareció buena gente y de muy buen humor.
-						Me dió un buen diagnostico así que lo recomiendo para
-						futuras citas.</p>
-					</div>
-				</div>
 			</div>
 		</div>
 	</div>
 </div>
 <script src="../www/js/front.js"></script>
+<script src="../www/js/libs/moment.js"></script>
+<script src="../www/js/calendar/fullcalendar.js"></script>
+<script src="../www/js/calendar/gcal.js"></script>
+<script src="../www/js/calendar/lang/es.js"></script>
+<script src="../www/js/libs/calendar.js"></script>
+<script src="../www/js/calendarPlugin.js"></script>
