@@ -17,7 +17,7 @@
 
 var defaults = {
 
-	lang: 'en',
+	lang: 'es',
 
 	defaultTimedEventDuration: '02:00:00',
 	defaultAllDayEventDuration: { days: 1 },

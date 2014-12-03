@@ -121,6 +121,7 @@ var date = new Date();
 	  calendar:{
 		height: 450,
 		editable: true,
+		lang: 'es',
 		header:{
 		  left: 'title',
 		  center: '',
@@ -136,10 +137,10 @@ var date = new Date();
 	  if($scope.changeTo === 'Hungarian'){
 		$scope.uiConfig.calendar.dayNames = ["Vasárnap", "Hétfő", "Kedd", "Szerda", "Csütörtök", "Péntek", "Szombat"];
 		$scope.uiConfig.calendar.dayNamesShort = ["Vas", "Hét", "Kedd", "Sze", "Csüt", "Pén", "Szo"];
-		$scope.changeTo= 'English';
+		$scope.changeTo= 'Spanish';
 	  } else {
-		$scope.uiConfig.calendar.dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-		$scope.uiConfig.calendar.dayNamesShort = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+		$scope.uiConfig.calendar.dayNames = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+		$scope.uiConfig.calendar.dayNamesShort = ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"];
 		$scope.changeTo = 'Hungarian';
 	  }
 	};
