@@ -1,32 +1,89 @@
 <div class="container-fluid">
   <div class="row">
 	<div class="col-sm-3 col-md-2 sidebar">
-	  <ul class="nav nav-sidebar">
-		<li><a href="#">Citas</a></li>
-		<li class="active"><a href="#">Cuenta</a></li>
-		<li><a href="#">Pagos</a></li>
-		<li><a href="#">Estadísticas</a></li>
+	  <ul class="nav nav-sidebar" role="tablist" id="admin-tab">
+		<li><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#appointments" role="tab" data-toggle="tab">Citas</a></li>
+		<li class="active"><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#account" role="tab" data-toggle="tab">Cuenta</a></li>
+		<!-- <li><a href="#">Pagos</a></li>
+		<li><a href="#">Estadísticas</a></li> -->
 	  </ul>
 	</div>
-	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-		<h2 class="sub-header">Cuenta</h2>
-		<ul class="nav nav-tabs" role="tablist" id="myTab">
-			<li class="active"><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#personal" role="tab" data-toggle="tab">Datos Personales</a></li>
-			<li><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#pictures" role="tab" data-toggle="tab">Imágenes</a></li>
-			<li><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#password_change" role="tab" data-toggle="tab">Contraseña</a></li>
-			<li><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#studies" role="tab" data-toggle="tab">Formación académica</a></li>
-			<li><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#locations" role="tab" data-toggle="tab">Consultorio</a></li>
-			<!-- <li><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#gallery" role="tab" data-toggle="tab">Galería</a></li> -->
-			<li><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#settings" role="tab" data-toggle="tab">Notificaciones</a></li>
-		</ul>
-	  	<div class="tab-content">
-			<personal class="tab-pane fade in active" id="personal"></personal>
-			<pictures class="tab-pane fade" id="pictures"></pictures>
-			<password_change class="tab-pane fade" id="password_change"></password_change>
-			<studies class="tab-pane fade" id="studies"></studies>
-			<locations class="tab-pane fade" id="locations"></locations>
-			<!-- <gallery class="tab-pane fade" id="gallery"></gallery> -->
-			<settings class="tab-pane fade" id="settings"></settings>
+	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main tab-content">
+		<div id="appointments" class="tab-pane fade">
+			<h2 class="sub-header">Citas</h2>
+			<div role="main">
+			    <div>
+			        <section id="directives-calendar" ng-controller="CalendarCtrl" ><div>
+			                <div class="row-fluid">
+			                    <div class="span4">
+			                        <div class="btn-group calTools">
+			                          <button type="button" class="btn btn-primary" ng-click="addEvent(0)">
+			                            Evento Doclinea
+			                          </button>
+			                          <button type="button" class="btn btn-success" ng-click="addEvent(1)">
+			                            Evento Externo
+			                          </button>
+			                        </div>
+
+			                        <ul class="unstyled">
+			                            <li ng-repeat="e in events">
+			                                <div class="alert alert-info" style="background:{{e.color}}; color:{{e.textColor}};">
+			                                    <a class="close" ng-click="remove($index)"><i class="icon-remove"></i>x</a>
+			                                    <b> <input ng-model="e.title"></b> 
+			                                    {{e.start | date:"MMM dd"}} - {{e.end | date:"MMM dd"}}
+			                                </div>
+			                            </li>
+			                        </ul>
+			                    </div>
+
+			                    <div class="span8">
+			                        <tabset>
+			                            <tab select="renderCalender(myCalendar1);">
+			                              <tab-heading>
+			                               <i class="glyphicon glyphicon-bell"></i> Horarios disponibles
+			                              </tab-heading>
+			                              <div class="alert-success calAlert" ng-show="alertMessage != undefined && alertMessage != ''">
+			                                <h4>{{alertMessage}}</h4>
+			                              </div>
+			                              <div class="btn-toolbar">
+			                                <p class="pull-right lead"></p>
+			                                <div class="btn-group">
+			                                    <button class="btn btn-success" ng-click="changeView('agendaDay', myCalendar1)">Día</button>
+			                                    <button id="set-week" class="btn btn-success" ng-click="changeView('agendaWeek', myCalendar1)">Semana</button>
+			                                    <button class="btn btn-success" ng-click="changeView('month', myCalendar1)">Mes</button>
+			                                </div>
+			                              </div>
+			                            <div class="calendar" ng-model="eventSources" calendar="myCalendar1" config="uiConfig.calendar" ui-calendar="uiConfig.calendar"></div>
+			                           <span ng-init="changeView('agendaWeek', myCalendar1)"></span>
+			                           </tab>
+			                        </tabset>
+			                    </div>
+			                </div>
+			            </div>
+			         </section>
+			    </div>
+			</div>
+		</div>
+		<div id="account" class="tab-pane fade in active">
+			<h2 class="sub-header">Cuenta</h2>
+			<ul class="nav nav-tabs" role="tablist" id="account-tab">
+				<li class="active"><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#personal" role="tab" data-toggle="tab">Datos Personales</a></li>
+				<li><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#pictures" role="tab" data-toggle="tab">Imágenes</a></li>
+				<li><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#password_change" role="tab" data-toggle="tab">Contraseña</a></li>
+				<li><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#studies" role="tab" data-toggle="tab">Formación académica</a></li>
+				<li><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#locations" role="tab" data-toggle="tab">Consultorio</a></li>
+				<!-- <li><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#gallery" role="tab" data-toggle="tab">Galería</a></li> -->
+				<li><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#settings" role="tab" data-toggle="tab">Notificaciones</a></li>
+			</ul>
+		  	<div class="tab-content">
+				<personal class="tab-pane fade in active" id="personal"></personal>
+				<pictures class="tab-pane fade" id="pictures"></pictures>
+				<password_change class="tab-pane fade" id="password_change"></password_change>
+				<studies class="tab-pane fade" id="studies"></studies>
+				<locations class="tab-pane fade" id="locations"></locations>
+				<!-- <gallery class="tab-pane fade" id="gallery"></gallery> -->
+				<settings class="tab-pane fade" id="settings"></settings>
+			</div>
 		</div>
 	</div>
   </div>

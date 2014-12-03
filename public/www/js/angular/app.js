@@ -858,12 +858,18 @@
 	docDash.controller('DocDashboardController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams){
 		var type = 'Doctor';
 
-		$('#myTab a').click(function (e) {
-		  e.preventDefault();
-		  $(this).tab('show');
+		$('#admin-tab a, #account-tab a').click(function (e) {
+		    e.preventDefault();
+		    $(this).tab('show');
 		});
 
-		$('#myTab a[href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#locations"]').on('shown.bs.tab', function (e) {
+		$('#admin-tab a[href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#appointments"]').on('shown.bs.tab', function (e) {
+		    e.preventDefault();
+		    $(this).tab('show');
+		    $('#set-week').trigger("click");
+		});
+
+		$('#account-tab a[href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#locations"]').on('shown.bs.tab', function (e) {
 		    e.preventDefault();
 		    var mapOptions = {
 				zoom: 11,
