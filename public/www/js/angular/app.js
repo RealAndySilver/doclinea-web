@@ -11,6 +11,8 @@
 	  'doctorDashboard',
 	  'userDashboard',
 	  'adminDashboard',
+	  'ui.calendar',
+	  'ui.bootstrap',
 	]);
 
 	var endpoint = "http://192.241.187.135:1414/api_1.0/";
@@ -617,6 +619,7 @@
 		var type = "Doctor";
 		var id = $routeParams.id;
 		//console.log(id);
+		$scope.encodedParam = btoa("undefined");
 
 		var This = this;
 
@@ -1395,11 +1398,6 @@
 		this.insurances = [ {name: "Colpatria", id: 1}, {name: "Compensar", id: 2}, {name: "Sura", id: 3} ];
 
 		console.log('THIS IS ADMIN');
-
-		$("ul.nav-tabs a").click(function (e) {
-		  e.preventDefault();
-		  $(this).tab('show');
-		});
 
 		$('#admin-tab a').click(function (e) {
 		  e.preventDefault();

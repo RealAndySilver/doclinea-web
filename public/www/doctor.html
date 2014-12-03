@@ -62,31 +62,13 @@
 		<div class="inner-doc-profile">
 			<h2>Pida una cita</h2>
 			<div class="book-box">
-				<!--<div class="inner-search-bar">
-					<div class="column-c">
-						<label>Escoja una aseguradora</label>
-						<select class="form-control">
-		                  <option value="">Colpatria</option>
-		                  <option value="">Sura</option>
-		                  <option value="">Compensar</option>
-		                </select>
-					</div>
-					<div class="column-c">
-						<label>¿Cuál es el motivo de consulta?</label>
-						<select class="form-control">
-		              		<option value="">Exámen general</option>
-		              		<option value="">Vacuna</option>
-		              		<option value="">Control prenatal</option>
-		            	</select>
-					</div>
-				</div>-->
 				<div class="doc-schedule">
 					<div class="inner-doc-schedule">
 						<div role="main" ng-app="calendarDemoApp">
-						    <div class="container">
-						        <section id="directives-calendar" ng-controller="CalendarCtrl" ><div class="well">
+						    <div>
+						        <section id="directives-calendar" ng-controller="CalendarCtrl" ><div>
 						                <div class="row-fluid">
-						                    <div class="span4">
+						                    <!-- <div class="span4">
 						                        <div class="btn-group calTools">
 						                          <button type="button" class="btn btn-primary" ng-click="addEvent(0)">
 						                            Evento Doclinea
@@ -99,19 +81,19 @@
 						                        <ul class="unstyled">
 						                            <li ng-repeat="e in events">
 						                                <div class="alert alert-info" style="background:{{e.color}}; color:{{e.textColor}};">
-						                                    <a class="close" ng-click="remove($index)"><i class="icon-remove"></i></a>
+						                                    <a class="close" ng-click="remove($index)"><i class="icon-remove"></i>x</a>
 						                                    <b> <input ng-model="e.title"></b> 
 						                                    {{e.start | date:"MMM dd"}} - {{e.end | date:"MMM dd"}}
 						                                </div>
 						                            </li>
 						                        </ul>
-						                    </div>
+						                    </div> -->
 
 						                    <div class="span8">
 						                        <tabset>
 						                            <tab select="renderCalender(myCalendar1);">
 						                              <tab-heading>
-						                               <i class="glyphicon glyphicon-bell"></i> Mi Calendario
+						                               <i class="glyphicon glyphicon-bell"></i> Horarios disponibles
 						                              </tab-heading>
 						                              <div class="alert-success calAlert" ng-show="alertMessage != undefined && alertMessage != ''">
 						                                <h4>{{alertMessage}}</h4>
