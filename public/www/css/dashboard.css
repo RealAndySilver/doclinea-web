@@ -154,3 +154,12 @@ header {
   width: 145px;
   float: left;
 }
+.span4 {
+  width: 30%;
+  float: left;
+}
+.span8 {
+  width: 60%;
+  float: left;
+  margin-left: 20px;
+}
