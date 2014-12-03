@@ -98,7 +98,7 @@ var date = new Date();
 		className: ['openSesame'],
 		allDay: false,
 		color: num == 0? '':'green',
-		textColor: num == 0? 'black':'white',
+		textColor: num == 0? 'black':'black',
 		forceEventDuration: true
 	  });
 	};
