@@ -9,7 +9,7 @@
 					  <label class="col-md-4 control-label" for="practice_list">Especialidad</label>
 					  <div class="col-md-6">
 					  	<div class="pl-container" ng-repeat="practice_list in docDashCtrl.info.practice_list">
-							<select id="practice_list_{{$index + 1}}" name="practice_list" class="form-control small-input" ng-model="docDashCtrl.info.practice_list[$index]" ng-options="practice.name for practice in practices track by practice.id" required>
+							<select id="practice_list_{{$index + 1}}" name="practice_list" class="form-control small-input" ng-model="docDashCtrl.info.practice_list[$index]" ng-options="practice.name for practice in practices" required>
 								<option value="" >- Agregue una especialidad -</option>
 							</select>
 							<a href="" ng-click="dashStudiesCtrl.removePractice(practice)" class="btn btn-danger btn-small remove-btn"><i class="fa fa-times"></i></a>

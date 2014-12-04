@@ -16,8 +16,8 @@
 	  'ui.bootstrap',
 	]);
 
-	var endpoint = "http://192.241.187.135:1414/api_1.0/";
-	//var endpoint = "http://192.168.1.112:1414/api_1.0/";
+	//var endpoint = "http://192.241.187.135:1414/api_1.0/";
+	var endpoint = "http://192.168.1.121:1414/api_1.0/";
 	app.config(['$routeProvider',
 		function($routeProvider) {
 		$routeProvider.
@@ -270,6 +270,7 @@
                var data1 = this.data;
                data1.password = btoa(data1.password);
                data1.password_verify = btoa(data1.password_verify);
+               data1.practice_list = data1.practice_list.name;
                $http.post(endpoint + type + '/Create', data1)
 	               .success(function(data) {
 	                   if (!data.status) {
@@ -600,8 +601,10 @@
 					$scope.markers.push(marker);
 				}
 
-				for (i = 0; i < (data.response).length; i++){
+				for (i = 0; i < (This.docs).length; i++){
 					createMarker(This.docs[i]);
+					// console.log('MIS DOCTORES ENCONTRADOS');
+					// console.log(This.docs[i]);
 				}
 
 				$scope.openInfoWindow = function(e, selectedMarker){
@@ -1173,23 +1176,23 @@
 			var type = 'Doctor';
 			
 			studiesInfo.practice_list = [];
-			studiesInfo.practice_list = $scope.doctorData.info.practice_list;
+			studiesInfo.practice_list = $scope.doctorData.info.practice_list[0].name;
 
 			for(var i in studiesInfo.practice_list) {
-				if (studiesInfo.practice_list[i] instanceof Array) {
-					console.log(i + 'Selección inválida');
-					var invalid_practice = 'Verifique la lista de especialidades.';
-               		var alert_div = $("<div class=\"alert alert-danger alert-dismissible noty_dash noty fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">x</span><span class=\"sr-only\"></span></button>"+invalid_practice+"</div>");
-					$("body").prepend(alert_div);
-					$(".alert").alert();
-					$('#practice_list_'+(parseInt(i)+1)).removeClass('ng-valid');
-					$('#practice_list_'+(parseInt(i)+1)).removeClass('ng-pristine');
-					$('#practice_list_'+(parseInt(i)+1)).addClass('ng-invalid');
-					$('#practice_list_'+(parseInt(i)+1)).addClass('ng-dirty');
-					return;
-				} else {
-					console.log(i + 'Selección válida');
-				}
+				// if (studiesInfo.practice_list[i] instanceof Array) {
+				// 	console.log(i + 'Selección inválida');
+				// 	var invalid_practice = 'Verifique la lista de especialidades.';
+    //            		var alert_div = $("<div class=\"alert alert-danger alert-dismissible noty_dash noty fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">x</span><span class=\"sr-only\"></span></button>"+invalid_practice+"</div>");
+				// 	$("body").prepend(alert_div);
+				// 	$(".alert").alert();
+				// 	$('#practice_list_'+(parseInt(i)+1)).removeClass('ng-valid');
+				// 	$('#practice_list_'+(parseInt(i)+1)).removeClass('ng-pristine');
+				// 	$('#practice_list_'+(parseInt(i)+1)).addClass('ng-invalid');
+				// 	$('#practice_list_'+(parseInt(i)+1)).addClass('ng-dirty');
+				// 	return;
+				// } else {
+				// 	console.log(i + 'Selección válida');
+				// }
 			}
 
 			studiesInfo.education_list = {};
