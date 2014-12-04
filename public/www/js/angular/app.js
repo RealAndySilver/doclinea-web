@@ -675,9 +675,9 @@
 	userDash.controller('UserDashboardController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams){
 		var type = 'User';
 
-		$('#myTab a').click(function (e) {
-		  e.preventDefault();
-		  $(this).tab('show');
+		$('#user-tab a, #myTab a').click(function (e) {
+		    e.preventDefault();
+		    $(this).tab('show');
 		});
 
 		var id = $routeParams.id;
@@ -858,12 +858,12 @@
 	docDash.controller('DocDashboardController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams){
 		var type = 'Doctor';
 
-		$('#admin-tab a, #account-tab a').click(function (e) {
+		$('#doc-tab a, #account-tab a').click(function (e) {
 		    e.preventDefault();
 		    $(this).tab('show');
 		});
 
-		$('#admin-tab a[href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#appointments"]').on('shown.bs.tab', function (e) {
+		$('#doc-tab a[href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#appointments"]').on('shown.bs.tab', function (e) {
 		    e.preventDefault();
 		    $(this).tab('show');
 		    $('#set-week').trigger("click");

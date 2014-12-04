@@ -1,22 +1,38 @@
 <div class="container-fluid">
   <div class="row">
 	<div class="col-sm-3 col-md-2 sidebar">
-	  <ul class="nav nav-sidebar">
-		<li><a href="#">Citas</a></li>
-		<li class="active"><a href="#">Cuenta</a></li>
+	  <ul class="nav nav-sidebar" role="tablist" id="user-tab">
+		<li><a href="#/user/{{userDashCtrl.info._id}}/#user_appointments">Citas</a></li>
+		<li class="active"><a href="#/user/{{userDashCtrl.info._id}}/#user_account">Cuenta</a></li>
 	  </ul>
 	</div>
-	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-		<h2 class="sub-header">Cuenta</h2>
-		<ul class="nav nav-tabs" role="tablist" id="myTab">
-			<li class="active"><a href="#/doctor_dashboard/{{userDashCtrl.info._id}}/#personal" role="tab" data-toggle="tab">Datos Personales</a></li>
-			<li><a href="#/doctor_dashboard/{{userDashCtrl.info._id}}/#password_change" role="tab" data-toggle="tab">Contraseña</a></li>
-			<li><a href="#/doctor_dashboard/{{userDashCtrl.info._id}}/#user_settings" role="tab" data-toggle="tab">Notificaciones</a></li>
-		</ul>
-	  	<div class="tab-content">
-			<personal_user class="tab-pane fade in active" id="personal"></personal_user>
-			<password_change_user class="tab-pane fade" id="password_change"></password_change_user>
-			<user_settings class="tab-pane fade" id="user_settings"></user_settings>
+	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main tab-content">
+		<div id="user_appointments" class="tab-pane fade">
+			<div class="center">
+				<div class="inner-info-box">
+					<h2>Citas</h2>	
+					<ul class="list-group">
+					  <li class="list-group-item">Cras justo odio</li>
+					  <li class="list-group-item">Dapibus ac facilisis in</li>
+					  <li class="list-group-item">Morbi leo risus</li>
+					  <li class="list-group-item">Porta ac consectetur ac</li>
+					  <li class="list-group-item">Vestibulum at eros</li>
+					</ul>
+				</div>
+			</div>	
+		</div>
+		<div id="user_account" class="tab-pane fade in active">
+			<h2 class="sub-header">Cuenta</h2>
+			<ul class="nav nav-tabs" role="tablist" id="myTab">
+				<li class="active"><a href="#/user/{{userDashCtrl.info._id}}/#personal" role="tab" data-toggle="tab">Datos Personales</a></li>
+				<li><a href="#/user/{{userDashCtrl.info._id}}/#password_change" role="tab" data-toggle="tab">Contraseña</a></li>
+				<li><a href="#/user/{{userDashCtrl.info._id}}/#user_settings" role="tab" data-toggle="tab">Notificaciones</a></li>
+			</ul>
+		  	<div class="tab-content">
+				<personal_user class="tab-pane fade in active" id="personal"></personal_user>
+				<password_change_user class="tab-pane fade" id="password_change"></password_change_user>
+				<user_settings class="tab-pane fade" id="user_settings"></user_settings>
+			</div>
 		</div>
 	</div>
   </div>
