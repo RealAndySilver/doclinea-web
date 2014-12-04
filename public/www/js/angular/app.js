@@ -11,6 +11,7 @@
 	  'doctorDashboard',
 	  'userDashboard',
 	  'adminDashboard',
+	  'calendarPlugin',
 	  'ui.calendar',
 	  'ui.bootstrap',
 	]);
@@ -854,7 +855,7 @@
 	///////////////////////////////////////////////////////////////////
 	//Module and Controllers for Doctor Dashboard - PARENT CONTROLLER//
 	///////////////////////////////////////////////////////////////////
-	docDash = angular.module('doctorDashboard', []);
+	docDash = angular.module('doctorDashboard', ['calendarPlugin']);
 	docDash.controller('DocDashboardController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams){
 		var type = 'Doctor';
 
