@@ -4,15 +4,11 @@
 
 	app.controller('CalendarCtrl', ['$scope', '$http', function($scope, $http) {
 
-		$scope.getDoctor = function() {
-			console.log('MI DOCTOR ACTUAL ES');
-			console.log($scope.doctorData.info);
-			console.log(num+3);
-		};
-
 		$scope.info = {};
-		$scope.setDoctor = function(v) {
-			$scope.info = v;
+		$scope.eventByDoctor = function(doctor) {
+			$scope.info = doctor;
+			// console.log('Evento creado:');
+			// console.log($scope.events);
 		}
 
 		var date = new Date();
@@ -88,30 +84,30 @@
 		/* add custom event*/
 		$scope.addEvent = function(num) {
 			console.log($scope.info);
-		var date = new Date();
-		var mm = date.getMinutes();
-		var h = date.getHours();
-		var d = date.getDate();
-		var m = date.getMonth();
-		var y = date.getFullYear();
-		if (mm < 15) {
-			mm = 0;
-		} else if (mm < 45){
-			mm = 30;
-		} else {
-			mm = 0;
-			++h;
-		}
-		  $scope.events.push({
-			title: 'Nota',
-			start: new Date(y, m, d, h, mm),
-			end: new Date(y, m, d, h, mm+30),
-			className: ['openSesame'],
-			allDay: false,
-			color: num == 0? '':'green',
-			textColor: num == 0? 'black':'black',
-			forceEventDuration: true
-		  });
+			var date = new Date();
+			var mm = date.getMinutes();
+			var h = date.getHours();
+			var d = date.getDate();
+			var m = date.getMonth();
+			var y = date.getFullYear();
+			if (mm < 15) {
+				mm = 0;
+			} else if (mm < 45){
+				mm = 30;
+			} else {
+				mm = 0;
+				++h;
+			}
+		    $scope.events.push({
+				title: 'Nota',
+				start: new Date(y, m, d, h, mm),
+				end: new Date(y, m, d, h, mm+30),
+				className: ['openSesame'],
+				allDay: false,
+				color: num == 0? '':'green',
+				textColor: num == 0? 'black':'black',
+				forceEventDuration: true
+		    });
 		};
 		/* remove event */
 		$scope.remove = function(index) {

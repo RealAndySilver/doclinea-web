@@ -1,4 +1,5 @@
 <form name="getDoctors" ng-submit="searchDocsCtrl.getDoctors()" novalidate>
+	<h2>Búsqueda de Doctor</h2>
 	<div>
 		<label for="practice_list">Especialidad</label>
 		<select class="form-control" name="practice_list" id="practice_list" ng-model="searchDocsCtrl.practice" ng-options="op.name for op in adminCtrl.practices">

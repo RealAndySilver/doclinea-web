@@ -1406,7 +1406,7 @@
 
 		console.log('THIS IS ADMIN');
 
-		$('#admin-tab a').click(function (e) {
+		$('#admin-tab a, #myTab a').click(function (e) {
 		  e.preventDefault();
 		  $(this).tab('show');
 		});
