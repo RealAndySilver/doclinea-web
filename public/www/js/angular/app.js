@@ -247,8 +247,8 @@
                 $http.post(endpoint + type + '/Authenticate', data1)
                 .success(function(data) {
                    if (!data.status) {
-                           //console.log("Paila, no se autenticó",data);
-                           var auth_error = 'El usuario o la contraseña estan incorrectos.';
+                           console.log("No se autenticó", data);
+                           var auth_error = data.error;
 		               		var alert_div = $("<div class=\"alert alert-danger alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">x</span><span class=\"sr-only\"></span></button>"+auth_error+"</div>");
 							$("body").prepend(alert_div);
 							$(".alert").alert();
@@ -317,7 +317,7 @@
 	           .success(function(data) {
 	               if (!data.status) {
                         console.log("Paila, no se autenticó",data);
-                        var auth_error = 'El usuario o la contraseña estan incorrectos.';
+                        var auth_error = 'El email o la contraseña estan incorrectos.';
 	               		var alert_div = $("<div class=\"alert alert-danger alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">x</span><span class=\"sr-only\"></span></button>"+auth_error+"</div>");
 						$("body").prepend(alert_div);
 						$(".alert").alert();
@@ -780,7 +780,7 @@
 			personalInfo.phone = $scope.userData.info.phone;
 			personalInfo.city = $scope.userData.info.city;
 			personalInfo.address = $scope.userData.info.address;
-			personalInfo.insurance_list = $scope.userData.info.insurance_list;
+			personalInfo.insurance = $scope.userData.info.insurance;
 			console.log(personalInfo);
 			console.log(user_id);
 
