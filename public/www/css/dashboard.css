@@ -170,3 +170,16 @@ header {
 .col-sm-9 {
   padding-right: 0;
 }
+.filter-block {
+  margin-bottom: 25px;
+}
+.weight-fix {
+  font-weight: normal;
+}
+.bottom-fix {
+  height: 200px;
+  border-bottom: solid 1px #e2e2e2;
+}
+#results-box .center .results-page .results-container.padding-fix {
+  padding: 0;
+}
