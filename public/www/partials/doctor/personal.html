@@ -30,6 +30,15 @@
 				  <div class="alert alert-info" role="alert">Para cambiar su correo debe contactarnos a contacto@doclinea.com</div>
 				  </div>
 				</div>
+				<div class="form-group">
+				  <label class="col-md-4 control-label" for="secondary_email">Email Secundario</label>  
+				  <div class="col-md-6">
+				  <input id="secondary_email" name="secondary_email" type="text" placeholder="" class="form-control input-md" ng-model="docDashCtrl.info.secondary_email" style="margin-bottom: 10px;">
+				  <div class="error" ng-show="personalDocInfo.secondary_email.$dirty && personalDocInfo.secondary_email.$invalid">
+					    <small class="error" ng-show="personalDocInfo.secondary_email.$error.pattern">No es un email válido.</small>
+					  </div>
+				  </div>
+				</div>
 				<div class="form-group last-form-element">
 				  <label class="col-md-4 control-label" for="gender">Género</label>
 				  <div class="col-md-4"> 

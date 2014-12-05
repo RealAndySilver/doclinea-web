@@ -17,7 +17,7 @@
 	]);
 
 	//var endpoint = "http://192.241.187.135:1414/api_1.0/";
-	var endpoint = "http://192.168.1.121:1414/api_1.0/";
+	var endpoint = "http://192.168.1.122:1414/api_1.0/";
 	app.config(['$routeProvider',
 		function($routeProvider) {
 		$routeProvider.
@@ -1110,7 +1110,7 @@
 			
 			personalInfo.name = $scope.doctorData.info.name;
 			personalInfo.lastname = $scope.doctorData.info.lastname;
-			personalInfo.email = $scope.doctorData.info.email;
+			personalInfo.secondary_email = $scope.doctorData.info.secondary_email;
 			personalInfo.gender = $scope.doctorData.info.gender;
 			personalInfo.patient_gender = $scope.doctorData.info.patient_gender;
 			personalInfo.phone = $scope.doctorData.info.phone;
