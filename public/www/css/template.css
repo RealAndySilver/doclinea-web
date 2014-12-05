@@ -10,6 +10,7 @@ body {
 }
 .dynamic-content {
   padding-top: 110px;
+  min-height: 600px;
 }
 #shadow {
   position: absolute;

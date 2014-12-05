@@ -25,7 +25,8 @@
 #sign-in-box .center .inner-info-box,
 #doctor-sign-in-box .inner-info-box,
 #doctor-recover-password .inner-info-box,
-#user-recover-password .inner-info-box {
+#user-recover-password .inner-info-box,
+#account-confirmation .inner-info-box {
   padding: 115px 0;
 }
 #sign-up-box .inner-info-box .form-box,
@@ -70,7 +71,8 @@
 #sign-in-box .inner-info-box .form-box,
 #doctor-sign-in-box .inner-info-box .form-box,
 #doctor-recover-password .inner-info-box .form-box,
-#user-recover-password .inner-info-box .form-box {
+#user-recover-password .inner-info-box .form-box,
+#account-confirmation .inner-info-box .form-box {
   width: 45%;
   margin: 0 auto;
   padding: 25px;
