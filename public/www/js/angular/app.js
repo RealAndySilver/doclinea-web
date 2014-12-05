@@ -16,8 +16,8 @@
 	  'ui.bootstrap',
 	]);
 
-	//var endpoint = "http://192.241.187.135:1414/api_1.0/";
-	var endpoint = "http://192.168.1.122:1414/api_1.0/";
+	var endpoint = "http://192.241.187.135:1414/api_1.0/";
+	//var endpoint = "http://192.168.1.122:1414/api_1.0/";
 	app.config(['$routeProvider',
 		function($routeProvider) {
 		$routeProvider.
@@ -226,6 +226,8 @@
                            // if successful, bind success message to message
                        console.log("Listo, creado usuario" + data);
                        var user = data.response;
+                       var type = "user";
+	                   var email = btoa(user.email);
 	                   //console.log('la data es', user);
 	                   // window.location = "/#/user/" + user._id;
 	                   window.location = "/#/account_confirmation/" + type + "/" + email;
