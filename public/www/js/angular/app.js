@@ -16,8 +16,8 @@
 	  'ui.bootstrap',
 	]);
 
-	var endpoint = "http://192.241.187.135:1414/api_1.0/";
-	//var endpoint = "http://192.168.1.122:1414/api_1.0/";
+	//var endpoint = "http://192.241.187.135:1414/api_1.0/";
+	var endpoint = "http://192.168.1.122:1414/api_1.0/";
 	app.config(['$routeProvider',
 		function($routeProvider) {
 		$routeProvider.
@@ -53,8 +53,15 @@
 			when('/doctor_sign_in', {
 				templateUrl: '../www/doctor_sign_in.html',
 			}).
-			when('/account_confirmation', {
+			when('/account_confirmation/:type/:email', {
 				templateUrl: '../www/confirmation.html',
+				controller: 'AccountConfirmationController',
+				controllerAs : 'confirmCtrl',
+			}).
+			when('/account_activation/:type/:email', {
+				templateUrl: '../www/confirmation.html',
+				controller: 'AccountActivationController',
+				controllerAs : 'activeCtrl',
 			}).
 			when('/password_recover/doctor', {
 				templateUrl: '../www/password_recover.html',
@@ -220,7 +227,8 @@
                        console.log("Listo, creado usuario" + data);
                        var user = data.response;
 	                   //console.log('la data es', user);
-	                   window.location = "/#/user/" + user._id;
+	                   // window.location = "/#/user/" + user._id;
+	                   window.location = "/#/account_confirmation/" + type + "/" + email;
                    }
        });
        this.data = {};
@@ -284,8 +292,11 @@
 	                       console.log("Listo, creado" + data);
 	                       console.log(JSON.stringify(data1));
 	                       var doc = data.response;
+	                       var type = "doctor";
+	                       var email = btoa(doc.email);
 	                       //console.log('la data es', doc);
-	                       window.location = "/#/doctor_dashboard/" + doc._id;
+	                       // window.location = "/#/doctor_dashboard/" + doc._id;
+	                       window.location = "/#/account_confirmation/" + type + "/" + email;
 	                   }
 	        		});
         this.data = {};
@@ -299,21 +310,22 @@
 			//console.log('Entra a signIn');
            var data1 = this.data;
            data1.password = btoa(data1.password);
-           data1.password_verify = btoa(data1.password_verify);
+           // data1.password_verify = btoa(data1.password_verify);
            $http.post(endpoint + type + '/Authenticate', data1)
 	           .success(function(data) {
 	               if (!data.status) {
-	                        //console.log("Paila, no se autenticó",data);
-	                        var auth_error = 'El usuario o la contraseña estan incorrectos.';
-		               		var alert_div = $("<div class=\"alert alert-danger alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">x</span><span class=\"sr-only\"></span></button>"+auth_error+"</div>");
-							$("body").prepend(alert_div);
-							$(".alert").alert();
+                        console.log("Paila, no se autenticó",data);
+                        var auth_error = 'El usuario o la contraseña estan incorrectos.';
+	               		var alert_div = $("<div class=\"alert alert-danger alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">x</span><span class=\"sr-only\"></span></button>"+auth_error+"</div>");
+						$("body").prepend(alert_div);
+						$(".alert").alert();
 	               } else {
 	                       // if successful, bind success message to message
 	                   console.log("Listo, doctor autenticado", data.response);
 	                   var doc = data.response;
 	                   //console.log('la data es', doc);
 	                   window.location = "/#/doctor_dashboard/" + doc._id;
+	                   // window.location = "/#/account_confirmation";
 	               }
 	       		});
        this.data = {};
@@ -421,6 +433,45 @@
 	                }
 	    		});
 		};
+	}]);
+
+	//Controller for Account Confirmation
+	app.controller('AccountConfirmationController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams){
+
+		var type = $routeParams.type;
+		var email = $routeParams.email;
+		console.log(type, email);
+
+		data1 = {};
+		data1.email = atob(email);
+		console.log(data1);
+
+		this.sendEmailVerification = function() {
+			//console.log('enviando correo...');
+			$http.post(endpoint + "Account" + '/SendEmailVerification/' + type + "/" + email, data1)
+	            .success(function(data) {
+	                if (!data.status) {
+	                    //console.log("El correo no puede ser reenviado", data);
+	                } else {
+	                       // if successful, bind success message to message
+	                   //console.log("Ha sido enviado el correo" + data);
+	                   var success_msg = 'Su solicitud ha sido enviada con éxito!';
+		           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
+						$("body").prepend(alert_div);
+						$(".alert").alert();
+						setTimeout(function() {
+						      alert_div.fadeOut(1800);
+						      window.location = "/#";
+						}, 800);
+	                }
+	    		});
+		};
+	}]);
+
+	//Controller for Account Activation
+	app.controller('AccountActivationController', ['$http', '$routeParams', '$scope', function($http, $routeParams, $scope){
+		$scope.type = $routeParams.type;
+		console.log($scope.type);
 	}]);
 
 	//Parent Controller for Doctors Searching

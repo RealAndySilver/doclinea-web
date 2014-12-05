@@ -2,11 +2,22 @@
 	<div class="center">
 		<div class="inner-info-box">
 			<div class="form-box">
-				<p>
-					Se le ha enviado un correo para que confirme su cuenta y pueda iniciar sesión de Doclinea.
-					Si no le ha llegado aun el correo puede reenviarlo en el siguiente enlace:
-					<a href="http://blog.us.playstation.com/">Reenviar correo</a>
+				<p ng-hide="type">
+					Se le ha enviado un correo para que active su cuenta y pueda iniciar sesión de Doclinea.
+					Si no le ha llegado aun el correo, puede reenviarlo a continuación:
+					<div class="center-button">
+						<button  ng-hide="type" ng-click="confirmCtrl.sendEmailVerification()" class="btn btn-primary">Reenviar correo</button>
+					</div>
 				</p>
+				<p ng-show="type">
+					Ahora que se ha activado su cuenta con éxito, puede iniciar sesión en Doclinea.
+				</p>
+				<div class="center-button" ng-if="type == 'doctor'">
+					<a href="#/doctor_sign_in/" id="to_doc_login" name="toDocLogin" class="btn btn-primary">Inicar sesión</a>
+				</div>
+				<div class="center-button" ng-if="type == 'user'">
+					<a href="#/sign_in/" id="to_user_login" name="toUserLogin" class="btn btn-primary">Inicar sesión</a>
+				</div>
 			</div>
 		</div>
 	</div>
