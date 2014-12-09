@@ -139,7 +139,7 @@
 					<div class="form-group last-form-element">
 					  <label class="col-md-4 control-label" for="practice">Especialidad</label>
 					  <div class="col-md-6">
-						<select id="practice_list" name="practice_list" class="form-control" ng-model="docSignUpCtrl.data.practice_list" ng-options="practice.name for practice in practices" required>
+						<select id="practice_list" name="practice_list" class="form-control" ng-model="docSignUpCtrl.data.practice_list" ng-options="practice.name for practice in docSignUpCtrl.practices" required>
 						</select>
 						<div class="error" ng-show="doctorSignUpForm.practice_list.$dirty && doctorSignUpForm.practice_list.$invalid">
 						  <small class="error" ng-show="doctorSignUpForm.practice_list.$error.required">Especialidad es obligatoria.</small>

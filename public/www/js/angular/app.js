@@ -16,8 +16,8 @@
 	  'ui.bootstrap',
 	]);
 
-	var endpoint = "http://192.241.187.135:1414/api_1.0/";
-	//var endpoint = "http://192.168.1.123:1414/api_1.0/";
+	//var endpoint = "http://192.241.187.135:1414/api_1.0/";
+	var endpoint = "http://192.168.1.123:1414/api_1.0/";
 	app.config(['$routeProvider',
 		function($routeProvider) {
 		$routeProvider.
@@ -180,19 +180,6 @@
 		},
 	];
 
-	var practices = function() {
-		var type = "Practice";
-		$http.get(endpoint + type + '/GetAll')
-            .success(function(data) {
-               if (!data.status) {
-                       //console.log("No se pudo crear usuario",data);
-               } else {
-                       //if successful, bind success message to message
-                   console.log("Lista de Especialidades Obtenidas" + data);
-               }
-        });
-	};
-
 	var PracticesService = function($http) {
 		var self = this;
 
@@ -204,7 +191,6 @@
 			});
 		};
 	};
-
 	app.service('PracticesService', ['$http', PracticesService]);
 
 	//GLOBAL DIRECTIVES
@@ -292,17 +278,19 @@
 	}]);
 
 	var createDoctor = angular.module('createDoctor', []);
-	createDoctor.controller('DoctorSignUpController', ['$http', '$scope', function($http, $scope){
+	createDoctor.controller('DoctorSignUpController', ['$http', '$scope', 'PracticesService', function($http, $scope, PracticesService){
 		
 		$scope.localidades = localidades;
 
-		$scope.practices = [ 
-			{name: "Pediatra", id: 1}, 
-			{name: "Fonoaudiólogo", id: 2}, 
-			{name: "Ginecólogo", id: 3}, 
-			{name: "Ortopedista", id: 4}, 
-			{name: "Odontólogo", id: 5}, 
-		];
+		this.practices = [];
+
+		var self = this;
+
+		var promiseGetAllPractices = PracticesService.getAll();
+		promiseGetAllPractices.then(function(response) {
+			console.log(response.data);
+			self.practices = response.data.response;
+		});
 
 		var type = "Doctor";
 		this.signUp = function() {
@@ -542,11 +530,11 @@
 		var self = this;
 
 		var promiseGetAllPractices = PracticesService.getAll();
-
 		promiseGetAllPractices.then(function(response) {
 			console.log(response.data);
 			self.practices = response.data.response;
 		});
+
 		// this.practices = [ {name: "Pediatra", id: 1}, {name: "Fonoaudiólogo", id: 2}, {name: "Ginecólogo", id: 3}, {name: "Ortopedista", id: 4}, {name: "Odontólogo", id: 5} ];
 		this.cities = [ {name: "Bogotá", id: 1}, {name: "Medellín", id: 2}, {name: "Cali", id: 3}, {name: "Barranquilla", id: 4}, {name: "Pereira", id: 5}, {name: "Bucaramanga", id: 6} ];
 		this.insurances = [ {name: "Colpatria", id: 1}, {name: "Compensar", id: 2} ];
@@ -594,12 +582,15 @@
 
 
 	//GET DOCTOR BY SEARCH PARAMS --> to search page
-	app.controller('DoctorSearchController', ['$http', '$scope', function($http, $scope){
+	app.controller('DoctorSearchController', ['$http', '$scope', 'PracticesService', function($http, $scope, PracticesService){
 
 		var encodedParam = btoa("undefined");
 		console.log(encodedParam);
 
 		var docData = this;
+		this.practices = [];
+
+		var self = this;
 
 		docData.city = $scope.getDrCtrl.data1.city;
 		docData.practice = $scope.getDrCtrl.data1.practice_list;
@@ -612,6 +603,12 @@
 				}
 			}
 		};
+
+		var promiseGetAllPractices = PracticesService.getAll();
+		promiseGetAllPractices.then(function(response) {
+			console.log(response.data);
+			self.practices = response.data.response;
+		});
 
 		// this.practices = [ {name: "Pediatra", id: 1}, {name: "Fonoaudiólogo", id: 2}, {name: "Ginecólogo", id: 3}, {name: "Ortopedista", id: 4}, {name: "Odontólogo", id: 5} ];
 		this.selectedPractice = getPosition(this.practices, docData.practice);
