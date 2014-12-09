@@ -610,11 +610,13 @@
 
 		var This = this;
 
+		$('#doc-search-box').show();
       	$http.post(endpoint + type + '/GetByParams', docData.docs)
       		.success(function(data) {
             	if (!data.status) {
                		console.log("No se encontraron doctores",data.error);
                		console.log(data);
+               		$('#doc-search-box').hide();
                		$(".doc-box").css('visibility', 'hidden');
                		var not_found_msg = 'No se encontraron doctores con los criteros de búsqueda introducidos, vuelva a intentarlo.';
                		var alert_div = $("<div class=\"alert alert-danger alert-dismissible noty fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">x</span><span class=\"sr-only\"></span></button>"+not_found_msg+"</div>");
@@ -624,6 +626,7 @@
                		// if successful, bind success message to message
                		console.log("Resultado de busqueda de doctores:");
                		console.log(data.response);
+               		$('#doc-search-box').hide();
 
                		This.docs = data.response;
                		//console.log(JSON.stringify(this.docs));

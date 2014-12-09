@@ -70,6 +70,19 @@ form textarea.form-control {
   background-color: #f79226;
   border-color: #f7a946;
 }
+.loading {
+  position: absolute;
+  display: none;
+  width: 180px;
+  height: 180px;
+  background: url("https://www.findshare.com/assets/images/loading-blue.gif");
+  background-size: contain;
+  top: 50%;
+  left: 50%;
+  margin-top: -90px;
+  margin-left: -90px;
+  z-index: 999;
+}
 a,
 a:hover {
   text-decoration: none;
