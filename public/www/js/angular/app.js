@@ -115,7 +115,8 @@
 
 
 	//DATA
-	//Include here hard-coded data
+	//Global data (practices)
+	//Hardcoded data (Cities, Practices)
 	var localidades = [
 		{
 			name: "Antonio Nariño", lat: 4.5, lon: 74.5,	
@@ -179,6 +180,32 @@
 		},
 	];
 
+	var practices = function() {
+		var type = "Practice";
+		$http.get(endpoint + type + '/GetAll')
+            .success(function(data) {
+               if (!data.status) {
+                       //console.log("No se pudo crear usuario",data);
+               } else {
+                       //if successful, bind success message to message
+                   console.log("Lista de Especialidades Obtenidas" + data);
+               }
+        });
+	};
+
+	var PracticesService = function($http) {
+		var self = this;
+
+		self.getAll = function() {
+			var type = "Practice";
+			return $http({
+				method: 'GET',
+				url: endpoint + type + '/GetAll',
+			});
+		};
+	};
+
+	app.service('PracticesService', ['$http', PracticesService]);
 
 	//GLOBAL DIRECTIVES
 	app.directive('equals', function() {
@@ -505,13 +532,22 @@
 
 
 	//SEARCH DOCTOR FROM LANDING PAGE
-	app.controller('LandpageDocSearchController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams) {
+	app.controller('LandpageDocSearchController', ['$http', '$scope', '$routeParams', 'PracticesService', function($http, $scope, $routeParams, PracticesService) {
 
 		var encodedParam = btoa("undefined");
 
 		this.docs = [];
+		this.practices = [];
 
-		this.practices = [ {name: "Pediatra", id: 1}, {name: "Fonoaudiólogo", id: 2}, {name: "Ginecólogo", id: 3}, {name: "Ortopedista", id: 4}, {name: "Odontólogo", id: 5} ];
+		var self = this;
+
+		var promiseGetAllPractices = PracticesService.getAll();
+
+		promiseGetAllPractices.then(function(response) {
+			console.log(response.data);
+			self.practices = response.data.response;
+		});
+		// this.practices = [ {name: "Pediatra", id: 1}, {name: "Fonoaudiólogo", id: 2}, {name: "Ginecólogo", id: 3}, {name: "Ortopedista", id: 4}, {name: "Odontólogo", id: 5} ];
 		this.cities = [ {name: "Bogotá", id: 1}, {name: "Medellín", id: 2}, {name: "Cali", id: 3}, {name: "Barranquilla", id: 4}, {name: "Pereira", id: 5}, {name: "Bucaramanga", id: 6} ];
 		this.insurances = [ {name: "Colpatria", id: 1}, {name: "Compensar", id: 2} ];
 
@@ -577,7 +613,7 @@
 			}
 		};
 
-		this.practices = [ {name: "Pediatra", id: 1}, {name: "Fonoaudiólogo", id: 2}, {name: "Ginecólogo", id: 3}, {name: "Ortopedista", id: 4}, {name: "Odontólogo", id: 5} ];
+		// this.practices = [ {name: "Pediatra", id: 1}, {name: "Fonoaudiólogo", id: 2}, {name: "Ginecólogo", id: 3}, {name: "Ortopedista", id: 4}, {name: "Odontólogo", id: 5} ];
 		this.selectedPractice = getPosition(this.practices, docData.practice);
 		
 		this.cities = [ {name: "Bogotá", id: 1}, {name: "Medellín", id: 2}, {name: "Cali", id: 3}, {name: "Barranquilla", id: 4}, {name: "Pereira", id: 5}, {name: "Bucaramanga", id: 6} ];
@@ -2632,6 +2668,8 @@
 
         this.deletePractice = function(id) {
         	console.log(id);
+        	data1 = {};
+        	data1.id = id;
 			$http.post(endpoint + type + '/Delete', data1)
 	      		.success(function(data) {
 	            	if (!data.status) {
