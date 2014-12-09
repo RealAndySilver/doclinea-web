@@ -16,8 +16,8 @@
 	  'ui.bootstrap',
 	]);
 
-	//var endpoint = "http://192.241.187.135:1414/api_1.0/";
-	var endpoint = "http://192.168.1.123:1414/api_1.0/";
+	var endpoint = "http://192.241.187.135:1414/api_1.0/";
+	//var endpoint = "http://192.168.1.123:1414/api_1.0/";
 	app.config(['$routeProvider',
 		function($routeProvider) {
 		$routeProvider.
@@ -1036,12 +1036,12 @@
 
 		var myDate = new Date();
 		var currentYear = myDate.getFullYear();
-		$scope.yearsList = [];
+		this.yearsList = [];
 		var loadYears = function() {
 			for (var i = 0; i < ((currentYear+1)-1950); i++) {
-				$scope.yearsList[i] = 1950+i;
+				self.yearsList[i] = 1950+i;
 			};
-			return $scope.yearsList;
+			return self.yearsList;
 		}
 		loadYears();
 
@@ -1065,6 +1065,9 @@
 
                		if ($scope.doctorData.info.education_list.length == 0) {
                			$scope.doctorData.info.education_list.push({institute_name: '', degree: '', year_start: '', year_end: '', hilights: ''});
+               		};
+               		if ($scope.doctorData.info.education_list[0] == null) {
+               			$scope.doctorData.info.education_list[0] = {institute_name: '', degree: '', year_start: '', year_end: '', hilights: ''};
                		};
                		if ($scope.doctorData.info.location_list.length == 0) {
                			$scope.doctorData.info.location_list.push({location_name: '', location_address: ''});
@@ -1292,6 +1295,7 @@
 
 			studiesInfo.education_list = {};
 			studiesInfo.education_list = $scope.doctorData.info.education_list;
+			//studiesInfo.education_list.institute_name = $scope.doctorData.info.education_list.institute_name;
 			studiesInfo.profesional_membership = $scope.doctorData.info.profesional_membership;
 			studiesInfo.description = $scope.doctorData.info.description;
 			studiesInfo.insurance_list = $scope.doctorData.info.insurance_list;

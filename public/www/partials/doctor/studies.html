@@ -9,10 +9,10 @@
 					  <label class="col-md-4 control-label" for="practice_list">Especialidad</label>
 					  <div class="col-md-6">
 					  	<div class="pl-container" ng-repeat="practice_list in docDashCtrl.info.practice_list">
-							<select id="practice_list_{{$index + 1}}" name="practice_list" class="form-control small-input" ng-model="docDashCtrl.info.practice_list[$index]" ng-options="practice.name for practice in docDashCtrl.practices" required>
+							<select id="practice_list_{{$index + 1}}" name="practice_list" class="form-control small-input" ng-model="docDashCtrl.info.practice_list[$index]" ng-options="practice.name for practice in docDashCtrl.practices track by practice.name" required>
 								<option value="" >- Agregue una especialidad -</option>
 							</select>
-							<a href="" ng-click="dashStudiesCtrl.removePractice(practice)" class="btn btn-danger btn-small remove-btn"><i class="fa fa-times"></i></a>
+							<a href="" ng-click="dashStudiesCtrl.removePractice(practice_list)" class="btn btn-danger btn-small remove-btn"><i class="fa fa-times"></i></a>
 						</div>
 						<a href="" ng-click="dashStudiesCtrl.addPractice()" class="btn btn-primary btn-small add-btn"><i class="fa fa-plus"></i> Agregar</a>
 					  </div>
@@ -36,14 +36,14 @@
 					  <label class="col-md-4 control-label" for="year_start">Año de Inicio</label>  
 					  <div class="col-md-6">
 						  <div class="in-container">
-						  	 <select id="year_start_{{$index + 1}}" name="year_start"  class="form-control" ng-model="docDashCtrl.info.education_list[$index].year_start" ng-options="year for year in yearsList">
+						  	 <select id="year_start_{{$index + 1}}" name="year_start"  class="form-control" ng-model="docDashCtrl.info.education_list[$index].year_start" ng-options="year for year in docDashCtrl.yearsList">
 							</select>
 						  </div>
 					  </div>
 					  <label class="col-md-4 control-label" for="year_start">Año de Finalización</label>  
 					  <div class="col-md-6">
 						  <div class="in-container">
-						  	 <select id="year_end_{{$index + 1}}" name="year_end"  class="form-control" ng-model="docDashCtrl.info.education_list[$index].year_end" ng-options="year for year in yearsList">
+						  	 <select id="year_end_{{$index + 1}}" name="year_end"  class="form-control" ng-model="docDashCtrl.info.education_list[$index].year_end" ng-options="year for year in docDashCtrl.yearsList">
 						  	 </select>
 						  </div>
 					  </div>
