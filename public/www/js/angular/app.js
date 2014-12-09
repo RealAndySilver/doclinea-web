@@ -1508,10 +1508,12 @@
 
 			console.log('Parametros de busqueda ', params);
 
+			$('#docs-list').show();
 			$http.post(endpoint + 'Doctor' + '/GetByParams', params)
       		.success(function(data) {
             	if (!data.status) {
                		console.log("No se encontraron doctores",data);
+               		$('#docs-list').hide();
                		$(".doc-box").css('visibility', 'hidden');
                		var not_found_msg = 'No se encontraron doctores con los criteros de búsqueda introducidos, vuelva a intentarlo.';
                		var alert_div = $("<div class=\"alert alert-danger alert-dismissible noty fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">x</span><span class=\"sr-only\"></span></button>"+not_found_msg+"</div>");
@@ -1519,6 +1521,7 @@
 					$(".alert").alert();
            		} else {
                		// if successful, bind success message to message
+               		$('#docs-list').hide();
                		$scope.doctors = data.response
                		console.log('Resultado de la busqueda de doctores!', $scope.doctors);
            		}

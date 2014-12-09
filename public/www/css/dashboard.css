@@ -182,4 +182,11 @@ header {
 }
 #results-box .center .results-page .results-container.padding-fix {
   padding: 0;
+  position: relative;
+}
+.results-container .docs-list .doc-box .doc-info {
+  padding-left: 30px;
+}
+.filters-container h2 {
+  margin-bottom: 30px;
 }
