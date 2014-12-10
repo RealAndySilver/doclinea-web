@@ -1275,24 +1275,28 @@
 			var type = 'Doctor';
 			
 			studiesInfo.practice_list = [];
-			studiesInfo.practice_list = $scope.doctorData.info.practice_list;
+			//console.log($scope.docInfo.info.practice_list.length);
+			for (i=0; i < $scope.doctorData.info.practice_list.length; i++) {
+				studiesInfo.practice_list.push($scope.doctorData.info.practice_list[i].name);
+			}
+			console.log(studiesInfo.practice_list);
 
-			// for(var i in studiesInfo.practice_list) {
-			// 	if (studiesInfo.practice_list[i] instanceof Array) {
-			// 		console.log(i + 'Selección inválida');
-			// 		var invalid_practice = 'Verifique la lista de especialidades.';
-   //             		var alert_div = $("<div class=\"alert alert-danger alert-dismissible noty_dash noty fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">x</span><span class=\"sr-only\"></span></button>"+invalid_practice+"</div>");
-			// 		$("body").prepend(alert_div);
-			// 		$(".alert").alert();
-			// 		$('#practice_list_'+(parseInt(i)+1)).removeClass('ng-valid');
-			// 		$('#practice_list_'+(parseInt(i)+1)).removeClass('ng-pristine');
-			// 		$('#practice_list_'+(parseInt(i)+1)).addClass('ng-invalid');
-			// 		$('#practice_list_'+(parseInt(i)+1)).addClass('ng-dirty');
-			// 		return;
-			// 	} else {
-			// 		console.log(i + 'Selección válida');
-			// 	}
-			// }
+			for(var i in studiesInfo.practice_list) {
+				if (studiesInfo.practice_list[i] instanceof Array) {
+					console.log(i + 'Selección inválida');
+					var invalid_practice = 'Verifique la lista de especialidades.';
+               		var alert_div = $("<div class=\"alert alert-danger alert-dismissible noty_dash noty fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">x</span><span class=\"sr-only\"></span></button>"+invalid_practice+"</div>");
+					$("body").prepend(alert_div);
+					$(".alert").alert();
+					$('#practice_list_'+(parseInt(i)+1)).removeClass('ng-valid');
+					$('#practice_list_'+(parseInt(i)+1)).removeClass('ng-pristine');
+					$('#practice_list_'+(parseInt(i)+1)).addClass('ng-invalid');
+					$('#practice_list_'+(parseInt(i)+1)).addClass('ng-dirty');
+					return;
+				} else {
+					console.log(i + 'Selección válida');
+				}
+			}
 
 			studiesInfo.education_list = {};
 			studiesInfo.education_list = $scope.doctorData.info.education_list;
@@ -1889,13 +1893,10 @@
 			var type = 'Doctor';
 			
 			studiesInfo.practice_list = [];
-			//studiesInfo.practice_list = $scope.docInfo.info.practice_list;
-			console.log($scope.docInfo.info.practice_list.length);
+			//console.log($scope.docInfo.info.practice_list.length);
 			for (i=0; i < $scope.docInfo.info.practice_list.length; i++) {
 				studiesInfo.practice_list.push($scope.docInfo.info.practice_list[i].name);
 			}
-			//studiesInfo.practice_list.push($scope.docInfo.info.practice_list[0].name);
-			//studiesInfo.practice_list.push($scope.docInfo.info.practice_list[1].name);
 			console.log(studiesInfo.practice_list);
 
 			for(var i in studiesInfo.practice_list) {
@@ -1921,23 +1922,23 @@
 			studiesInfo.description = $scope.docInfo.info.description;
 			studiesInfo.insurance_list = $scope.docInfo.info.insurance_list;
 			console.log(studiesInfo);
-     //        $http.post(endpoint + type + '/Update/' + doc_id, studiesInfo)
-     //        .success(function(data) {
-     //            if (!data.status) {
-     //                console.log("Paila, no se actualizó", data);
-     //                //console.log(JSON.stringify(data1));
-     //            } else {
-     //               // if successful, bind success message to message
-     //               console.log("Listo, doctor actualizado", data.response);
-     //               var success_msg = 'Los datos de formación académica han sido actualizados con éxito!';
-	    //        		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
-					// $("body").prepend(alert_div);
-					// $(".alert").alert();
-					// setTimeout(function() {
-					//       alert_div.fadeOut(1800);
-					// }, 800);
-     //            }
-     //  		});
+            $http.post(endpoint + type + '/Update/' + doc_id, studiesInfo)
+            .success(function(data) {
+                if (!data.status) {
+                    console.log("Paila, no se actualizó", data);
+                    //console.log(JSON.stringify(data1));
+                } else {
+                   // if successful, bind success message to message
+                   console.log("Listo, doctor actualizado", data.response);
+                   var success_msg = 'Los datos de formación académica han sido actualizados con éxito!';
+	           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
+					$("body").prepend(alert_div);
+					$(".alert").alert();
+					setTimeout(function() {
+					      alert_div.fadeOut(1800);
+					}, 800);
+                }
+      		});
        };
 	}]);
 	//Controller for Locations - Doctor by Admin
