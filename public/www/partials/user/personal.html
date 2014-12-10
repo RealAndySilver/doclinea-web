@@ -68,19 +68,17 @@
 					<div class="form-group">
 					  <label class="col-md-4 control-label" for="address">Dirección</label>  
 					  <div class="col-md-6">
-					  <input id="address" name="address" type="text" placeholder="" class="form-control input-md"  ng-model="userDashCtrl.info.address">
+					  <input id="address" name="address" type="text" placeholder="" class="form-control input-md" ng-model="userDashCtrl.info.address">
 					  </div>
 					</div>
-					<div class="form-group last-form-element">
+					<!-- <div class="form-group last-form-element">
 					  <label class="col-md-4 control-label" for="insurance">Aseguradora</label>
 					  <div class="col-md-6">
-						<select id="insurance" name="insurance" class="form-control"  ng-model="userDashCtrl.info.insurance">
-						  <option value="Sura">Sura</option>
-						  <option value="Colpatria">Colpatria</option>
-						  <option value="Compensar">Compensar</option>
+						<select id="insurance" name="insurance" class="form-control" ng-model="userDashCtrl.info.insurance"  ng-options="op.name for op in userDashCtrl.insurances track by op.name">
+							<option value="" >- Agregue una aseguradora -</option>
 						</select>
 					  </div>
-					</div> 
+					</div>  -->
 				<div class="form-group">
 				  <div class="col-md-4 center-button">
 					<input type="submit" class="btn btn-primary" value="Guardar">

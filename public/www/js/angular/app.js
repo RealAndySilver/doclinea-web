@@ -193,6 +193,19 @@
 	};
 	app.service('PracticesService', ['$http', PracticesService]);
 
+	var InsurancesService = function($http) {
+		var self = this;
+
+		self.getAll = function() {
+			var type = "InsuranceCompany";
+			return $http({
+				method: 'GET',
+				url: endpoint + type + '/GetAll',
+			});
+		};
+	};
+	app.service('InsurancesService', ['$http', InsurancesService]);
+
 	//GLOBAL DIRECTIVES
 	app.directive('equals', function() {
 	  return {
@@ -521,12 +534,13 @@
 
 
 	//SEARCH DOCTOR FROM LANDING PAGE
-	app.controller('LandpageDocSearchController', ['$http', '$scope', '$routeParams', 'PracticesService', function($http, $scope, $routeParams, PracticesService) {
+	app.controller('LandpageDocSearchController', ['$http', '$scope', '$routeParams', 'PracticesService', 'InsurancesService', function($http, $scope, $routeParams, PracticesService, InsurancesService) {
 
 		var encodedParam = btoa("undefined");
 
 		this.docs = [];
 		this.practices = [];
+		this.insurances = [];
 
 		var self = this;
 
@@ -536,9 +550,15 @@
 			self.practices = response.data.response;
 		});
 
+		var promiseGetAllInsurances = InsurancesService.getAll();
+		promiseGetAllInsurances.then(function(response) {
+			console.log(response.data);
+			self.insurances = response.data.response;
+		});
+
 		// this.practices = [ {name: "Pediatra", id: 1}, {name: "Fonoaudiólogo", id: 2}, {name: "Ginecólogo", id: 3}, {name: "Ortopedista", id: 4}, {name: "Odontólogo", id: 5} ];
 		this.cities = [ {name: "Bogotá", id: 1}, {name: "Medellín", id: 2}, {name: "Cali", id: 3}, {name: "Barranquilla", id: 4}, {name: "Pereira", id: 5}, {name: "Bucaramanga", id: 6} ];
-		this.insurances = [ {name: "Colpatria", id: 1}, {name: "Compensar", id: 2} ];
+		//this.insurances = [ {name: "Colpatria", id: 1}, {name: "Compensar", id: 2} ];
 
 		var city = $routeParams.city;
 		var practice_list = $routeParams.practice_list;
@@ -583,13 +603,14 @@
 
 
 	//GET DOCTOR BY SEARCH PARAMS --> to search page
-	app.controller('DoctorSearchController', ['$http', '$scope', 'PracticesService', function($http, $scope, PracticesService){
+	app.controller('DoctorSearchController', ['$http', '$scope', 'PracticesService', 'InsurancesService', function($http, $scope, PracticesService, InsurancesService){
 
 		var encodedParam = btoa("undefined");
 		console.log(encodedParam);
 
 		var docData = this;
 		this.practices = [];
+		this.insurances = [];
 
 		var self = this;
 
@@ -611,13 +632,19 @@
 			self.practices = response.data.response;
 		});
 
+		var promiseGetAllInsurances = InsurancesService.getAll();
+		promiseGetAllInsurances.then(function(response) {
+			console.log(response.data);
+			self.insurances = response.data.response;
+		});
+
 		// this.practices = [ {name: "Pediatra", id: 1}, {name: "Fonoaudiólogo", id: 2}, {name: "Ginecólogo", id: 3}, {name: "Ortopedista", id: 4}, {name: "Odontólogo", id: 5} ];
 		this.selectedPractice = getPosition(this.practices, docData.practice);
 		
 		this.cities = [ {name: "Bogotá", id: 1}, {name: "Medellín", id: 2}, {name: "Cali", id: 3}, {name: "Barranquilla", id: 4}, {name: "Pereira", id: 5}, {name: "Bucaramanga", id: 6} ];
 		this.selectedCity = getPosition(this.cities, docData.city);
 		
-		this.insurances = [ {name: "Colpatria", id: 1}, {name: "Compensar", id: 2} ];
+		//this.insurances = [ {name: "Colpatria", id: 1}, {name: "Compensar", id: 2} ];
 		this.selectedInsurance = getPosition(this.insurances, docData.insurance);
 
 		this.searchDoctor = function() {
@@ -769,7 +796,7 @@
 
 	//Module and Controllers for User Dashboard - PARENT CONTROLLER
 	userDash = angular.module('userDashboard', []);
-	userDash.controller('UserDashboardController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams){
+	userDash.controller('UserDashboardController', ['$http', '$scope', '$routeParams', 'InsurancesService', function($http, $scope, $routeParams, InsurancesService){
 		var type = 'User';
 
 		$('#user-tab a, #myTab a').click(function (e) {
@@ -780,6 +807,16 @@
 		var id = $routeParams.id;
 
 		$scope.userData = this;
+
+		this.insurances = [];
+
+		var self = this;
+
+		var promiseGetAllInsurances = InsurancesService.getAll();
+		promiseGetAllInsurances.then(function(response) {
+			console.log(response.data);
+			self.insurances = response.data.response;
+		});
 
 		$http.get(endpoint + type + '/GetByID/' + id)
       		.success(function(data) {
@@ -817,7 +854,7 @@
 			personalInfo.phone = $scope.userData.info.phone;
 			personalInfo.city = $scope.userData.info.city;
 			personalInfo.address = $scope.userData.info.address;
-			personalInfo.insurance = $scope.userData.info.insurance;
+			//personalInfo.insurance = $scope.userData.info.insurance.name;
 			console.log(personalInfo);
 			console.log(user_id);
 
@@ -952,7 +989,7 @@
 	//Module and Controllers for Doctor Dashboard - PARENT CONTROLLER//
 	///////////////////////////////////////////////////////////////////
 	docDash = angular.module('doctorDashboard', ['calendarPlugin']);
-	docDash.controller('DocDashboardController', ['$http', '$scope', '$routeParams', 'PracticesService', function($http, $scope, $routeParams, PracticesService){
+	docDash.controller('DocDashboardController', ['$http', '$scope', '$routeParams', 'PracticesService', 'InsurancesService', function($http, $scope, $routeParams, PracticesService, InsurancesService){
 		var type = 'Doctor';
 
 		$('#doc-tab a, #account-tab a').click(function (e) {
@@ -1024,6 +1061,7 @@
 		});
 
 		this.practices = [];
+		this.insurances = [];
 
 		var self = this;
 
@@ -1033,6 +1071,12 @@
 		promiseGetAllPractices.then(function(response) {
 			console.log(response.data);
 			self.practices = response.data.response;
+		});
+
+		var promiseGetAllInsurances = InsurancesService.getAll();
+		promiseGetAllInsurances.then(function(response) {
+			console.log(response.data);
+			self.insurances = response.data.response;
 		});
 
 		var myDate = new Date();
@@ -1303,7 +1347,7 @@
 			//studiesInfo.education_list.institute_name = $scope.doctorData.info.education_list.institute_name;
 			studiesInfo.profesional_membership = $scope.doctorData.info.profesional_membership;
 			studiesInfo.description = $scope.doctorData.info.description;
-			studiesInfo.insurance_list = $scope.doctorData.info.insurance_list;
+			studiesInfo.insurance_list = $scope.doctorData.info.insurance_list.name;
 			console.log(studiesInfo);
             $http.post(endpoint + type + '/Update/' + doc_id, studiesInfo)
             .success(function(data) {
@@ -1505,8 +1549,9 @@
 	//Module and Controllers for Admin Dashboard - PARENT CONTROLLER//
 	//////////////////////////////////////////////////////////////////
 	adminDash = angular.module('adminDashboard', []);
-	adminDash.controller('AdminDashboardController', ['$http', '$scope', '$routeParams', 'PracticesService', function($http, $scope, $routeParams, PracticesService){
+	adminDash.controller('AdminDashboardController', ['$http', '$scope', '$routeParams', 'PracticesService', 'InsurancesService', function($http, $scope, $routeParams, PracticesService, InsurancesService){
 		this.practices = [];
+		this.insurances = [];
 
 		var self = this;
 
@@ -1516,9 +1561,15 @@
 			self.practices = response.data.response;
 		});
 
+		var promiseGetAllInsurances = InsurancesService.getAll();
+		promiseGetAllInsurances.then(function(response) {
+			console.log(response.data);
+			self.insurances = response.data.response;
+		});
+
 		//this.practices = [ {name: "Pediatra", id: 1}, {name: "Fonoaudiólogo", id: 2}, {name: "Ginecólogo", id: 3}, {name: "Ortopedista", id: 4}, {name: "Odontólogo", id: 5} ];
 		this.cities = [ {name: "Bogotá", id: 1}, {name: "Medellín", id: 2}, {name: "Cali", id: 3}, {name: "Barranquilla", id: 4}, {name: "Pereira", id: 5}, {name: "Bucaramanga", id: 6} ];
-		this.insurances = [ {name: "Colpatria", id: 1}, {name: "Compensar", id: 2}, {name: "Sura", id: 3} ];
+		//this.insurances = [ {name: "Colpatria", id: 1}, {name: "Compensar", id: 2}, {name: "Sura", id: 3} ];
 
 		console.log('THIS IS ADMIN');
 
@@ -1589,7 +1640,7 @@
 	    	templateUrl: 'www/partials/admin/doctors.html',
 	    };
 	});
-	adminDash.controller('DoctorsManagementController', ['$http', '$scope', '$routeParams', 'PracticesService', function($http, $scope, $routeParams, PracticesService){
+	adminDash.controller('DoctorsManagementController', ['$http', '$scope', '$routeParams', 'PracticesService', 'InsurancesService', function($http, $scope, $routeParams, PracticesService, InsurancesService){
 		$('#doc-dash a').click(function (e) {
 		  e.preventDefault();
 		  $(this).tab('show');
@@ -1653,6 +1704,7 @@
 		});
 
 		this.practices = [];
+		this.insurances = [];
 
 		var self = this;
 
@@ -1662,6 +1714,12 @@
 		promiseGetAllPractices.then(function(response) {
 			console.log(response.data);
 			self.practices = response.data.response;
+		});
+
+		var promiseGetAllInsurances = InsurancesService.getAll();
+		promiseGetAllInsurances.then(function(response) {
+			console.log(response.data);
+			self.insurances = response.data.response;
 		});
 
 		var myDate = new Date();
@@ -1920,7 +1978,7 @@
 			studiesInfo.education_list = $scope.docInfo.info.education_list;
 			studiesInfo.profesional_membership = $scope.docInfo.info.profesional_membership;
 			studiesInfo.description = $scope.docInfo.info.description;
-			studiesInfo.insurance_list = $scope.docInfo.info.insurance_list;
+			studiesInfo.insurance_list = $scope.docInfo.info.insurance_list.name;
 			console.log(studiesInfo);
             $http.post(endpoint + type + '/Update/' + doc_id, studiesInfo)
             .success(function(data) {
