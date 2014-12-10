@@ -1253,7 +1253,7 @@
 		//add or remove form fields
 		this.addPractice = function() {
 			//console.log($scope.doctorData.info.practice_list[0]);
-			$scope.doctorData.info.practice_list.push(practices);
+			$scope.doctorData.info.practice_list.push(practice);
 		};
 		this.removePractice = function(practiceToRemove) {
 			var index = $scope.doctorData.info.practice_list.indexOf(practiceToRemove);
@@ -1500,9 +1500,18 @@
 	//Module and Controllers for Admin Dashboard - PARENT CONTROLLER//
 	//////////////////////////////////////////////////////////////////
 	adminDash = angular.module('adminDashboard', []);
-	adminDash.controller('AdminDashboardController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams){
+	adminDash.controller('AdminDashboardController', ['$http', '$scope', '$routeParams', 'PracticesService', function($http, $scope, $routeParams, PracticesService){
+		this.practices = [];
 
-		this.practices = [ {name: "Pediatra", id: 1}, {name: "Fonoaudiólogo", id: 2}, {name: "Ginecólogo", id: 3}, {name: "Ortopedista", id: 4}, {name: "Odontólogo", id: 5} ];
+		var self = this;
+
+		var promiseGetAllPractices = PracticesService.getAll();
+		promiseGetAllPractices.then(function(response) {
+			console.log(response.data);
+			self.practices = response.data.response;
+		});
+
+		//this.practices = [ {name: "Pediatra", id: 1}, {name: "Fonoaudiólogo", id: 2}, {name: "Ginecólogo", id: 3}, {name: "Ortopedista", id: 4}, {name: "Odontólogo", id: 5} ];
 		this.cities = [ {name: "Bogotá", id: 1}, {name: "Medellín", id: 2}, {name: "Cali", id: 3}, {name: "Barranquilla", id: 4}, {name: "Pereira", id: 5}, {name: "Bucaramanga", id: 6} ];
 		this.insurances = [ {name: "Colpatria", id: 1}, {name: "Compensar", id: 2}, {name: "Sura", id: 3} ];
 
@@ -1575,7 +1584,7 @@
 	    	templateUrl: 'www/partials/admin/doctors.html',
 	    };
 	});
-	adminDash.controller('DoctorsManagementController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams){
+	adminDash.controller('DoctorsManagementController', ['$http', '$scope', '$routeParams', 'PracticesService', function($http, $scope, $routeParams, PracticesService){
 		$('#doc-dash a').click(function (e) {
 		  e.preventDefault();
 		  $(this).tab('show');
@@ -1638,14 +1647,17 @@
 
 		});
 
+		this.practices = [];
+
+		var self = this;
+
 		$scope.localidades = localidades;
-		$scope.practices = [ 
-			{name: "Pediatra", id: 1}, 
-			{name: "Fonoaudiólogo", id: 2}, 
-			{name: "Ginecólogo", id: 3}, 
-			{name: "Ortopedista", id: 4}, 
-			{name: "Odontólogo", id: 5}, 
-		];
+		
+		var promiseGetAllPractices = PracticesService.getAll();
+		promiseGetAllPractices.then(function(response) {
+			console.log(response.data);
+			self.practices = response.data.response;
+		});
 
 		var myDate = new Date();
 		var currentYear = myDate.getFullYear();
