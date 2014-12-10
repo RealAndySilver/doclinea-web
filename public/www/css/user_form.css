@@ -150,3 +150,6 @@
 #add_type_list {
   margin-bottom: 20px;
 }
+#studies .in-container .form-control {
+  width: 95%;
+}

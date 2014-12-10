@@ -21,7 +21,7 @@
 						<label ng-if="profile.dProfile.gender != 1">Dra.</label>
 						{{profile.dProfile.name}}
 						{{profile.dProfile.lastname}}</span>
-						<span class="doc-title-speciality">{{profile.dProfile.practice_list[0]}}</span>
+						<span class="doc-title-speciality">{{profile.dProfile.practice_list[0].name}}</span>
 					</div>
 					<div class="doc-rating">
 						<div class="average-rating">
@@ -35,7 +35,7 @@
 						<div class="doc-specs">
 							<span class="specs-title">Especialidades</span>
 							<ul>
-								<li ng-repeat="practice in profile.dProfile.practice_list"><a href="/#/search/{{encodedParam}}/{{practice}}/{{encodedParam}}">{{practice}}</a></li>
+								<li ng-repeat="practice in profile.dProfile.practice_list"><a href="/#/search/{{encodedParam}}/{{practice.name}}/{{encodedParam}}">{{practice.name}}</a></li>
 							</ul>
 						</div>
 						<div class="doc-profile-description">
@@ -148,7 +148,7 @@
 				<div class="doc-practices">
 					<span>Especialidades</span>
 					<ul>
-						<li ng-repeat="practice in profile.dProfile.practice_list"><a href="/#/search/{{encodedParam}}/{{practice}}/{{encodedParam}}">{{practice}}</a></li>
+						<li ng-repeat="practice in profile.dProfile.practice_list"><a href="/#/search/{{encodedParam}}/{{practice.name}}/{{encodedParam}}">{{practice.name}}</a></li>
 					</ul>
 				</div>
 			</div>
