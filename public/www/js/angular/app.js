@@ -711,7 +711,7 @@
 						position: new google.maps.LatLng(info.location_list[0].lat, info.location_list[0].lon),
 						title: info.name +' '+ info.lastname
 					});
-					marker.content = '<div class="infoWindowContent"><img src="' + info.profile_pic + '" /><div class="map-inner-info"><h4>' + info.practice_list[0].name + '</h4><br><h4>' + info.address + '</h4><br><a href="#/" class="btn btn-success btn-sm">Pedir cita</a></div></div>';
+					marker.content = '<div class="infoWindowContent"><img src="' + info.profile_pic.image_url + '" width="60px" /><div class="map-inner-info"><h4>' + info.practice_list[0] + '</h4><br><h4>' + info.address + '</h4><br><a href="#/" class="btn btn-success btn-sm">Pedir cita</a></div></div>';
 					
 					google.maps.event.addListener(marker, 'click', function(){
 						infoWindow.setContent('<h3>' + marker.title + '</h3>' + marker.content);
@@ -1293,9 +1293,9 @@
 		$scope.doctorData.studiesInfo = {};
 		var studiesInfo = $scope.doctorData.studiesInfo;
 
-		var practices = $scope.practices;
+		//var practices = $scope.practices;
 
-		//add or remove form fields
+		//add or remove practice form fields
 		this.addPractice = function() {
 			//console.log($scope.doctorData.info.practice_list[0]);
 			$scope.doctorData.info.practice_list.push('');
@@ -1314,6 +1314,14 @@
 		};
 		this.initStudiesInfo = function() {
 			var studies = $scope.doctorData.info.education_list;
+		};
+		this.addInsurance = function() {
+			//console.log($scope.doctorData.info.insurance_list[0]);
+			$scope.doctorData.info.insurance_list.push({insurance_name: '', type_list_name: ''});
+		};
+		this.removeInsurance = function(insuranceToRemove) {
+			var index = $scope.doctorData.info.insurance_list.indexOf(insuranceToRemove);
+			$scope.doctorData.info.insurance_list.splice(index, 1);
 		};
 
 		var watched = {
@@ -1389,7 +1397,10 @@
 			studiesInfoTemp.education_list = $scope.doctorData.info.education_list;
 			studiesInfoTemp.profesional_membership = $scope.doctorData.info.profesional_membership;
 			studiesInfoTemp.description = $scope.doctorData.info.description;
-			studiesInfoTemp.insurance_list = $scope.doctorData.info.insurance_list.name;
+
+			//studiesInfoTemp.insurance_list = [];
+			studiesInfo.insurance_list = {};
+			studiesInfoTemp.insurance_list = $scope.doctorData.info.insurance_list;
 			console.log(studiesInfoTemp);
             $http.post(endpoint + type + '/Update/' + doc_id, studiesInfoTemp)
             .success(function(data) {
