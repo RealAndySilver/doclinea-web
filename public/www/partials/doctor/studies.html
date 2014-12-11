@@ -8,7 +8,7 @@
 					<div class="form-group">
 					  <label class="col-md-4 control-label" for="practice_list">Especialidad</label>
 					  <div class="col-md-6">
-					  	<div class="pl-container" ng-repeat="practice_list in docDashCtrl.info.practice_list track by $index">
+					  	<div class="pl-container" ng-repeat="practice_list in docDashCtrl.info.practice_list">
 							<select id="practice_list_{{$index + 1}}" name="practice_list" class="form-control small-input" ng-model="docDashCtrl.info.practice_list[$index]" ng-options="practice.name for practice in docDashCtrl.practices track by practice.name" required>
 								<option value="" >- Agregue una especialidad -</option>
 							</select>
@@ -74,17 +74,9 @@
 					<div class="form-group last-form-element">
 					  <label class="col-md-4 control-label" for="insurance_list">Aseguradoras</label>
 					  <div class="col-md-6 in-container">
-					  	<!-- <div class="pl-container" ng-repeat="insurance_list in docDashCtrl.info.insurance_list track by $index">
-					  		<select id="insurance_list_{{$index + 1}}" name="insurance_list" class="form-control small-input" ng-model="docDashCtrl.info.insurance_list[$index]" ng-options="op.name for op in docDashCtrl.insurances track by op.name">
-						    	<option value="">- Seleccione una aseguradora -</option>
-							</select>
-							<a href="" ng-click="dashStudiesCtrl.removeInsurance(insurance_list)" class="btn btn-danger btn-small remove-btn"><i class="fa fa-times"></i></a>
-					  	</div> -->
-					  	<div class="pl-container">
-					  		<select id="insurance_list" name="insurance_list" class="form-control small-input" ng-model="docDashCtrl.info.insurance_list" ng-options="op.name for op in docDashCtrl.insurances track by op.name">
-						    	<option value="">- Seleccione una aseguradora -</option>
-							</select>
-					  	</div>
+						<select id="insurance_list" name="insurance_list" class="form-control" ng-model="docDashCtrl.info.insurance_list" ng-options="op.name for op in docDashCtrl.insurances track by op.name">
+						  <option value="">- Seleccione una aseguradora -</option>
+						</select>
 					  </div>
 					</div>
 				</fieldset>
