@@ -8,7 +8,7 @@
 					<div class="form-group">
 					  <label class="col-md-4 control-label" for="practice_list">Especialidad</label>
 					  <div class="col-md-6">
-					  	<div class="pl-container" ng-repeat="practice_list in docDashCtrl.info.practice_list track by $index">
+					  	<div class="pl-container" ng-repeat="practice_list in docDashCtrl.info.practice_list">
 							<select id="practice_list_{{$index + 1}}" name="practice_list" class="form-control small-input" ng-model="selectedPracticeList[$index]" ng-options="practice.name for practice in docDashCtrl.practices" required>
 								<option value="" >- Agregue una especialidad -</option>
 							</select>

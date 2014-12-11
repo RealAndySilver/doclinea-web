@@ -16,8 +16,8 @@
 	  'ui.bootstrap',
 	]);
 
-	//var endpoint = "http://192.241.187.135:1414/api_1.0/";
-	var endpoint = "http://192.168.1.127:1414/api_1.0/";
+	var endpoint = "http://192.241.187.135:1414/api_1.0/";
+	//var endpoint = "http://192.168.1.127:1414/api_1.0/";
 	app.config(['$routeProvider',
 		function($routeProvider) {
 		$routeProvider.
@@ -808,15 +808,15 @@
 
 		$scope.userData = this;
 
-		this.insurances = [];
+		//this.insurances = [];
 
 		var self = this;
 
-		var promiseGetAllInsurances = InsurancesService.getAll();
-		promiseGetAllInsurances.then(function(response) {
-			console.log(response.data);
-			self.insurances = response.data.response;
-		});
+		// var promiseGetAllInsurances = InsurancesService.getAll();
+		// promiseGetAllInsurances.then(function(response) {
+		// 	console.log(response.data);
+		// 	self.insurances = response.data.response;
+		// });
 
 		$http.get(endpoint + type + '/GetByID/' + id)
       		.success(function(data) {
@@ -1301,8 +1301,9 @@
 			$scope.doctorData.info.practice_list.push('');
 		};
 		this.removePractice = function(practiceToRemove) {
-			var index = $scope.doctorData.info.practice_list.indexOf(practiceToRemove);
+			var index = $scope.selectedPracticeList.indexOf(practiceToRemove);
 			$scope.doctorData.info.practice_list.splice(index, 1);
+			$scope.selectedPracticeList.splice(index, 1);
 		};
 		this.addStudiesInfo = function() {
 			$scope.doctorData.info.education_list.push({institute_name: '', degree: '', year_start: '', year_end: '', hilights: ''});
@@ -1324,9 +1325,9 @@
 			if(!practices) return;
 			if(!practiceList) return;
 
-			console.log('watch');
-			console.log(JSON.stringify(practices));
-			console.log(practices);
+			// console.log('watch');
+			// console.log(JSON.stringify(practices));
+			// console.log(practices);
 			if(practices) {
 				for(var i in practices) {
 					for( var j in practiceList) {
@@ -1335,8 +1336,8 @@
 						}
 					}
 				}
-				console.log('watch');
-				console.log($scope.selectedPracticeList);
+				// console.log('watch');
+				// console.log($scope.selectedPracticeList);
 			}
 		}
 		$scope.selectedPracticeList = [];
@@ -1974,8 +1975,9 @@
 			$scope.docInfo.info.practice_list.push(practices);
 		};
 		this.removePractice = function(practiceToRemove) {
-			var index = $scope.docInfo.info.practice_list.indexOf(practiceToRemove);
+			var index = $scope.selectedPracticeList.indexOf(practiceToRemove);
 			$scope.docInfo.info.practice_list.splice(index, 1);
+			$scope.selectedPracticeList.splice(index, 1);
 		};
 		this.addStudiesInfo = function() {
 			$scope.docInfo.info.education_list.push({institute_name: '', degree: '', year_start: '', year_end: '', hilights: ''});
@@ -1988,13 +1990,48 @@
 			var studies = $scope.docInfo.info.education_list;
 		};
 
+		var watched = {
+			practices: {},
+			practiceList: {},
+		};
+
+		var update = function(practices, practiceList) {
+			if(!practices) return;
+			if(!practiceList) return;
+
+			// console.log('watch');
+			// console.log(JSON.stringify(practices));
+			// console.log(practices);
+			if(practices) {
+				for(var i in practices) {
+					for( var j in practiceList) {
+						if(practiceList[j] === practices[i].name) {
+							$scope.selectedPracticeList[j] = practices[i];
+						}
+					}
+				}
+				// console.log('watch');
+				// console.log($scope.selectedPracticeList);
+			}
+		}
+		$scope.selectedPracticeList = [];
+		$scope.$watch('docInfo.practices', function(newValue, oldValue) {
+			watched.practices = newValue;
+			update(watched.practices ,watched.practiceList);
+		});
+
+		$scope.$watch('docInfo.info.practice_list', function(newValue, oldValue) {
+			watched.practiceList = newValue;
+			update(watched.practices ,watched.practiceList);
+		});
+
 		this.updateDoctor = function(doc_id) {
 			var type = 'Doctor';
-			
+
 			studiesInfo.practice_list = [];
 			//console.log($scope.docInfo.info.practice_list.length);
-			for (i=0; i < $scope.docInfo.info.practice_list.length; i++) {
-				studiesInfo.practice_list.push($scope.docInfo.info.practice_list[i].name);
+			for (i=0; i < $scope.selectedPracticeList.length; i++) {
+				studiesInfo.practice_list.push($scope.selectedPracticeList[i]);
 			}
 			console.log(studiesInfo.practice_list);
 
@@ -2015,13 +2052,20 @@
 				}
 			}
 
-			studiesInfo.education_list = {};
-			studiesInfo.education_list = $scope.docInfo.info.education_list;
-			studiesInfo.profesional_membership = $scope.docInfo.info.profesional_membership;
-			studiesInfo.description = $scope.docInfo.info.description;
-			studiesInfo.insurance_list = $scope.docInfo.info.insurance_list.name;
-			console.log(studiesInfo);
-            $http.post(endpoint + type + '/Update/' + doc_id, studiesInfo)
+			var studiesInfoTemp = {};
+
+			studiesInfoTemp.practice_list = [];
+			for(var i = 0; i < studiesInfo.practice_list.length; i++) {
+				studiesInfoTemp.practice_list.push(studiesInfo.practice_list[i].name);
+			}
+
+			studiesInfoTemp.education_list = {};
+			studiesInfoTemp.education_list = $scope.docInfo.info.education_list;
+			studiesInfoTemp.profesional_membership = $scope.docInfo.info.profesional_membership;
+			studiesInfoTemp.description = $scope.docInfo.info.description;
+			studiesInfoTemp.insurance_list = $scope.docInfo.info.insurance_list.name;
+			console.log(studiesInfoTemp);
+            $http.post(endpoint + type + '/Update/' + doc_id, studiesInfoTemp)
             .success(function(data) {
                 if (!data.status) {
                     console.log("Paila, no se actualizó", data);
