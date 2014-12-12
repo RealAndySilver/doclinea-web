@@ -1372,10 +1372,10 @@
 			return $scope.docDashCtrl.insurances[index].type_list;
 		};
 
-		$scope.$watch('doctorData.insurances', function(newValue, oldValue) {
-			watched.insurances = newValue;
-			changeType(watched.insurances, watched.insurancesList);
-		});
+		// $scope.$watch('doctorData.insurances', function(newValue, oldValue) {
+		// 	watched.insurances = newValue;
+		// 	changeType(watched.insurances, watched.insurancesList);
+		// });
 
 		// var changeType = function(insurances, insurancesList) {
 		// 	if (!insurances);
@@ -1432,23 +1432,23 @@
 			studiesInfoTemp.insurance_list.insurance_type = $scope.doctorData.info.insurance_list[0].insurance_type.name;
 			console.log(studiesInfoTemp.insurance_list);
 			console.log(studiesInfoTemp);
-     //        $http.post(endpoint + type + '/Update/' + doc_id, studiesInfoTemp)
-     //        .success(function(data) {
-     //            if (!data.status) {
-     //                console.log("Paila, no se actualizó", data);
-     //                //console.log(JSON.stringify(data1));
-     //            } else {
-     //               // if successful, bind success message to message
-     //               console.log("Listo, doctor actualizado", data.response);
-     //               var success_msg = 'Sus datos de formación académica han sido actualizados con éxito!';
-	    //        		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
-					// $("body").prepend(alert_div);
-					// $(".alert").alert();
-					// setTimeout(function() {
-					//       alert_div.fadeOut(1800);
-					// }, 800);
-     //            }
-     //  		});
+            $http.post(endpoint + type + '/Update/' + doc_id, studiesInfoTemp)
+            .success(function(data) {
+                if (!data.status) {
+                    console.log("Paila, no se actualizó", data);
+                    //console.log(JSON.stringify(data1));
+                } else {
+                   // if successful, bind success message to message
+                   console.log("Listo, doctor actualizado", data.response);
+                   var success_msg = 'Sus datos de formación académica han sido actualizados con éxito!';
+	           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
+					$("body").prepend(alert_div);
+					$(".alert").alert();
+					setTimeout(function() {
+					      alert_div.fadeOut(1800);
+					}, 800);
+                }
+      		});
        };
 	}]);
 
