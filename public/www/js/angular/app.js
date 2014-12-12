@@ -711,7 +711,7 @@
 						position: new google.maps.LatLng(info.location_list[0].lat, info.location_list[0].lon),
 						title: info.name +' '+ info.lastname
 					});
-					marker.content = '<div class="infoWindowContent"><img src="' + info.profile_pic.image_url + '" width="60px" /><div class="map-inner-info"><h4>' + info.practice_list[0] + '</h4><br><h4>' + info.address + '</h4><br><a href="#/" class="btn btn-success btn-sm">Pedir cita</a></div></div>';
+					marker.content = '<div class="infoWindowContent"><img src="' + info.profile_pic.image_url + '" width="60px" /><div class="map-inner-info"><h4>' + info.practice_list[0] + '</h4><br><h4>' + info.location_list[0].location_address + '</h4><br><a href="#/" class="btn btn-success btn-sm">Pedir cita</a></div></div>';
 					
 					google.maps.event.addListener(marker, 'click', function(){
 						infoWindow.setContent('<h3>' + marker.title + '</h3>' + marker.content);
@@ -1118,7 +1118,10 @@
                			$scope.doctorData.info.location_list.push({location_name: '', location_address: ''});
                		};
                		if ($scope.doctorData.info.insurance_list.length == 0) {
-               			$scope.doctorData.info.insurance_list.push({name: ''});
+               			$scope.doctorData.info.insurance_list.push({insurance: ''});
+               		};
+               		if ($scope.doctorData.info.insurance_list[0] == null) {
+               			$scope.doctorData.info.insurance_list[0] = {insurance: ''};
                		};
                		// if ($scope.doctorData.info.gallery.length == 0) {
                		// 	$scope.doctorData.info.gallery.push({name: '', image_url: ''});
@@ -1320,7 +1323,7 @@
 		};
 		this.addInsurance = function() {
 			//console.log($scope.doctorData.info.insurance_list[0]);
-			$scope.doctorData.info.insurance_list.push({insurance_name: '', type_list_name: ''});
+			$scope.doctorData.info.insurance_list.push({insurance: ''});
 		};
 		this.removeInsurance = function(insuranceToRemove) {
 			var index = $scope.doctorData.info.insurance_list.indexOf(insuranceToRemove);
@@ -1330,6 +1333,8 @@
 		var watched = {
 			practices: {},
 			practiceList: {},
+			insurances: {},
+			insurancesList: {},
 		};
 
 		var update = function(practices, practiceList) {
@@ -1354,13 +1359,32 @@
 		$scope.selectedPracticeList = [];
 		$scope.$watch('doctorData.practices', function(newValue, oldValue) {
 			watched.practices = newValue;
-			update(watched.practices ,watched.practiceList);
+			update(watched.practices, watched.practiceList);
 		});
 
 		$scope.$watch('doctorData.info.practice_list', function(newValue, oldValue) {
 			watched.practiceList = newValue;
 			update(watched.practices ,watched.practiceList);
 		});
+
+		$scope.getInsurances = function(index) {
+			//console.log($scope.docDashCtrl.insurances[index].type_list);
+			return $scope.docDashCtrl.insurances[index].type_list;
+		};
+
+		$scope.$watch('doctorData.insurances', function(newValue, oldValue) {
+			watched.insurances = newValue;
+			changeType(watched.insurances, watched.insurancesList);
+		});
+
+		// var changeType = function(insurances, insurancesList) {
+		// 	if (!insurances);
+		// 	if (!insurancesList);
+
+		// 	if(insurances) {
+				
+		// 	}
+		// };
 
 		this.updateDoctor = function(doc_id) {
 			var type = 'Doctor';
@@ -1390,8 +1414,8 @@
 			}
 
 			var studiesInfoTemp = {};
-
 			studiesInfoTemp.practice_list = [];
+
 			for(var i = 0; i < studiesInfo.practice_list.length; i++) {
 				studiesInfoTemp.practice_list.push(studiesInfo.practice_list[i].name);
 			}
@@ -1401,27 +1425,30 @@
 			studiesInfoTemp.profesional_membership = $scope.doctorData.info.profesional_membership;
 			studiesInfoTemp.description = $scope.doctorData.info.description;
 
+			studiesInfoTemp.insurance_list = {};
 			//studiesInfoTemp.insurance_list = [];
-			studiesInfo.insurance_list = {};
-			studiesInfoTemp.insurance_list = $scope.doctorData.info.insurance_list;
+			//studiesInfoTemp.insurance_list = $scope.doctorData.info.insurance_list;
+			studiesInfoTemp.insurance_list.insurance = $scope.doctorData.info.insurance_list[0].insurance.name;
+			studiesInfoTemp.insurance_list.insurance_type = $scope.doctorData.info.insurance_list[0].insurance_type.name;
+			console.log(studiesInfoTemp.insurance_list);
 			console.log(studiesInfoTemp);
-            $http.post(endpoint + type + '/Update/' + doc_id, studiesInfoTemp)
-            .success(function(data) {
-                if (!data.status) {
-                    console.log("Paila, no se actualizó", data);
-                    //console.log(JSON.stringify(data1));
-                } else {
-                   // if successful, bind success message to message
-                   console.log("Listo, doctor actualizado", data.response);
-                   var success_msg = 'Sus datos de formación académica han sido actualizados con éxito!';
-	           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
-					$("body").prepend(alert_div);
-					$(".alert").alert();
-					setTimeout(function() {
-					      alert_div.fadeOut(1800);
-					}, 800);
-                }
-      		});
+     //        $http.post(endpoint + type + '/Update/' + doc_id, studiesInfoTemp)
+     //        .success(function(data) {
+     //            if (!data.status) {
+     //                console.log("Paila, no se actualizó", data);
+     //                //console.log(JSON.stringify(data1));
+     //            } else {
+     //               // if successful, bind success message to message
+     //               console.log("Listo, doctor actualizado", data.response);
+     //               var success_msg = 'Sus datos de formación académica han sido actualizados con éxito!';
+	    //        		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
+					// $("body").prepend(alert_div);
+					// $(".alert").alert();
+					// setTimeout(function() {
+					//       alert_div.fadeOut(1800);
+					// }, 800);
+     //            }
+     //  		});
        };
 	}]);
 
