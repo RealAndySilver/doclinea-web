@@ -72,10 +72,10 @@
 					  </div>
 					</div>
 					<div class="form-group last-form-element">
-					  <label class="col-md-4 control-label" for="insurance_list">Aseguradoras</label>
+					  <label class="col-md-4 control-label" for="insurance_name">Aseguradoras</label>
 					  <div class="col-md-6">
-					  	<div class="pl-container">
-					  		<select id="insurance_list" name="insurance_list" class="form-control small-input" ng-model="docDashCtrl.info.insurance_list.name" ng-options="op.name for op in docDashCtrl.insurances track by op.name">
+					  	<div class="pl-container" ng-repeat="insurance_list in docDashCtrl.info.insurance_list">
+					  		<select id="insurance_name_{{$index + 1}}" name="insurance_name" class="form-control small-input" ng-model="docDashCtrl.info.insurance_list[$index].name" ng-options="op.name for op in docDashCtrl.insurances track by op.name">
 						  		<option value="">- Seleccione una aseguradora -</option>
 							</select>
 							<a href="" ng-click="dashStudiesCtrl.removeInsurance(insurance_list)" class="btn btn-danger btn-small remove-btn"><i class="fa fa-times"></i></a>

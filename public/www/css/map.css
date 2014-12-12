@@ -15,11 +15,12 @@
 }
 .infoWindowContent img {
   float: left;
-  width: 30%;
+  width: 60px;
 }
 .infoWindowContent .map-inner-info {
   float: left;
-  width: 70%;
+  width: 130px;
+  margin-left: 5px;
 }
 .gm-style-iw h3 {
   font-size: 18px;

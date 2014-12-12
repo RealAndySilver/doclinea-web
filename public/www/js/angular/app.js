@@ -16,8 +16,8 @@
 	  'ui.bootstrap',
 	]);
 
-	var endpoint = "http://192.241.187.135:1414/api_1.0/";
-	//var endpoint = "http://192.168.1.127:1414/api_1.0/";
+	//var endpoint = "http://192.241.187.135:1414/api_1.0/";
+	var endpoint = "http://192.168.1.129:1414/api_1.0/";
 	app.config(['$routeProvider',
 		function($routeProvider) {
 		$routeProvider.
@@ -778,7 +778,7 @@
 						position: new google.maps.LatLng(info.location_list[0].lat, info.location_list[0].lon),
 						title: info.name +' '+ info.lastname
 					});
-					marker.content = '<div class="infoWindowContent"><div class="map-inner-info"><h4>' + info.practice_list[0].name + '</h4><br><h4>' + info.address + '</h4><br><a href="#/" class="btn btn-success">Pedir cita</a></div></div>';
+					marker.content = '<div class="infoWindowContent"><div class="map-inner-info"><h4>' + info.practice_list[0] + '</h4><br><h4>' + info.location_list[0].location_address + '</h4><br><a href="#/" class="btn btn-success">Pedir cita</a></div></div>';
 					
 					google.maps.event.addListener(marker, 'click', function(){
 						infoWindow.setContent('<h3>' + marker.title + '</h3>' + marker.content);
@@ -1116,6 +1116,9 @@
                		};
                		if ($scope.doctorData.info.location_list.length == 0) {
                			$scope.doctorData.info.location_list.push({location_name: '', location_address: ''});
+               		};
+               		if ($scope.doctorData.info.insurance_list.length == 0) {
+               			$scope.doctorData.info.insurance_list.push({name: ''});
                		};
                		// if ($scope.doctorData.info.gallery.length == 0) {
                		// 	$scope.doctorData.info.gallery.push({name: '', image_url: ''});
