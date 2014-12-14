@@ -16,8 +16,8 @@
 	  'ui.bootstrap',
 	]);
 
-	//var endpoint = "http://192.241.187.135:1414/api_1.0/";
-	var endpoint = "http://192.168.1.129:1414/api_1.0/";
+	var endpoint = "http://192.241.187.135:1414/api_1.0/";
+	//var endpoint = "http://192.168.1.129:1414/api_1.0/";
 	app.config(['$routeProvider',
 		function($routeProvider) {
 		$routeProvider.
@@ -1426,11 +1426,10 @@
 			studiesInfoTemp.description = $scope.doctorData.info.description;
 
 			studiesInfoTemp.insurance_list = {};
-			//studiesInfoTemp.insurance_list = [];
-			//studiesInfoTemp.insurance_list = $scope.doctorData.info.insurance_list;
 			studiesInfoTemp.insurance_list.insurance = $scope.doctorData.info.insurance_list[0].insurance.name;
 			studiesInfoTemp.insurance_list.insurance_type = $scope.doctorData.info.insurance_list[0].insurance_type.name;
 			console.log(studiesInfoTemp.insurance_list);
+
 			console.log(studiesInfoTemp);
             $http.post(endpoint + type + '/Update/' + doc_id, studiesInfoTemp)
             .success(function(data) {
@@ -2030,10 +2029,23 @@
 		this.initStudiesInfo = function() {
 			var studies = $scope.docInfo.info.education_list;
 		};
+		this.addInsurance = function() {
+			//console.log($scope.doctorData.info.insurance_list[0]);
+			$scope.doctorData.info.insurance_list.push({insurance: ''});
+		};
+		this.removeInsurance = function(insuranceToRemove) {
+			var index = $scope.doctorData.info.insurance_list.indexOf(insuranceToRemove);
+			$scope.doctorData.info.insurance_list.splice(index, 1);
+		};
 
 		var watched = {
 			practices: {},
 			practiceList: {},
+		};
+
+		$scope.getInsurances = function(index) {
+			//console.log($scope.docManageCtrl.insurances[index].type_list);
+			return $scope.docManageCtrl.insurances[index].type_list;
 		};
 
 		var update = function(practices, practiceList) {
@@ -2104,7 +2116,10 @@
 			studiesInfoTemp.education_list = $scope.docInfo.info.education_list;
 			studiesInfoTemp.profesional_membership = $scope.docInfo.info.profesional_membership;
 			studiesInfoTemp.description = $scope.docInfo.info.description;
-			studiesInfoTemp.insurance_list = $scope.docInfo.info.insurance_list.name;
+			studiesInfoTemp.insurance_list = {};
+			studiesInfoTemp.insurance_list.insurance = $scope.docInfo.info.insurance_list[0].insurance.name;
+			studiesInfoTemp.insurance_list.insurance_type = $scope.docInfo.info.insurance_list[0].insurance_type.name;
+			console.log(studiesInfoTemp.insurance_list);
 			console.log(studiesInfoTemp);
             $http.post(endpoint + type + '/Update/' + doc_id, studiesInfoTemp)
             .success(function(data) {

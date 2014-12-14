@@ -74,16 +74,31 @@
 					<div class="form-group last-form-element">
 					  <label class="col-md-4 control-label" for="insurance_list">Aseguradoras</label>
 					  <div class="col-md-6">
-						<select id="insurance_list" name="insurance_list" class="form-control"  ng-model="docManageCtrl.info.insurance_list" ng-options="op.name for op in docManageCtrl.insurances track by op.name">
+						<select id="insurance_list" name="insurance_list" class="form-control" ng-model="docManageCtrl.info.insurance_list" ng-options="op.name for op in docManageCtrl.insurances track by op.name">
 						  <option value="">- Seleccione una aseguradora -</option>
 						</select>
+					  </div>
+					</div>
+					<div class="form-group last-form-element">
+					  <label class="col-md-4 control-label" for="insurance_name">Aseguradoras</label>
+					  <div class="col-md-6">
+					  	<div class="pl-container input-top-fix" ng-repeat="insurance_list in docManageCtrl.info.insurance_list">
+					  		<select id="insurance_name_{{$index + 1}}" name="insurance_name" class="form-control small-input" ng-model="docManageCtrl.info.insurance_list[$index].insurance" ng-options="op.name for op in docManageCtrl.insurances">
+						  		<option value="">- Seleccione una aseguradora -</option>
+							</select>
+							<select ng-show="docManageCtrl.info.insurance_list[$index].insurance" id="type_name_{{$index + 1}}" name="type_name" class="form-control small-input" ng-model="docManageCtrl.info.insurance_list[$index].insurance_type" ng-options="op.name for op in getInsurances([$index])">
+						  		<option value="">- Seleccione un seguro -</option>
+							</select>
+							<a href="" ng-click="dashStudiesCtrl.removeInsurance(insurance_list)" class="btn btn-danger btn-small remove-btn"><i class="fa fa-times"></i></a>
+					  	</div>
+					  	<a href="" ng-click="dashStudiesCtrl.addInsurance()" class="btn btn-primary btn-small add-btn"><i class="fa fa-plus"></i>Agregar</a>
 					  </div>
 					</div>
 				</fieldset>
 				<div class="form-group">
 				  <div class="col-md-4 center-button">
 					<input type="submit" class="btn btn-primary" value="Guardar">
-					<a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#studies" class="btn btn-warning">Cancelar</a>
+					<a href="#/doctor_dashboard/{{docManageCtrl.info._id}}/#studies" class="btn btn-warning">Cancelar</a>
 				  </div>
 				</div>
 			</fieldset>
