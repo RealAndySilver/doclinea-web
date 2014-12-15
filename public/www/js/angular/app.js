@@ -679,10 +679,19 @@
                		console.log(data);
                		$('#doc-search-box').hide();
                		$(".doc-box").css('visibility', 'hidden');
-               		var not_found_msg = 'No se encontraron doctores con los criteros de búsqueda introducidos, vuelva a intentarlo.';
-               		var alert_div = $("<div class=\"alert alert-danger alert-dismissible noty fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">x</span><span class=\"sr-only\"></span></button>"+not_found_msg+"</div>");
-					$("body").prepend(alert_div);
-					$(".alert").alert();
+     //           		var not_found_msg = 'No se encontraron doctores con los criteros de búsqueda introducidos, vuelva a intentarlo.';
+     //           		var alert_div = $("<div class=\"alert alert-danger noty fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\"></span><span class=\"sr-only\"></span></button>"+not_found_msg+"</div>");
+					// $("body").prepend(alert_div);
+					// $(".alert").alert();
+					// setTimeout(function() {
+					//       alert_div.fadeOut(1800);
+					// }, 800);
+					swal({  
+						title: "", 
+						text: "No se encontraron doctores con los criteros de búsqueda introducidos, vuelva a intentarlo.",   
+						type: "error",   
+						confirmButtonText: "Aceptar",
+					});
            		} else {
                		// if successful, bind success message to message
                		console.log("Resultado de busqueda de doctores:");
