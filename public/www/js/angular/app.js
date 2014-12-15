@@ -1147,6 +1147,9 @@
                		if ($scope.doctorData.info.location_list.length == 0) {
                			$scope.doctorData.info.location_list.push({location_name: '', location_address: ''});
                		};
+               		if ($scope.doctorData.info.location_list[0] == null) {
+               			$scope.doctorData.info.location_list[0] = {location_name: '', location_address: ''};
+               		};
                		if ($scope.doctorData.info.insurance_list.length == 0) {
                			$scope.doctorData.info.insurance_list.push({insurance: ''});
                		};
@@ -1514,6 +1517,13 @@
                 } else {
                    // if successful, bind success message to message
                    console.log("Listo, doctor actualizado", data.response);
+                   var success_msg = 'Sus datos de localización han sido actualizados con éxito!';
+	           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
+					$("body").prepend(alert_div);
+					$(".alert").alert();
+					setTimeout(function() {
+					      alert_div.fadeOut(1800);
+					}, 800);
                 }
       		});
        };
@@ -1732,10 +1742,16 @@
                		console.log("No se encontraron doctores",data);
                		$('#docs-list').hide();
                		$(".doc-box").css('visibility', 'hidden');
-               		var not_found_msg = 'No se encontraron doctores con los criteros de búsqueda introducidos, vuelva a intentarlo.';
-               		var alert_div = $("<div class=\"alert alert-danger alert-dismissible noty fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">x</span><span class=\"sr-only\"></span></button>"+not_found_msg+"</div>");
-					$("body").prepend(alert_div);
-					$(".alert").alert();
+     //           		var not_found_msg = 'No se encontraron doctores con los criteros de búsqueda introducidos, vuelva a intentarlo.';
+     //           		var alert_div = $("<div class=\"alert alert-danger alert-dismissible noty fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">x</span><span class=\"sr-only\"></span></button>"+not_found_msg+"</div>");
+					// $("body").prepend(alert_div);
+					// $(".alert").alert();
+					swal({  
+						title: "", 
+						text: "No se encontraron doctores con los criteros de búsqueda introducidos, vuelva a intentarlo.",   
+						type: "error",   
+						confirmButtonText: "Aceptar",
+					});
            		} else {
                		// if successful, bind success message to message
                		$('#docs-list').hide();
@@ -1867,6 +1883,9 @@
                		};
                		if ($scope.docInfo.info.location_list.length == 0) {
                			$scope.docInfo.info.location_list.push({location_name: '', location_address: ''});
+               		};
+               		if ($scope.doctorData.info.location_list[0] == null) {
+               			$scope.doctorData.info.location_list[0] = {location_name: '', location_address: ''};
                		};
            		}
         	});
@@ -2203,6 +2222,13 @@
                 } else {
                    // if successful, bind success message to message
                    console.log("Listo, doctor actualizado", data.response);
+                   var success_msg = 'Sus datos de localización han sido actualizados con éxito!';
+	           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
+					$("body").prepend(alert_div);
+					$(".alert").alert();
+					setTimeout(function() {
+					      alert_div.fadeOut(1800);
+					}, 800);
                 }
       		});
        };
