@@ -3,7 +3,7 @@
 		<div class="inner-info-box">
 			<div class="form-box" >
 				<h2>Registro de Usuarios</h2>
-				<form class="form-horizontal" name="signUpForm" ng-controller="SignUpController as signUpCtrl" ng-submit="signUpForm.$valid && signUpCtrl.signUp()" novalidate>
+				<form class="form-horizontal" name="signUpForm" ng-controller="SignUpController as signUpCtrl" ng-submit="signUpCtrl.signUp()" novalidate>
 				<fieldset>
 					<div class="form-group">
 					  <label class="col-md-4 control-label" for="name">Nombres</label>  
@@ -84,25 +84,6 @@
 					<div class="error warning" ng-show="signUpForm.$invalid">
 					    <small class="error warning">Recuerde diligenciar todo el formulario para poder registrarse.</small>
 					</div>
-					<!-- <div class="form-group">
-						<label class="col-md-4 control-label" for="city">Ciudad</label>
-						<div class="col-md-6">
-						<select class="form-control" name="city" id="city" ng-model="signUpCtrl.data.city">
-						  <option>Bogotá</option>
-						  <option>Medellín</option>
-						  <option>Cali</option>
-						  <option>Barranquilla</option>
-						  <option>Pereira</option>
-						  <option>Bucaramanga</option>
-						</select>
-						</div>
-					</div>
-					<div class="form-group">
-					  <label class="col-md-4 control-label" for="address">Dirección</label>  
-					  <div class="col-md-6">
-					  <input id="address" name="address" type="text" placeholder="" class="form-control input-md"  ng-model="signUpCtrl.data.address">
-					  </div>
-					</div> -->
 					<div class="form-group">
 					  <div class="col-md-4 center-button">
 						<button id="sign_up_submit" name="sign_up_submit" class="btn btn-primary">Registrarse</button>

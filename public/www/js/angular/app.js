@@ -259,7 +259,7 @@
 	                   window.location = "/#/account_confirmation/" + type + "/" + email;
                    }
        });
-       this.data = {};
+       //this.data = {};
        };
 	}]);
 
@@ -1455,10 +1455,10 @@
 			studiesInfoTemp.profesional_membership = $scope.doctorData.info.profesional_membership;
 			studiesInfoTemp.description = $scope.doctorData.info.description;
 
-			studiesInfoTemp.insurance_list = {};
-			studiesInfoTemp.insurance_list.insurance = $scope.doctorData.info.insurance_list[0].insurance.name;
-			studiesInfoTemp.insurance_list.insurance_type = $scope.doctorData.info.insurance_list[0].insurance_type.name;
-			console.log(studiesInfoTemp.insurance_list);
+			// studiesInfoTemp.insurance_list = {};
+			// studiesInfoTemp.insurance_list.insurance = $scope.doctorData.info.insurance_list[0].insurance.name;
+			// studiesInfoTemp.insurance_list.insurance_type = $scope.doctorData.info.insurance_list[0].insurance_type.name;
+			// console.log(studiesInfoTemp.insurance_list);
 
 			console.log(studiesInfoTemp);
             $http.post(endpoint + type + '/Update/' + doc_id, studiesInfoTemp)
@@ -2146,10 +2146,10 @@
 			studiesInfoTemp.education_list = $scope.docInfo.info.education_list;
 			studiesInfoTemp.profesional_membership = $scope.docInfo.info.profesional_membership;
 			studiesInfoTemp.description = $scope.docInfo.info.description;
-			studiesInfoTemp.insurance_list = {};
-			studiesInfoTemp.insurance_list.insurance = $scope.docInfo.info.insurance_list[0].insurance.name;
-			studiesInfoTemp.insurance_list.insurance_type = $scope.docInfo.info.insurance_list[0].insurance_type.name;
-			console.log(studiesInfoTemp.insurance_list);
+			// studiesInfoTemp.insurance_list = {};
+			// studiesInfoTemp.insurance_list.insurance = $scope.docInfo.info.insurance_list[0].insurance.name;
+			// studiesInfoTemp.insurance_list.insurance_type = $scope.docInfo.info.insurance_list[0].insurance_type.name;
+			// console.log(studiesInfoTemp.insurance_list);
 			console.log(studiesInfoTemp);
             $http.post(endpoint + type + '/Update/' + doc_id, studiesInfoTemp)
             .success(function(data) {
