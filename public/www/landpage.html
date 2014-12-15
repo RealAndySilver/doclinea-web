@@ -46,7 +46,7 @@
 		</div>
 	</div>
 
-	<div id="providers_container">
+	<div id="providers_container" ng-controller="SearchListsController as listsCtrl">
 		<div class="center">
 			<div class="info-box">
 				<h2>Encuentre proovedores de salud según...</h2>
@@ -55,43 +55,30 @@
 						<h3>Especialidad</h3>
 						<hr>
 						<ul>
-							<li>Pediatría</li>
-							<li>Fonoaudilogía</li>
-							<li>Ginecología</li>
-							<li>Ortopedia</li>
-							<li>Optometría</li>
-							<li>Neurología</li>
-							<li>Fisioterapia</li>
-							<li>Ortodoncia</li>
-							<li>Endodoncia</li>
+							<li ng-repeat="practice in listsCtrl.practices">
+								<a href="/#/search/{{encodedParam}}/{{practice.name}}/{{encodedParam}}">{{practice.name}}</a>
+							</li>
 						</ul>
 					</div>
 					<div class="column">
-						<h3>Localidad</h3>
+						<h3>Ciudad</h3>
 						<hr>
 						<ul>
-							<li>Usaquen</li>
-							<li>Suba</li>
-							<li>Engativá</li>
-							<li>Barrios Unidos</li>
-							<li>Chapinero</li>
-							<li>Puente Aranda</li>
-							<li>Bosa</li>
-							<li>Usme</li>
-							<li>Fontibon</li>
+							<li><a href="/#/search/Bogotá/{{encodedParam}}/{{encodedParam}}">Bogotá</a></li>
+							<li><a href="/#/search/Medellín/{{encodedParam}}/{{encodedParam}}">Medellín</a></li>
+							<li><a href="/#/search/Cali/{{encodedParam}}/{{encodedParam}}">Cali</a></li>
+							<li><a href="/#/search/Barranquilla/{{encodedParam}}/{{encodedParam}}">Barranquilla</a></li>
+							<li><a href="/#/search/Pereira/{{encodedParam}}/{{encodedParam}}">Pereira</a></li>
+							<li><a href="/#/search/Bucaramanga/{{encodedParam}}/{{encodedParam}}">Bucaramanga</a></li>
 						</ul>
 					</div>
 					<div class="column">
 						<h3>Aseguradora</h3>
 						<hr>
 						<ul>
-							<li>Colpatria</li>
-							<li>Sura</li>
-							<li>Compensar</li>
-							<li>Sanitas</li>
-							<li>Nueva EPS</li>
-							<li>Seguros Bolivar</li>
-							<li>Colsubsidio</li>
+							<li ng-repeat="insurance in listsCtrl.insurances">
+								<a href="/#/search/{{encodedParam}}/{{encodedParam}}/{{insurance.name}}">{{insurance.name}}</a>
+							</li>
 						</ul>
 					</div>
 				</div>

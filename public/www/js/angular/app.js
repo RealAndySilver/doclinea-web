@@ -22,7 +22,7 @@
 		function($routeProvider) {
 		$routeProvider.
 			when('/', {
-				templateUrl: '../www/landpage.html'
+				templateUrl: '../www/landpage.html',
 			}).
 			when('/search/:city/:practice_list/:insurance_list', {
 				templateUrl: '../www/search.html',
@@ -534,6 +534,27 @@
 
 
 	//SEARCH DOCTOR FROM LANDING PAGE
+	app.controller('SearchListsController', ['$http', '$scope', 'PracticesService', 'InsurancesService', function($http, $scope, PracticesService, InsurancesService){
+		$scope.encodedParam = btoa("undefined");
+
+		this.practices = [];
+		this.insurances = [];
+
+		var self = this;
+
+		var promiseGetAllPractices = PracticesService.getAll();
+		promiseGetAllPractices.then(function(response) {
+			//console.log(response.data);
+			self.practices = response.data.response;
+		});
+
+		var promiseGetAllInsurances = InsurancesService.getAll();
+		promiseGetAllInsurances.then(function(response) {
+			//console.log(response.data);
+			self.insurances = response.data.response;
+		});
+	}]);
+
 	app.controller('LandpageDocSearchController', ['$http', '$scope', '$routeParams', 'PracticesService', 'InsurancesService', function($http, $scope, $routeParams, PracticesService, InsurancesService) {
 
 		var encodedParam = btoa("undefined");
@@ -546,13 +567,13 @@
 
 		var promiseGetAllPractices = PracticesService.getAll();
 		promiseGetAllPractices.then(function(response) {
-			console.log(response.data);
+			//console.log(response.data);
 			self.practices = response.data.response;
 		});
 
 		var promiseGetAllInsurances = InsurancesService.getAll();
 		promiseGetAllInsurances.then(function(response) {
-			console.log(response.data);
+			//console.log(response.data);
 			self.insurances = response.data.response;
 		});
 
