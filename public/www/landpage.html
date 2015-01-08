@@ -3,19 +3,19 @@
 			<div id="main-box">
 				<div class="mb-left">
 					<div id="mb-form-box">
-						<p>Encuentre un médico y pida una cita ahora mismo</p>
+						<p>Encuentra un médico y pide una cita ahora mismo</p>
 						<form id="main-form" name="searchDoctorForm" ng-controller="LandpageDocSearchController as landDocSearchCtrl"  ng-submit="landDocSearchCtrl.searchDoctor()" novalidate>
 							<label for="practice_list">Especialidad</label>
 							<select class="form-control" name="practice_list" id="practice_list" ng-model="landDocSearchCtrl.selectedPractice" ng-options="op.name for op in landDocSearchCtrl.practices">
-							  <option value="" >- Seleccione una especialidad -</option>
+							  <option value="" >- Selecciona una especialidad -</option>
 							</select>
 							<label for="city">Ciudad</label>
 							<select class="form-control" name="city" id="city" ng-model="landDocSearchCtrl.selectedCity" ng-options="op.name for op in landDocSearchCtrl.cities">
-							  <option value="" >- Seleccione una ciudad -</option>
+							  <option value="" >- Selecciona una ciudad -</option>
 							</select>
 							<label for="insurance_list">Aseguradora</label>
 							<select class="form-control" name="insurance_list" id="insurance_list" ng-model="landDocSearchCtrl.selectedInsurance" ng-options="op.name for op in landDocSearchCtrl.insurances">
-							  <option value="" >- Seleccione una aseguradora -</option>
+							  <option value="" >- Selecciona una aseguradora -</option>
 							</select>
 							<button id="search_doctor" name="search_doctor" class="btn btn-success btn-block btn-lg" >Encontrar doctor</button>
 						</form>
@@ -23,16 +23,16 @@
 				</div>
 				<div class="mb-right">
 					<div class="jumbotron">
-						<p>Conozca nuestra plataforma para reservar citas médicas online</p>
+						<p>Conoce nuestra plataforma para reservar citas médicas online</p>
 						<ul>
 							<li><i class="fa fa-medkit fa-lg"></i>
 								<span>Contamos con una amplia gama de especialidades.</span>
 							</li>
 							<li><i class="fa fa-life-ring fa-lg"></i>
-								<span>Busque personal médico de la aseguradora de su preferencia.</span>
+								<span>Busca personal médico de la aseguradora de tu preferencia.</span>
 							</li>
 							<li><i class="fa fa-location-arrow fa-lg"></i>
-								<span>Encuentre citas médicas en su localidad y cerca a usted.</span>
+								<span>Encuentra especialistas en tu localidad y cerca a ti.</span>
 							</li>
 						</ul>
 						<span><b>Tambien disponible en:</b></span>
@@ -49,7 +49,7 @@
 	<div id="providers_container" ng-controller="SearchListsController as listsCtrl">
 		<div class="center">
 			<div class="info-box">
-				<h2>Encuentre proovedores de salud según...</h2>
+				<h2>Encuentra proovedores de salud según...</h2>
 				<div class="inner-info-box">
 					<div class="column">
 						<h3>Especialidad</h3>
@@ -89,17 +89,17 @@
 	<div id="docs_container">
 		<div class="center">
 			<div class="info-box">
-				<h2>¿Es un profesional de la salud?</h2>
+				<h2>¿Eres un profesional de la salud?</h2>
 				<div class="inner-info-box">
 					<div class="column-b">
-						<p>Doclinea es un servicio online para agendar citas médicas
-						al instante. Descubra como manejar su lista de citas a la
-						vez que recibe calificación por parte de sus pacientes.</p>
+						<p>DocLinea es un servicio online para agendar citas médicas
+						al instante. Descubre como manejar tu lista de citas a la
+						vez que recibes calificación por parte de tus pacientes.</p>
 						<!-- <button type="button" class="btn btn-info btn-block btn-lg">Únase a nosotros</button>-->
-						<a href="#/doctor_sign_up" class="btn btn-info btn-lg">Únase a nosotros</a> 
+						<a href="#/doctor_sign_up" class="btn btn-info btn-lg">Únete a nosotros</a> 
 					</div>
 					<div class="column-b">
-						<p>Si ya trabaja con Doclinea, ingrese y continúe manejando su agenda.</p>
+						<p>Si ya trabajas con DocLinea, ingresa y sigue manejando tu agenda.</p>
 						<!--<button type="button" class="btn btn-info btn-block btn-lg">Iniciar sesión</button> -->
 						<a href="#/doctor_sign_in" class="btn btn-info btn-lg">Iniciar sesión</a>
 					</div>
