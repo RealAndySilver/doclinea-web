@@ -248,6 +248,12 @@
                 .success(function(data) {
                    if (!data.status) {
                            //console.log("No se pudo crear usuario",data);
+                        swal({  
+							title: "", 
+							text: "Ha ocurrido un error, por favor inténtalo nuevamente.",   
+							type: "error",   
+							confirmButtonText: "Aceptar",
+						});
                    } else {
                            // if successful, bind success message to message
                        console.log("Listo, creado usuario" + data);
@@ -275,9 +281,28 @@
                    if (!data.status) {
                            console.log("No se autenticó", data);
                            var auth_error = data.error;
-		               		var alert_div = $("<div class=\"alert alert-danger alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">x</span><span class=\"sr-only\"></span></button>"+auth_error+"</div>");
-							$("body").prepend(alert_div);
-							$(".alert").alert();
+							if(data.error_id == 0) {
+								swal({  
+									title: "", 
+									text: "Email o contraseña incorrectos.",   
+									type: "error",   
+									confirmButtonText: "Aceptar",
+								});
+							} else if(data.error_id == 1) {
+								swal({  
+									title: "", 
+									text: "Debes activar primero tu cuenta.",   
+									type: "error",   
+									confirmButtonText: "Aceptar",
+								});
+							} else {
+								swal({  
+									title: "", 
+									text: "Ha ocurrido un error, por favor inténtalo nuevamente.",   
+									type: "error",   
+									confirmButtonText: "Aceptar",
+								});
+							}
                    } else {
                            // if successful, bind success message to message
                        console.log("Listo, autenticado" + data);
@@ -317,7 +342,13 @@
 	               .success(function(data) {
 	                   if (!data.status) {
 	                        console.log("Paila, no se creó",data);
-	                        console.log(JSON.stringify(data1));
+	                        //console.log(JSON.stringify(data1));
+	                        swal({  
+								title: "", 
+								text: "Ha ocurrido un error, por favor inténtalo nuevamente.",   
+								type: "error",   
+								confirmButtonText: "Aceptar",
+							});
 	                   } else {
 	                           // if successful, bind success message to message
 	                       console.log("Listo, creado" + data);
@@ -346,10 +377,29 @@
 	           .success(function(data) {
 	               if (!data.status) {
                         console.log("Paila, no se autenticó",data);
-                        var auth_error = 'El email o la contraseña estan incorrectos.';
-	               		var alert_div = $("<div class=\"alert alert-danger alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">x</span><span class=\"sr-only\"></span></button>"+auth_error+"</div>");
-						$("body").prepend(alert_div);
-						$(".alert").alert();
+                        var auth_error = data.error;
+	               		if(data.error_id == 0) {
+								swal({  
+									title: "", 
+									text: "Email o contraseña incorrectos.",   
+									type: "error",   
+									confirmButtonText: "Aceptar",
+								});
+							} else if(data.error_id == 1) {
+								swal({  
+									title: "", 
+									text: "Debes activar primero tu cuenta.",   
+									type: "error",   
+									confirmButtonText: "Aceptar",
+								});
+							} else {
+								swal({  
+									title: "", 
+									text: "Ha ocurrido un error, por favor inténtalo nuevamente.",   
+									type: "error",   
+									confirmButtonText: "Aceptar",
+								});
+							}
 	               } else {
 	                       // if successful, bind success message to message
 	                   console.log("Listo, doctor autenticado", data.response);
@@ -373,22 +423,25 @@
 	            .success(function(data) {
 	                if (!data.status) {
 	                    //console.log("El correo no existe o no pudo ser enviado", data);
-	                    var email_error = 'El correo no existe o no pudo ser enviado.';
-	               		var alert_div = $("<div class=\"alert alert-danger alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">x</span><span class=\"sr-only\"></span></button>"+email_error+"</div>");
-						$("body").prepend(alert_div);
-						$(".alert").alert();
+	                    var email_error = 'El email no existe o no pudo ser enviado.';
+						swal({  
+							title: "", 
+							text: email_error,   
+							type: "error",   
+							confirmButtonText: "Aceptar",
+						});
 						$("#doctor-recover-password #email").val('');
 	                } else {
 	                       // if successful, bind success message to message
 	                   //console.log("Ha sido enviado el correo" + data);
 	                   var success_msg = 'Su solicitud ha sido enviada con éxito!';
-		           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
-						$("body").prepend(alert_div);
-						$(".alert").alert();
-						setTimeout(function() {
-						      alert_div.fadeOut(1800);
-						      window.location = "/#";
-						}, 800);
+						swal({  
+							title: "", 
+							text: success_msg,   
+							type: "success",   
+							confirmButtonText: "Aceptar",
+							//timer: 800,
+						});
 	                }
 	    		});
 		};
@@ -403,21 +456,24 @@
 	                if (!data.status) {
 	                    //console.log("El correo no existe o no pudo ser enviado", data);
 	                    var email_error = 'El correo no existe o no pudo ser enviado.';
-	               		var alert_div = $("<div class=\"alert alert-danger alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">x</span><span class=\"sr-only\"></span></button>"+email_error+"</div>");
-						$("body").prepend(alert_div);
-						$(".alert").alert();
-						$("#doctor-recover-password #email").val('');
+	               		swal({  
+							title: "", 
+							text: email_error,   
+							type: "error",   
+							confirmButtonText: "Aceptar",
+						});
+						$("#user-recover-password #email").val('');
 	                } else {
 	                       // if successful, bind success message to message
 	                   //console.log("Ha sido enviado el correo" + data);
 	                   var success_msg = 'Su solicitud ha sido enviada con éxito!';
-		           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
-						$("body").prepend(alert_div);
-						$(".alert").alert();
-						setTimeout(function() {
-						      alert_div.fadeOut(1800);
-						      window.location = "/#";
-						}, 800);
+		           		swal({  
+							title: "", 
+							text: success_msg,   
+							type: "success",   
+							confirmButtonText: "Aceptar",
+							//timer: 800,
+						});
 	                }
 	    		});
 		};
@@ -446,21 +502,24 @@
 	                if (!data.status) {
 	                    //console.log("El correo no existe o no pudo ser enviado", data);
 	                    var send_error = 'Ha ocurrido un error, verifique la contraseña de nuevo.';
-	               		var alert_div = $("<div class=\"alert alert-danger alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">x</span><span class=\"sr-only\"></span></button>"+send_error+"</div>");
-						$("body").prepend(alert_div);
-						$(".alert").alert();
+	               		swal({  
+							title: "", 
+							text: send_error,   
+							type: "error",   
+							confirmButtonText: "Aceptar",
+						});
 						//$("#doctor-recover-password #email").val('');
 	                } else {
 	                       // if successful, bind success message to message
 	                   //console.log("Ha sido enviado el correo" + data);
 	                   var success_msg = 'Su solicitud ha sido enviada con éxito!';
-		           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
-						$("body").prepend(alert_div);
-						$(".alert").alert();
-						setTimeout(function() {
-						      alert_div.fadeOut(1800);
-						      window.location = "/#";
-						}, 800);
+		           		swal({  
+							title: "", 
+							text: success_msg,   
+							type: "success",   
+							confirmButtonText: "Aceptar",
+							//timer: 800,
+						});
 	                }
 	    		});
 		};
@@ -482,18 +541,25 @@
 			$http.post(endpoint + "Account" + '/SendEmailVerification/' + type + "/" + email, data1)
 	            .success(function(data) {
 	                if (!data.status) {
-	                    //console.log("El correo no puede ser reenviado", data);
+	                    console.log("El correo no puede ser reenviado", data);
+	                    var send_error = 'El correo no puede ser reenviado.';
+	               		swal({  
+							title: "", 
+							text: send_error,   
+							type: "error",   
+							confirmButtonText: "Aceptar",
+						});
 	                } else {
 	                       // if successful, bind success message to message
 	                   //console.log("Ha sido enviado el correo" + data);
 	                   var success_msg = 'Su solicitud ha sido enviada con éxito!';
-		           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
-						$("body").prepend(alert_div);
-						$(".alert").alert();
-						setTimeout(function() {
-						      alert_div.fadeOut(1800);
-						      window.location = "/#";
-						}, 800);
+		           		swal({  
+							title: "", 
+							text: success_msg,   
+							type: "success",   
+							confirmButtonText: "Aceptar",
+							//timer: 800,
+						});
 	                }
 	    		});
 		};
