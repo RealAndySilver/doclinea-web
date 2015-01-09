@@ -30,6 +30,14 @@
 					  <input id="location_address" name="location_address" type="text" placeholder="" class="form-control input-md" ng-model="docDashCtrl.info.location_list[$index].location_address">
 					  </div>
 					</div>
+					<div class="form-group">
+						<div class="col-md-4"> 
+							<label class="radio-inline settings-label" for="parking">
+							  <input type="checkbox" name="parking" id="parking" ng-model="docDashCtrl.info.location_list[$index].parking">
+							  Parqueadero
+							</label>
+						</div>
+				    </div>
 				</div>
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="location_list">Seleccione su ubicación en el mapa</label>
