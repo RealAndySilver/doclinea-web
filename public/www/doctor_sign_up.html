@@ -11,8 +11,8 @@
 					  <input id="name" name="name" type="text" placeholder="" class="form-control input-md" ng-model="docSignUpCtrl.data.name" ng-minlength=3 ng-pattern="/^(\D)+$/" required>
 					  <div class="error" ng-show="doctorSignUpForm.name.$dirty && doctorSignUpForm.name.$invalid">
 					    <small class="error" ng-show="doctorSignUpForm.name.$error.required">Nombre es obligatorio.</small>
-					    <small class="error" ng-show="doctorSignUpForm.name.$error.minlength">Su nombre debe contener por lo menos 3 letras.</small>
-					    <small class="error" ng-show="doctorSignUpForm.name.$error.pattern">Su nombre solo debe contener letras.</small>
+					    <small class="error" ng-show="doctorSignUpForm.name.$error.minlength">Tu nombre debe contener por lo menos 3 letras.</small>
+					    <small class="error" ng-show="doctorSignUpForm.name.$error.pattern">Tu nombre solo debe contener letras.</small>
 					  </div>
 					  </div>
 					</div>
@@ -22,8 +22,8 @@
 					  <input id="last_name" name="last_name" type="text" placeholder="" class="form-control input-md"  ng-model="docSignUpCtrl.data.lastname" ng-minlength=3 ng-pattern="/^(\D)+$/" required>
 					  <div class="error" ng-show="doctorSignUpForm.last_name.$dirty && doctorSignUpForm.last_name.$invalid">
 					    <small class="error" ng-show="doctorSignUpForm.last_name.$error.required">Apellido es obligatorio.</small>
-					    <small class="error" ng-show="doctorSignUpForm.last_name.$error.minlength">Su apellido debe contener por lo menos 3 letras.</small>
-					    <small class="error" ng-show="doctorSignUpForm.last_name.$error.pattern">Su apellido solo debe contener letras.</small>
+					    <small class="error" ng-show="doctorSignUpForm.last_name.$error.minlength">Tu apellido debe contener por lo menos 3 letras.</small>
+					    <small class="error" ng-show="doctorSignUpForm.last_name.$error.pattern">Tu apellido solo debe contener letras.</small>
 					  </div>
 					  </div>
 					</div>
@@ -33,7 +33,7 @@
 					  <input id="email" name="email" type="text" placeholder="" class="form-control input-md" ng-model="docSignUpCtrl.data.email" ng-pattern="/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,5}$/" required>
 					  <div class="error" ng-show="doctorSignUpForm.email.$dirty && doctorSignUpForm.email.$invalid">
 					    <small class="error" ng-show="doctorSignUpForm.email.$error.required">Email es obligatorio.</small>
-					    <small class="error" ng-show="doctorSignUpForm.email.$error.pattern">No es un email válido.</small>
+					    <small class="error" ng-show="doctorSignUpForm.email.$error.pattern">Por favor escribe un email válido.</small>
 					  </div>
 					  </div>
 					</div>
@@ -96,8 +96,8 @@
 					  <div class="col-md-6">
 					  <input id="phone" name="phone" type="text" placeholder="" class="form-control input-md" ng-model="docSignUpCtrl.data.phone" ng-pattern="/^\d+$/" required>
 					  <div class="error" ng-show="doctorSignUpForm.phone.$dirty && doctorSignUpForm.phone.$invalid">
-					  	  <small class="error" ng-show="doctorSignUpForm.phone.$error.required">Teléfono es obligatorio.</small>
-						  <small class="error" ng-show="doctorSignUpForm.phone.$error.pattern">Su número telefónico solo debe contener números y ningún espacio.</small>
+					  	  <small class="error" ng-show="doctorSignUpForm.phone.$error.required">Por favor escribe tu teléfono.</small>
+						  <small class="error" ng-show="doctorSignUpForm.phone.$error.pattern">Tu número telefónico solo debe contener números y ningún espacio.</small>
 					  </div>
 					  </div>
 					</div>
@@ -147,7 +147,7 @@
 					  </div>
 					</div>
 					<div class="error warning" ng-show="doctorSignUpForm.$invalid">
-					    <small class="error warning">Recuerda diligenciar todo el formulario para poder registrarse.</small>
+					    <small class="error warning">Recuerda diligenciar todo el formulario para poder registrarte.</small>
 					</div>
 					<div class="form-group">
 					  <div class="col-md-4 center-button">
