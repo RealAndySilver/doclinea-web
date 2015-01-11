@@ -1872,7 +1872,7 @@
 					// $(".alert").alert();
 					swal({  
 						title: "", 
-						text: "No se encontraron doctores con los criteros de búsqueda introducidos, vuelva a intentarlo.",   
+						text: "No se encontraron doctores con los criteros de búsqueda introducidos, vuelve a intentarlo.",   
 						type: "error",   
 						confirmButtonText: "Aceptar",
 					});
@@ -1995,7 +1995,13 @@
       		.success(function(data) {
             	if (!data.status) {
                		console.log("No se encontraron doctores",data.error);
-               		console.log(data);
+               		swal({  
+						title: "Error de Servidor", 
+						text: "Ha ocurrido un error al cargar la información del doctor.",   
+						type: "error",   
+						confirmButtonText: "Aceptar",
+					});
+               		//console.log(data);
            		} else {
                		// if successful, bind success message to message
                		console.log("Resultado de busqueda de usuarios:");
@@ -2008,8 +2014,8 @@
                		if ($scope.docInfo.info.location_list.length == 0) {
                			$scope.docInfo.info.location_list.push({location_name: '', location_address: ''});
                		};
-               		if ($scope.doctorData.info.location_list[0] == null) {
-               			$scope.doctorData.info.location_list[0] = {location_name: '', location_address: ''};
+               		if ($scope.docInfo.info.location_list[0] == null) {
+               			$scope.docInfo.info.location_list[0] = {location_name: '', location_address: ''};
                		};
            		}
         	});
@@ -2033,6 +2039,7 @@
 			personalInfo.name = $scope.docInfo.info.name;
 			personalInfo.lastname = $scope.docInfo.info.lastname;
 			personalInfo.email = $scope.docInfo.info.email;
+			personalInfo.secondary_email = $scope.docInfo.info.secondary_email;
 			personalInfo.gender = $scope.docInfo.info.gender;
 			personalInfo.patient_gender = $scope.docInfo.info.patient_gender;
 			personalInfo.phone = $scope.docInfo.info.phone;
@@ -2043,17 +2050,24 @@
             .success(function(data) {
                 if (!data.status) {
                     console.log("Paila, no se actualizó", data);
+                    var error_msg = 'No se pudieron actualizar los datos personales, verifica la información de nuevo.';
+                    swal({  
+						title: "", 
+						text: error_msg,   
+						type: "error",   
+						confirmButtonText: "Aceptar",
+					});
                     //console.log(JSON.stringify(data1));
                 } else {
                    // if successful, bind success message to message
                     console.log("Listo, doctor actualizado", data.response);
-                    var success_msg = 'Los datos personales de ' +personalInfo.name+ ' han sido actualizados con éxito!';
-	           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
-					$("body").prepend(alert_div);
-					$(".alert").alert();
-					setTimeout(function() {
-					    alert_div.fadeOut(1800);
-					}, 800);
+                    var success_msg = 'Los datos personales han sido actualizados con éxito!';
+	           		swal({  
+						title: "", 
+						text: success_msg,   
+						type: "success",   
+						confirmButtonText: "Aceptar",
+					});
                 }
       		});
        };
@@ -2091,7 +2105,7 @@
 	            headers: {'Content-Type': undefined}
 	        })
 	        .success(function(){
-	        	var success_msg = 'Tu foto de perfil ha sido actualizada con éxito.';
+	        	var success_msg = 'La foto de perfil ha sido actualizada con éxito.';
            		swal({  
 					title: "", 
 					text: success_msg,   
@@ -2100,7 +2114,7 @@
 				});
 	        })
 	        .error(function(){
-	        	var error_msg = 'No se pudo actualizar tu foto de perfil, verifica la información de nuevo.';
+	        	var error_msg = 'No se pudo actualizar la foto de perfil, verifica la información de nuevo.';
            		swal({  
 					title: "", 
 					text: error_msg,   
@@ -2142,7 +2156,7 @@
 	    	restrict: 'E',
 	    	templateUrl: 'www/partials/admin/doctor_password.html',
 	    	controller: 'ManageDocPasswordController',
-	    	controllerAs: 'docPersonalManageCtrl',
+	    	controllerAs: 'docPasswordManageCtrl',
 	    };
 	});
 	adminDash.controller('ManageDocPasswordController', ['$http', '$scope',function($http, $scope){
@@ -2159,17 +2173,24 @@
             .success(function(data) {
                 if (!data.status) {
                     console.log("Paila, no se actualizó", data);
+                     var error_msg = 'No se pudo actualizar la contraseña, verifica la información de nuevo.';
+               		swal({  
+						title: "", 
+						text: error_msg,   
+						type: "error",   
+						confirmButtonText: "Aceptar",
+					});
                     //console.log(JSON.stringify(data1));
                 } else {
                    // if successful, bind success message to message
                    console.log("Listo, doctor actualizado", data.response);
                    var success_msg = 'La contraseña ha sido cambiada con éxito!';
-	           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
-					$("body").prepend(alert_div);
-					$(".alert").alert();
-					setTimeout(function() {
-					      alert_div.fadeOut(1800);
-					}, 800);
+	           		swal({  
+						title: "", 
+						text: success_msg,   
+						type: "success",   
+						confirmButtonText: "Aceptar",
+					});
                 }
       		});
         };
@@ -2305,17 +2326,24 @@
             .success(function(data) {
                 if (!data.status) {
                     console.log("Paila, no se actualizó", data);
+                     var error_msg = 'No se pudo actualizar la formación académica, verifica la información de nuevo.';
+                    swal({  
+						title: "", 
+						text: error_msg,   
+						type: "error",   
+						confirmButtonText: "Aceptar",
+					});
                     //console.log(JSON.stringify(data1));
                 } else {
                    // if successful, bind success message to message
                    console.log("Listo, doctor actualizado", data.response);
                    var success_msg = 'Los datos de formación académica han sido actualizados con éxito!';
-	           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
-					$("body").prepend(alert_div);
-					$(".alert").alert();
-					setTimeout(function() {
-					      alert_div.fadeOut(1800);
-					}, 800);
+	           		swal({  
+						title: "", 
+						text: success_msg,   
+						type: "success",   
+						confirmButtonText: "Aceptar",
+					});
                 }
       		});
        };
@@ -2349,17 +2377,24 @@
             .success(function(data) {
                 if (!data.status) {
                     console.log("Paila, no se actualizó", data);
+                    var error_msg = 'No se pudo actualizar la ubicación, verifica la información de nuevo.';
+                    swal({  
+						title: "", 
+						text: error_msg,   
+						type: "error",   
+						confirmButtonText: "Aceptar",
+					});
                     //console.log(JSON.stringify(locationsInfo));
                 } else {
                    // if successful, bind success message to message
                    console.log("Listo, doctor actualizado", data.response);
-                   var success_msg = 'Sus datos de localización han sido actualizados con éxito!';
-	           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
-					$("body").prepend(alert_div);
-					$(".alert").alert();
-					setTimeout(function() {
-					      alert_div.fadeOut(1800);
-					}, 800);
+                   var success_msg = 'Los datos de ubicación han sido actualizados con éxito!';
+	           		swal({  
+						title: "", 
+						text: success_msg,   
+						type: "success",   
+						confirmButtonText: "Aceptar",
+					});
                 }
       		});
        };
@@ -2407,20 +2442,23 @@
                 if (!data.status) {
                     console.log("Paila, no se actualizó", data);
                     //console.log(JSON.stringify(data1));
-                    var error_msg = 'No se pudieron actualizar sus notificaciones, verifique la información de nuevo.';
-               		var alert_div = $("<div class=\"alert alert-danger alert-dismissible noty fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">x</span><span class=\"sr-only\"></span></button>"+error_msg+"</div>");
-					$("body").prepend(alert_div);
-					$(".alert").alert();
+                    var error_msg = 'No se pudieron actualizar las notificaciones, verifique la información de nuevo.';
+               		swal({  
+						title: "", 
+						text: error_msg,   
+						type: "error",   
+						confirmButtonText: "Aceptar",
+					});
                 } else {
                    // if successful, bind success message to message
                    console.log("Listo, usuario actualizado", data.response);
                    var success_msg = 'Las notificaciones han sido actualizadas con éxito!';
-	           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
-					$("body").prepend(alert_div);
-					$(".alert").alert();
-					setTimeout(function() {
-					      alert_div.fadeOut(1800);
-					}, 800);
+	           		swal({  
+						title: "", 
+						text: success_msg,   
+						type: "success",   
+						confirmButtonText: "Aceptar",
+					});
                 }
       		});
         };

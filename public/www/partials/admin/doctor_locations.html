@@ -13,7 +13,7 @@
 				<div class="form-group" ng-if="docManageCtrl.info.city == 'Bogotá'">
 					<label class="col-md-4 control-label" for="localidad">Localidad</label>
 					<div class="col-md-6">
-					<select class="form-control" name="localidad" id="localidad" ng-model="docManageCtrl.info.localidad" ng-options="localidad.name for localidad in localidades">
+					<select class="form-control" name="localidad" id="localidad" ng-model="docManageCtrl.info.localidad" ng-options="localidad.name for localidad in localidades track by localidad.name">
 					</select>
 					</div>
 				</div>
