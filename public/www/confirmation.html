@@ -3,14 +3,17 @@
 		<div class="inner-info-box">
 			<div class="form-box">
 				<p ng-hide="type">
-					Se le ha enviado un correo para que active su cuenta y pueda iniciar sesión de DocLinea.
-					Si no le ha llegado aun el correo, puede reenviarlo a continuación:
+					Te hemos enviado un e-mail para la activación de tu cuenta. 
+					<br>
+					Estas a solo un paso de ser parte de DocLinea!
+					<br>
+					Si no has recibido el mensaje, puedes reenviarlo en el siguiente botón.:
 					<div class="center-button">
 						<button  ng-hide="type" ng-click="confirmCtrl.sendEmailVerification()" class="btn btn-primary">Reenviar correo</button>
 					</div>
 				</p>
 				<p ng-show="type">
-					Ahora que se ha activado su cuenta con éxito, puede iniciar sesión en DocLinea.
+					Ahora que se ha activado tu cuenta con éxito, puedes iniciar sesión en DocLinea.
 				</p>
 				<div class="center-button" ng-if="type == 'doctor'">
 					<a href="#/doctor_sign_in/" id="to_doc_login" name="toDocLogin" class="btn btn-primary">Inicar sesión</a>
