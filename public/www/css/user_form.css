@@ -105,6 +105,7 @@
 }
 .form-box .form-group select {
   margin-bottom: 25px;
+  border: solid 2px #b8b4b4;
 }
 .form-box .form-group.last-form-element {
   margin-bottom: 30px;

@@ -57,9 +57,11 @@ body {
 form input.form-control {
   margin-bottom: 10px;
   width: 95%;
+  border: solid 2px #b8b4b4;
 }
 form textarea.form-control {
   width: 95%;
+  border: solid 2px #b8b4b4;
 }
 #form-box form button {
   width: 120px;
