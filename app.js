@@ -26,6 +26,8 @@ app.use(bodyParser.urlencoded({
 	extended:true
 }));
 
+//app.use(express.favicon("public/favicon.ico"));
+
 app.use(bodyParser.json());
 
 app.get('/', function (req, res) {

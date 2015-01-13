@@ -365,3 +365,12 @@ footer .center .info-box.last-box a {
 footer .center .info-box.last-box a:hover {
   text-decoration: underline;
 }
+footer .footer-top {
+  width: 100%;
+  background: #3498db;
+  height: 140px;
+}
+footer .footer-bottom {
+  width: 100%;
+  background: #2980b9;
+}
