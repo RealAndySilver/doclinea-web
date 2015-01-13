@@ -2487,20 +2487,23 @@
             .success(function(data) {
                 if (!data.status) {
                     console.log("Paila, no se creó", data);
-                    var error_msg = 'No se pudo agregar el hospital, verifique la información de nuevo.';
-               		var alert_div = $("<div class=\"alert alert-danger alert-dismissible noty fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">x</span><span class=\"sr-only\"></span></button>"+error_msg+"</div>");
-					$("body").prepend(alert_div);
-					$(".alert").alert();
+                    var error_msg = 'No se pudo agregar el hospital, verifica la información de nuevo.';
+               		swal({  
+						title: "", 
+						text: error_msg,   
+						type: "error",   
+						confirmButtonText: "Aceptar",
+					});
                 } else {
                    // if successful, bind success message to message
                     console.log("Listo, hospital creado", data);
                     var success_msg = 'El hospital ha sido creado con éxito!';
-	           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
-					$("body").prepend(alert_div);
-					$(".alert").alert();
-					setTimeout(function() {
-					    alert_div.fadeOut(1800);
-					}, 800);
+	           		swal({  
+						title: "", 
+						text: success_msg,   
+						type: "success",   
+						confirmButtonText: "Aceptar",
+					});
 					$("form #name").val('');
 					$("form #email").val('');
                 }
@@ -2514,6 +2517,13 @@
 	      		.success(function(data) {
 	            	if (!data.status) {
 	               		console.log("No se encontraron hospitales", data);
+	               		var error_msg = 'Ha ocurrido un error al cargar la lista de hospitales.';
+	               		swal({  
+							title: "", 
+							text: error_msg,   
+							type: "error",   
+							confirmButtonText: "Aceptar",
+						});
 	           		} else {
 	               		// if successful, bind success message to message
 	               		console.log("Lista de hospitales");
@@ -2532,10 +2542,24 @@
 	      		.success(function(data) {
 	            	if (!data.status) {
 	               		console.log("No se pudo eliminar el hospital", data);
+	               		var error_msg = 'Ha ocurrido un error al intentar eliminar el hospital.';
+	               		swal({  
+							title: "", 
+							text: error_msg,   
+							type: "error",   
+							confirmButtonText: "Aceptar",
+						});
 	           		} else {
 	               		// if successful, bind success message to message
 	               		console.log("Hospital eliminado exitosamente.");
 	               		console.log(data);
+	               		var success = 'El hospital ha sido eliminado con é.';
+	               		swal({  
+							title: "", 
+							text: success,   
+							type: "success",   
+							confirmButtonText: "Aceptar",
+						});
 	     //           		var index = $scope.doctorData.info.practice_list.indexOf(practiceToRemove);
 						// $scope.doctorData.info.practice_list.splice(index, 1);
 	           		}
@@ -2615,6 +2639,13 @@
       		.success(function(data) {
             	if (!data.status) {
                		console.log("No se encontraron hospitales",data.error);
+               		var error_msg = 'Ha ocurrido un error al intentar cargar el hospital.';
+               		swal({  
+						title: "", 
+						text: error_msg,   
+						type: "error",   
+						confirmButtonText: "Aceptar",
+					});
                		console.log(data);
            		} else {
                		// if successful, bind success message to message
@@ -2651,17 +2682,24 @@
             .success(function(data) {
                 if (!data.status) {
                     console.log("Paila, no se actualizó", data);
+                    var error_msg = 'No se pudo actualizar la información del hospital, verifica la información de nuevo.';
+               		swal({  
+						title: "", 
+						text: error_msg,   
+						type: "error",   
+						confirmButtonText: "Aceptar",
+					});
                     //console.log(JSON.stringify(data1));
                 } else {
                    // if successful, bind success message to message
                     console.log("Listo, doctor actualizado", data);
                     var success_msg = 'La información del hospital ha sido actualizada con éxito!';
-	           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
-					$("body").prepend(alert_div);
-					$(".alert").alert();
-					setTimeout(function() {
-					    alert_div.fadeOut(1800);
-					}, 800);
+               		swal({  
+						title: "", 
+						text: success_msg,   
+						type: "success",   
+						confirmButtonText: "Aceptar",
+					});
                 }
       		});
        };
@@ -2699,15 +2737,22 @@
 	            headers: {'Content-Type': undefined}
 	        })
 	        .success(function(){
-	        	var success_msg = 'El logo del hospital ha sido guardado con éxito!';
-           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
-				$("body").prepend(alert_div);
-				$(".alert").alert();
-				setTimeout(function() {
-				      alert_div.fadeOut(1800);
-				}, 800);
+	        	var success_msg = 'El logo del hospital ha sido actualizado con éxito.';
+           		swal({  
+					title: "", 
+					text: success_msg,   
+					type: "success",   
+					confirmButtonText: "Aceptar",
+				});
 	        })
 	        .error(function(){
+	        	var error_msg = 'No se pudo actualizar el logo del hospital.';
+           		swal({  
+					title: "", 
+					text: error_msg,   
+					type: "error",   
+					confirmButtonText: "Aceptar",
+				});
 	        });
 	    }
 	}]);
@@ -2761,17 +2806,24 @@
             .success(function(data) {
                 if (!data.status) {
                     console.log("Paila, no se actualizó", data);
+                    var error_msg = 'No se puedo actualizar la ubicación del hospital.';
+	           		swal({  
+						title: "", 
+						text: success_msg,   
+						type: "error",   
+						confirmButtonText: "Aceptar",
+					});
                     //console.log(JSON.stringify(data1));
                 } else {
                    // if successful, bind success message to message
                     console.log("Listo, doctor actualizado", data);
-                    var success_msg = 'La localización del hospital ha sido actualizada con éxito!';
-	           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
-					$("body").prepend(alert_div);
-					$(".alert").alert();
-					setTimeout(function() {
-					    alert_div.fadeOut(1800);
-					}, 800);
+                    var success_msg = 'La ubicación del hospital ha sido actualizada con éxito!';
+	           		swal({  
+					title: "", 
+					text: success_msg,   
+					type: "success",   
+					confirmButtonText: "Aceptar",
+				});
                 }
       		});
        };
@@ -2801,16 +2853,23 @@
             .success(function(data) {
                 if (!data.status) {
                     console.log("Paila, no se creó", data);
+                    var error_msg = "No se puedo agregar la aseguradora, verifica la información de nuevo.";
+                    swal({  
+						title: "", 
+						text: error_msg,   
+						type: "error",   
+						confirmButtonText: "Aceptar",
+					});
                 } else {
                    // if successful, bind success message to message
                     console.log("Listo, aseguradora creada", data);
                     var success_msg = 'La aseguradora ha sido creada con éxito!';
-	           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
-					$("body").prepend(alert_div);
-					$(".alert").alert();
-					setTimeout(function() {
-					    alert_div.fadeOut(1800);
-					}, 800);
+                    swal({  
+						title: "", 
+						text: success_msg,   
+						type: "success",   
+						confirmButtonText: "Aceptar",
+					});
                 }
       		});
       		this.data = {};
@@ -2822,6 +2881,13 @@
 	      		.success(function(data) {
 	            	if (!data.status) {
 	               		console.log("No se encontraron aseguradoras", data);
+	               		var error_msg = 'Ha ocurrido un error al cargar la lista de aseguradoras.';
+	               		swal({  
+							title: "", 
+							text: error_msg,   
+							type: "error",   
+							confirmButtonText: "Aceptar",
+						});
 	           		} else {
 	               		// if successful, bind success message to message
 	               		console.log("Lista de aseguradoras");
@@ -2842,10 +2908,24 @@
 	      		.success(function(data) {
 	            	if (!data.status) {
 	               		console.log("No se pudo eliminar la aseguradora", data);
+	               		var error_msg = 'Ha ocurrido un error al intentar eliminar la aseguradora.';
+	               		swal({  
+							title: "", 
+							text: error_msg,   
+							type: "error",   
+							confirmButtonText: "Aceptar",
+						});
 	           		} else {
 	               		// if successful, bind success message to message
 	               		console.log("Aseguradora eliminada exitosamente.");
 	               		console.log(data);
+	               		var success = 'La aseguradora ha sido eliminada con éxito.';
+	               		swal({  
+							title: "", 
+							text: success,   
+							type: "success",   
+							confirmButtonText: "Aceptar",
+						});
 	     //           		var index = $scope.doctorData.info.practice_list.indexOf(practiceToRemove);
 						// $scope.doctorData.info.practice_list.splice(index, 1);
 	           		}
@@ -2868,6 +2948,13 @@
       		.success(function(data) {
             	if (!data.status) {
                		console.log("No se encontraron aseguradoras",data.error);
+               		var error_msg = 'Ha ocurrido un error al intentar cargar la aseguradora.';
+               		swal({  
+						title: "", 
+						text: error_msg,   
+						type: "error",   
+						confirmButtonText: "Aceptar",
+					});
                		console.log(data);
            		} else {
                		// if successful, bind success message to message
@@ -2906,17 +2993,24 @@
             .success(function(data) {
                 if (!data.status) {
                     console.log("Paila, no se actualizó", data);
+                    var error_msg = 'No se pudo actualizar la información de la aseguradora, verifica la información de nuevo.';
+               		swal({  
+						title: "", 
+						text: error_msg,   
+						type: "error",   
+						confirmButtonText: "Aceptar",
+					});
                     //console.log(JSON.stringify(data1));
                 } else {
                    // if successful, bind success message to message
                     console.log("Listo, doctor actualizado", data);
-                    var success_msg = 'La información de la aseguradora ha sido actualizada con éxito!';
-	           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
-					$("body").prepend(alert_div);
-					$(".alert").alert();
-					setTimeout(function() {
-					    alert_div.fadeOut(1800);
-					}, 800);
+                    var success_msg = 'La información de la aseguradora ha sido actualizada con éxito.';
+               		swal({  
+						title: "", 
+						text: success_msg,   
+						type: "success",   
+						confirmButtonText: "Aceptar",
+					});
                 }
       		});
        };
@@ -2954,15 +3048,22 @@
 	            headers: {'Content-Type': undefined}
 	        })
 	        .success(function(){
-	        	var success_msg = 'El logo de la aseguradora ha sido guardado con éxito!';
-           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
-				$("body").prepend(alert_div);
-				$(".alert").alert();
-				setTimeout(function() {
-				      alert_div.fadeOut(1800);
-				}, 800);
+	        	var success_msg = 'El logo de la aseguradora ha sido actualizado con éxito.';
+           		swal({  
+					title: "", 
+					text: success_msg,   
+					type: "success",   
+					confirmButtonText: "Aceptar",
+				});
 	        })
 	        .error(function(){
+	        	var error_msg = 'No se pudo actualizar el logo de la aseguradora.';
+           		swal({  
+					title: "", 
+					text: error_msg,   
+					type: "error",   
+					confirmButtonText: "Aceptar",
+				});
 	        });
 	    }
 	}]);
@@ -3021,18 +3122,24 @@
             .success(function(data) {
                 if (!data.status) {
                     console.log("Paila, no se actualizó", data);
+                    var error_msg = 'No se pudo agregar el seguro, verifica la información de nuevo.';
+               		swal({  
+						title: "", 
+						text: error_msg,   
+						type: "error",   
+						confirmButtonText: "Aceptar",
+					});
                     //console.log(JSON.stringify(data1));
                 } else {
                    // if successful, bind success message to message
                     console.log("Listo, doctor actualizado", data);
-                    var success_msg = 'La información de la aseguradora ha sido actualizada con éxito!';
-	           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
-					$("body").prepend(alert_div);
-					$(".alert").alert();
-					setTimeout(function() {
-					    alert_div.fadeOut(1800);
-					}, 800);
-
+                    var success_msg = 'El seguro ha sido agregado con éxito.';
+               		swal({  
+						title: "", 
+						text: success_msg,   
+						type: "success",   
+						confirmButtonText: "Aceptar",
+					});
                 }
       		});
         };
@@ -3046,10 +3153,24 @@
 	      		.success(function(data) {
 	            	if (!data.status) {
 	               		console.log("No se pudo eliminar el seguro", data);
+	               		var error_msg = 'Ha ocurrido un error al intentar eliminar el seguro.';
+	               		swal({  
+							title: "", 
+							text: error_msg,   
+							type: "error",   
+							confirmButtonText: "Aceptar",
+						});
 	           		} else {
 	               		// if successful, bind success message to message
 	               		console.log("Seguro eliminado exitosamente.");
 	               		console.log(data);
+	               		var success_msg = 'El seguro ha sido eliminado con éxito.';
+	               		swal({  
+							title: "", 
+							text: success_msg,   
+							type: "success",   
+							confirmButtonText: "Aceptar",
+						});
 	     //           		var index = $scope.doctorData.info.practice_list.indexOf(practiceToRemove);
 						// $scope.doctorData.info.practice_list.splice(index, 1);
 	           		}
@@ -3081,16 +3202,23 @@
             .success(function(data) {
                 if (!data.status) {
                     console.log("Paila, no se creó", data);
+                    var error_msg = "No se puedo agregar la especialidad, verifica la información de nuevo.";
+                    swal({  
+						title: "", 
+						text: error_msg,   
+						type: "error",   
+						confirmButtonText: "Aceptar",
+					});
                 } else {
                    // if successful, bind success message to message
                     console.log("Listo, especialidad creada", data);
                     var success_msg = 'La especialidad ha sido creada con éxito!';
-	           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
-					$("body").prepend(alert_div);
-					$(".alert").alert();
-					setTimeout(function() {
-					    alert_div.fadeOut(1800);
-					}, 800);
+                    swal({  
+						title: "", 
+						text: success_msg,   
+						type: "success",   
+						confirmButtonText: "Aceptar",
+					});
 					$("form #name").val('');
 					$("form #type").val('');
                 }
@@ -3104,6 +3232,13 @@
 	      		.success(function(data) {
 	            	if (!data.status) {
 	               		console.log("No se encontraron especialidades", data);
+	               		var error_msg = 'Ha ocurrido un error al intentar cargar la lista de especialidades.';
+	               		swal({  
+							title: "", 
+							text: error_msg,   
+							type: "error",   
+							confirmButtonText: "Aceptar",
+						});
 	           		} else {
 	               		// if successful, bind success message to message
 	               		console.log("Lista de especialidades");
@@ -3123,10 +3258,24 @@
 	      		.success(function(data) {
 	            	if (!data.status) {
 	               		console.log("No se pudo eliminar la especialidad", data);
+	               		var error_msg = 'Ha ocurrido un error al intentar eliminar la especialidad.';
+	               		swal({  
+							title: "", 
+							text: error_msg,   
+							type: "error",   
+							confirmButtonText: "Aceptar",
+						});
 	           		} else {
 	               		// if successful, bind success message to message
 	               		console.log("Especialidad eliminada exitosamente.");
 	               		console.log(data);
+	               		var success = 'La especialidad ha sido eliminada con éxito.';
+	               		swal({  
+							title: "", 
+							text: success_msg,   
+							type: "success",   
+							confirmButtonText: "Aceptar",
+						});
 	     //           		var index = $scope.doctorData.info.practice_list.indexOf(practiceToRemove);
 						// $scope.doctorData.info.practice_list.splice(index, 1);
 	           		}
@@ -3150,6 +3299,13 @@
             	if (!data.status) {
                		console.log("No se encontraron especialidades",data.error);
                		console.log(data);
+               		var error_msg = 'Ha ocurrido un error al intentar cargar la especialidad.';
+               		swal({  
+						title: "", 
+						text: error_msg,   
+						type: "error",   
+						confirmButtonText: "Aceptar",
+					});
            		} else {
                		// if successful, bind success message to message
                		console.log("Resultado de busqueda de especialidades:");
@@ -3187,17 +3343,24 @@
             .success(function(data) {
                 if (!data.status) {
                     console.log("Paila, no se actualizó", data);
+                    var error_msg = 'No se puede actualizar la información de la especialidad, verifica de nuevo.';
+               		swal({  
+						title: "", 
+						text: error_msg,   
+						type: "error",   
+						confirmButtonText: "Aceptar",
+					});
                     //console.log(JSON.stringify(data1));
                 } else {
                    // if successful, bind success message to message
                     console.log("Listo, doctor actualizado", data);
-                    var success_msg = 'La información de la aseguradora ha sido actualizada con éxito!';
-	           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
-					$("body").prepend(alert_div);
-					$(".alert").alert();
-					setTimeout(function() {
-					    alert_div.fadeOut(1800);
-					}, 800);
+                    var success_msg = 'La información de la especialidad ha sido actualizada con éxito!';
+               		swal({  
+						title: "", 
+						text: success_msg,   
+						type: "success",   
+						confirmButtonText: "Aceptar",
+					});
                 }
       		});
        };
@@ -3226,17 +3389,24 @@
             .success(function(data) {
                 if (!data.status) {
                     console.log("Paila, no se actualizó", data);
+                    var error_msg = 'No se puede agregar el motivo de consulta, verifica de nuevo.';
+               		swal({  
+						title: "", 
+						text: error_msg,   
+						type: "error",   
+						confirmButtonText: "Aceptar",
+					});
                     //console.log(JSON.stringify(data1));
                 } else {
                    // if successful, bind success message to message
                     console.log("Listo, motivo de consulta actualizado", data);
                     var success_msg = 'El motivo de consulta ha sido agregado con éxito!';
-	           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty noty_dash fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
-					$("body").prepend(alert_div);
-					$(".alert").alert();
-					setTimeout(function() {
-					    alert_div.fadeOut(1800);
-					}, 800);
+               		swal({  
+						title: "", 
+						text: success_msg,   
+						type: "success",   
+						confirmButtonText: "Aceptar",
+					});
                 }
       		});
        };
@@ -3250,12 +3420,26 @@
 	      		.success(function(data) {
 	            	if (!data.status) {
 	               		console.log("No se pudo eliminar el motivo", data);
+	               		var error_msg = 'No se puedo agregar el motivo de consulta, verifica de nuevo.';
+	               		swal({  
+							title: "", 
+							text: error_msg,   
+							type: "error",   
+							confirmButtonText: "Aceptar",
+						});
 	           		} else {
 	               		// if successful, bind success message to message
 	               		console.log("Motivo eliminado exitosamente.");
 	               		console.log(data);
 	               		var index = $scope.practiceInfo.info.reason_list.indexOf(reason_id);
 						$scope.practiceInfo.info.reason_list.splice(index, 1);
+						 var success_msg = 'El motivo de consulta ha sido eliminado con éxito!';
+	               		swal({  
+							title: "", 
+							text: success_msg,   
+							type: "success",   
+							confirmButtonText: "Aceptar",
+						});
 	           		}
 	           	});
         };
