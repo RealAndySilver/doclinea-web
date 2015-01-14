@@ -29,6 +29,10 @@
 				controller: 'GetDoctorsController',
 				controllerAs: 'getDrCtrl',
 			}).
+			when('/log', {
+				templateUrl: '../www/sign_up.html', 
+				//controller: 'SignUpController',
+			}).
 			when('/sign_up', {
 				templateUrl: '../www/sign_up.html', 
 				//controller: 'SignUpController',

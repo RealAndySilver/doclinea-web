@@ -154,3 +154,7 @@
 #studies .in-container .form-control {
   width: 85%;
 }
+.center-input {
+  text-align: center;
+  color: #3071a9;
+}
