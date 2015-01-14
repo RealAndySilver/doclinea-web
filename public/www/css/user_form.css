@@ -22,12 +22,14 @@
 #appointmets .center .inner-info-box {
   padding: 55px 0;
 }
-#sign-in-box .center .inner-info-box,
 #doctor-sign-in-box .inner-info-box,
 #doctor-recover-password .inner-info-box,
 #user-recover-password .inner-info-box,
 #account-confirmation .inner-info-box {
   padding: 115px 0;
+}
+#sign-in-box .center .inner-info-box {
+  padding: 85px 0;
 }
 #sign-up-box .inner-info-box .form-box,
 #doctor-sign-up-box .inner-info-box .form-box {

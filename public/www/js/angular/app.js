@@ -320,7 +320,9 @@
 	}]);
 
 	var createDoctor = angular.module('createDoctor', []);
-	createDoctor.controller('DoctorSignUpController', ['$http', '$scope', 'PracticesService', function($http, $scope, PracticesService){
+	createDoctor.controller('DoctorSignUpController', ['$http', '$scope', 'PracticesService', '$location', '$anchorScroll', function($http, $scope, PracticesService, $location, $anchorScroll){
+		$location.hash('doctor-sign-up-box');
+		$anchorScroll();
 		
 		$scope.localidades = localidades;
 
@@ -370,8 +372,12 @@
 	}]);
 
 	var loginDoctor = angular.module('loginDoctor', []);
-	loginDoctor.controller('DoctorSignInController', ['$http', '$routeParams', function($http, $routeParams){
+	loginDoctor.controller('DoctorSignInController', ['$http', '$scope', '$routeParams', '$location', '$anchorScroll', function($http, $scope, $routeParams, $location, $anchorScroll){
 		var type = "Doctor";
+		
+		$location.hash('doctor-sign-in-box');
+		$anchorScroll();
+
 		this.signIn = function() {
 			//console.log('Entra a signIn');
            var data1 = this.data;
