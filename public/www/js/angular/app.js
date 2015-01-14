@@ -29,10 +29,10 @@
 				controller: 'GetDoctorsController',
 				controllerAs: 'getDrCtrl',
 			}).
-			when('/log', {
-				templateUrl: '../www/sign_up.html', 
-				//controller: 'SignUpController',
-			}).
+			// when('/log', {
+			// 	templateUrl: '../www/sign_up.html', 
+			// 	//controller: 'SignUpController',
+			// }).
 			when('/sign_up', {
 				templateUrl: '../www/sign_up.html', 
 				//controller: 'SignUpController',
@@ -426,8 +426,8 @@
 			$http.get(endpoint + 'Doctor' + '/Recover/' + email)
 	            .success(function(data) {
 	                if (!data.status) {
-	                    //console.log("El correo no existe o no pudo ser enviado", data);
-	                    var email_error = 'El email no existe o no pudo ser enviado.';
+	                    console.log("El correo no existe o no pudo ser enviado", data);
+	                    var email_error = 'Correo electrónico no encontrado.';
 						swal({  
 							title: "", 
 							text: email_error,   
@@ -458,8 +458,8 @@
 			$http.get(endpoint + 'User' + '/Recover/' + email)
 	            .success(function(data) {
 	                if (!data.status) {
-	                    //console.log("El correo no existe o no pudo ser enviado", data);
-	                    var email_error = 'El correo no existe o no pudo ser enviado.';
+	                    console.log("El correo no existe o no pudo ser enviado", data);
+	                    var email_error = 'Correo electrónico no encontrado.';
 	               		swal({  
 							title: "", 
 							text: email_error,   
