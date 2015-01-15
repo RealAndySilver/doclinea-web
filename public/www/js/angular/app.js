@@ -278,7 +278,7 @@
 	}]);
 
 	var login = angular.module('loginUser', []);
-	login.controller('SignInController', ['$http',function($http){
+	login.controller('SignInController', ['$http', 'User', function($http, User){
 		var type = "User";
 		this.signIn = function() {
 				//console.log('Entra a signIn');
@@ -317,6 +317,9 @@
                        var user = data.response;
 	                   //console.log('la data es', user);
 	                   window.location = "/#/user/" + user._id;
+
+	                   User.username = user.name;
+	                   User.id = user._id;
                    }
        });
        this.data = {};
@@ -376,7 +379,7 @@
 	}]);
 
 	var loginDoctor = angular.module('loginDoctor', []);
-	loginDoctor.controller('DoctorSignInController', ['$http', '$scope', '$routeParams', '$location', '$anchorScroll', function($http, $scope, $routeParams, $location, $anchorScroll){
+	loginDoctor.controller('DoctorSignInController', ['$http', '$scope', '$routeParams', '$location', '$anchorScroll', 'User', function($http, $scope, $routeParams, $location, $anchorScroll, User){
 		var type = "Doctor";
 		
 		$location.hash('doctor-sign-in-box');
@@ -420,11 +423,60 @@
 	                   var doc = data.response;
 	                   //console.log('la data es', doc);
 	                   window.location = "/#/doctor_dashboard/" + doc._id;
-	                   // window.location = "/#/account_confirmation";
+
+	                   User.username = doc.name;
+	                   User.id = doc._id;
+	                   User.isDoctor = true;
 	               }
 	       		});
        this.data = {};
        };
+	}]);
+
+	app.controller('LoginWelcomeController', ['$scope', '$http', 'UserService', function($scope, $http, UserService){
+		var status = 0;
+		if(status == 0) {
+			console.log('No existe una sesión activa');
+		}
+
+		var self = this;
+
+		$scope.$watch(UserService.getUser(), function() {
+			self.getStatus();
+		});
+
+		this.getStatus = function() {
+			var user = UserService.getUser();
+			var username = user.username;
+
+			if(username) {
+				if(user.isDoctor) {
+					return 2;
+				} else {
+					return 1;
+				}
+			}
+			return 0;
+		};
+
+		this.getUsername = function() {
+			return UserService.getUser().username;
+		};
+		this.getUserId = function() {
+			return UserService.getUser().id;
+		}
+	}]);
+
+	app.value('User', {
+		username: '',
+		isDoctor: false,
+		id: '',
+	});
+
+	app.service('UserService', ['User', function(User) {
+		this.getUser = function() {
+			return User;	
+		};
 	}]);
 
 	//Controllers for Password Recovering
