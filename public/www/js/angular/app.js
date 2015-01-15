@@ -1541,6 +1541,14 @@
 			var index = $scope.doctorData.info.insurance_list.indexOf(insuranceToRemove);
 			$scope.doctorData.info.insurance_list.splice(index, 1);
 		};
+		this.addMembership = function() {
+			//console.log($scope.doctorData.info.practice_list[0]);
+			$scope.doctorData.info.profesional_membership.push('');
+		};
+		this.removeMembership = function(membershipToRemove) {
+			var index = $scope.doctorData.info.profesional_membership.indexOf(membershipToRemove);
+			$scope.doctorData.info.profesional_membership.splice(index, 1);
+		};
 
 		var watched = {
 			practices: {},
@@ -1634,6 +1642,7 @@
 
 			studiesInfoTemp.education_list = {};
 			studiesInfoTemp.education_list = $scope.doctorData.info.education_list;
+			studiesInfoTemp.profesional_membership = [];
 			studiesInfoTemp.profesional_membership = $scope.doctorData.info.profesional_membership;
 			studiesInfoTemp.description = $scope.doctorData.info.description;
 
