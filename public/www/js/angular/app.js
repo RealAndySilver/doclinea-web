@@ -319,6 +319,7 @@
 	                   window.location = "/#/user/" + user._id;
 
 	                   User.username = user.name;
+	                   User.isDoctor = false;
 	                   User.id = user._id;
                    }
        });
@@ -457,6 +458,11 @@
 				}
 			}
 			return 0;
+		};
+
+		this.logout = function() {
+			location.reload();
+			window.location = "/#";
 		};
 
 		this.getUsername = function() {
