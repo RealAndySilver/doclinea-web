@@ -65,18 +65,14 @@
 					  <textarea id="description" name="description" type="text" placeholder="" class="form-control input-md" ng-model="docManageCtrl.info.description"></textarea>
 					  </div>
 					</div>
-					<div class="form-group">
+					<div class="form-group last-form-element">
 					  <label class="col-md-4 control-label" for="profesional_membership">Membresías Profesionales</label>  
 					  <div class="col-md-6">
-					  <input id="profesional_membership" name="profesional_membership" type="text" placeholder="" class="form-control input-md" ng-model="docManageCtrl.info.profesional_membership">
-					  </div>
-					</div>
-					<div class="form-group last-form-element">
-					  <label class="col-md-4 control-label" for="insurance_list">Aseguradoras</label>
-					  <div class="col-md-6">
-						<select id="insurance_list" name="insurance_list" class="form-control" ng-model="docManageCtrl.info.insurance_list" ng-options="op.name for op in docManageCtrl.insurances track by op.name">
-						  <option value="">- Seleccione una aseguradora -</option>
-						</select>
+					  	<div class="pl-container" ng-repeat="profesional_membership in docManageCtrl.info.profesional_membership">
+					  		<input id="profesional_membership_{{$index + 1}}" name="profesional_membership" type="text" placeholder="" class="form-control small-input" ng-model="docManageCtrl.info.profesional_membership[$index]">
+					  		<a href="" ng-click="docStudiesManageCtrl.removeMembership(profesional_membership)" class="btn btn-danger btn-small remove-btn"><i class="fa fa-times"></i></a>
+					  	</div>
+					  	<a href="" ng-click="docStudiesManageCtrl.addMembership()" class="btn btn-primary btn-small add-btn"><i class="fa fa-plus"></i> Agregar</a>
 					  </div>
 					</div>
 					<!-- <div class="form-group last-form-element">

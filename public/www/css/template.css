@@ -245,6 +245,7 @@ li.vertical-divider {
 }
 #providers_container {
   background-color: #f8f8f8;
+  border-top: solid 1px #e2e2e2;
 }
 #info_container {
   background-color: #fff;
