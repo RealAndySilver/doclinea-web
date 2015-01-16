@@ -4,7 +4,7 @@
 				<div class="mb-left">
 					<div id="mb-form-box">
 						<p>Encuentra un médico y pide una cita ahora mismo</p>
-						<form id="main-form" name="searchDoctorForm" ng-controller="LandpageDocSearchController as landDocSearchCtrl"  ng-submit="landDocSearchCtrl.searchDoctor()" novalidate>
+						<form id="main-form" name="searchDoctorForm" ng-controller="LandpageDocSearchController as landDocSearchCtrl" ng-submit="landDocSearchCtrl.searchDoctor()" novalidate>
 							<label for="practice_list">Especialidad</label>
 							<select class="form-control" name="practice_list" id="practice_list" ng-model="landDocSearchCtrl.selectedPractice" ng-options="op.name for op in landDocSearchCtrl.practices">
 							  <option value="" >- Selecciona una especialidad -</option>
@@ -13,11 +13,17 @@
 							<select class="form-control" name="city" id="city" ng-model="landDocSearchCtrl.selectedCity" ng-options="op.name for op in landDocSearchCtrl.cities">
 							  <option value="" >- Selecciona una ciudad -</option>
 							</select>
+							<div ng-if="landDocSearchCtrl.selectedCity.name == 'Bogotá'">
+								<label for="localidad">Localidad</label>
+								<select class="form-control" name="localidad" id="localidad" ng-model="landDocSearchCtrl.selectedLocalidad" ng-options="localidad.name for localidad in landDocSearchCtrl.localidades">
+								  <option value="" >- Selecciona una localidad -</option>
+								</select>
+							</div>
 							<label for="insurance_list">Aseguradora</label>
 							<select class="form-control" name="insurance_list" id="insurance_list" ng-model="landDocSearchCtrl.selectedInsurance" ng-options="op.name for op in landDocSearchCtrl.insurances">
 							  <option value="" >- Selecciona una aseguradora -</option>
 							</select>
-							<button id="search_doctor" name="search_doctor" class="btn btn-success btn-block btn-lg" >Encontrar doctor</button>
+							<button id="search_doctor_main" name="search_doctor" class="btn btn-success btn-block btn-lg" >Encontrar doctor</button>
 						</form>
 					</div>
 				</div>
