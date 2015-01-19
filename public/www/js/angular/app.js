@@ -485,6 +485,33 @@
 		};
 	}]);
 
+	//Controller for Modal.js
+	// angular.module('ui.bootstrap.demo').controller('ModalCtrl', function ($scope, $modal, $log) {
+
+	// //$scope.items = ['item1', 'item2', 'item3'];
+
+	// $scope.open = function (size) {
+
+	//     var modalInstance = $modal.open({
+	//       templateUrl: 'myModalContent.html',
+	//       controller: 'ModalInstanceCtrl',
+	//       size: size,
+	//       resolve: {
+	//         items: function () {
+	//           return $scope.items;
+	//         }
+	//       }
+	//     });
+
+	//     modalInstance.result.then(function (selectedItem) {
+	//         $scope.selected = selectedItem;
+	//     }, function () {
+	//         $log.info('Modal dismissed at: ' + new Date());
+	//     });
+
+	// };
+	// });
+
 	//Controllers for Password Recovering
 	app.controller('PasswordRecoverController', ['$http', '$routeParams', function($http, $routeParams){
 		//console.log('Entra a recover');
