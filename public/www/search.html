@@ -14,7 +14,7 @@
 						<select class="form-control" name="city" id="city" ng-model="docSearchCtrl.selectedCity" ng-options="op.name for op in docSearchCtrl.cities">
 		                  <option value="">- Selecciona una ciudad -</option>
 		                </select>
-		                <div ng-if="docSearchCtrl.selectedCity == 'Bogotá'">
+		                <div ng-if="docSearchCtrl.selectedCity.name == 'Bogotá'">
 		                	<label for="city">Localidad</label>
 							<select class="form-control" name="city" id="city" ng-model="docSearchCtrl.selectedLocalidad" ng-options="localidad.name for localidad in docSearchCtrl.localidades">
 			                  <option value="">- Selecciona una localidad -</option>

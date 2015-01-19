@@ -17,7 +17,7 @@
 	]);
 
 	var endpoint = "http://192.241.187.135:1414/api_1.0/";
-	//var endpoint = "http://192.168.0.39:1414/api_1.0/";
+	//var endpoint = "http://192.168.0.29:1414/api_1.0/";
 	app.config(['$routeProvider',
 		function($routeProvider) {
 		$routeProvider.
@@ -683,6 +683,7 @@
 
 		this.practices = [];
 		this.insurances = [];
+		this.localidades = localidades;
 
 		var self = this;
 
@@ -788,6 +789,7 @@
 		this.practices = [];
 		this.insurances = [];
 		this.localidades = localidades;
+		//console.log(this.localidades);
 
 		var self = this;
 
@@ -806,13 +808,13 @@
 
 		var promiseGetAllPractices = PracticesService.getAll();
 		promiseGetAllPractices.then(function(response) {
-			console.log(response.data);
+			//console.log(response.data);
 			self.practices = response.data.response;
 		});
 
 		var promiseGetAllInsurances = InsurancesService.getAll();
 		promiseGetAllInsurances.then(function(response) {
-			console.log(response.data);
+			//console.log(response.data);
 			self.insurances = response.data.response;
 		});
 
@@ -825,7 +827,10 @@
 		//this.insurances = [ {name: "Colpatria", id: 1}, {name: "Compensar", id: 2} ];
 		this.selectedInsurance = getPosition(this.insurances, docData.insurance);
 
-		this.selectedLocalidad = getPosition(this.localidades, docData.localidad);
+		this.selectedLocalidad = getPosition(this.localidades, docData.localidad.name);
+
+		console.log('CIUDAD SELECCIONADA');
+		console.log(docData.city);
 
 		this.searchDoctor = function() {
 
