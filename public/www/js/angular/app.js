@@ -490,35 +490,42 @@
 	var modalView = angular.module('ui.modal', [])
 	modalView.controller('ModalCtrl', function ($scope, $modal, $log) {
 
-	//$scope.items = ['item1', 'item2', 'item3'];
+		$scope.openUser = function (size) {
 
-	$scope.open = function (size) {
+		    var modalUser = $modal.open({
+		      templateUrl: '../www/user_password_recover.html',
+		      controller: 'UserPasswordRecoverController',
+		      size: size,
+		      resolve: {
+		        items: function () {
+		          return $scope.items;
+		        }
+		      }
+		    });
 
-	    var modalInstance = $modal.open({
-	      templateUrl: '../www/user_password_recover.html',
-	      controller: 'UserPasswordRecoverController',
-	      size: size,
-	      resolve: {
-	        items: function () {
-	          return $scope.items;
-	        }
-	      }
-	    });
+		};
 
-	    modalInstance.result.then(function (selectedItem) {
-	        $scope.selected = selectedItem;
-	    }, function () {
-	        $log.info('Modal dismissed at: ' + new Date());
-	    });
+		$scope.openDoctor = function(size) {
 
-	};
+			var modalDoctor = $modal.open({
+		      templateUrl: '../www/password_recover.html',
+		      controller: 'PasswordRecoverController',
+		      size: size,
+		      resolve: {
+		        items: function () {
+		          return $scope.items;
+		        }
+		      }
+		    });
+		};
+
 	});
 
 	//Controllers for Password Recovering
-	app.controller('PasswordRecoverController', ['$http', '$routeParams', function($http, $routeParams){
+	app.controller('PasswordRecoverController', ['$http', '$routeParams', '$modalInstance', '$scope', function($http, $routeParams, $modalInstance, $scope){
 		//console.log('Entra a recover');
-		this.docRecover = function() {
-			var email = this.data.email;
+		$scope.docRecover = function() {
+			var email = this.recoverCtrl.data.email;
 			console.log(email);
 			$http.get(endpoint + 'Doctor' + '/Recover/' + email)
 	            .success(function(data) {
@@ -545,10 +552,14 @@
 						});
 	                }
 	    		});
+	    	$modalInstance.close();
+		};
+		$scope.cancel = function() {
+			$modalInstance.dismiss('cancel');
 		};
 	}]);
 	app.controller('UserPasswordRecoverController', ['$http', '$routeParams', '$modalInstance', '$scope', function($http, $routeParams, $modalInstance, $scope){
-		console.log('Entra a recover');
+		//console.log('Entra a recover');
 		$scope.userRecover = function() {
 			var email = this.userRecoverCtrl.data.email;
 			console.log(email);
@@ -578,6 +589,9 @@
 	                }
 	    		});
 	    	$modalInstance.close();
+		};
+		$scope.cancel = function() {
+			$modalInstance.dismiss('cancel');
 		};
 	}]);
 	app.controller('NewPasswordController', ['$http', '$routeParams', function($http, $routeParams){

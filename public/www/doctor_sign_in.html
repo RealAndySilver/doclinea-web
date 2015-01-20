@@ -15,9 +15,9 @@
 					    <input id="password" name="password" type="password" placeholder="Contraseña" class="form-control input-md" ng-model="docLoginCtrl.data.password" required>
 					  </div>
 					</div>
-					<div class="form-group">
+					<div class="form-group" ng-controller="ModalCtrl as modalDocCtrl">
 					  <div class="col-md-6 pull-left">
-					    <a href="#/password_recover/doctor">¿Olvidaste tu contraseña?</a>
+					    <button class="btn btn-info" data-toggle="modal" ng-click="openDoctor()">¿Olvidaste tu contraseña?</button>
 					  </div>
 					</div>
 					<div class="form-group">
