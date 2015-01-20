@@ -14,6 +14,7 @@
 	  'calendarPlugin',
 	  'ui.calendar',
 	  'ui.bootstrap',
+	  'ui.modal',
 	]);
 
 	var endpoint = "http://192.241.187.135:1414/api_1.0/";
@@ -486,31 +487,32 @@
 	}]);
 
 	//Controller for Modal.js
-	// angular.module('ui.bootstrap.demo').controller('ModalCtrl', function ($scope, $modal, $log) {
+	var modalView = angular.module('ui.modal', [])
+	modalView.controller('ModalCtrl', function ($scope, $modal, $log) {
 
-	// //$scope.items = ['item1', 'item2', 'item3'];
+	//$scope.items = ['item1', 'item2', 'item3'];
 
-	// $scope.open = function (size) {
+	$scope.open = function (size) {
 
-	//     var modalInstance = $modal.open({
-	//       templateUrl: 'myModalContent.html',
-	//       controller: 'ModalInstanceCtrl',
-	//       size: size,
-	//       resolve: {
-	//         items: function () {
-	//           return $scope.items;
-	//         }
-	//       }
-	//     });
+	    var modalInstance = $modal.open({
+	      templateUrl: '../www/user_password_recover.html',
+	      controller: 'UserPasswordRecoverController',
+	      size: size,
+	      resolve: {
+	        items: function () {
+	          return $scope.items;
+	        }
+	      }
+	    });
 
-	//     modalInstance.result.then(function (selectedItem) {
-	//         $scope.selected = selectedItem;
-	//     }, function () {
-	//         $log.info('Modal dismissed at: ' + new Date());
-	//     });
+	    modalInstance.result.then(function (selectedItem) {
+	        $scope.selected = selectedItem;
+	    }, function () {
+	        $log.info('Modal dismissed at: ' + new Date());
+	    });
 
-	// };
-	// });
+	};
+	});
 
 	//Controllers for Password Recovering
 	app.controller('PasswordRecoverController', ['$http', '$routeParams', function($http, $routeParams){
@@ -545,7 +547,7 @@
 	    		});
 		};
 	}]);
-	app.controller('UserPasswordRecoverController', ['$http', '$routeParams', function($http, $routeParams){
+	app.controller('UserPasswordRecoverController', ['$http', '$routeParams', '$modalInstance', function($http, $routeParams, $modalInstance){
 		//console.log('Entra a recover');
 		this.userRecover = function() {
 			var email = this.data.email;
