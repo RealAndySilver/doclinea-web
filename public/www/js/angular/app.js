@@ -547,10 +547,10 @@
 	    		});
 		};
 	}]);
-	app.controller('UserPasswordRecoverController', ['$http', '$routeParams', '$modalInstance', function($http, $routeParams, $modalInstance){
-		//console.log('Entra a recover');
-		this.userRecover = function() {
-			var email = this.data.email;
+	app.controller('UserPasswordRecoverController', ['$http', '$routeParams', '$modalInstance', '$scope', function($http, $routeParams, $modalInstance, $scope){
+		console.log('Entra a recover');
+		$scope.userRecover = function() {
+			var email = this.userRecoverCtrl.data.email;
 			console.log(email);
 			$http.get(endpoint + 'User' + '/Recover/' + email)
 	            .success(function(data) {
@@ -577,6 +577,7 @@
 						});
 	                }
 	    		});
+	    	$modalInstance.close();
 		};
 	}]);
 	app.controller('NewPasswordController', ['$http', '$routeParams', function($http, $routeParams){
