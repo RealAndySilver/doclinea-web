@@ -88,7 +88,7 @@
 						<h3>Especialidad</h3>
 						<hr>
 						<ul>
-							<li ng-repeat="practice in listsCtrl.practices">
+							<li ng-repeat="practice in listsCtrl.practices | orderBy : 'name'">
 								<a href="/#/search/{{encodedParam}}/{{encodedParam}}/{{practice.name}}/{{encodedParam}}">{{practice.name}}</a>
 							</li>
 						</ul>
