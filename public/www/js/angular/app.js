@@ -1521,6 +1521,7 @@
 			personalInfo.secondary_email = $scope.doctorData.info.secondary_email;
 			personalInfo.gender = $scope.doctorData.info.gender;
 			personalInfo.patient_gender = $scope.doctorData.info.patient_gender;
+			personalInfo.address = $scope.doctorData.info.address;
 			personalInfo.phone = $scope.doctorData.info.phone;
 			console.log(personalInfo);
 			console.log(doc_id);
