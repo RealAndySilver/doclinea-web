@@ -935,8 +935,8 @@
            		}
 
 	           	var mapOptions = {
-					zoom: 1,
-					center: new google.maps.LatLng(15.0000, -98.0000),
+					zoom: 5,
+					center: new google.maps.LatLng(4.670033, -74.0598163),
 					mapTypeId: google.maps.MapTypeId.ROADMAP
 				}
 
@@ -1383,10 +1383,10 @@
                			$scope.doctorData.info.education_list[0] = {institute_name: '', degree: '', year_start: '', year_end: '', hilights: ''};
                		};
                		if ($scope.doctorData.info.location_list.length == 0) {
-               			$scope.doctorData.info.location_list.push({location_name: '', location_address: ''});
+               			$scope.doctorData.info.location_list.push({location_name: '', location_address: '', lat: '', lon: ''});
                		};
                		if ($scope.doctorData.info.location_list[0] == null) {
-               			$scope.doctorData.info.location_list[0] = {location_name: '', location_address: ''};
+               			$scope.doctorData.info.location_list[0] = {location_name: '', location_address: '', lat: '', lon: ''};
                		};
                		if ($scope.doctorData.info.insurance_list.length == 0) {
                			$scope.doctorData.info.insurance_list.push({insurance: ''});
@@ -2018,6 +2018,11 @@
 			}else{
 				params.insurance_list = $scope.searchDocsCtrl.insurance.name;
 			}
+			if($scope.searchDocsCtrl.localidad == undefined || $scope.searchDocsCtrl.localidad == null) {
+				delete params.localidad;
+			}else{
+				params.localidad = $scope.searchDocsCtrl.localidad.name;
+			}
 
 			console.log('Parametros de busqueda ', params);
 
@@ -2174,10 +2179,10 @@
                			$scope.docInfo.info.education_list.push({institute_name: '', degree: '', year_start: '', year_end: '', hilights: ''});
                		};
                		if ($scope.docInfo.info.location_list.length == 0) {
-               			$scope.docInfo.info.location_list.push({location_name: '', location_address: ''});
+               			$scope.docInfo.info.location_list.push({location_name: '', location_address: '', lat: '', lon: ''});
                		};
                		if ($scope.docInfo.info.location_list[0] == null) {
-               			$scope.docInfo.info.location_list[0] = {location_name: '', location_address: ''};
+               			$scope.docInfo.info.location_list[0] = {location_name: '', location_address: '', lat: '', lon: ''};
                		};
            		}
         	});
@@ -2204,6 +2209,7 @@
 			personalInfo.secondary_email = $scope.docInfo.info.secondary_email;
 			personalInfo.gender = $scope.docInfo.info.gender;
 			personalInfo.patient_gender = $scope.docInfo.info.patient_gender;
+			personalInfo.address = $scope.docInfo.info.address;
 			personalInfo.phone = $scope.docInfo.info.phone;
 			console.log(personalInfo);
 			console.log(doc_id);
