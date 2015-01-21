@@ -18,7 +18,7 @@
 	]);
 
 	var endpoint = "http://192.241.187.135:1414/api_1.0/";
-	//var endpoint = "http://192.168.0.29:1414/api_1.0/";
+	//var endpoint = "http://192.168.0.37:1414/api_1.0/";
 	app.config(['$routeProvider',
 		function($routeProvider) {
 		$routeProvider.
@@ -29,6 +29,10 @@
 				templateUrl: '../www/search.html',
 				controller: 'GetDoctorsController',
 				controllerAs: 'getDrCtrl',
+			}).
+			when('/practices_list', {
+				templateUrl: '../www/practices_list.html',
+				//controller: 'SignUpController',
 			}).
 			when('/registration', {
 				templateUrl: '../www/registration.html',
@@ -638,6 +642,7 @@
 						});
 	                }
 	    		});
+	    	window.location = "/#/";
 		};
 	}]);
 

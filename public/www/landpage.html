@@ -88,9 +88,10 @@
 						<h3>Especialidad</h3>
 						<hr>
 						<ul>
-							<li ng-repeat="practice in listsCtrl.practices | orderBy : 'name'">
+							<li ng-repeat="practice in listsCtrl.practices | orderBy : 'name' | limitTo: 12">
 								<a href="/#/search/{{encodedParam}}/{{encodedParam}}/{{practice.name}}/{{encodedParam}}">{{practice.name}}</a>
 							</li>
+							<a ng-if="listsCtrl.practices.length > 11" href="#/practices_list"><b>Ver más...</b></a>
 						</ul>
 					</div>
 					<div class="column">
@@ -114,7 +115,7 @@
 						<h3>Aseguradora</h3>
 						<hr>
 						<ul>
-							<li ng-repeat="insurance in listsCtrl.insurances">
+							<li ng-repeat="insurance in listsCtrl.insurances | orderBy : 'name'">
 								<a href="/#/search/{{encodedParam}}/{{encodedParam}}/{{encodedParam}}/{{insurance.name}}">{{insurance.name}}</a>
 							</li>
 						</ul>
