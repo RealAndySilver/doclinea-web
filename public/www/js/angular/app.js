@@ -34,6 +34,10 @@
 				templateUrl: '../www/practices_list.html',
 				//controller: 'SignUpController',
 			}).
+			when('/insurances_list', {
+				templateUrl: '../www/insurances_list.html',
+				//controller: 'SignUpController',
+			}).
 			when('/registration', {
 				templateUrl: '../www/registration.html',
 				//controller: 'SignUpController',

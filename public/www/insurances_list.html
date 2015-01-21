@@ -1,0 +1,17 @@
+<div id="sign-in-box" ng-controller="SearchListsController as insurancesListCtrl">
+	<div class="center">
+		<div class="info-box">
+			<div class="inner-info-box">
+				<h3><b>Encuentra Doctores por Aseguradora</b></h3>
+				<div class="column-2">
+					<ul>
+						<li ng-repeat="insurance in insurancesListCtrl.insurances | orderBy : 'name'">
+							<a href="/#/search/{{encodedParam}}/{{encodedParam}}/{{encodedParam}}/{{insurance.name}}">{{insurance.name}}</a>
+						</li>
+					</ul>
+				</div>
+				<!-- <div class="column-2"></div> -->
+			</div>
+		</div>
+	</div>
+</div>

@@ -109,15 +109,17 @@
 							<li><a href="/#/search/Barranquilla/{{encodedParam}}/{{encodedParam}}/{{encodedParam}}">Barranquilla</a></li>
 							<li><a href="/#/search/Pereira/{{encodedParam}}/{{encodedParam}}/{{encodedParam}}">Pereira</a></li>
 							<li><a href="/#/search/Bucaramanga/{{encodedParam}}/{{encodedParam}}/{{encodedParam}}">Bucaramanga</a></li>
+							<!-- <a href="#/cities_list"><b>Ver más...</b></a> -->
 						</ul>
 					</div>
 					<div class="column">
 						<h3>Aseguradora</h3>
 						<hr>
 						<ul>
-							<li ng-repeat="insurance in listsCtrl.insurances | orderBy : 'name'">
+							<li ng-repeat="insurance in listsCtrl.insurances | orderBy : 'name' | limitTo: 12">
 								<a href="/#/search/{{encodedParam}}/{{encodedParam}}/{{encodedParam}}/{{insurance.name}}">{{insurance.name}}</a>
 							</li>
+							<a ng-if="listsCtrl.insurances.length > 2" href="#/insurances_list"><b>Ver más...</b></a>
 						</ul>
 					</div>
 				</div>
