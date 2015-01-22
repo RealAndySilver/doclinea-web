@@ -38,6 +38,12 @@
 					  </div>
 					</div>
 					<div class="form-group">
+					  <label class="col-md-4 control-label" for="birthday">Fecha de Nacimiento</label>  
+					  <div class="col-md-6">
+					  	<input id="birthday" name="birthday" type="text" datepicker-popup="{{format}}" is-open="opened" datepicker-options="dateOptions" ng-required="true" placeholder="" class="form-control input-md" ng-model="docSignUpCtrl.data.birthday" style="margin-bottom: 10px;">
+					  </div>
+					</div>
+					<div class="form-group">
 					  <label class="col-md-4 control-label" for="password">Contraseña</label>
 					  <div class="col-md-6">
 						<input id="password" name="password" type="password" placeholder="" class="form-control input-md" ng-model="docSignUpCtrl.data.password" equals="{{docSignUpCtrl.data.password_verify}}" required>
@@ -128,7 +134,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-					  <label class="col-md-4 control-label" for="address">Dirección</label>  
+					  <label class="col-md-4 control-label" for="address">Dirección Residencia</label>  
 					  <div class="col-md-6">
 					  <input id="address" name="address" type="text" placeholder="" class="form-control input-md" ng-model="docSignUpCtrl.data.address" required>
 					  <div class="error" ng-show="doctorSignUpForm.address.$dirty && doctorSignUpForm.address.$invalid">
@@ -152,6 +158,9 @@
 							  <input type="checkbox" name="terms" id="terms">
 							  Leí y acepto el aviso de privacidad y los términos y condiciones.
 							</label>
+							<div class="error" ng-show="doctorSignUpForm.terms.$dirty && doctorSignUpForm.terms.$invalid">
+						 	  <small class="error" ng-show="doctorSignUpForm.terms.$error.required">Acepta antes los términos y condiciones.</small>
+						    </div>
 						</div>
 					</div>
 					<!-- <div class="error warning" ng-show="doctorSignUpForm.$invalid">

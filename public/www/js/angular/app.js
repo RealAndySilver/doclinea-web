@@ -360,6 +360,7 @@
                data1.password = btoa(data1.password);
                data1.password_verify = btoa(data1.password_verify);
                data1.practice_list = data1.practice_list.name;
+               data1.birthday = data1.birthday.getTime();
                console.log(data1); 
                $http.post(endpoint + type + '/Create', data1)
 	               .success(function(data) {
@@ -496,7 +497,7 @@
 
 	//Controller for Modal.js
 	var modalView = angular.module('ui.modal', [])
-	modalView.controller('ModalCtrl', function ($scope, $modal, $log) {
+	modalView.controller('ModalCtrl', function ($scope, $modal) {
 
 		$scope.openUser = function (size) {
 
@@ -1041,7 +1042,6 @@
            	});
 	});
 
-
 	//Module and Controllers for User Dashboard - PARENT CONTROLLER
 	userDash = angular.module('userDashboard', []);
 	userDash.controller('UserDashboardController', ['$http', '$scope', '$routeParams', 'InsurancesService', function($http, $scope, $routeParams, InsurancesService){
@@ -1545,6 +1545,8 @@
 			personalInfo.name = $scope.doctorData.info.name;
 			personalInfo.lastname = $scope.doctorData.info.lastname;
 			personalInfo.secondary_email = $scope.doctorData.info.secondary_email;
+			personalInfo.birthday = $scope.doctorData.info.birthday.getTime();
+            //data1.birthday = data1.birthday.getTime();
 			personalInfo.gender = $scope.doctorData.info.gender;
 			personalInfo.patient_gender = $scope.doctorData.info.patient_gender;
 			personalInfo.address = $scope.doctorData.info.address;

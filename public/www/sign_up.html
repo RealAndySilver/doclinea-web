@@ -84,9 +84,12 @@
 					<div class="form-group center-input last-form-element">
 						<div> 
 							<label class="radio-inline settings-label" for="terms">
-							  <input type="checkbox" name="terms" id="terms">
+							  <input type="checkbox" name="terms" id="terms" required>
 							  Leí y acepto el aviso de privacidad y los términos y condiciones.
 							</label>
+							<div class="error" ng-show="signUpForm.terms.$dirty && signUpForm.terms.$invalid">
+						 	  <small class="error" ng-show="signUpForm.terms.$error.required">Acepta antes los términos y condiciones.</small>
+						    </div>
 						</div>
 					</div>
 					<!-- <div class="error warning" ng-show="signUpForm.$invalid">
