@@ -261,6 +261,7 @@
 				//console.log('Entra a signUp');
 				var data1 = this.data;
                 data1.password = btoa(data1.password);
+                data1.birthday = data1.birthday.getTime();
                 $http.post(endpoint + type + '/Create', data1)
                 .success(function(data) {
                    if (!data.status) {
@@ -1104,6 +1105,7 @@
 			personalInfo.name = $scope.userData.info.name;
 			personalInfo.lastname = $scope.userData.info.lastname;
 			personalInfo.email = $scope.userData.info.email;
+			personalInfo.birthday = $scope.userData.info.birthday.getTime();
 			personalInfo.gender = $scope.userData.info.gender;
 			personalInfo.phone = $scope.userData.info.phone;
 			personalInfo.city = $scope.userData.info.city;
@@ -1546,7 +1548,6 @@
 			personalInfo.lastname = $scope.doctorData.info.lastname;
 			personalInfo.secondary_email = $scope.doctorData.info.secondary_email;
 			personalInfo.birthday = $scope.doctorData.info.birthday.getTime();
-            //data1.birthday = data1.birthday.getTime();
 			personalInfo.gender = $scope.doctorData.info.gender;
 			personalInfo.patient_gender = $scope.doctorData.info.patient_gender;
 			personalInfo.address = $scope.doctorData.info.address;
@@ -2204,6 +2205,7 @@
 			personalInfo.name = $scope.docInfo.info.name;
 			personalInfo.lastname = $scope.docInfo.info.lastname;
 			personalInfo.email = $scope.docInfo.info.email;
+			personalInfo.birthday = $scope.docInfo.info.birthday.getTime();
 			personalInfo.secondary_email = $scope.docInfo.info.secondary_email;
 			personalInfo.gender = $scope.docInfo.info.gender;
 			personalInfo.patient_gender = $scope.docInfo.info.patient_gender;

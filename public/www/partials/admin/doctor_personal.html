@@ -33,6 +33,12 @@
 				  </div>
 				</div>
 				<div class="form-group">
+				  <label class="col-md-4 control-label" for="birthday">Fecha de Nacimiento</label>  
+				  <div class="col-md-6">
+				  	<input id="birthday" name="birthday" type="text" datepicker-popup="{{format}}" is-open="opened" datepicker-options="dateOptions" ng-required="true" placeholder="" class="form-control input-md" ng-model="docManageCtrl.info.birthday" style="margin-bottom: 10px;">
+				  </div>
+				</div>
+				<div class="form-group">
 				  <label class="col-md-4 control-label" for="secondary_email">Email Secundario</label>  
 				  <div class="col-md-6">
 				  <input id="secondary_email" name="secondary_email" type="text" placeholder="" class="form-control input-md" ng-model="docManageCtrl.info.secondary_email" style="margin-bottom: 10px;">
