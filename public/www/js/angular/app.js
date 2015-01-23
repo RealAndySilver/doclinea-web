@@ -1738,18 +1738,8 @@
 				studiesInfoTemp.practice_list.push(studiesInfo.practice_list[i].name);
 			}
 
-			// studiesInfoTemp.education_list = {};
-			// if ($scope.doctorData.info.education_list == null || $scope.doctorData.info.education_list == undefined) {
-			// 	delete studiesInfoTemp.education_list;
-			// 	console.log('array vacio');
-			// }
-			// else {
-			// 	studiesInfoTemp.education_list = $scope.doctorData.info.education_list;
-			// };
 			studiesInfoTemp.education_list = {};
 			studiesInfoTemp.education_list = $scope.doctorData.info.education_list;
-			// studiesInfoTemp.education_list = [];
-			// studiesInfoTemp.education_list.push(0);
 			studiesInfoTemp.profesional_membership = [];
 			studiesInfoTemp.profesional_membership = $scope.doctorData.info.profesional_membership;
 			studiesInfoTemp.description = $scope.doctorData.info.description;
@@ -1760,7 +1750,7 @@
 			// console.log(studiesInfoTemp.insurance_list);
 
 			console.log(studiesInfoTemp);
-            $http.post(endpoint + type + '/Update/' + doc_id, studiesInfoTemp)
+            /*$http.post(endpoint + type + '/Update/' + doc_id, studiesInfoTemp)
             .success(function(data) {
                 if (!data.status) {
                     console.log("Paila, no se actualizó", data);
@@ -1783,7 +1773,7 @@
 						confirmButtonText: "Aceptar",
 					});
                 }
-      		});
+      		});*/
        };
 	}]);
 

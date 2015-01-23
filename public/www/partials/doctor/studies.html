@@ -68,7 +68,7 @@
 					<div class="form-group">
 					  <label class="col-md-4 control-label" for="profesional_membership">Membresías Profesionales</label>  
 					  <div class="col-md-6">
-					  	<div class="pl-container" ng-repeat="profesional_membership in docDashCtrl.info.profesional_membership">
+					  	<div class="pl-container" ng-repeat="profesional_membership in docDashCtrl.info.profesional_membership track by $index">
 					  		<input id="profesional_membership_{{$index + 1}}" name="profesional_membership" type="text" placeholder="" class="form-control small-input" ng-model="docDashCtrl.info.profesional_membership[$index]">
 					  		<a href="" ng-click="dashStudiesCtrl.removeMembership(profesional_membership)" class="btn btn-danger btn-small remove-btn"><i class="fa fa-times"></i></a>
 					  	</div>
