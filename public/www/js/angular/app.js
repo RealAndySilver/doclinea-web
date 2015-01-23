@@ -1381,8 +1381,20 @@
                		if ($scope.doctorData.info.education_list.length == 0) {
                			$scope.doctorData.info.education_list.push({institute_name: '', degree: '', year_start: '', year_end: '', hilights: ''});
                		};
-               		if ($scope.doctorData.info.education_list[0] == null) {
+               		if ($scope.doctorData.info.education_list[0] == null || $scope.doctorData.info.education_list[0] == 0) {
                			$scope.doctorData.info.education_list[0] = {institute_name: '', degree: '', year_start: '', year_end: '', hilights: ''};
+               		};
+               		if ($scope.doctorData.info.profesional_membership.length == 0) {
+               			$scope.doctorData.info.profesional_membership.push('');
+               		};
+               		if ($scope.doctorData.info.profesional_membership[0] == null) {
+               			$scope.doctorData.info.profesional_membership[0] = '';
+               		};
+               		if ($scope.doctorData.info.description == 'undefined') {
+               			$scope.doctorData.info.description = '';
+               		};
+               		if ($scope.doctorData.info.description == null) {
+               			$scope.doctorData.info.description = '';
                		};
                		if ($scope.doctorData.info.location_list.length == 0) {
                			$scope.doctorData.info.location_list.push({location_name: '', location_address: '', lat: '', lon: ''});
@@ -1547,7 +1559,9 @@
 			personalInfo.name = $scope.doctorData.info.name;
 			personalInfo.lastname = $scope.doctorData.info.lastname;
 			personalInfo.secondary_email = $scope.doctorData.info.secondary_email;
-			personalInfo.birthday = $scope.doctorData.info.birthday.getTime();
+			if (personalInfo.birthday == 'undefined') {
+				personalInfo.birthday = $scope.doctorData.info.birthday.getTime();
+			};
 			personalInfo.gender = $scope.doctorData.info.gender;
 			personalInfo.patient_gender = $scope.doctorData.info.patient_gender;
 			personalInfo.address = $scope.doctorData.info.address;
@@ -1698,22 +1712,22 @@
 			for (i=0; i < $scope.selectedPracticeList.length; i++) {
 				studiesInfo.practice_list.push($scope.selectedPracticeList[i]);
 			}
-			console.log(studiesInfo.practice_list);
+			//console.log(studiesInfo.practice_list);
 
 			for(var i in studiesInfo.practice_list) {
 				if (studiesInfo.practice_list[i] instanceof Array) {
-					console.log(i + 'Selección inválida');
-					var invalid_practice = 'Verifique la lista de especialidades.';
-               		var alert_div = $("<div class=\"alert alert-danger alert-dismissible noty_dash noty fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">x</span><span class=\"sr-only\"></span></button>"+invalid_practice+"</div>");
-					$("body").prepend(alert_div);
-					$(".alert").alert();
+					//console.log(i + 'Selección inválida');
+					// var invalid_practice = 'Verifique la lista de especialidades.';
+     //           		var alert_div = $("<div class=\"alert alert-danger alert-dismissible noty_dash noty fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">x</span><span class=\"sr-only\"></span></button>"+invalid_practice+"</div>");
+					// $("body").prepend(alert_div);
+					// $(".alert").alert();
 					$('#practice_list_'+(parseInt(i)+1)).removeClass('ng-valid');
 					$('#practice_list_'+(parseInt(i)+1)).removeClass('ng-pristine');
 					$('#practice_list_'+(parseInt(i)+1)).addClass('ng-invalid');
 					$('#practice_list_'+(parseInt(i)+1)).addClass('ng-dirty');
 					return;
 				} else {
-					console.log(i + 'Selección válida');
+					//console.log(i + 'Selección válida');
 				}
 			}
 
@@ -1724,8 +1738,18 @@
 				studiesInfoTemp.practice_list.push(studiesInfo.practice_list[i].name);
 			}
 
+			// studiesInfoTemp.education_list = {};
+			// if ($scope.doctorData.info.education_list == null || $scope.doctorData.info.education_list == undefined) {
+			// 	delete studiesInfoTemp.education_list;
+			// 	console.log('array vacio');
+			// }
+			// else {
+			// 	studiesInfoTemp.education_list = $scope.doctorData.info.education_list;
+			// };
 			studiesInfoTemp.education_list = {};
 			studiesInfoTemp.education_list = $scope.doctorData.info.education_list;
+			// studiesInfoTemp.education_list = [];
+			// studiesInfoTemp.education_list.push(0);
 			studiesInfoTemp.profesional_membership = [];
 			studiesInfoTemp.profesional_membership = $scope.doctorData.info.profesional_membership;
 			studiesInfoTemp.description = $scope.doctorData.info.description;
@@ -2177,6 +2201,18 @@
                		if ($scope.docInfo.info.education_list.length == 0) {
                			$scope.docInfo.info.education_list.push({institute_name: '', degree: '', year_start: '', year_end: '', hilights: ''});
                		};
+               		if ($scope.docInfo.info.profesional_membership.length == 0) {
+               			$scope.docInfo.info.profesional_membership.push('');
+               		};
+               		if ($scope.docInfo.info.profesional_membership[0] == null) {
+               			$scope.docInfo.info.profesional_membership[0] = '';
+               		};
+               		if ($scope.docInfo.info.description == 'undefined') {
+               			$scope.docInfo.info.description = '';
+               		};
+               		if ($scope.docInfo.info.description == null) {
+               			$scope.docInfo.info.description = '';
+               		};
                		if ($scope.docInfo.info.location_list.length == 0) {
                			$scope.docInfo.info.location_list.push({location_name: '', location_address: '', lat: '', lon: ''});
                		};
@@ -2205,7 +2241,9 @@
 			personalInfo.name = $scope.docInfo.info.name;
 			personalInfo.lastname = $scope.docInfo.info.lastname;
 			personalInfo.email = $scope.docInfo.info.email;
-			personalInfo.birthday = $scope.docInfo.info.birthday.getTime();
+			if (personalInfo.birthday == 'undefined') {
+				personalInfo.birthday = $scope.docInfo.info.birthday.getTime();
+			};
 			personalInfo.secondary_email = $scope.docInfo.info.secondary_email;
 			personalInfo.gender = $scope.docInfo.info.gender;
 			personalInfo.patient_gender = $scope.docInfo.info.patient_gender;
@@ -2463,11 +2501,11 @@
 			for (i=0; i < $scope.selectedPracticeList.length; i++) {
 				studiesInfo.practice_list.push($scope.selectedPracticeList[i]);
 			}
-			console.log(studiesInfo.practice_list);
+			//console.log(studiesInfo.practice_list);
 
 			for(var i in studiesInfo.practice_list) {
 				if (studiesInfo.practice_list[i] instanceof Array) {
-					console.log(i + 'Selección inválida');
+					//console.log(i + 'Selección inválida');
 					var invalid_practice = 'Verifique la lista de especialidades.';
                		var alert_div = $("<div class=\"alert alert-danger alert-dismissible noty_dash noty fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">x</span><span class=\"sr-only\"></span></button>"+invalid_practice+"</div>");
 					$("body").prepend(alert_div);
@@ -2478,7 +2516,7 @@
 					$('#practice_list_'+(parseInt(i)+1)).addClass('ng-dirty');
 					return;
 				} else {
-					console.log(i + 'Selección válida');
+					//console.log(i + 'Selección válida');
 				}
 			}
 
