@@ -3,7 +3,7 @@
 			<div id="main-box">
 				<div class="mb-left">
 					<div id="mb-form-box">
-						<p>Encuentra un médico y pide una cita ahora mismo</p>
+						<p><b>Encuentra un médico y pide una cita ahora mismo</b></p>
 						<form id="main-form" name="searchDoctorForm" ng-controller="LandpageDocSearchController as landDocSearchCtrl" ng-submit="landDocSearchCtrl.searchDoctor()" novalidate>
 							<label for="practice_list">Especialidad</label>
 							<select class="form-control" name="practice_list" id="practice_list" ng-model="landDocSearchCtrl.selectedPractice" ng-options="op.name for op in landDocSearchCtrl.practices">
@@ -60,19 +60,19 @@
 						<img src="../www/css/images/search.png" />
 						<h3>1. BUSCA</h3>
 						<p>entre nuestros</p>
-						<p class="orange-text">+ 20.000 doctores</p>
+						<p class="orange-text"><b>+ 20.000 doctores</b></p>
 					</div>
 					<div class="column">
 						<img src="../www/css/images/people.png" />
 						<h3>2. ENCUENTRA</h3>
 						<p>las recomendaciones de</p>
-						<p class="orange-text">+ 100.000 pacientes</p>
+						<p class="orange-text"><b>+ 100.000 pacientes</b></p>
 					</div>
 					<div class="column">
 						<img src="../www/css/images/calendar.png" />
 						<h3>3. AGENDA</h3>
 						<p>tu cita sin costo adicional</p>
-						<p class="orange-text">+ 50.000 citas</p>
+						<p class="orange-text"><b>+ 50.000 citas</b></p>
 					</div>
 				</div>
 			</div>
@@ -99,11 +99,6 @@
 						<hr>
 						<ul>
 							<li><a href="/#/search/Bogotá/{{encodedParam}}/{{encodedParam}}/{{encodedParam}}">Bogotá</a></li>
-							<!-- <ul>
-								<li ng-repeat="localidad in listsCtrl.localidades">
-									<a href="/#/search/{{encodedParam}}/{{localidad.name}}/{{encodedParam}}/{{encodedParam}}">{{localidad.name}}</a>
-								</li>
-							</ul> -->
 							<li><a href="/#/search/Medellín/{{encodedParam}}/{{encodedParam}}/{{encodedParam}}">Medellín</a></li>
 							<li><a href="/#/search/Cali/{{encodedParam}}/{{encodedParam}}/{{encodedParam}}">Cali</a></li>
 							<li><a href="/#/search/Barranquilla/{{encodedParam}}/{{encodedParam}}/{{encodedParam}}">Barranquilla</a></li>
