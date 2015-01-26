@@ -323,14 +323,23 @@
 							}
                    } else {
                            // if successful, bind success message to message
-                       console.log("Listo, autenticado" + data);
+                       // console.log("Listo, autenticado" + data);
                        var user = data.response;
 	                   //console.log('la data es', user);
-	                   window.location = "/#/user/" + user._id;
+	                   window.location = "/#/user/" + user._id
 
 	                   User.username = user.name;
 	                   User.isDoctor = false;
 	                   User.id = user._id;
+	                   User.gender = user.gender;
+
+	                   console.log('Mi objeto USUARIO es', User);
+
+	                   // Store
+					   localStorage.setItem('user', JSON.stringify(User));
+
+					   // $scope.userData = JSON.parse(localStorage.user);
+					   // console.log('Nombre de Usuario guardado', $scope.userData.username);
                    }
        });
        this.data = {};
@@ -482,12 +491,21 @@
 		this.getUserId = function() {
 			return UserService.getUser().id;
 		}
+
+		// Store
+		//localStorage.user = JSON.stringify(User);
+		//console.log('Info guardada!', localStorage.user)
+
+		//var userData = JSON.parse(localStorage.user);
+	    //console.log('Nombre de Usuario guardado', JSON.parse(localStorage.user));
+
 	}]);
 
 	app.value('User', {
 		username: '',
 		isDoctor: false,
 		id: '',
+		gender: '',
 	});
 
 	app.service('UserService', ['User', function(User) {
