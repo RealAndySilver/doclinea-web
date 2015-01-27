@@ -1289,7 +1289,7 @@
 		$('#account-tab a[href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#locations"]').on('shown.bs.tab', function (e) {
 		    e.preventDefault();
 		    var mapOptions = {
-				zoom: 11,
+				zoom: 5,
 				center: new google.maps.LatLng(4.6777333, -74.0956373),
 				mapTypeId: google.maps.MapTypeId.ROADMAP
 			}
@@ -1580,6 +1580,7 @@
 			if (personalInfo.birthday == 'undefined') {
 				personalInfo.birthday = $scope.doctorData.info.birthday.getTime();
 			};
+			personalInfo.birthday = $scope.doctorData.info.birthday.getTime();
 			personalInfo.gender = $scope.doctorData.info.gender;
 			personalInfo.patient_gender = $scope.doctorData.info.patient_gender;
 			personalInfo.address = $scope.doctorData.info.address;
@@ -1768,7 +1769,7 @@
 			// console.log(studiesInfoTemp.insurance_list);
 
 			console.log(studiesInfoTemp);
-            /*$http.post(endpoint + type + '/Update/' + doc_id, studiesInfoTemp)
+            $http.post(endpoint + type + '/Update/' + doc_id, studiesInfoTemp)
             .success(function(data) {
                 if (!data.status) {
                     console.log("Paila, no se actualizó", data);
@@ -1791,7 +1792,7 @@
 						confirmButtonText: "Aceptar",
 					});
                 }
-      		});*/
+      		});
        };
 	}]);
 
@@ -1912,82 +1913,6 @@
         };
 	}]);
 
-	//Controller for doctor Gallery
-	// docDash.directive('gallery', function() {
-	//     return {
-	//     	restrict: 'E',
-	//     	templateUrl: 'www/partials/doctor/gallery.html',
-	//     	controller: 'DashboardGalleryController',
-	//     	controllerAs: 'dashGalleryCtrl',
-	//     };
-	// });
-	// docDash.directive('imagesModel', ['$parse', function ($parse) {
-	//     return {
-	//         restrict: 'A',
-	//         link: function(scope, element, attrs) {
-	//             var model = $parse(attrs.imagesModel);
-	//             var modelSetter = model.assign;
-	            
-	//             element.bind('change', function(){
-	//                 scope.$apply(function(){
-	//                     modelSetter(scope, element[0].files[0]);
-	//                 });
-	//             });
-	//         }
-	//     };
-	// }]);
-	// docDash.service('galleryUpload', ['$http', function ($http) {
-	//     this.uploadFileToUrl = function(file, uploadUrl){
-	//         var fd = new FormData();
-	//         fd.append('image', file);
-	//         $http.post(uploadUrl, fd, {
-	//             transformRequest: angular.identity,
-	//             headers: {'Content-Type': undefined}
-	//         })
-	//         .success(function(){
-	//         	var success_msg = 'Sus imágenes han sido actualizadas con éxito!';
- //           		var alert_div = $("<div class=\"alert success alert-info alert-dismissible noty fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span class=\"sr-only\"></span></button>"+success_msg+"</div>");
-	// 			$("body").prepend(alert_div);
-	// 			$(".alert").alert();
-	// 			setTimeout(function() {
-	// 			      alert_div.fadeOut(1800);
-	// 			}, 800);
-	//         })
-	//         .error(function(){
-	//         });
-	//     }
-	// }]);
-	// docDash.controller('DashboardGalleryController', ['$http', '$scope',function($http, $scope){
-	// 	console.log('entra a gallery');
-	// 	function readURL(input) {
-	//         if (input.files && input.files[0]) {
-	//             var reader = new FileReader();
-
-	//             reader.onload = function (e) {
-	//                 $('#gallery-pic').attr('src', e.target.result);
-	//             }
-
-	//             reader.readAsDataURL(input.files[0]);
-	//         }
-	//     }
-
-	//     $("#image-gallery").change(function(){
-	//         readURL(this);
-	//     });
-
-	//     this.addImage = function() {
-	// 		$scope.doctorData.info.gallery.push({name: '', image_url: ''});
-	// 	};
-
-	// 	var type = 'Doctor';
-	//     $scope.uploadFile = function(doc_id){
-	//         var file = $scope.myFile;
-	//         console.log('file is ' + JSON.stringify(file));
-	//         var uploadUrl = endpoint + type + '/UpdateProfilePic/' + doc_id;
-	//         galleryUpload.uploadFileToUrl(file, uploadUrl);
-	//     };
-	// }]);
-
 	//////////////////////////////////////////////////////////////////
 	//Module and Controllers for Admin Dashboard - PARENT CONTROLLER//
 	//////////////////////////////////////////////////////////////////
@@ -2000,13 +1925,13 @@
 
 		var promiseGetAllPractices = PracticesService.getAll();
 		promiseGetAllPractices.then(function(response) {
-			console.log(response.data);
+			//console.log(response.data);
 			self.practices = response.data.response;
 		});
 
 		var promiseGetAllInsurances = InsurancesService.getAll();
 		promiseGetAllInsurances.then(function(response) {
-			console.log(response.data);
+			//console.log(response.data);
 			self.insurances = response.data.response;
 		});
 
@@ -2014,7 +1939,7 @@
 		this.cities = [ {name: "Bogotá", id: 1}, {name: "Medellín", id: 2}, {name: "Cali", id: 3}, {name: "Barranquilla", id: 4}, {name: "Pereira", id: 5}, {name: "Bucaramanga", id: 6} ];
 		//this.insurances = [ {name: "Colpatria", id: 1}, {name: "Compensar", id: 2}, {name: "Sura", id: 3} ];
 
-		console.log('THIS IS ADMIN');
+		//console.log('THIS IS ADMIN');
 
 		$('#admin-tab a, #myTab a').click(function (e) {
 		  e.preventDefault();
@@ -2032,7 +1957,7 @@
 	});
 	adminDash.controller('SearchDoctorsController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams){
 
-		console.log('THIS IS SEARCH');
+		//console.log('THIS IS SEARCH');
 		var encodedParam = btoa("undefined");
 		var params = {};
 
@@ -2099,7 +2024,7 @@
 		$('#doc-dash a[href="#/admin_dashboard/edit_doctor/{{docManageCtrl.info._id}}/#locations"]').on('shown.bs.tab', function (e) {
 		    e.preventDefault();
 		    var mapOptions = {
-				zoom: 11,
+				zoom: 5,
 				center: new google.maps.LatLng(4.6777333, -74.0956373),
 				mapTypeId: google.maps.MapTypeId.ROADMAP
 			}
@@ -2162,13 +2087,13 @@
 		
 		var promiseGetAllPractices = PracticesService.getAll();
 		promiseGetAllPractices.then(function(response) {
-			console.log(response.data);
+			//console.log(response.data);
 			self.practices = response.data.response;
 		});
 
 		var promiseGetAllInsurances = InsurancesService.getAll();
 		promiseGetAllInsurances.then(function(response) {
-			console.log(response.data);
+			//console.log(response.data);
 			self.insurances = response.data.response;
 		});
 
@@ -2252,6 +2177,7 @@
 			if (personalInfo.birthday == 'undefined') {
 				personalInfo.birthday = $scope.docInfo.info.birthday.getTime();
 			};
+			personalInfo.birthday = $scope.docInfo.info.birthday.getTime();
 			personalInfo.secondary_email = $scope.docInfo.info.secondary_email;
 			personalInfo.gender = $scope.docInfo.info.gender;
 			personalInfo.patient_gender = $scope.docInfo.info.patient_gender;
@@ -2696,11 +2622,11 @@
 	    };
 	});
 	adminDash.controller('AdminHospitalsController', ['$http', '$scope',function($http, $scope){
-		console.log('THIS IS HOSPITALS');
+		//console.log('THIS IS HOSPITALS');
 		var type = 'Hospital';
 
 		this.createHospital = function() {
-			console.log('THIS IS CREATE HOSPITALS');
+			//console.log('THIS IS CREATE HOSPITALS');
 			var data1 = this.info;
 			
 			console.log('datos para crear hospital');
@@ -2799,7 +2725,7 @@
 		$('#hospi-tab a[href="#/admin_dashboard/edit_hospital/{{hospitalManageCtrl.info._id}}/#hospital_location"]').on('shown.bs.tab', function (e) {
 		    e.preventDefault();
 		    var mapOptions = {
-				zoom: 11,
+				zoom: 5,
 				center: new google.maps.LatLng(4.6777333, -74.0956373),
 				mapTypeId: google.maps.MapTypeId.ROADMAP
 			}
@@ -2811,7 +2737,7 @@
 
 			//cargar ubicación en mapa
 			var createMarker = function (lat, lng){
-				console.log('ENTRA A CREAR MARKER');
+				//console.log('ENTRA A CREAR MARKER');
 				var marker = new google.maps.Marker({
 					map: $scope.map,
 					position: new google.maps.LatLng(lat, lng),
@@ -3061,11 +2987,11 @@
 	    };
 	});
 	adminDash.controller('AdminInsurancesController', ['$http', '$scope',function($http, $scope){
-		console.log('THIS IS INSURANCES');
+		//console.log('THIS IS INSURANCES');
 		var type = 'InsuranceCompany';
 
 		this.createInsurance = function() {
-			console.log('THIS IS CREATE INSURANCES');
+			//console.log('THIS IS CREATE INSURANCES');
 			var data1 = this.info;
 			//data1.type_list = [];
 			
@@ -3410,11 +3336,11 @@
 	    };
 	});
 	adminDash.controller('AdminPracticesController', ['$http', '$scope',function($http, $scope){
-		console.log('THIS IS PRACTICES');
+		//console.log('THIS IS PRACTICES');
 		var type = 'Practice';
 
 		this.createPractice = function() {
-			console.log('THIS IS CREATE PRACTICES');
+			//console.log('THIS IS CREATE PRACTICES');
 			var data1 = this.info;
 			//data1.type_list = [];
 			
