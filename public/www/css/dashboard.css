@@ -193,3 +193,13 @@ header {
 .back-link {
   cursor: pointer;
 }
+#directives-calendar {
+  margin-top: 30px;
+}
+.calendar-box .btn-group {
+  margin: 10px 0 20px 0;
+}
+.calendar-box .calAlert {
+  margin-top: 15px;
+  text-align: center;
+}

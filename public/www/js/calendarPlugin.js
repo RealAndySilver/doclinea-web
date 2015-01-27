@@ -2,14 +2,15 @@
 
 	var app = angular.module('calendarPlugin', ['ui.calendar', 'ui.bootstrap']);
 
+	var endpoint = "http://192.241.187.135:1414/api_1.0/";
+
 	app.controller('CalendarCtrl', ['$scope', '$http', function($scope, $http) {
 
 		$scope.info = {};
 		$scope.eventByDoctor = function(doctor) {
 			$scope.info = doctor;
-			// console.log('Evento creado:');
-			// console.log($scope.events);
-		}
+			//console.log($scope.info);
+		};
 
 		var date = new Date();
 		var mm = date.getMinutes();
@@ -19,7 +20,6 @@
 		var y = date.getFullYear();
 
 		
-		$scope.changeTo = 'Hungarian';
 		/* event source that pulls from google.com */
 		$scope.eventSource = {
 				//url: "http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic",
@@ -27,17 +27,8 @@
 				currentTimezone: 'Colombia/Bogota' // an option!
 		};
 		/* event source that contains custom events on the scope */
-		$scope.events = [
-		  /*
-	{title: 'All Day Eventw',start: new Date(y, m, 1)},
-		  {title: 'Long Event',start: new Date(y, m, d - 5),end: new Date(y, m, d - 2)},
-		  {id: 999,title: 'Repeating Event',start: new Date(y, m, d - 3, 16, 0),allDay: false},
-		  {id: 999,title: 'Repeating Event',start: new Date(y, m, d + 4, 16, 0),allDay: false},
-		  {title: 'Birthday Party',start: new Date(y, m, d + 1, 19, 0),end: new Date(y, m, d + 1, 22, 30),allDay: false},
-		  {title: 'Click for Google',start: new Date(y, m, 28),end: new Date(y, m, 29),url: 'http://google.com/'},
-		  {title: 'Birthday Party2',start: new Date(y, m, d + 1, 19, 0),end: new Date(y, m, d + 1, 22, 30),allDay: false, test:"Okeedokee"},
-	*/
-		];
+		$scope.events = [];
+
 		/* event source that calls a function on every view switch */
 		$scope.eventsF = function (start, end, timezone, callback) {
 		  var s = new Date(start).getTime() / 1000;
@@ -140,20 +131,54 @@
 		  }
 		};
 
-		/*$scope.changeLang = function() {
-		  if($scope.changeTo === 'Hungarian'){
-			$scope.uiConfig.calendar.dayNames = ["Vasárnap", "Hétfő", "Kedd", "Szerda", "Csütörtök", "Péntek", "Szombat"];
-			$scope.uiConfig.calendar.dayNamesShort = ["Vas", "Hét", "Kedd", "Sze", "Csüt", "Pén", "Szo"];
-			$scope.changeTo= 'Spanish';
-		  } else {
-			$scope.uiConfig.calendar.dayNames = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
-			$scope.uiConfig.calendar.dayNamesShort = ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"];
-			$scope.changeTo = 'Hungarian';
-		  }
-		};*/
+		
 		/* event sources array*/
 		$scope.eventSources = [$scope.events, $scope.eventSource, $scope.eventsF];
 		$scope.eventSources2 = [$scope.calEventsExt, $scope.eventsF, $scope.events];
+
+		$scope.setAppointment = function() {
+			var appointment = {}
+			appointment.doctor_id = $scope.info._id;
+			appointment.name = $scope.info.name + ' ' + $scope.info.lastname;
+			appointment.status = 'available';
+			appointment.date_start = $scope.events[0].start;
+			appointment.date_end = $scope.events[0].end;
+			appointment.location = $scope.info.location_list;
+			console.log('aqui se guarda la cita', appointment);
+
+			$http.post(endpoint + 'Appointment' + '/Create/' + appointment.doctor_id, appointment)
+            .success(function(data) {
+                if (!data.status) {
+                    console.log("Lo sentimos, no se creó", data);
+                    //console.log(JSON.stringify(data1));
+                    var error_msg = 'No se pudo agendar la cita, inténtalo nuevamente.';
+               		swal({  
+						title: "", 
+						text: error_msg,   
+						type: "error",   
+						confirmButtonText: "Aceptar",
+					});
+                } else {
+                   // if successful, bind success message to message
+                   console.log("Listo, cita actualizada", data);
+                   var success_msg = 'Tu cita ha sido agendada con éxito!';
+	           		swal({  
+						title: "", 
+						text: success_msg,   
+						type: "success",   
+						confirmButtonText: "Aceptar",
+					});
+                }
+      		});
+
+			// console.log('el doctor es', $scope.info);
+			//console.log('la info de la cita es', $scope.events[0]);
+		};
+
+		$scope.getAppointments = function() {
+			console.log('aquiles traigo las citas');
+		};
+
 	}]);
 	/* EOF */
 
