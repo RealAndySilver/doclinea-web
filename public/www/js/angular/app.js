@@ -2677,7 +2677,7 @@
 	               		// if successful, bind success message to message
 	               		console.log("Lista de hospitales");
 	               		console.log(data);
-	               		This.hospitals = data.response;
+	               		$scope.hospitals = data.response;
 	           		}
 	           	});
         };
@@ -2702,15 +2702,15 @@
 	               		// if successful, bind success message to message
 	               		console.log("Hospital eliminado exitosamente.");
 	               		console.log(data);
-	               		var success = 'El hospital ha sido eliminado con é.';
+	               		var index = $scope.hospitals.indexOf(data1.id);
+						$scope.hospitals.splice(index, 1);
+	               		var success = 'El hospital ha sido eliminado con éxito.';
 	               		swal({  
 							title: "", 
 							text: success,   
 							type: "success",   
 							confirmButtonText: "Aceptar",
 						});
-	     //           		var index = $scope.doctorData.info.practice_list.indexOf(practiceToRemove);
-						// $scope.doctorData.info.practice_list.splice(index, 1);
 	           		}
 	           	});
         };
@@ -2949,7 +2949,7 @@
 			location.location_list.address = $scope.hospitalInfo.info.location_list[0].address;
 			location.location_list.lat = $scope.lat;
 			location.location_list.lon = $scope.lng;
-			console.log(location);
+			//console.log(location);
 
             $http.post(endpoint + type + '/Update/' + hospital_id, location)
             .success(function(data) {
@@ -3042,7 +3042,7 @@
 	               		console.log("Lista de aseguradoras");
 	               		console.log(data);
 
-	               		This.insurances = data.response;
+	               		$scope.insurances = data.response;
 	               		//console.log(JSON.stringify(dProfile.name));
 	           		}
 	           	});
@@ -3068,6 +3068,8 @@
 	               		// if successful, bind success message to message
 	               		console.log("Aseguradora eliminada exitosamente.");
 	               		console.log(data);
+	               		var index = $scope.insurances.indexOf(data1.id);
+						$scope.insurances.splice(index, 1);
 	               		var success = 'La aseguradora ha sido eliminada con éxito.';
 	               		swal({  
 							title: "", 
@@ -3075,8 +3077,6 @@
 							type: "success",   
 							confirmButtonText: "Aceptar",
 						});
-	     //           		var index = $scope.doctorData.info.practice_list.indexOf(practiceToRemove);
-						// $scope.doctorData.info.practice_list.splice(index, 1);
 	           		}
 	           	});
         };
@@ -3313,6 +3313,8 @@
 	               		// if successful, bind success message to message
 	               		console.log("Seguro eliminado exitosamente.");
 	               		console.log(data);
+	               		var index = $scope.insuranceInfo.info.type_list.indexOf(type_id);
+						$scope.insuranceInfo.info.type_list.splice(index, 1);
 	               		var success_msg = 'El seguro ha sido eliminado con éxito.';
 	               		swal({  
 							title: "", 
@@ -3320,8 +3322,6 @@
 							type: "success",   
 							confirmButtonText: "Aceptar",
 						});
-	     //           		var index = $scope.doctorData.info.practice_list.indexOf(practiceToRemove);
-						// $scope.doctorData.info.practice_list.splice(index, 1);
 	           		}
 	           	});
         };
@@ -3393,7 +3393,7 @@
 	               		console.log("Lista de especialidades");
 	               		console.log(data);
 
-	               		This.practices = data.response;
+	               		$scope.practices = data.response;
 	               		//console.log(JSON.stringify(dProfile.name));
 	           		}
 	           	});
@@ -3418,15 +3418,15 @@
 	               		// if successful, bind success message to message
 	               		console.log("Especialidad eliminada exitosamente.");
 	               		console.log(data);
-	               		var success = 'La especialidad ha sido eliminada con éxito.';
+	               		var index = $scope.practices.indexOf(data1.id);
+						$scope.practices.splice(index, 1);
+	               		var success_msg = 'La especialidad ha sido eliminada con éxito.';
 	               		swal({  
 							title: "", 
 							text: success_msg,   
 							type: "success",   
 							confirmButtonText: "Aceptar",
 						});
-	     //           		var index = $scope.doctorData.info.practice_list.indexOf(practiceToRemove);
-						// $scope.doctorData.info.practice_list.splice(index, 1);
 	           		}
 	           	});
         };
@@ -3460,10 +3460,6 @@
                		console.log("Resultado de busqueda de especialidades:");
                		$scope.practiceInfo.info = data.response;
                		console.log($scope.practiceInfo.info);
-
-               		// if ($scope.insuranceInfo.info.type_list.length == 0) {
-               		// 	$scope.insuranceInfo.info.type_list.push({name: '', category: ''});
-               		// };
            		}
         	});
 	}]);
