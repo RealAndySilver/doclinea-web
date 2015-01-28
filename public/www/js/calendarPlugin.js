@@ -19,13 +19,13 @@
 		var m = date.getMonth();
 		var y = date.getFullYear();
 
-		
 		/* event source that pulls from google.com */
 		$scope.eventSource = {
 				//url: "http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic",
 				className: 'gcal-event',           // an option!
 				currentTimezone: 'Colombia/Bogota' // an option!
 		};
+
 		/* event source that contains custom events on the scope */
 		$scope.events = [];
 
@@ -53,11 +53,11 @@
 		};
 		/* alert on Drop */
 		 $scope.alertOnDrop = function( event, revertFunc, jsEvent, ui, view){
-		   $scope.alertMessage = ('Evento cambiado a ' + event.start.format());
+		   $scope.alertMessage = ('Evento cambiado a ' + event.start.format("dddd DD [de] MMMM [de] YYYY h:MM:ss"));
 		};
 		/* alert on Resize */
 		$scope.alertOnResize = function( event, jsEvent, ui, view){
-		   $scope.alertMessage = ('Fecha de finalización cambiada a ' + event.end.format());
+		   $scope.alertMessage = ('Fecha de finalización cambiada a ' + event.end.format("dddd DD [de] MMMM [de] YYYY h:MM:ss"));
 		};
 		/* add and removes an event source of choice */
 		$scope.addRemoveEventSource = function(sources,source) {
@@ -99,6 +99,7 @@
 				textColor: num == 0? 'black':'black',
 				forceEventDuration: true
 		    });
+		    console.log($scope.events);
 		};
 		/* remove event */
 		$scope.remove = function(index) {
@@ -106,7 +107,9 @@
 		};
 		/* Change View */
 		$scope.changeView = function(view,calendar) {
-		  calendar.fullCalendar('changeView',view);
+			if(calendar !== undefined) {
+				calendar.fullCalendar('changeView',view);
+			}
 		};
 		/* Change View */
 		$scope.renderCalender = function(calendar) {
@@ -131,16 +134,16 @@
 		  }
 		};
 
-		
 		/* event sources array*/
 		$scope.eventSources = [$scope.events, $scope.eventSource, $scope.eventsF];
 		$scope.eventSources2 = [$scope.calEventsExt, $scope.eventsF, $scope.events];
 
-		$scope.setAppointment = function() {
+		$scope.setAppointment = function(status) {
 			var appointment = {}
 			appointment.doctor_id = $scope.info._id;
 			appointment.name = $scope.info.name + ' ' + $scope.info.lastname;
-			appointment.status = 'available';
+			// $scope.status = '';
+			appointment.status = status;
 			appointment.date_start = $scope.events[0].start;
 			appointment.date_end = $scope.events[0].end;
 			appointment.location = $scope.info.location_list;
@@ -176,7 +179,37 @@
 		};
 
 		$scope.getAppointments = function() {
-			console.log('aquiles traigo las citas');
+			console.log('citas del doctor:', $scope.info._id);
+			$http.get(endpoint + 'Appointment' + '/GetAllForDoctor/' + $scope.info._id)
+	            .success(function(data) {
+	                if (!data.status) {
+	                    console.log("Lo sentimos, no se cargaron las citas", data);
+	                    //console.log(JSON.stringify(data1));
+	                } else {
+	                   // if successful, bind success message to message
+	                   //console.log("Citas cargadas", data.response);
+	                   $scope.appointments_list = data.response;
+	                   console.log($scope.appointments_list);
+	                   console.log('status', $scope.appointments_list[2].status);
+	                   console.log('inicio', $scope.appointments_list[2].date_start);
+	                   console.log('final', $scope.appointments_list[2].date_end);
+
+	                   $scope.events.push({
+							title: $scope.appointments_list[2].status,
+							start: new Date($scope.appointments_list[2].date_start),
+							end: new Date($scope.appointments_list[2].date_end),
+							className: ['openSesame'],
+							allDay: false,
+							//color: num == 0? '':'green',
+							color: 'green',
+							//textColor: num == 0? 'black':'black',
+							textColor: 'white',
+							forceEventDuration: true
+					    });
+	                   console.log('la info de la cita es', $scope.events);
+	                   
+	                }
+	      		});
 		};
 
 	}]);

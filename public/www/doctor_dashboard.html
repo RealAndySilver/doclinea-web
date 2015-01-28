@@ -13,13 +13,13 @@
 			    <div>
 			        <section id="directives-calendar" ng-controller="CalendarCtrl">
 			        	{{eventByDoctor(docDashCtrl.info)}}
-			        	{{getAppointments()}}
+			        	<!-- {{getAppointments(docDashCtrl.info._id)}} -->
 			        	<div>
 			                <div class="row-fluid">
 			                    <div class="span4">
 			                        <div class="btn-group calTools">
 			                          <button type="button" class="btn btn-primary" ng-click="addEvent(0)">
-			                            Nuevo
+			                            Nuevo {{events.length}}
 			                          </button>
 			                        </div>
 
@@ -29,19 +29,21 @@
 			                                    <a class="close" ng-click="remove($index)"><i class="icon-remove"></i>x</a>
 			                                    {{e.start | date:"MMM dd hh:mm"}} - {{e.end | date:"MMM dd hh:mm"}}
 			                                    <br><br>
-			                                    <input ng-model="e.title" class="form-control input-md">
+			                                    <!-- <input ng-model="e.title" class="form-control input-md"> -->
 			                                    <br>
 			                                    <div class="btn-group btn-group-sm" role="group" aria-label="...">
-												  <button type="button" class="btn btn-default">Disponible</button>
-												  <button type="button" class="btn btn-default">Externo</button>
+												  <!-- <button ng-model="status" type="button" class="btn btn-default" value="available">Disponible</button>
+												  <button ng-model="status" type="button" class="btn btn-default" value="external">Externo</button> -->
+													 <input type="radio" name="available" id="available" value="available" checked="checked" ng-model="status" required>Disponible
+													 <input type="radio" name="external" id="external" value="external" ng-model="status" required>Externo
 												</div>
-												<button type="button" class="btn btn-info btn-sm" ng-click="setAppointment()">Guardar</button>
+												<button type="button" class="btn btn-info btn-sm" ng-click="setAppointment(status)">Guardar</button>
 			                                </div>
 			                            </li>
 			                        </ul>
 			                    </div>
 
-			                    <div class="span8 calendar-box">
+			                    <div class="span8 calendar-box" ng-init="getAppointments()">
 			                        <tabset>
 			                            <tab select="renderCalender(myCalendar1);">
 			                              <tab-heading>
