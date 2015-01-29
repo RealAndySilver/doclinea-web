@@ -2,7 +2,7 @@
   <div class="row">
 	<div class="col-sm-3 col-md-2 sidebar">
 	  <ul class="nav nav-sidebar" role="tablist" id="doc-tab">
-		<li><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#appointments" ng-controller="CalendarCtrl as calCtrl" ng-click="getAppointments(docDashCtrl.info._id)" role="tab" data-toggle="tab">Citas</a></li>
+		<li><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#appointments" role="tab" data-toggle="tab">Citas</a></li>
 		<li class="active"><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#account" role="tab" data-toggle="tab">Cuenta</a></li>
 	  </ul>
 	</div>
@@ -19,7 +19,7 @@
 			                    <div class="span4">
 			                        <div class="btn-group calTools">
 			                          <button type="button" class="btn btn-primary" ng-click="addEvent(0)">
-			                            Nuevo {{events.length}}
+			                            Agregar evento
 			                          </button>
 			                        </div>
 

@@ -9,6 +9,7 @@
 		$scope.info = {};
 		$scope.eventByDoctor = function(doctor) {
 			$scope.info = doctor;
+			//$scope.getAppointments();
 			//console.log($scope.info);
 		};
 
@@ -75,6 +76,9 @@
 
 		/* add custom event*/
 		$scope.addEvent = function(num) {
+			if ($scope.events.length > 0) {
+				return;
+			};
 			console.log($scope.info);
 			var date = new Date();
 			var mm = date.getMinutes();
@@ -122,7 +126,7 @@
 		/* config object */
 		$scope.uiConfig = {
 		  calendar:{
-			height: 450,
+			height: 600,
 			editable: true,
 			lang: 'es',
 			header:{
@@ -130,9 +134,6 @@
 			  center: '',
 			  right: 'today prev,next'
 			},
-			// viewRender: function(view, element) {
-	  //           $log.debug("View Changed: ", view.visStart, view.visEnd, view.start, view.end);
-	  //       },
 			eventClick: $scope.alertOnEventClick,
 			eventDrop: $scope.alertOnDrop,
 			eventResize: $scope.alertOnResize
@@ -147,7 +148,6 @@
 			var appointment = {}
 			appointment.doctor_id = $scope.info._id;
 			appointment.name = $scope.info.name + ' ' + $scope.info.lastname;
-			// $scope.status = '';
 			appointment.status = status;
 			appointment.date_start = $scope.events[0].start;
 			appointment.date_end = $scope.events[0].end;
@@ -177,15 +177,16 @@
 						confirmButtonText: "Aceptar",
 					});
                 }
+                $scope.remove(); 
       		});
 
 			// console.log('el doctor es', $scope.info);
 			//console.log('la info de la cita es', $scope.events[0]);
 		};
 
-		$scope.getAppointments = function(doctor_id) {
-			console.log('citas del doctor:', doctor_id);
-			$http.get(endpoint + 'Appointment' + '/GetAllForDoctor/' + doctor_id)
+		$scope.getAppointments = function() {
+			console.log('citas del doctor:', $scope.info._id);
+			$http.get(endpoint + 'Appointment' + '/GetAllForDoctor/' + $scope.info._id)
 	            .success(function(data) {
 	                if (!data.status) {
 	                    console.log("Lo sentimos, no se cargaron las citas", data);
