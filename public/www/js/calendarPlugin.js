@@ -4,7 +4,7 @@
 
 	var endpoint = "http://192.241.187.135:1414/api_1.0/";
 
-	app.controller('CalendarCtrl', ['$scope', '$http', function($scope, $http) {
+	app.controller('CalendarCtrl', ['$scope', '$http', '$log', function($scope, $http, $log) {
 
 		$scope.info = {};
 		$scope.eventByDoctor = function(doctor) {
@@ -72,6 +72,7 @@
 			sources.push(source);
 		  }
 		};
+
 		/* add custom event*/
 		$scope.addEvent = function(num) {
 			console.log($scope.info);
@@ -99,8 +100,9 @@
 				textColor: num == 0? 'black':'black',
 				forceEventDuration: true
 		    });
-		    console.log($scope.events);
+		    //console.log($scope.events);
 		};
+
 		/* remove event */
 		$scope.remove = function(index) {
 		  $scope.events.splice(index,1);
@@ -128,6 +130,9 @@
 			  center: '',
 			  right: 'today prev,next'
 			},
+			// viewRender: function(view, element) {
+	  //           $log.debug("View Changed: ", view.visStart, view.visEnd, view.start, view.end);
+	  //       },
 			eventClick: $scope.alertOnEventClick,
 			eventDrop: $scope.alertOnDrop,
 			eventResize: $scope.alertOnResize
@@ -178,9 +183,9 @@
 			//console.log('la info de la cita es', $scope.events[0]);
 		};
 
-		$scope.getAppointments = function() {
-			console.log('citas del doctor:', $scope.info._id);
-			$http.get(endpoint + 'Appointment' + '/GetAllForDoctor/' + $scope.info._id)
+		$scope.getAppointments = function(doctor_id) {
+			console.log('citas del doctor:', doctor_id);
+			$http.get(endpoint + 'Appointment' + '/GetAllForDoctor/' + doctor_id)
 	            .success(function(data) {
 	                if (!data.status) {
 	                    console.log("Lo sentimos, no se cargaron las citas", data);
@@ -188,6 +193,7 @@
 	                } else {
 	                   // if successful, bind success message to message
 	                   //console.log("Citas cargadas", data.response);
+
 	                   $scope.appointments_list = data.response;
 	                   console.log($scope.appointments_list);
 	                   console.log('status', $scope.appointments_list[2].status);
@@ -196,19 +202,20 @@
 
 	                   $scope.events.push({
 							title: $scope.appointments_list[2].status,
-							start: new Date($scope.appointments_list[2].date_start),
-							end: new Date($scope.appointments_list[2].date_end),
+							start: $scope.appointments_list[2].date_start,
+							end: $scope.appointments_list[2].date_end,
 							className: ['openSesame'],
 							allDay: false,
 							//color: num == 0? '':'green',
 							color: 'green',
 							//textColor: num == 0? 'black':'black',
-							textColor: 'white',
+							textColor: 'black',
 							forceEventDuration: true
 					    });
-	                   console.log('la info de la cita es', $scope.events);
+	                   console.log('la info de la cita es', $scope.events[0]);
+					    console.log($scope.events);
+					};
 	                   
-	                }
 	      		});
 		};
 
