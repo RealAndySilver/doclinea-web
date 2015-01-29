@@ -1284,6 +1284,7 @@
 		    e.preventDefault();
 		    $(this).tab('show');
 		    $('#set-week').trigger("click");
+		    //$('#calendar').fullCalendar('render');
 		});
 
 		$('#account-tab a[href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#locations"]').on('shown.bs.tab', function (e) {

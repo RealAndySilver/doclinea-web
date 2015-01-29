@@ -5,8 +5,25 @@
 	var endpoint = "http://192.241.187.135:1414/api_1.0/";
 
 	app.controller('CalendarCtrl', ['$scope', '$http', '$log', function($scope, $http, $log) {
-
 		$scope.info = {};
+
+		$scope.$watch('info', function(newValue, oldValue) {
+			console.log(newValue);
+			if(newValue) {
+				if(newValue._id) {
+					$scope.getAppointments(newValue);
+					//$('#main-calendar').trigger("click");
+				}
+			}
+		});
+
+		// $('#my-tabs a#main-calendar').on('shown.bs.tab', function (e) {
+		//     e.preventDefault();
+		//     $(this).tab('show');
+		//     calendar.fullCalendar('render');
+		//     console.log('dentro del calendario');
+		// });
+
 		$scope.eventByDoctor = function(doctor) {
 			$scope.info = doctor;
 			//$scope.getAppointments();
@@ -37,6 +54,7 @@
 		  var m = new Date(start).getMonth();
 		  var events = [{title: 'Feed Me ' + m,start: s + (50000),end: s + (100000),allDay: false, className: ['customFeed']}];
 		  callback(events);
+		  //console.log('Cambio de Vista');
 		};
 
 		$scope.calEventsExt = {
@@ -75,37 +93,37 @@
 		};
 
 		/* add custom event*/
-		$scope.addEvent = function(num) {
-			if ($scope.events.length > 0) {
-				return;
-			};
-			console.log($scope.info);
-			var date = new Date();
-			var mm = date.getMinutes();
-			var h = date.getHours();
-			var d = date.getDate();
-			var m = date.getMonth();
-			var y = date.getFullYear();
-			if (mm < 15) {
-				mm = 0;
-			} else if (mm < 45){
-				mm = 30;
-			} else {
-				mm = 0;
-				++h;
-			}
-		    $scope.events.push({
-				title: 'Nota',
-				start: new Date(y, m, d, h, mm),
-				end: new Date(y, m, d, h, mm+30),
-				className: ['openSesame'],
-				allDay: false,
-				color: num == 0? '':'green',
-				textColor: num == 0? 'black':'black',
-				forceEventDuration: true
-		    });
-		    //console.log($scope.events);
-		};
+		// $scope.addEvent = function(num) {
+		// 	if ($scope.events.length > 0) {
+		// 		return;
+		// 	};
+		// 	//console.log($scope.info);
+		// 	var date = new Date();
+		// 	var mm = date.getMinutes();
+		// 	var h = date.getHours();
+		// 	var d = date.getDate();
+		// 	var m = date.getMonth();
+		// 	var y = date.getFullYear();
+		// 	if (mm < 15) {
+		// 		mm = 0;
+		// 	} else if (mm < 45){
+		// 		mm = 30;
+		// 	} else {
+		// 		mm = 0;
+		// 		++h;
+		// 	}
+		//     $scope.events.push({
+		// 		title: 'Nota',
+		// 		start: new Date(y, m, d, h, mm),
+		// 		end: new Date(y, m, d, h, mm+30),
+		// 		className: ['openSesame'],
+		// 		allDay: false,
+		// 		color: num == 0? '':'green',
+		// 		textColor: num == 0? 'black':'black',
+		// 		forceEventDuration: true
+		//     });
+		//     //console.log($scope.events);
+		// };
 
 		/* remove event */
 		$scope.remove = function(index) {
@@ -118,7 +136,7 @@
 			}
 		};
 		/* Change View */
-		$scope.renderCalender = function(calendar) {
+		$scope.renderCalendar = function(calendar) {
 		  if(calendar){
 			calendar.fullCalendar('render');
 		  }
@@ -142,12 +160,12 @@
 
 		/* event sources array*/
 		$scope.eventSources = [$scope.events, $scope.eventSource, $scope.eventsF];
-		$scope.eventSources2 = [$scope.calEventsExt, $scope.eventsF, $scope.events];
+		//$scope.eventSources2 = [$scope.calEventsExt, $scope.eventsF, $scope.events];
 
 		$scope.setAppointment = function(status) {
 			var appointment = {}
 			appointment.doctor_id = $scope.info._id;
-			appointment.name = $scope.info.name + ' ' + $scope.info.lastname;
+			appointment.doctor_name = $scope.info.name + ' ' + $scope.info.lastname;
 			appointment.status = status;
 			appointment.date_start = $scope.events[0].start;
 			appointment.date_end = $scope.events[0].end;
@@ -184,9 +202,10 @@
 			//console.log('la info de la cita es', $scope.events[0]);
 		};
 
-		$scope.getAppointments = function() {
-			console.log('citas del doctor:', $scope.info._id);
-			$http.get(endpoint + 'Appointment' + '/GetAllForDoctor/' + $scope.info._id)
+		$scope.getAppointments = function(info) {
+			console.log(info);
+			console.log('citas del doctor:', info._id);
+			$http.get(endpoint + 'Appointment' + '/GetAllForDoctor/' + info._id)
 	            .success(function(data) {
 	                if (!data.status) {
 	                    console.log("Lo sentimos, no se cargaron las citas", data);
@@ -198,22 +217,38 @@
 	                   $scope.appointments_list = data.response;
 	                   console.log($scope.appointments_list);
 	                   console.log('status', $scope.appointments_list[2].status);
-	                   console.log('inicio', $scope.appointments_list[2].date_start);
-	                   console.log('final', $scope.appointments_list[2].date_end);
+	                   console.log('inicio', new Date($scope.appointments_list[2].date_start));
+	                   console.log('final', new Date($scope.appointments_list[2].date_end));
+	                   var dates = [];
 
-	                   $scope.events.push({
-							title: $scope.appointments_list[2].status,
-							start: $scope.appointments_list[2].date_start,
-							end: $scope.appointments_list[2].date_end,
-							className: ['openSesame'],
-							allDay: false,
-							//color: num == 0? '':'green',
-							color: 'green',
-							//textColor: num == 0? 'black':'black',
-							textColor: 'black',
-							forceEventDuration: true
-					    });
-	                   console.log('la info de la cita es', $scope.events[0]);
+	                    for(var i in $scope.appointments_list) {
+	                   		$scope.events.push({
+								title: $scope.appointments_list[i].status,
+								start: new Date($scope.appointments_list[i].date_start),
+								end: new Date($scope.appointments_list[i].date_end),
+								className: ['openSesame'],
+								allDay: false,
+								color: 'green',
+								textColor: 'white',
+								forceEventDuration: true
+					    	});
+	                   		console.log('la info de la cita es', $scope.events[i]);
+	                    }
+
+	       //              $scope.events.push({
+								// // title: $scope.appointments_list[i].status,
+								// title: 'Hola Polee',
+								// // start: new Date($scope.appointments_list[i].date_start),
+								// // end: new Date($scope.appointments_list[i].date_end),
+								// start: new Date("2015-01-27T21:00:00.000Z"),
+								// end: new Date("2015-01-27T21:30:00.000Z"),
+								// className: ['openSesame'],
+								// allDay: false,
+								// color: 'green',
+								// textColor: 'white',
+								// forceEventDuration: true
+					   //  	});
+
 					    console.log($scope.events);
 					};
 	                   
