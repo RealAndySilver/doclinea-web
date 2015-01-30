@@ -47,6 +47,19 @@
 		/* event source that contains custom events on the scope */
 		$scope.events = [];
 
+		// $scope.events = [
+		//   {title: 'All Day Eventw',start: new Date("Tue Jan 27 2015 16:00:00 GMT-0500 (COT)")},
+	 //      {title: 'Long Event',start: new Date(y, m, d - 5),end: new Date(y, m, d - 2)},
+	 //      {id: 999,title: 'Repeating Event',start: new Date(y, m, d - 3, 16, 0),allDay: false},
+	 //      {id: 999,title: 'Repeating Event',start: new Date(y, m, d + 4, 16, 0),allDay: false},
+	 //      {title: 'Birthday Party',start: new Date(y, m, d + 1, 19, 0),end: new Date(y, m, d + 1, 22, 30),allDay: false},
+	 //      {title: 'Click for Google',start: new Date(y, m, 28),end: new Date(y, m, 29),url: 'http://google.com/'},
+	 //      {title: 'Birthday Party2',start: new Date(y, m, d + 1, 19, 0),end: new Date(y, m, d + 1, 22, 30),allDay: false, test:"Okeedokee"},
+	 //    ];
+
+	 	// $scope.events.push({title: 'All Day Eventw',start: new Date(y, m, 1)});
+	 	//console.log($scope.events);
+
 		/* event source that calls a function on every view switch */
 		$scope.eventsF = function (start, end, timezone, callback) {
 		  var s = new Date(start).getTime() / 1000;
@@ -93,37 +106,37 @@
 		};
 
 		/* add custom event*/
-		// $scope.addEvent = function(num) {
-		// 	if ($scope.events.length > 0) {
-		// 		return;
-		// 	};
-		// 	//console.log($scope.info);
-		// 	var date = new Date();
-		// 	var mm = date.getMinutes();
-		// 	var h = date.getHours();
-		// 	var d = date.getDate();
-		// 	var m = date.getMonth();
-		// 	var y = date.getFullYear();
-		// 	if (mm < 15) {
-		// 		mm = 0;
-		// 	} else if (mm < 45){
-		// 		mm = 30;
-		// 	} else {
-		// 		mm = 0;
-		// 		++h;
-		// 	}
-		//     $scope.events.push({
-		// 		title: 'Nota',
-		// 		start: new Date(y, m, d, h, mm),
-		// 		end: new Date(y, m, d, h, mm+30),
-		// 		className: ['openSesame'],
-		// 		allDay: false,
-		// 		color: num == 0? '':'green',
-		// 		textColor: num == 0? 'black':'black',
-		// 		forceEventDuration: true
-		//     });
-		//     //console.log($scope.events);
-		// };
+		$scope.addEvent = function(num) {
+			if ($scope.events.length > 0) {
+				return;
+			};
+			//console.log($scope.info);
+			var date = new Date();
+			var mm = date.getMinutes();
+			var h = date.getHours();
+			var d = date.getDate();
+			var m = date.getMonth();
+			var y = date.getFullYear();
+			if (mm < 15) {
+				mm = 0;
+			} else if (mm < 45){
+				mm = 30;
+			} else {
+				mm = 0;
+				++h;
+			}
+		    $scope.events.push({
+				title: 'Nota',
+				start: new Date(y, m, d, h, mm),
+				end: new Date(y, m, d, h, mm+30),
+				className: ['openSesame'],
+				allDay: false,
+				color: num == 0? '':'green',
+				textColor: num == 0? 'black':'black',
+				forceEventDuration: true
+		    });
+		    console.log('lo que voy a guardar ', $scope.events);
+		};
 
 		/* remove event */
 		$scope.remove = function(index) {
@@ -137,10 +150,11 @@
 		};
 		/* Change View */
 		$scope.renderCalendar = function(calendar) {
-		  if(calendar){
-			calendar.fullCalendar('render');
-		  }
+		    if(calendar){
+			  calendar.fullCalendar($scope.events);
+		    }
 		};
+
 		/* config object */
 		$scope.uiConfig = {
 		  calendar:{
@@ -152,15 +166,12 @@
 			  center: '',
 			  right: 'today prev,next'
 			},
+			//eventSources: [$scope.events, $scope.eventSource, $scope.eventsF],
 			eventClick: $scope.alertOnEventClick,
 			eventDrop: $scope.alertOnDrop,
 			eventResize: $scope.alertOnResize
 		  }
 		};
-
-		/* event sources array*/
-		$scope.eventSources = [$scope.events, $scope.eventSource, $scope.eventsF];
-		//$scope.eventSources2 = [$scope.calEventsExt, $scope.eventsF, $scope.events];
 
 		$scope.setAppointment = function(status) {
 			var appointment = {}
@@ -219,21 +230,32 @@
 	                   console.log('status', $scope.appointments_list[2].status);
 	                   console.log('inicio', new Date($scope.appointments_list[2].date_start));
 	                   console.log('final', new Date($scope.appointments_list[2].date_end));
-	                   var dates = [];
 
-	                    for(var i in $scope.appointments_list) {
+	                   $scope.events = [
+						  {title: 'All Day Eventw',start: new Date("Tue Jan 27 2015 16:00:00 GMT-0500 (COT)")},
+					      {title: 'Long Event',start: new Date(y, m, d - 5),end: new Date(y, m, d - 2)},
+					      {id: 999,title: 'Repeating Event',start: new Date(y, m, d - 3, 16, 0),allDay: false},
+					      {id: 999,title: 'Repeating Event',start: new Date(y, m, d + 4, 16, 0),allDay: false},
+					      {title: 'Birthday Party',start: new Date(y, m, d + 1, 19, 0),end: new Date(y, m, d + 1, 22, 30),allDay: false},
+					      {title: 'Click for Google',start: new Date(y, m, 28),end: new Date(y, m, 29),url: 'http://google.com/'},
+					      {title: 'Birthday Party2',start: new Date(y, m, d + 1, 19, 0),end: new Date(y, m, d + 1, 22, 30),allDay: false, test:"Okeedokee"},
+					    ];
+	                   console.log($scope.events);
+	                   /*
+	                    //for(var i in $scope.appointments_list) {
 	                   		$scope.events.push({
-								title: $scope.appointments_list[i].status,
-								start: new Date($scope.appointments_list[i].date_start),
-								end: new Date($scope.appointments_list[i].date_end),
+								title: $scope.appointments_list[0].status,
+								start: new Date($scope.appointments_list[0].date_start),
+								end: new Date($scope.appointments_list[0].date_end),
 								className: ['openSesame'],
 								allDay: false,
 								color: 'green',
 								textColor: 'white',
 								forceEventDuration: true
 					    	});
-	                   		console.log('la info de la cita es', $scope.events[i]);
-	                    }
+	                   		console.log('la info de la cita es', $scope.events[0]);
+	                    //}
+	                    */
 
 	       //              $scope.events.push({
 								// // title: $scope.appointments_list[i].status,
@@ -249,11 +271,15 @@
 								// forceEventDuration: true
 					   //  	});
 
-					    console.log($scope.events);
+					    //console.log($scope.events);
 					};
 	                   
 	      		});
 		};
+
+		/* event sources array*/
+		$scope.eventSources = [$scope.events, $scope.eventSource, $scope.eventsF];
+		//$scope.eventSources2 = [$scope.calEventsExt, $scope.eventsF, $scope.events];
 
 	}]);
 	/* EOF */
