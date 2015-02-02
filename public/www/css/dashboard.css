@@ -196,6 +196,15 @@ header {
 #directives-calendar {
   margin-top: 30px;
 }
+.events-box {
+  width: 25%;
+  float: left;
+}
+.calendar-box {
+  width: 65%;
+  float: left;
+  margin-left: 65px;
+}
 .calendar-box .btn-group {
   margin: 10px 0 20px 0;
 }
