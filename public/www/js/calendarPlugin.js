@@ -12,7 +12,6 @@
 			if(newValue) {
 				if(newValue._id) {
 					$scope.getAppointments(newValue);
-					//$('#main-calendar').trigger("click");
 				}
 			}
 		});
@@ -55,10 +54,6 @@
             //$scope.renderCalendar();
             console.log('ARRAY FINAL ', datesArray);
             //console.log($scope.calendar.myCalendar1);
-            $scope.renderCalendar = function(calendar)  {
-            	console.log('calendarioo ', calendar);
-            	calendar.fullCalendar('refetchEvents');
-            };
 			
 	  //      console.log('lista de citas ', $scope.events);
 		};
@@ -167,13 +162,11 @@
 			}
 		};
 		/* Change View */
-		// $scope.renderCalendar = function(calendar) {
-		//     if(calendar){
-		// 	  calendar.fullCalendar({
-		// 	  	events: $scope.events,
-		// 	  }, 'refetchEvents');
-		//     }
-		// };
+		$scope.renderCalendar = function(calendar) {
+		    if(calendar){
+			  calendar.fullCalendar('render');
+		    }
+		};
 
 		/* config object */
 		$scope.uiConfig = {
@@ -249,23 +242,6 @@
 	                   console.log($scope.appointments_list);
 	                   $scope.renderEvents($scope.appointments_list);
 
-	                   // var datesArray = [];
-	                   // for (var i = 0; i < $scope.appointments_list.length; i++) {
-	                   // 		datesArray[i] = {title: $scope.appointments_list[i].status, start: new Date($scope.appointments_list[i].date_start), end: new Date($scope.appointments_list[i].date_end), allDay: false};
-	                   // }
-	                   // console.log('citas que llegan! ', datesArray);
-
-	                   // $scope.events = datesArray;
-	                   // console.log('esto es scope events ', $scope.events);
-
-
-	           //         for(var i = 0; i < $scope.appointments_list.length; i++)
-				        // {
-				        //     $scope.events[i] = {title: $scope.appointments_list[i].status, start: new Date($scope.appointments_list[i].date_start), end: new Date($scope.appointments_list[i].date_end), allDay: false};
-				        //     console.log('' + i, $scope.events);
-				        // }
-	           //         console.log('lista de citas ', $scope.events);
-
 	                   // console.log('status', $scope.appointments_list[2].status);
 	                   // console.log('inicio', new Date($scope.appointments_list[2].date_start));
 	                   // console.log('final', new Date($scope.appointments_list[2].date_end));
@@ -280,6 +256,7 @@
 					   //    {title: 'Birthday Party2',start: new Date(y, m, d + 1, 19, 0),end: new Date(y, m, d + 1, 22, 30),allDay: false, test:"Okeedokee"},
 					   //  ];
 	       //             console.log($scope.events);
+
 	                   /*
 	                    //for(var i in $scope.appointments_list) {
 	                   		$scope.events.push({
@@ -301,7 +278,7 @@
 		};
 
 		/* event sources array*/
-		$scope.eventSources = [$scope.events, $scope.eventSource, $scope.eventsF];
+		$scope.eventSources = [$scope.events];
 		//$scope.eventSources2 = [$scope.calEventsExt, $scope.eventsF, $scope.events];
 
 	}]);
