@@ -125,6 +125,10 @@
 				controller: 'PracticesManagementController',
 				controllerAs : 'practiceManageCtrl',
 			}).
+			when('/calendar/:doctorId', {
+				templateUrl: '../www/partials/doctor/appointments.html',
+				controller: 'CalendarCtrl'
+			}).
 			otherwise({
 				redirectTo: '/404'
 			});
@@ -1913,6 +1917,21 @@
       		});
         };
 	}]);
+
+	
+	//Controller for Doctor Appointments
+	docDash.directive('appointments', function() {
+	    return {
+	    	restrict: 'E',
+	    	templateUrl: 'www/partials/doctor/appointments.html',
+	    	controller: 'CalendarCtrl',
+	    	controllerAs: 'calCtrl',
+	    	scope: {
+	    		doctorId: '=',
+	    	}
+	    };
+	});
+
 
 	//////////////////////////////////////////////////////////////////
 	//Module and Controllers for Admin Dashboard - PARENT CONTROLLER//
