@@ -1,10 +1,8 @@
-/**
- * calendarDemoApp - 0.1.3
- */
 angular.module('calendarPlugin', ['ui.calendar', 'ui.bootstrap']);
 var endpoint = "http://192.241.187.135:1414/api_1.0/";
 
 function CalendarCtrl($scope, $http, $routeParams) {
+
 	$scope.doctorId = $routeParams.doctorId;
 	var date = new Date();
 	var mm = date.getMinutes();
@@ -13,6 +11,14 @@ function CalendarCtrl($scope, $http, $routeParams) {
 	var m = date.getMonth();
 	var y = date.getFullYear();
 
+	// $scope.$watch('info', function(newValue, oldValue) {
+	// 	console.log(newValue);
+	// 	if(newValue) {
+	// 		if(newValue._id) {
+	// 			$scope.getCurrentDoctor(newValue);
+	// 		}
+	// 	}
+	// });
 	
 	$scope.changeTo = 'Hungarian';
 	/* event source that pulls from google.com */
@@ -133,6 +139,62 @@ function CalendarCtrl($scope, $http, $routeParams) {
 	  }
 	};
 
+	$scope.getCurrentDoctor = function(doctorId) {
+		$http.get(endpoint + 'Doctor' + '/GetByID/' + doctorId)
+        .success(function(data) {
+            if (!data.status) {
+               		console.log("No se encontraron doctores", data.error);
+               		//console.log(data);
+           		} else {
+               		// if successful, bind success message to message
+               		console.log("Resultado de busqueda de doctores:");
+               		$scope.docInfo = data.response;
+               		console.log($scope.docInfo);
+           		}
+  		});
+	};
+
+	$scope.setAppointment = function(status) {
+		
+		// var appointment = {}
+		// appointment.doctor_id = $scope.info._id;
+		// appointment.doctor_name = $scope.info.name + ' ' + $scope.info.lastname;
+		// appointment.status = status;
+		// appointment.date_start = $scope.events[0].start;
+		// appointment.date_end = $scope.events[0].end;
+		// appointment.location = $scope.info.location_list;
+		// console.log('aqui se guarda la cita', appointment);
+
+		/*$http.post(endpoint + 'Appointment' + '/Create/' + appointment.doctor_id, appointment)
+        .success(function(data) {
+            if (!data.status) {
+                console.log("Lo sentimos, no se creó", data);
+                //console.log(JSON.stringify(data1));
+                var error_msg = 'No se pudo agendar la cita, inténtalo nuevamente.';
+           		swal({  
+					title: "", 
+					text: error_msg,   
+					type: "error",   
+					confirmButtonText: "Aceptar",
+				});
+            } else {
+               // if successful, bind success message to message
+               console.log("Listo, cita actualizada", data);
+               var success_msg = 'Tu cita ha sido agendada con éxito!';
+           		swal({  
+					title: "", 
+					text: success_msg,   
+					type: "success",   
+					confirmButtonText: "Aceptar",
+				});
+            }
+            $scope.remove(); 
+  		});*/
+
+		// console.log('el doctor es', $scope.info);
+		//console.log('la info de la cita es', $scope.events[0]);
+	};
+
 	$scope.getAppointments = function(doctorId) {
 	  $http.get(endpoint + 'Appointment' + '/GetAllForDoctor/' + doctorId).success(function(data) {
 	  	var appointments = data.response;
@@ -161,6 +223,7 @@ function CalendarCtrl($scope, $http, $routeParams) {
 	  console.log(newValue);
 	  if(newValue) {
 		$scope.getAppointments(newValue);
+		$scope.getCurrentDoctor(newValue);
 	  }
 	});
 	
@@ -180,4 +243,3 @@ function CalendarCtrl($scope, $http, $routeParams) {
 	$scope.eventSources = [$scope.events, $scope.eventSource, $scope.eventsF];
 	$scope.eventSources2 = [$scope.calEventsExt, $scope.eventsF, $scope.events];
 }
-/* EOF */
