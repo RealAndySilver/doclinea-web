@@ -62,8 +62,10 @@ function CalendarCtrl($scope, $http, $routeParams) {
 		$scope.alertMessage = (event.title + ' fue seleccionado ');
 	};
 	/* alert on Drop */
-	 $scope.alertOnDrop = function( event, revertFunc, jsEvent, ui, view){
+	$scope.alertOnDrop = function( event, revertFunc, jsEvent, ui, view){
 	   $scope.alertMessage = ('Evento cambiado a ' + event.start.format());
+	   console.log('Fecha cambiada ', event);
+	   $scope.updateEvent(event);
 	};
 	/* alert on Resize */
 	$scope.alertOnResize = function( event, jsEvent, ui, view){
@@ -154,14 +156,13 @@ function CalendarCtrl($scope, $http, $routeParams) {
   		});
 	};
 
-	$scope.setAppointment = function(status) {
-		
+	$scope.setAppointment = function(status, event) {
 		var appointment = {}
 		appointment.doctor_id = $scope.docInfo._id;
 		appointment.doctor_name = $scope.docInfo.name + ' ' + $scope.docInfo.lastname;
 		appointment.status = status;
-		appointment.date_start = $scope.events[0].start;
-		appointment.date_end = $scope.events[0].end;
+		appointment.date_start = event.start;
+		appointment.date_end = event.end;
 		appointment.location = $scope.docInfo.location_list;
 		console.log('aqui se guarda la cita', appointment);
 
@@ -193,24 +194,26 @@ function CalendarCtrl($scope, $http, $routeParams) {
   		});
 
 		// console.log('el doctor es', $scope.info);
-		//console.log('la info de la cita es', $scope.events[0]);
+		// console.log('la info de la cita es', $scope.events[0]);
 	};
 
 	$scope.getAppointments = function(doctorId) {
 	  $http.get(endpoint + 'Appointment' + '/GetAllForDoctor/' + doctorId).success(function(data) {
 	  	var appointments = data.response;
-		console.log('datos de servicio ', appointments);
+		//console.log('datos de servicio ', appointments);
 		
 		if(appointments.length > 0) {
 		  var eventColor = '';
+		  var eventStatus = 'Disponible';
 
 		  for(var i in appointments) {
-		  	if (appointments[i].status == 'available') { eventColor = ''; } 
-		  	else if (appointments[i].status == 'taken') { eventColor = 'blue'; } 
-		  	else { eventColor = 'red'; }
-		  	
+		  	if (appointments[i].status == 'available') { eventColor = '#428BCA'; eventStatus = 'Disponible'; } 
+		  	else if (appointments[i].status == 'taken') { eventColor = 'blue';  eventStatus = 'Tomado'; } 
+		  	else { eventColor = 'red'; eventStatus = 'Externo'; }
+
 		  	var appointment = {
-			  title: appointments[i].status,
+		  	  _id : appointments[i]._id,
+			  title: eventStatus,
 			  start: new Date(appointments[i].date_start),
 			  end: new Date(appointments[i].date_end),
 			  className: ['openSesame'],
@@ -219,11 +222,28 @@ function CalendarCtrl($scope, $http, $routeParams) {
 			  textColor: 'black',
 			  forceEventDuration: true
 			};
-			//console.log(appointment);
+			console.log(appointment);
 			$scope.events.push(appointment);
 		  }
 		}
 	  });
+	};
+
+	$scope.updateEvent = function(event) {
+	    console.log('entramoooos a UPDATE', event._id);
+	    var appointment = {}
+		appointment.doctor_id = $scope.docInfo._id;
+		appointment.doctor_name = $scope.docInfo.name + ' ' + $scope.docInfo.lastname;
+		appointment.status = status;
+		appointment.date_start = event.start;
+		appointment.date_end = event.end;
+		appointment.location = $scope.docInfo.location_list;
+		console.log('aqui se guarda la cita', appointment);
+	    $http.post(endpoint + 'Appointment' + '/Update/' + event._id, appointment)
+	  	    .success(function(data) {
+	  	    	console.log('service response ', data);
+	  			//var appointments = data.response;
+	    });
 	};
 
 	$scope.$watch('doctorId', function(newValue) {

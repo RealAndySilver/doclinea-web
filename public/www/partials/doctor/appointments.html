@@ -21,8 +21,8 @@
 		                          </button>
 		                        </div>
 
-		                        <ul class="unstyled">
-		                            <li ng-repeat="e in events">
+		                        <ul class="unstyled events-list">
+		                            <li ng-repeat="e in events | orderBy : 'start':true">
 		                                <div class="alert alert-info" style="background:{{e.color}}; color:{{e.textColor}};">
 		                                    <a class="close" ng-click="remove($index)"><i class="icon-remove"></i>x</a>
 		                                    {{e.start | date:"MMM dd hh:mm"}} - {{e.end | date:"MMM dd hh:mm"}}
@@ -33,7 +33,7 @@
 												 <input type="radio" name="available" id="available" value="available" ng-model="status" required>Disponible
 												 <input type="radio" name="external" id="external" value="external" ng-model="status" required>Externo
 											</div>
-											<button type="button" class="btn btn-info btn-sm" ng-click="setAppointment(status)">Guardar</button>
+											<button type="button" class="btn btn-info btn-sm" ng-click="setAppointment(status, e)">Guardar</button>
 		                                </div>
 		                            </li>
 		                        </ul>

@@ -200,10 +200,14 @@ header {
   width: 25%;
   float: left;
 }
+.events-box .events-list {
+  height: 520px;
+  overflow: scroll;
+}
 .calendar-box {
-  width: 65%;
+  width: 70%;
   float: left;
-  margin-left: 65px;
+  margin-left: 40px;
   padding-bottom: 80px;
 }
 .calendar-box .btn-group {
