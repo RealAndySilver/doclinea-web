@@ -69,7 +69,9 @@ function CalendarCtrl($scope, $http, $routeParams) {
 	};
 	/* alert on Resize */
 	$scope.alertOnResize = function( event, jsEvent, ui, view){
-	   $scope.alertMessage = ('Event end date was moved to ' + event.end.format());
+	   $scope.alertMessage = ('Fecha de finalización cambiada a ' + event.end.format());
+	   console.log('Fecha de finalización cambiada a ', event);
+	   $scope.updateEvent(event);
 	};
 	/* add and removes an event source of choice */
 	$scope.addRemoveEventSource = function(sources,source) {
@@ -208,7 +210,7 @@ function CalendarCtrl($scope, $http, $routeParams) {
 
 		  for(var i in appointments) {
 		  	if (appointments[i].status == 'available') { eventColor = '#428BCA'; eventStatus = 'Disponible'; } 
-		  	else if (appointments[i].status == 'taken') { eventColor = 'blue';  eventStatus = 'Tomado'; } 
+		  	else if (appointments[i].status == 'taken') { eventColor = 'orange';  eventStatus = 'Cita agendada'; } 
 		  	else { eventColor = 'red'; eventStatus = 'Externo'; }
 
 		  	var appointment = {
@@ -222,7 +224,7 @@ function CalendarCtrl($scope, $http, $routeParams) {
 			  textColor: 'black',
 			  forceEventDuration: true
 			};
-			console.log(appointment);
+			//console.log(appointment);
 			$scope.events.push(appointment);
 		  }
 		}
