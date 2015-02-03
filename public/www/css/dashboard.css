@@ -204,6 +204,7 @@ header {
   width: 65%;
   float: left;
   margin-left: 65px;
+  padding-bottom: 80px;
 }
 .calendar-box .btn-group {
   margin: 10px 0 20px 0;

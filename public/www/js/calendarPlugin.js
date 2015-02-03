@@ -202,18 +202,24 @@ function CalendarCtrl($scope, $http, $routeParams) {
 		console.log('datos de servicio ', appointments);
 		
 		if(appointments.length > 0) {
+		  var eventColor = '';
+
 		  for(var i in appointments) {
+		  	if (appointments[i].status == 'available') { eventColor = ''; } 
+		  	else if (appointments[i].status == 'taken') { eventColor = 'blue'; } 
+		  	else { eventColor = 'red'; }
+		  	
 		  	var appointment = {
 			  title: appointments[i].status,
 			  start: new Date(appointments[i].date_start),
 			  end: new Date(appointments[i].date_end),
 			  className: ['openSesame'],
 			  allDay: false,
-			  color: '',
+			  color: eventColor,
 			  textColor: 'black',
 			  forceEventDuration: true
 			};
-			console.log(appointment);
+			//console.log(appointment);
 			$scope.events.push(appointment);
 		  }
 		}
