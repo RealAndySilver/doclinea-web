@@ -156,16 +156,16 @@ function CalendarCtrl($scope, $http, $routeParams) {
 
 	$scope.setAppointment = function(status) {
 		
-		// var appointment = {}
-		// appointment.doctor_id = $scope.info._id;
-		// appointment.doctor_name = $scope.info.name + ' ' + $scope.info.lastname;
-		// appointment.status = status;
-		// appointment.date_start = $scope.events[0].start;
-		// appointment.date_end = $scope.events[0].end;
-		// appointment.location = $scope.info.location_list;
-		// console.log('aqui se guarda la cita', appointment);
+		var appointment = {}
+		appointment.doctor_id = $scope.docInfo._id;
+		appointment.doctor_name = $scope.docInfo.name + ' ' + $scope.docInfo.lastname;
+		appointment.status = status;
+		appointment.date_start = $scope.events[0].start;
+		appointment.date_end = $scope.events[0].end;
+		appointment.location = $scope.docInfo.location_list;
+		console.log('aqui se guarda la cita', appointment);
 
-		/*$http.post(endpoint + 'Appointment' + '/Create/' + appointment.doctor_id, appointment)
+		$http.post(endpoint + 'Appointment' + '/Create/' + appointment.doctor_id, appointment)
         .success(function(data) {
             if (!data.status) {
                 console.log("Lo sentimos, no se creó", data);
@@ -189,7 +189,8 @@ function CalendarCtrl($scope, $http, $routeParams) {
 				});
             }
             $scope.remove(); 
-  		});*/
+            $scope.getAppointments(appointment.doctor_id);
+  		});
 
 		// console.log('el doctor es', $scope.info);
 		//console.log('la info de la cita es', $scope.events[0]);
