@@ -119,12 +119,14 @@ function CalendarCtrl($scope, $http, $routeParams) {
 	};
 	/* Change View */
 	$scope.changeView = function(view,calendar) {
-	  calendar.fullCalendar('changeView',view);
+	  if(calendar !== undefined) {
+			calendar.fullCalendar('changeView',view);
+		}
 	};
 	/* Change View */
 	$scope.renderCalender = function(calendar) {
 	  if(calendar){
-		calendar.fullCalendar('render');
+		calendar.fullCalendar('refetch');
 	  }
 	};
 	/* config object */
@@ -159,10 +161,11 @@ function CalendarCtrl($scope, $http, $routeParams) {
 	};
 
 	$scope.setAppointment = function(status, event) {
+		console.log('MI EVENTOO ', event);
 		var appointment = {}
 		appointment.doctor_id = $scope.docInfo._id;
 		appointment.doctor_name = $scope.docInfo.name + ' ' + $scope.docInfo.lastname;
-		appointment.status = status;
+		appointment.status = event.status;
 		appointment.date_start = event.start;
 		appointment.date_end = event.end;
 		appointment.location = $scope.docInfo.location_list;
@@ -211,20 +214,22 @@ function CalendarCtrl($scope, $http, $routeParams) {
 		  for(var i in appointments) {
 		  	if (appointments[i].status == 'available') { eventColor = '#428BCA'; eventStatus = 'Disponible'; } 
 		  	else if (appointments[i].status == 'taken') { eventColor = 'orange';  eventStatus = 'Cita agendada'; } 
-		  	else { eventColor = 'red'; eventStatus = 'Externo'; }
+		  	else if (appointments[i].status == 'cancelled') { eventColor = 'red';  eventStatus = 'Cancelado'; } 
+		  	else { eventColor = '#5CB85C'; eventStatus = 'Externo'; }
 
 		  	var appointment = {
 		  	  _id : appointments[i]._id,
 			  title: eventStatus,
 			  start: new Date(appointments[i].date_start),
 			  end: new Date(appointments[i].date_end),
+			  status: appointments[i].status,
 			  className: ['openSesame'],
 			  allDay: false,
 			  color: eventColor,
 			  textColor: 'black',
 			  forceEventDuration: true
 			};
-			//console.log(appointment);
+			console.log(appointment);
 			$scope.events.push(appointment);
 		  }
 		}
@@ -232,15 +237,15 @@ function CalendarCtrl($scope, $http, $routeParams) {
 	};
 
 	$scope.updateEvent = function(event) {
-	    console.log('entramoooos a UPDATE', event._id);
+	    console.log('entramoooos a UPDATE', event);
 	    var appointment = {}
 		appointment.doctor_id = $scope.docInfo._id;
 		appointment.doctor_name = $scope.docInfo.name + ' ' + $scope.docInfo.lastname;
-		appointment.status = status;
+		appointment.status = event.status;
 		appointment.date_start = event.start;
 		appointment.date_end = event.end;
 		appointment.location = $scope.docInfo.location_list;
-		console.log('aqui se guarda la cita', appointment);
+		console.log('aqui se actualiza la cita', appointment);
 	    $http.post(endpoint + 'Appointment' + '/Update/' + event._id, appointment)
 	  	    .success(function(data) {
 	  	    	console.log('service response ', data);
@@ -255,19 +260,7 @@ function CalendarCtrl($scope, $http, $routeParams) {
 		$scope.getCurrentDoctor(newValue);
 	  }
 	});
-	
 
-	$scope.changeLang = function() {
-	  if($scope.changeTo === 'Hungarian'){
-		$scope.uiConfig.calendar.dayNames = ["Vasárnap", "Hétfő", "Kedd", "Szerda", "Csütörtök", "Péntek", "Szombat"];
-		$scope.uiConfig.calendar.dayNamesShort = ["Vas", "Hét", "Kedd", "Sze", "Csüt", "Pén", "Szo"];
-		$scope.changeTo= 'Spanish';
-	  } else {
-		$scope.uiConfig.calendar.dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-		$scope.uiConfig.calendar.dayNamesShort = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-		$scope.changeTo = 'Hungarian';
-	  }
-	};
 	/* event sources array*/
 	$scope.eventSources = [$scope.events, $scope.eventSource, $scope.eventsF];
 	$scope.eventSources2 = [$scope.calEventsExt, $scope.eventsF, $scope.events];
