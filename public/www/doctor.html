@@ -35,7 +35,7 @@
 						<div class="doc-specs">
 							<span class="specs-title">Especialidades</span>
 							<ul>
-								<li ng-repeat="practice in profile.dProfile.practice_list"><a href="/#/search/{{encodedParam}}/{{practice}}/{{encodedParam}}">{{practice}}</a></li>
+								<li ng-repeat="practice in profile.dProfile.practice_list"><a href="/#/search/{{encodedParam}}/{{encodedParam}}/{{practice}}/{{encodedParam}}">{{practice}}</a></li>
 							</ul>
 						</div>
 						<div class="doc-profile-description">
@@ -68,57 +68,32 @@
 			<div class="book-box">
 				<div class="doc-schedule">
 					<div class="inner-doc-schedule">
-						<div role="main">
-						    <div>
-						        <section id="directives-calendar" ng-controller="CalendarCtrl" ><div>
-						                <div class="row-fluid">
-						                    <!-- <div class="span4">
-						                        <div class="btn-group calTools">
-						                          <button type="button" class="btn btn-primary" ng-click="addEvent(0)">
-						                            Evento docLinea
-						                          </button>
-						                          <button type="button" class="btn btn-success" ng-click="addEvent(1)">
-						                            Evento Externo
-						                          </button>
-						                        </div>
-
-						                        <ul class="unstyled">
-						                            <li ng-repeat="e in events">
-						                                <div class="alert alert-info" style="background:{{e.color}}; color:{{e.textColor}};">
-						                                    <a class="close" ng-click="remove($index)"><i class="icon-remove"></i>x</a>
-						                                    <b> <input ng-model="e.title"></b> 
-						                                    {{e.start | date:"MMM dd"}} - {{e.end | date:"MMM dd"}}
-						                                </div>
-						                            </li>
-						                        </ul>
-						                    </div> -->
-
-						                    <div class="span8">
-						                        <tabset>
-						                            <tab select="renderCalender(myCalendar1);">
-						                              <tab-heading>
-						                               <i class="glyphicon glyphicon-bell"></i> Horarios disponibles
-						                              </tab-heading>
-						                              <div class="alert-success calAlert" ng-show="alertMessage != undefined && alertMessage != ''">
-						                                <h4>{{alertMessage}}</h4>
-						                              </div>
-						                              <div class="btn-toolbar">
-						                                <p class="pull-right lead"></p>
-						                                <div class="btn-group">
-						                                    <button class="btn btn-success" ng-click="changeView('agendaDay', myCalendar1)">Día</button>
-						                                    <button class="btn btn-success" ng-click="changeView('agendaWeek', myCalendar1)">Semana</button>
-						                                    <button class="btn btn-success" ng-click="changeView('month', myCalendar1)">Mes</button>
-						                                </div>
-						                              </div>
-						                            <div class="calendar" ng-model="eventSources" calendar="myCalendar1" config="uiConfig.calendar" ui-calendar="uiConfig.calendar"></div>
-						                           <span ng-init="changeView('agendaWeek', myCalendar1)"></span>
-						                           </tab>
-						                        </tabset>
-						                    </div>
-						                </div>
-						            </div>
-						         </section>
-						    </div>
+						<div role="main" ng-controller="CalendarProfileCtrl">
+							<!-- <available-calendar>
+								{{getCurrentDoctor(profile.dProfile.city)}}
+							</available-calendar> -->
+							<div class="span8">
+							    <tabset id="my-tabs">
+							        <tab select="renderCalendar(myCalendar1);">
+							          <tab-heading>
+							           <i class="glyphicon glyphicon-calendar"></i> <a id="main-calendar" href="">Horarios disponibles</a>
+							          </tab-heading>
+							          <div class="alert-success calAlert" ng-show="alertMessage != undefined && alertMessage != ''">
+							            <h4>{{alertMessage}}</h4>
+							          </div>
+							          <div class="btn-toolbar">
+							            <p class="pull-right lead"></p>
+							            <div class="btn-group">
+							                <button class="btn btn-success" ng-click="changeView('agendaDay', myCalendar1)">Día</button>
+							                <button id="set-week" class="btn btn-success" ng-click="changeView('agendaWeek', myCalendar1)">Semana</button>
+							                <button class="btn btn-success" ng-click="changeView('month', myCalendar1)">Mes</button>
+							            </div>
+							          </div>
+							        <div class="calendar" id="calendar" ng-model="eventSources" calendar="myCalendar1" config="uiConfig.calendar" ui-calendar="uiConfig.calendar"></div>
+							       <span ng-init="changeView('agendaWeek', myCalendar1)"></span>
+							       </tab>
+							    </tabset>
+							</div>
 						</div>
 					</div>
 				</div>

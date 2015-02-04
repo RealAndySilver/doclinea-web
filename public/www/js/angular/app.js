@@ -12,6 +12,7 @@
 	  'userDashboard',
 	  'adminDashboard',
 	  'calendarPlugin',
+	  'calendarProfile',
 	  'ui.calendar',
 	  'ui.bootstrap',
 	  'ui.modal',
@@ -1064,6 +1065,22 @@
 				$scope.encodedParam = btoa("undefined");
            	});
 	});
+
+	//Controller for Doctor Appointments on Profile
+	// profileView.directive('availableCalendar', function($routeParams) {
+	//     return {
+	//     	restrict: 'E',
+	//     	templateUrl: 'www/partials/doctor/available_appointments.html',
+	//     	controller: 'CalendarProfileCtrl',
+	//     	controllerAs: 'calProfileCtrl',
+	//     	scope: {
+	//     		doctorId: '=',
+	//     	},
+	//     	// link: function(scope, element){
+	//      //        scope.doctorId = $routeParams.doctorId;
+	//      //    }
+	//     };
+	// });
 
 	//Module and Controllers for User Dashboard - PARENT CONTROLLER
 	userDash = angular.module('userDashboard', []);

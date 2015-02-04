@@ -1,9 +1,11 @@
-angular.module('calendarPlugin', ['ui.calendar', 'ui.bootstrap']);
+angular.module('calendarProfile', ['ui.calendar', 'ui.bootstrap']);
 var endpoint = "http://192.241.187.135:1414/api_1.0/";
 
-function CalendarCtrl($scope, $http, $routeParams) {
+function CalendarProfileCtrl($scope, $http, $routeParams) {
+	console.log('Estamos en el calendario del perfil de Doctor ');
 
 	$scope.doctorId = $routeParams.doctorId;
+	console.log('mi doctor es ', $scope.doctorId);
 	var date = new Date();
 	var mm = date.getMinutes();
 	var h = date.getHours();
@@ -160,48 +162,6 @@ function CalendarCtrl($scope, $http, $routeParams) {
   		});
 	};
 
-	$scope.setAppointment = function(status, event) {
-		console.log('MI EVENTOO ', event);
-		var appointment = {}
-		appointment.doctor_id = $scope.docInfo._id;
-		appointment.doctor_name = $scope.docInfo.name + ' ' + $scope.docInfo.lastname;
-		appointment.status = event.status;
-		appointment.date_start = event.start;
-		appointment.date_end = event.end;
-		appointment.location = $scope.docInfo.location_list;
-		console.log('aqui se guarda la cita', appointment);
-
-		$http.post(endpoint + 'Appointment' + '/Create/' + appointment.doctor_id, appointment)
-        .success(function(data) {
-            if (!data.status) {
-                console.log("Lo sentimos, no se creó", data);
-                //console.log(JSON.stringify(data1));
-                var error_msg = 'No se pudo agendar la cita, inténtalo nuevamente.';
-           		swal({  
-					title: "", 
-					text: error_msg,   
-					type: "error",   
-					confirmButtonText: "Aceptar",
-				});
-            } else {
-               // if successful, bind success message to message
-               console.log("Listo, cita actualizada", data);
-               var success_msg = 'Tu cita ha sido agendada con éxito!';
-           		swal({  
-					title: "", 
-					text: success_msg,   
-					type: "success",   
-					confirmButtonText: "Aceptar",
-				});
-            }
-            $scope.remove(); 
-            $scope.getAppointments(appointment.doctor_id);
-  		});
-
-		// console.log('el doctor es', $scope.info);
-		// console.log('la info de la cita es', $scope.events[0]);
-	};
-
 	$scope.getAppointments = function(doctorId) {
 	  $http.get(endpoint + 'Appointment' + '/GetAllForDoctor/' + doctorId).success(function(data) {
 	  	var appointments = data.response;
@@ -234,23 +194,6 @@ function CalendarCtrl($scope, $http, $routeParams) {
 		  }
 		}
 	  });
-	};
-
-	$scope.updateEvent = function(event) {
-	    console.log('entramoooos a UPDATE', event);
-	    var appointment = {}
-		appointment.doctor_id = $scope.docInfo._id;
-		appointment.doctor_name = $scope.docInfo.name + ' ' + $scope.docInfo.lastname;
-		appointment.status = event.status;
-		appointment.date_start = event.start;
-		appointment.date_end = event.end;
-		appointment.location = $scope.docInfo.location_list;
-		console.log('aqui se actualiza la cita', appointment);
-	    $http.post(endpoint + 'Appointment' + '/Update/' + event._id, appointment)
-	  	    .success(function(data) {
-	  	    	console.log('service response ', data);
-	  			//var appointments = data.response;
-	    });
 	};
 
 	$scope.$watch('doctorId', function(newValue) {

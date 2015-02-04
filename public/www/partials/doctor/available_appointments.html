@@ -1,0 +1,22 @@
+<div class="span8">
+    <tabset id="my-tabs">
+        <tab select="renderCalendar(myCalendar1);">
+          <tab-heading>
+           <i class="glyphicon glyphicon-calendar"></i> <a id="main-calendar" href="">Horarios disponibles</a>
+          </tab-heading>
+          <div class="alert-success calAlert" ng-show="alertMessage != undefined && alertMessage != ''">
+            <h4>{{alertMessage}}</h4>
+          </div>
+          <div class="btn-toolbar">
+            <p class="pull-right lead"></p>
+            <div class="btn-group">
+                <button class="btn btn-success" ng-click="changeView('agendaDay', myCalendar1)">Día</button>
+                <button id="set-week" class="btn btn-success" ng-click="changeView('agendaWeek', myCalendar1)">Semana</button>
+                <button class="btn btn-success" ng-click="changeView('month', myCalendar1)">Mes</button>
+            </div>
+          </div>
+        <div class="calendar" id="calendar" ng-model="eventSources" calendar="myCalendar1" config="uiConfig.calendar" ui-calendar="uiConfig.calendar"></div>
+       <span ng-init="changeView('agendaWeek', myCalendar1)"></span>
+       </tab>
+    </tabset>
+</div>
