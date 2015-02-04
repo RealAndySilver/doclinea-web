@@ -2,9 +2,9 @@ angular.module('calendarProfile', ['ui.calendar', 'ui.bootstrap']);
 var endpoint = "http://192.241.187.135:1414/api_1.0/";
 
 function CalendarProfileCtrl($scope, $http, $routeParams) {
-	console.log('Estamos en el calendario del perfil de Doctor ');
+	console.log('Estamos en el calendario del perfil de Doctor ', $routeParams.id);
 
-	$scope.doctorId = $routeParams.doctorId;
+	$scope.doctorId = $routeParams.id;
 	console.log('mi doctor es ', $scope.doctorId);
 	var date = new Date();
 	var mm = date.getMinutes();
@@ -142,8 +142,8 @@ function CalendarProfileCtrl($scope, $http, $routeParams) {
 		  right: 'today prev,next'
 		},
 		eventClick: $scope.alertOnEventClick,
-		eventDrop: $scope.alertOnDrop,
-		eventResize: $scope.alertOnResize
+		eventDrop: false,
+		eventResize: false,
 	  }
 	};
 
@@ -172,10 +172,10 @@ function CalendarProfileCtrl($scope, $http, $routeParams) {
 		  var eventStatus = 'Disponible';
 
 		  for(var i in appointments) {
-		  	if (appointments[i].status == 'available') { eventColor = '#428BCA'; eventStatus = 'Disponible'; } 
+		  	if (appointments[i].status == 'available') { eventColor = '#5CB85C'; eventStatus = 'Disponible'; } 
 		  	else if (appointments[i].status == 'taken') { eventColor = 'orange';  eventStatus = 'Cita agendada'; } 
 		  	else if (appointments[i].status == 'cancelled') { eventColor = 'red';  eventStatus = 'Cancelado'; } 
-		  	else { eventColor = '#5CB85C'; eventStatus = 'Externo'; }
+		  	else { eventColor = 'gray'; eventStatus = 'Externo'; }
 
 		  	var appointment = {
 		  	  _id : appointments[i]._id,

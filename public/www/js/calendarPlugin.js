@@ -212,10 +212,10 @@ function CalendarCtrl($scope, $http, $routeParams) {
 		  var eventStatus = 'Disponible';
 
 		  for(var i in appointments) {
-		  	if (appointments[i].status == 'available') { eventColor = '#428BCA'; eventStatus = 'Disponible'; } 
+		  	if (appointments[i].status == 'available') { eventColor = '#5CB85C'; eventStatus = 'Disponible'; } 
 		  	else if (appointments[i].status == 'taken') { eventColor = 'orange';  eventStatus = 'Cita agendada'; } 
 		  	else if (appointments[i].status == 'cancelled') { eventColor = 'red';  eventStatus = 'Cancelado'; } 
-		  	else { eventColor = '#5CB85C'; eventStatus = 'Externo'; }
+		  	else { eventColor = 'gray'; eventStatus = 'Externo'; }
 
 		  	var appointment = {
 		  	  _id : appointments[i]._id,
