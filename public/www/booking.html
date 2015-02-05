@@ -1,0 +1,61 @@
+<div id="sign-up-box">
+	<div class="center">
+		<div class="inner-info-box">
+			<div class="form-box" >
+				<h2>Reserva tu cita</h2>
+				<form class="form-horizontal" name="bookingForm" ng-submit="bkngCtrl.bookAppointment()" novalidate>
+				<fieldset>
+					<div class="form-group">
+					  <label class="col-md-4 control-label" for="reason">Motivo de cita</label>  
+					  <div class="col-md-6">
+					  <input id="reason" name="reason" type="text" placeholder="" class="form-control input-md" ng-model="bkngCtrl.data.reason" required>
+					  <!-- <div class="error" ng-show="signUpForm.name.$dirty && signUpForm.name.$invalid">
+					    <small class="error" ng-show="signUpForm.name.$error.required">Nombre es obligatorio.</small>
+					    <small class="error" ng-show="signUpForm.name.$error.minlength">Tu nombre debe contener por lo menos 3 letras.</small>
+					    <small class="error" ng-show="signUpForm.name.$error.pattern">Tu nombre solo debe contener letras.</small>
+					  </div> -->
+					  </div>
+					</div>
+					<div class="form-group last-form-element">
+					  <label class="col-md-4 control-label" for="gender">Paciente</label>
+					  <div class="col-md-4"> 
+						<label class="radio-inline" for="myself">
+						  <input type="radio" name="myself" id="myself" value="true" checked="checked" ng-model="bkngCtrl.data.patient_is_user">
+						  {{userData.username}}
+						</label> 
+						<label class="radio-inline" for="other_patient">
+						  <input type="radio" name="other-patient" id="other-patient" value="false" ng-model="bkngCtrl.data.patient_is_user">
+						  Otra persona
+						</label>
+					  </div>
+					</div>
+					<div class="form-group" ng-if="bkngCtrl.data.patient_is_user == 'false'">
+					  <label class="col-md-4 control-label" for="patient_name">Nombre de Paciente</label>  
+					  <div class="col-md-6">
+					  <input id="patient-name" name="patient_name" type="text" placeholder="" class="form-control input-md" ng-model="bkngCtrl.data.patient_name" required>
+					  </div>
+					</div>
+					<div class="form-group last-form-element">
+					  <label class="col-md-4 control-label" for="patient_phone">Teléfono</label>  
+					  <div class="col-md-6">
+					  <input id="phone" name="patient_phone" type="text" placeholder="" class="form-control input-md" ng-model="bkngCtrl.data.patient_phone" ng-pattern="/^\d+$/" required>
+					  <div class="error" ng-show="bookingForm.patient_phone.$dirty && bookingForm.patient_phone.$invalid">
+						  <small class="error" ng-show="bookingForm.patient_phone.$error.required">Por favor escribe tu teléfono.</small>
+						  <small class="error" ng-show="bookingForm.patient_phone.$error.pattern">Tu número telefónico solo debe contener números y ningún espacio.</small>
+					  </div>
+					  </div>
+					</div>
+					<!-- <div class="error warning" ng-show="signUpForm.$invalid">
+					    <small class="error warning">Recuerda diligenciar todo el formulario para poder registrarte.</small>
+					</div> -->
+					<div class="form-group">
+					  <div class="col-md-4 center-button">
+						<button id="sign_up_submit" name="sign_up_submit" class="btn btn-primary">Agendar cita</button>
+					  </div>
+					</div> 
+				</fieldset>
+				</form>
+			</div> 
+		</div>
+	</div>
+</div>

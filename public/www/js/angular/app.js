@@ -13,6 +13,7 @@
 	  'adminDashboard',
 	  'calendarPlugin',
 	  'calendarProfile',
+	  'booking',
 	  'ui.calendar',
 	  'ui.bootstrap',
 	  'ui.modal',
@@ -338,7 +339,7 @@
 	                   //console.log('la data es', user);
 	                   window.location = "/#/user/" + user._id
 
-	                   User.username = user.name;
+	                   User.username = user.name + ' ' + user.lastname;
 	                   User.isDoctor = false;
 	                   User.id = user._id;
 	                   User.gender = user.gender;

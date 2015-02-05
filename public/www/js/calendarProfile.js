@@ -65,7 +65,7 @@ function CalendarProfileCtrl($scope, $http, $routeParams) {
 		console.log('id de la cita seleccionada ', event._id);
 		swal({  
 			title: "Selección de Cita", 
-			text: "¿Seguró que quieres agendar esta cita?",   
+			text: "¿Seguro que quieres agendar esta cita?",   
 			type: "warning",   
 			showCancelButton: true,   
 			confirmButtonColor: "#5CB85C",   
@@ -74,7 +74,7 @@ function CalendarProfileCtrl($scope, $http, $routeParams) {
 			closeOnConfirm: true,
 		},
 		function(){
-			window.location = "/#/";
+			window.location = "/#/booking/" + event._id;
 		});
 	};
 	/* alert on Drop */
