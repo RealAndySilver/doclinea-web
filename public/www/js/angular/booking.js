@@ -20,10 +20,29 @@ function BookingController($scope, $http, $routeParams) {
         	data1.patient_name = $scope.userData.username;
         };
         console.log('cositas que llegan en el form ', data1);
-        /*$http.post(endpoint + type + '/Create', data1)
+        swal({  
+			title: "Confirmación de Cita", 
+			text: "¿Seguro que quieres tomar esta cita?",   
+			type: "warning",   
+			showCancelButton: true,   
+			confirmButtonColor: "#5CB85C",   
+			confirmButtonText: "Aceptar",
+			cancelButtonText: "Cancelar",   
+			closeOnConfirm: true,
+		},
+		function(){
+			data1.status = "taken";
+			//console.log('CITA TOMADA CON DATOS: ', data1);
+			$scope.takeAppointment(data1);
+		});
+   };
+
+   $scope.takeAppointment = function(appointmentData) {
+   		console.log('AQUI LE PEGAMOS AL SERVICIO ', appointmentData, appointmentId);
+   		$http.post(endpoint + "Appointment" + '/Take/' + appointmentId, appointmentData)
         .success(function(data) {
            if (!data.status) {
-                   //console.log("No se pudo crear usuario",data);
+                console.log("No se pudo tomar la cita", data);
                 swal({  
 					title: "", 
 					text: "Ha ocurrido un error, por favor inténtalo nuevamente.",   
@@ -32,16 +51,16 @@ function BookingController($scope, $http, $routeParams) {
 				});
            } else {
                    // if successful, bind success message to message
-               console.log("Listo, creado usuario" + data);
-               var user = data.response;
-               var type = "user";
-               var email = btoa(user.email);
-               //console.log('la data es', user);
-               // window.location = "/#/user/" + user._id;
-               window.location = "/#/account_confirmation/" + type + "/" + email;
+               console.log("Listo, la cita fue tomada" + data);
+               swal({  
+					title: "Cita agendada!", 
+					text: "Usted ha tomado la cita con éxito.",   
+					type: "success",   
+					confirmButtonText: "Aceptar",
+				});
+               window.location = "/#/user/" + appointmentData.user_id;
            }
-   		});*/
-   		//this.data = {};
-   };
+   		})
+   }
 
 }
