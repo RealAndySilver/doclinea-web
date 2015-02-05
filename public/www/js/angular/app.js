@@ -128,7 +128,12 @@
 			}).
 			when('/calendar/:doctorId', {
 				templateUrl: '../www/partials/doctor/appointments.html',
-				controller: 'CalendarCtrl'
+				controller: 'CalendarCtrl',
+			}).
+			when('/booking/:eventId', {
+				templateUrl: '../www/booking.html',
+				controller: 'BookingController',
+				controllerAs: 'bkngCtrl',
 			}).
 			otherwise({
 				redirectTo: '/404'

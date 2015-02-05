@@ -63,13 +63,13 @@ function CalendarCtrl($scope, $http, $routeParams) {
 	};
 	/* alert on Drop */
 	$scope.alertOnDrop = function( event, revertFunc, jsEvent, ui, view){
-	   $scope.alertMessage = ('Evento cambiado a ' + event.start.format());
+	   $scope.alertMessage = ('Evento cambiado a ' + event.start.format("dddd DD [de] MMMM [de] YYYY h:MM:ss"));
 	   console.log('Fecha cambiada ', event);
 	   $scope.updateEvent(event);
 	};
 	/* alert on Resize */
 	$scope.alertOnResize = function( event, jsEvent, ui, view){
-	   $scope.alertMessage = ('Fecha de finalización cambiada a ' + event.end.format());
+	   $scope.alertMessage = ('Fecha de finalización cambiada a ' + event.end.format("dddd DD [de] MMMM [de] YYYY h:MM:ss"));
 	   console.log('Fecha de finalización cambiada a ', event);
 	   $scope.updateEvent(event);
 	};

@@ -61,17 +61,31 @@ function CalendarProfileCtrl($scope, $http, $routeParams) {
 	};
 	/* alert on eventClick */
 	$scope.alertOnEventClick = function( event, allDay, jsEvent, view ){
-		$scope.alertMessage = (event.title + ' fue seleccionado ');
+		$scope.alertMessage = ('Cita ' + event.title + ' para ' + event.start.format("dddd DD [de] MMMM [de] YYYY h:MM:ss"));
+		console.log('id de la cita seleccionada ', event._id);
+		swal({  
+			title: "Selección de Cita", 
+			text: "¿Seguró que quieres agendar esta cita?",   
+			type: "warning",   
+			showCancelButton: true,   
+			confirmButtonColor: "#5CB85C",   
+			confirmButtonText: "Aceptar",
+			cancelButtonText: "Cancelar",   
+			closeOnConfirm: true,
+		},
+		function(){
+			window.location = "/#/";
+		});
 	};
 	/* alert on Drop */
 	$scope.alertOnDrop = function( event, revertFunc, jsEvent, ui, view){
-	   $scope.alertMessage = ('Evento cambiado a ' + event.start.format());
+	   $scope.alertMessage = ('Evento cambiado a ' + event.start.format("dddd DD [de] MMMM [de] YYYY h:MM:ss"));
 	   console.log('Fecha cambiada ', event);
 	   $scope.updateEvent(event);
 	};
 	/* alert on Resize */
 	$scope.alertOnResize = function( event, jsEvent, ui, view){
-	   $scope.alertMessage = ('Fecha de finalización cambiada a ' + event.end.format());
+	   $scope.alertMessage = ('Fecha de finalización cambiada a ' + event.end.format("dddd DD [de] MMMM [de] YYYY h:MM:ss"));
 	   console.log('Fecha de finalización cambiada a ', event);
 	   $scope.updateEvent(event);
 	};
@@ -163,7 +177,7 @@ function CalendarProfileCtrl($scope, $http, $routeParams) {
 	};
 
 	$scope.getAppointments = function(doctorId) {
-	  $http.get(endpoint + 'Appointment' + '/GetAllForDoctor/' + doctorId).success(function(data) {
+	  $http.get(endpoint + 'Appointment' + '/GetAvailableForDoctor/' + doctorId).success(function(data) {
 	  	var appointments = data.response;
 		//console.log('datos de servicio ', appointments);
 		
