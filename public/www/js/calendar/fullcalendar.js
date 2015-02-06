@@ -242,7 +242,6 @@ function mergeOptions(target) {
 	return target;
 }
 
-
 // overcome sucky view-option-hash and option-merging behavior messing with options it shouldn't
 function isForcedAtomicOption(name) {
 	// Any option that ends in "Time" or "Duration" is probably a Duration,

@@ -145,6 +145,7 @@ function CalendarProfileCtrl($scope, $http, $routeParams) {
 			calendar.fullCalendar('render');
 	    }
 	};
+
 	/* config object */
 	$scope.uiConfig = {
 	  calendar:{
@@ -159,6 +160,7 @@ function CalendarProfileCtrl($scope, $http, $routeParams) {
 		eventDrop: false,
 		eventResize: false,
 		disableDragging: true,
+		//eventRender: $scope.eventRender,
 	  }
 	};
 
