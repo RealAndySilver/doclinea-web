@@ -7,16 +7,14 @@
 	  </ul>
 	</div>
 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main tab-content">
-		<div id="user_appointments" class="tab-pane fade">
+		<div id="user_appointments" class="tab-pane fade" ng-controller="AppointmentsController">
 			<div class="center">
 				<div class="inner-info-box">
 					<h2>Citas</h2>	
-					<ul class="list-group">
-					  <li class="list-group-item">Cras justo odio</li>
-					  <li class="list-group-item">Dapibus ac facilisis in</li>
-					  <li class="list-group-item">Morbi leo risus</li>
-					  <li class="list-group-item">Porta ac consectetur ac</li>
-					  <li class="list-group-item">Vestibulum at eros</li>
+					<ul class="list-group" ng-repeat="a in appointments">
+						<li class="list-group-item">Doctor(a) {{a.doctor_name}}</li>
+					    <li class="list-group-item">{{a.date_start}}</li>
+					    <li class="list-group-item">{{a.reason}}</li>
 					</ul>
 				</div>
 			</div>	
