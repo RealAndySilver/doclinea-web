@@ -12,9 +12,10 @@
 				<div class="inner-info-box">
 					<h2>Citas</h2>	
 					<ul class="list-group" ng-repeat="a in appointments">
-						<li class="list-group-item">Doctor(a) {{a.doctor_name}}</li>
-					    <li class="list-group-item">{{a.date_start}}</li>
-					    <li class="list-group-item">{{a.reason}}</li>
+						<img width="120px" ng-src="{{a.doctor_image}}">
+						<li class="list-group-item">Doctor(a): {{a.doctor_name}}</li>
+					    <li class="list-group-item">Fecha de Cita: {{a.date_start | date:"MMM dd hh:mm"}}</li>
+					    <li class="list-group-item">Motivo de Cita: {{a.reason}}</li>
 					</ul>
 				</div>
 			</div>	

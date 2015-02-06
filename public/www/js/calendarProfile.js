@@ -2,7 +2,7 @@ angular.module('calendarProfile', ['ui.calendar', 'ui.bootstrap']);
 var endpoint = "http://192.241.187.135:1414/api_1.0/";
 
 function CalendarProfileCtrl($scope, $http, $routeParams) {
-	console.log('Estamos en el calendario del perfil de Doctor ', $routeParams.id);
+	//console.log('Estamos en el calendario del perfil de Doctor ', $routeParams.id);
 
 	$scope.doctorId = $routeParams.id;
 	console.log('mi doctor es ', $scope.doctorId);
@@ -62,7 +62,7 @@ function CalendarProfileCtrl($scope, $http, $routeParams) {
 	/* alert on eventClick */
 	$scope.alertOnEventClick = function( event, allDay, jsEvent, view ){
 		$scope.alertMessage = ('Cita ' + event.title + ' para ' + event.start.format("dddd DD [de] MMMM [de] YYYY h:MM:ss"));
-		console.log('id de la cita seleccionada ', event._id);
+		//console.log('id de la cita seleccionada ', event._id);
 		swal({  
 			title: "Selección de Cita", 
 			text: "¿Seguro que quieres agendar esta cita?",   
@@ -135,21 +135,21 @@ function CalendarProfileCtrl($scope, $http, $routeParams) {
 	};
 	/* Change View */
 	$scope.changeView = function(view,calendar) {
-	  if(calendar !== undefined) {
+	    if(calendar !== undefined) {
 			calendar.fullCalendar('changeView',view);
 		}
 	};
 	/* Change View */
 	$scope.renderCalender = function(calendar) {
-	  if(calendar){
-		calendar.fullCalendar('refetch');
-	  }
+	    if(calendar){
+			calendar.fullCalendar('render');
+	    }
 	};
 	/* config object */
 	$scope.uiConfig = {
 	  calendar:{
 		height: 450,
-		editable: true,
+		editable: false,
 		header:{
 		  left: 'title',
 		  center: '',
@@ -158,6 +158,7 @@ function CalendarProfileCtrl($scope, $http, $routeParams) {
 		eventClick: $scope.alertOnEventClick,
 		eventDrop: false,
 		eventResize: false,
+		disableDragging: true,
 	  }
 	};
 

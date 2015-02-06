@@ -169,6 +169,7 @@ function CalendarCtrl($scope, $http, $routeParams) {
 		appointment.date_start = event.start;
 		appointment.date_end = event.end;
 		appointment.location = $scope.docInfo.location_list;
+		appointment.doctor_image = $scope.docInfo.profile_pic.image_url;
 		console.log('aqui se guarda la cita', appointment);
 
 		$http.post(endpoint + 'Appointment' + '/Create/' + appointment.doctor_id, appointment)

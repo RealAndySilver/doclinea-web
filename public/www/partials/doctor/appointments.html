@@ -35,7 +35,7 @@
                                 </div> -->
 
 		                        <ul class="unstyled events-list">
-		                            <li ng-repeat="e in events | orderBy : 'start':true">
+		                            <li ng-repeat="e in events | orderBy : 'start'">
 		                                <div class="alert alert-info" style="background:{{e.color}}; color:{{e.textColor}};">
 		                                    <a class="close" ng-click="remove($index)"><i class="icon-remove"></i>x</a>
 		                                    {{e.start | date:"MMM dd hh:mm"}} - {{e.end | date:"MMM dd hh:mm"}}
