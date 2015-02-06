@@ -1,7 +1,7 @@
 angular.module('calendarPlugin', ['ui.calendar', 'ui.bootstrap']);
 var endpoint = "http://192.241.187.135:1414/api_1.0/";
 
-function CalendarCtrl($scope, $http, $routeParams) {
+function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig) {
 
 	$scope.doctorId = $routeParams.doctorId;
 	var date = new Date();
@@ -59,7 +59,7 @@ function CalendarCtrl($scope, $http, $routeParams) {
 	};
 	/* alert on eventClick */
 	$scope.alertOnEventClick = function( event, allDay, jsEvent, view ){
-		$scope.alertMessage = (event.title + ' fue seleccionado ');
+		$scope.alertMessage = (event.title + ' en ' + event.start.format("dddd DD [de] MMMM [de] YYYY h:MM:ss") + ' fue seleccionado');
 	};
 	/* alert on Drop */
 	$scope.alertOnDrop = function( event, revertFunc, jsEvent, ui, view){
@@ -113,6 +113,15 @@ function CalendarCtrl($scope, $http, $routeParams) {
 		forceEventDuration: true
 	  });
 	};
+
+	// var calendar = $('#calendar');
+	// calendar.fullCalendar({
+	//     dayClick: function(date, allDay, jsEvent, view) {
+	//     	console.log('HOMEEEE');
+	//         calendar.fullCalendar('renderEvent', { title: 'YOUR TITLE', start: date, allDay: true }, true );
+	//     }
+	// });
+
 	/* remove event */
 	$scope.remove = function(index) {
 	  $scope.events.splice(index,1);
@@ -126,9 +135,10 @@ function CalendarCtrl($scope, $http, $routeParams) {
 	/* Change View */
 	$scope.renderCalender = function(calendar) {
 	  if(calendar){
-		calendar.fullCalendar('refetch');
+		calendar.fullCalendar('render');
 	  }
 	};
+	//console.log('VARIABLE DE CALENDARIO ', $scope.uiConfig.calendar);
 	/* config object */
 	$scope.uiConfig = {
 	  calendar:{
@@ -141,7 +151,15 @@ function CalendarCtrl($scope, $http, $routeParams) {
 		},
 		eventClick: $scope.alertOnEventClick,
 		eventDrop: $scope.alertOnDrop,
-		eventResize: $scope.alertOnResize
+		eventResize: $scope.alertOnResize,
+		dayClick: function (start, allDay, jsEvent, view) {
+		    alert('You clicked me!');
+		    console.log(jsEvent);
+		},
+		// dayClick: function(date, allDay, jsEvent, view) {
+	 //    	console.log('HOMEEEE');
+	 //        calendar.fullCalendar('renderEvent', { title: 'YOUR TITLE', start: date, allDay: true }, true );
+	 //    }
 	  }
 	};
 
