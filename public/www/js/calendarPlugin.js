@@ -113,14 +113,34 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig) {
 		forceEventDuration: true
 	  });
 	};
+	/* add click event */
+	$scope.addEventClick = function(start) {
+		var date = new Date(start);
+		var mm = date.getMinutes();
+		var h = date.getHours();
+		var d = date.getDate() + 1;
+		var m = date.getMonth();
+		var y = date.getFullYear();
+		if (mm < 15) {
+			mm = 0;
+		} else if (mm < 45){
+			mm = 30;
+		} else {
+			mm = 0;
+			++h;
+		}
 
-	// var calendar = $('#calendar');
-	// calendar.fullCalendar({
-	//     dayClick: function(date, allDay, jsEvent, view) {
-	//     	console.log('HOMEEEE');
-	//         calendar.fullCalendar('renderEvent', { title: 'YOUR TITLE', start: date, allDay: true }, true );
-	//     }
-	// });
+	  $scope.events.push({
+		title: 'Nuevo evento',
+		start: new Date(y, m, d, h, mm),
+		end: new Date(y, m, d, h, mm+30),
+		className: ['openSesame'],
+		allDay: false,
+		color: '',
+		textColor: 'black',
+		forceEventDuration: true
+	  });
+	};
 
 	/* remove event */
 	$scope.remove = function(index) {
@@ -138,7 +158,6 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig) {
 		calendar.fullCalendar('render');
 	  }
 	};
-	//console.log('VARIABLE DE CALENDARIO ', $scope.uiConfig.calendar);
 	/* config object */
 	$scope.uiConfig = {
 	  calendar:{
@@ -152,14 +171,9 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig) {
 		eventClick: $scope.alertOnEventClick,
 		eventDrop: $scope.alertOnDrop,
 		eventResize: $scope.alertOnResize,
-		dayClick: function (start, allDay, jsEvent, view) {
-		    alert('You clicked me!');
-		    console.log(jsEvent);
+		dayClick: function (date, allDay, jsEvent, view) {
+		    $scope.addEventClick(date);
 		},
-		// dayClick: function(date, allDay, jsEvent, view) {
-	 //    	console.log('HOMEEEE');
-	 //        calendar.fullCalendar('renderEvent', { title: 'YOUR TITLE', start: date, allDay: true }, true );
-	 //    }
 	  }
 	};
 
@@ -217,8 +231,6 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig) {
             $scope.getAppointments(appointment.doctor_id);
   		});
 
-		// console.log('el doctor es', $scope.info);
-		// console.log('la info de la cita es', $scope.events[0]);
 	};
 
 	$scope.getAppointments = function(doctorId) {
