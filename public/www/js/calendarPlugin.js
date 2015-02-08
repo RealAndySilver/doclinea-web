@@ -59,7 +59,7 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig) {
 	};
 	/* alert on eventClick */
 	$scope.alertOnEventClick = function( event, allDay, jsEvent, view ){
-		$scope.alertMessage = (event.title + ' en ' + event.start.format("dddd DD [de] MMMM [de] YYYY h:MM:ss") + ' fue seleccionado');
+		$scope.alertMessage = (event.title + ' en ' + event.start.format("dddd DD [de] MMMM [de] YYYY h:MM:ss"));
 	};
 	/* alert on Drop */
 	$scope.alertOnDrop = function( event, revertFunc, jsEvent, ui, view){

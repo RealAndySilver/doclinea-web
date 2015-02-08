@@ -504,12 +504,9 @@
 			return UserService.getUser().id;
 		}
 
-		// Store
-		//localStorage.user = JSON.stringify(User);
-		//console.log('Info guardada!', localStorage.user)
-
-		//var userData = JSON.parse(localStorage.user);
-	    //console.log('Nombre de Usuario guardado', JSON.parse(localStorage.user));
+	    localStorage.getItem("user");
+    	$scope.userData = JSON.parse(localStorage.user);
+    	//console.log('user almacenado ', $scope.userData.username);
 
 	}]);
 

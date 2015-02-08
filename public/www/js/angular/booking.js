@@ -4,22 +4,17 @@ var endpoint = "http://192.241.187.135:1414/api_1.0/";
 function BookingController($scope, $http, $routeParams) {
 	var appointmentId = $routeParams.eventId;
 
-	console.log('entramos a BOOKING <3', appointmentId);
 	localStorage.getItem("user");
-    //console.log(localStorage);
     $scope.userData = JSON.parse(localStorage.user);
 
 	this.bookAppointment = function() {
-		//console.log('Entra a signUp');
 		var data1 = this.data;
         
-        //console.log('obj usuario ', $scope.userData);
         data1.user_id = $scope.userData.id;
         data1.user_name = $scope.userData.username;
         if (data1.patient_is_user == 'true') {
         	data1.patient_name = $scope.userData.username;
         };
-        console.log('cositas que llegan en el form ', data1);
         swal({  
 			title: "Confirmación de Cita", 
 			text: "¿Seguro que quieres tomar esta cita?",   
@@ -38,7 +33,6 @@ function BookingController($scope, $http, $routeParams) {
    };
 
    $scope.takeAppointment = function(appointmentData) {
-   		console.log('AQUI LE PEGAMOS AL SERVICIO ', appointmentData, appointmentId);
    		$http.post(endpoint + "Appointment" + '/Take/' + appointmentId, appointmentData)
         .success(function(data) {
            if (!data.status) {

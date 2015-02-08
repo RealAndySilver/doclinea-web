@@ -156,6 +156,7 @@ function CalendarProfileCtrl($scope, $http, $routeParams) {
 		  center: '',
 		  right: 'today prev,next'
 		},
+		lang: 'es',
 		eventClick: $scope.alertOnEventClick,
 		eventDrop: false,
 		eventResize: false,
