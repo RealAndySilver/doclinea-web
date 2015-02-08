@@ -168,6 +168,7 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig) {
 		  center: '',
 		  right: 'today prev,next'
 		},
+		lang: 'es',
 		eventClick: $scope.alertOnEventClick,
 		eventDrop: $scope.alertOnDrop,
 		eventResize: $scope.alertOnResize,

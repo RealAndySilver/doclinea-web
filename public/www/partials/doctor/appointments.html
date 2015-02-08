@@ -21,19 +21,6 @@
 		                          </button>
 		                        </div>
 
-		                        <!-- <div class="alert alert-info" style="background:{{e.color}}; color:{{e.textColor}};">
-                                    <a class="close" ng-click="remove($index)"><i class="icon-remove"></i>x</a>
-                                    {{e.start | date:"MMM dd hh:mm"}} - {{e.end | date:"MMM dd hh:mm"}}
-                                    <br><br>
-                                    <input ng-model="e.title" class="form-control input-md">
-                                    <br>
-                                    <div class="btn-group btn-group-sm" role="group" aria-label="...">
-										 <input type="radio" name="available" id="available" value="available" ng-model="status" required>Disponible
-										 <input type="radio" name="external" id="external" value="external" ng-model="status" required>Externo
-									</div>
-									<button type="button" class="btn btn-info btn-sm" ng-click="setAppointment(status, e)">Guardar</button>
-                                </div> -->
-
 		                        <ul class="unstyled events-list">
 		                            <li ng-repeat="e in events | orderBy : 'start'">
 		                                <div class="alert alert-info" style="background:{{e.color}}; color:{{e.textColor}};">
@@ -52,6 +39,9 @@
 		                                </div>
 		                            </li>
 		                        </ul>
+		                        <div id="bottom-flag">
+		                        	<i class="fa fa-angle-double-down fa-2x"></i>
+		                        </div>
 
 		                    </div>
 
