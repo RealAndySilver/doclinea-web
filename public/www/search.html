@@ -33,28 +33,6 @@
 				</form>
 			</div>
 			<hr>
-			<!--<div class="inner-search-bar">
-				<div class="column-c">
-					<select class="form-control">
-	              		<option value="">Motivo de consulta</option>
-	              		<option value="">Exámen general</option>
-	              		<option value="">Vacuna</option>
-	              		<option value="">Control prenatal</option>
-	            	</select>
-				</div>
-				<div class="column-c">
-					<select class="form-control">
-	              		<option value="">Género del doctor</option>
-	              		<option value="">Doctor</option>
-	              		<option value="">Doctora</option>
-	            	</select>
-				</div>
-				<div class="column-c">
-					<span>
-						<input type="checkbox" name="child_attention" value="chld_attn">Atención a niños
-					</span>
-				</div>
-			</div>-->
 		</div>
 	</div>
 	<div id="results-box">
@@ -67,11 +45,11 @@
 							<div class="doc-photo">
 								<div class="inner-doc-photo">
 									<div ng-if="doctor.gender == 1">
-										<img ng-if="!doctor.profile_pic" ng-src="http://medicalappjournal.com/images/Male_Doctor.png">
+										<img ng-if="!doctor.profile_pic" src="../www/css/images/doctormale.png">
 										<img ng-if="doctor.profile_pic" ng-src="{{doctor.profile_pic.image_url}}">
 									</div>	
 									<div ng-if="doctor.gender != 1">
-										<img ng-if="!doctor.profile_pic" src="http://www.medicalappjournal.com/images/Female_Doctor.png">
+										<img ng-if="!doctor.profile_pic" src="../www/css/images/doctorfemale.png">
 										<img ng-if="doctor.profile_pic" ng-src="{{doctor.profile_pic.image_url}}">
 									</div>
 								</div>

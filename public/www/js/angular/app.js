@@ -11,6 +11,7 @@
 	  'doctorDashboard',
 	  'userDashboard',
 	  'userAppointments',
+	  'userDoctors',
 	  'adminDashboard',
 	  'calendarPlugin',
 	  'calendarProfile',
@@ -508,7 +509,7 @@
 			return UserService.getUser().id;
 		}
     	
-    	console.log('user almacenado ', $scope.userData.username);
+    	//console.log('user almacenado ', $scope.userData.username);
 
 	}]);
 
@@ -1070,6 +1071,40 @@
 				createMarker(This.dProfile);
 				$scope.encodedParam = btoa("undefined");
            	});
+
+		$scope.favDoctor = function (doctorId) {
+			localStorage.getItem("user");
+   	 		$scope.userData = JSON.parse(localStorage.user);
+   	 		var userId = $scope.userData.id;
+   	 		var doctorToFav = {};
+   	 		doctorToFav.doctor_id = doctorId;
+
+   	 		$http.post(endpoint + "User" + '/Fav/' + userId, doctorToFav)
+            .success(function(data) {
+                if (!data.status) {
+                    console.log("No se agregó", data);
+                    //console.log(JSON.stringify(data1));
+                    var error_msg = 'No se pudo agregar el doctor a favoritos.';
+               		swal({  
+						title: "", 
+						text: error_msg,   
+						type: "error",   
+						confirmButtonText: "Aceptar",
+					});
+                } else {
+                   // if successful, bind success message to message
+                    console.log("Listo, doctor agregado", data.response);
+                    var success_msg = 'El doctor se agregó a favoritos con éxito!';
+	           		swal({  
+						title: "", 
+						text: success_msg,   
+						type: "success",   
+						confirmButtonText: "Aceptar",
+					});
+                }
+      		});
+		}
+
 	});
 
 	//Controller for Doctor Appointments on Profile
@@ -1079,12 +1114,6 @@
 	    	templateUrl: 'www/partials/doctor/available_appointments.html',
 	    	controller: 'CalendarProfileCtrl',
 	    	controllerAs: 'calProfileCtrl',
-	    	// scope: {
-	    	// 	doctorId: '=',
-	    	// },
-	    	// link: function(scope, element){
-	     //        scope.doctorId = $routeParams.doctorId;
-	     //    }
 	    };
 	});
 
@@ -1092,7 +1121,6 @@
 	userAppointments = angular.module('userAppointments', []);
 	userAppointments.controller('AppointmentsController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams){
 		var userId = $routeParams.id;
-		console.log('CITAS LISTADAS DE EL USUARIO ', userId);
 
 		$http.get(endpoint + "Appointment" + '/GetForUser/' + userId)
       		.success(function(data) {
@@ -1107,9 +1135,34 @@
 					});
            		} else {
                		// if successful, bind success message to message
-               		console.log("Resultado de busqueda de citas:");
+               		//console.log("Resultado de busqueda de citas:");
                		$scope.appointments = data.response;
-               		console.log($scope.appointments);
+               		//console.log($scope.appointments);
+           		}
+        	});
+	}]);
+
+	//Module and Controller for User Favorites Doctors
+	userDoctors = angular.module('userDoctors', []);
+	userDoctors.controller('FavoritesController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams){
+		var userId = $routeParams.id;
+
+		$http.get(endpoint + "User" + '/GetFavorites/' + userId)
+      		.success(function(data) {
+            	if (!data.status) {
+               		console.log("No se encontraron doctores", data.error);
+               		console.log(data);
+               		swal({  
+						title: "Error de Servidor", 
+						text: "Ha ocurrido un error al cargar la información del usuario.",   
+						type: "error",   
+						confirmButtonText: "Aceptar",
+					});
+           		} else {
+               		// if successful, bind success message to message
+               		//console.log("Resultado de busqueda de doctores:");
+               		$scope.favorites = data.response;
+               		//console.log($scope.favorites);
            		}
         	});
 	}]);

@@ -5,11 +5,11 @@
 				<div class="doc-main-photo">
 					<div class="inner-doc-main-photo">
 						<div ng-if="profile.dProfile.gender == 1">
-							<img ng-if="!profile.dProfile.profile_pic" ng-src="http://medicalappjournal.com/images/Male_Doctor.png">
+							<img ng-if="!profile.dProfile.profile_pic" src="../www/css/images/doctormale.png">
 							<img ng-if="profile.dProfile.profile_pic" ng-src="{{profile.dProfile.profile_pic.image_url}}">
 						</div>	
 						<div ng-if="profile.dProfile.gender != 1">
-							<img ng-if="!profile.dProfile.profile_pic" ng-src="http://www.medicalappjournal.com/images/Female_Doctor.png">
+							<img ng-if="!profile.dProfile.profile_pic" src="../www/css/images/doctorfemale.png">
 							<img ng-if="profile.dProfile.profile_pic" ng-src="{{profile.dProfile.profile_pic.image_url}}">
 						</div>
 					</div>
@@ -17,11 +17,13 @@
 				<div class="inner-doc-main-info">
 					<div class="doc-title">
 						<span class="doc-title-name">
-						<label ng-if="profile.dProfile.gender == 1">Dr.</label>
-						<label ng-if="profile.dProfile.gender != 1">Dra.</label>
-						{{profile.dProfile.name}}
-						{{profile.dProfile.lastname}}</span>
+							<label ng-if="profile.dProfile.gender == 1">Dr.</label>
+							<label ng-if="profile.dProfile.gender != 1">Dra.</label>
+							{{profile.dProfile.name}}
+							{{profile.dProfile.lastname}}
+						</span>
 						<span class="doc-title-speciality">{{profile.dProfile.practice_list[0]}}</span>
+						<span class="fav-doc"><i class="fa fa-star-o"></i><a ng-click="favDoctor(profile.dProfile._id)">Agregar a Favoritos</a></span>
 					</div>
 					<div class="doc-rating">
 						<div class="average-rating">
@@ -70,28 +72,6 @@
 					<div class="inner-doc-schedule">
 						<div role="main">
 							<available-calendar></available-calendar>
-							<!-- <div class="span8">
-							    <tabset id="my-tabs">
-							        <tab select="renderCalendar(myCalendar1);">
-							          <tab-heading>
-							           <i class="glyphicon glyphicon-calendar"></i> <a id="main-calendar" href="">Horarios disponibles</a>
-							          </tab-heading>
-							          <div class="alert-success calAlert" ng-show="alertMessage != undefined && alertMessage != ''">
-							            <h4>{{alertMessage}}</h4>
-							          </div>
-							          <div class="btn-toolbar">
-							            <p class="pull-right lead"></p>
-							            <div class="btn-group">
-							                <button class="btn btn-success" ng-click="changeView('agendaDay', myCalendar1)">Día</button>
-							                <button id="set-week" class="btn btn-success" ng-click="changeView('agendaWeek', myCalendar1)">Semana</button>
-							                <button class="btn btn-success" ng-click="changeView('month', myCalendar1)">Mes</button>
-							            </div>
-							          </div>
-							        <div class="calendar" id="calendar" ng-model="eventSources" calendar="myCalendar1" config="uiConfig.calendar" ui-calendar="uiConfig.calendar"></div>
-							       <span ng-init="changeView('agendaWeek', myCalendar1)"></span>
-							       </tab>
-							    </tabset>
-							</div> -->
 						</div>
 					</div>
 				</div>
