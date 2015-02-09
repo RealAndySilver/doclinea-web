@@ -455,9 +455,12 @@
 	                   //console.log('la data es', doc);
 	                   window.location = "/#/doctor_dashboard/" + doc._id;
 
-	                   User.username = doc.name;
+	                   User.username = doc.name + ' ' + doc.lastname;
 	                   User.id = doc._id;
 	                   User.isDoctor = true;
+
+	                   // Store
+					   localStorage.setItem('user', JSON.stringify(User));
 	               }
 	       		});
        this.data = {};
@@ -465,16 +468,17 @@
 	}]);
 
 	app.controller('LoginWelcomeController', ['$scope', '$http', 'UserService', function($scope, $http, UserService){
-		var status = 0;
+		/*var status = 0;
 		if(status == 0) {
 			console.log('No existe una sesión activa');
-		}
+		}*/
 
 		var self = this;
-
+		/*
 		$scope.$watch(UserService.getUser(), function() {
 			self.getStatus();
 		});
+		*/
 
 		this.getStatus = function() {
 			var user = UserService.getUser();
@@ -503,14 +507,11 @@
 
 		this.getUsername = function() {
 			return UserService.getUser().username;
-			console.log(UserService.getUser().username);
 		};
 		this.getUserId = function() {
 			return UserService.getUser().id;
 		}
     	
-    	//console.log('user almacenado ', $scope.userData.username);
-
 	}]);
 
 	app.value('User', {
@@ -522,6 +523,13 @@
 
 	app.service('UserService', ['User', function(User) {
 		this.getUser = function() {
+			if(!localStorage.getItem("user")) {
+				return User;
+			}
+
+			var user = JSON.parse(localStorage.getItem("user"));
+			User = user;
+
 			return User;	
 		};
 	}]);
