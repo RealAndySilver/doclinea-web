@@ -1530,7 +1530,7 @@
                			$scope.doctorData.info.insurance_list.push({insurance: ''});
                		};
                		if ($scope.doctorData.info.insurance_list[0] == null || $scope.doctorData.info.insurance_list[0] == undefined) {
-               			$scope.doctorData.info.insurance_list[0] = {insurance: ''};
+               			$scope.doctorData.info.insurance_list[0].insurance = {insurance: ''};
                		};
                		// if ($scope.doctorData.info.gallery.length == 0) {
                		// 	$scope.doctorData.info.gallery.push({name: '', image_url: ''});
@@ -1811,7 +1811,7 @@
 		});
 
 		$scope.getInsurances = function(index) {
-			//console.log($scope.docDashCtrl.insurances[index].type_list);
+			//console.log('Seguros asociados! ', $scope.docDashCtrl.insurances[index].type_list);
 			return $scope.docDashCtrl.insurances[index].type_list;
 		};
 
@@ -1839,6 +1839,11 @@
 			}
 			//console.log(studiesInfo.practice_list);
 
+			// studiesInfo.insurance_list = [];
+			// for (i=0; i < $scope.doctorData.info.insurance_list.length; i++) {
+			// 	studiesInfo.insurance_list.push($scope.doctorData.info.insurance_list[i]);
+			// }
+
 			for(var i in studiesInfo.practice_list) {
 				if (studiesInfo.practice_list[i] instanceof Array) {
 					$('#practice_list_'+(parseInt(i)+1)).removeClass('ng-valid');
@@ -1851,10 +1856,21 @@
 
 			var studiesInfoTemp = {};
 			studiesInfoTemp.practice_list = [];
-
 			for(var i = 0; i < studiesInfo.practice_list.length; i++) {
 				studiesInfoTemp.practice_list.push(studiesInfo.practice_list[i].name);
 			}
+
+			// studiesInfoTemp.insurance_list = [];
+			// for (i=0; i < $scope.doctorData.info.insurance_list.length; i++) {
+			// 	// studiesInfoTemp.insurance_list = {};
+			// 	// studiesInfoTemp.insurance_list.insurance = $scope.doctorData.info.insurance_list.insurance;
+			// 	studiesInfoTemp.insurance_list.push($scope.doctorData.info.insurance_list[i]);
+			// }
+
+			// studiesInfoTemp.insurance_list = []; ESTE NOOOOO
+			// for(var i = 0; i < studiesInfo.insurance_list.length; i++) {
+			// 	studiesInfoTemp.insurance_list.push(studiesInfo.insurance_list[i].insurance.name);
+			// }
 
 			studiesInfoTemp.education_list = {};
 			studiesInfoTemp.education_list = $scope.doctorData.info.education_list;
@@ -1864,8 +1880,8 @@
 
 			studiesInfoTemp.insurance_list = {};
 			studiesInfoTemp.insurance_list.insurance = $scope.doctorData.info.insurance_list[0].insurance.name;
-			// studiesInfoTemp.insurance_list.insurance_type = $scope.doctorData.info.insurance_list[0].insurance_type.name;
-			// console.log(studiesInfoTemp.insurance_list);
+			studiesInfoTemp.insurance_list.insurance_type = $scope.doctorData.info.insurance_list[0].insurance_type.name;
+			console.log(studiesInfoTemp.insurance_list);
 
 			console.log(studiesInfoTemp);
      //        $http.post(endpoint + type + '/Update/' + doc_id, studiesInfoTemp)
