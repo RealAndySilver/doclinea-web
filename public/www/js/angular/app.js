@@ -1448,7 +1448,7 @@
 		});
 
 		this.practices = [];
-		this.insurances = [];
+		$scope.insurances = [];
 
 		var self = this;
 
@@ -1463,7 +1463,7 @@
 		var promiseGetAllInsurances = InsurancesService.getAll();
 		promiseGetAllInsurances.then(function(response) {
 			console.log(response.data);
-			self.insurances = response.data.response;
+			$scope.insurances = response.data.response;
 		});
 
 		var myDate = new Date();
@@ -1813,20 +1813,6 @@
 			return index.insurance.type_list;
 		};
 
-		// $scope.$watch('doctorData.insurances', function(newValue, oldValue) {
-		// 	watched.insurances = newValue;
-		// 	changeType(watched.insurances, watched.insurancesList);
-		// });
-
-		// var changeType = function(insurances, insurancesList) {
-		// 	if (!insurances);
-		// 	if (!insurancesList);
-
-		// 	if(insurances) {
-				
-		// 	}
-		// };
-
 		this.updateDoctor = function(doc_id) {
 			var type = 'Doctor';
 			
@@ -1835,12 +1821,6 @@
 			for (i=0; i < $scope.selectedPracticeList.length; i++) {
 				studiesInfo.practice_list.push($scope.selectedPracticeList[i]);
 			}
-			//console.log(studiesInfo.practice_list);
-
-			// studiesInfo.insurance_list = [];
-			// for (i=0; i < $scope.doctorData.info.insurance_list.length; i++) {
-			// 	studiesInfo.insurance_list.push($scope.doctorData.info.insurance_list[i]);
-			// }
 
 			for(var i in studiesInfo.practice_list) {
 				if (studiesInfo.practice_list[i] instanceof Array) {
@@ -2057,9 +2037,7 @@
 			self.insurances = response.data.response;
 		});
 
-		//this.practices = [ {name: "Pediatra", id: 1}, {name: "Fonoaudiólogo", id: 2}, {name: "Ginecólogo", id: 3}, {name: "Ortopedista", id: 4}, {name: "Odontólogo", id: 5} ];
 		this.cities = [ {name: "Bogotá", id: 1}, {name: "Medellín", id: 2}, {name: "Cali", id: 3}, {name: "Barranquilla", id: 4}, {name: "Pereira", id: 5}, {name: "Bucaramanga", id: 6} ];
-		//this.insurances = [ {name: "Colpatria", id: 1}, {name: "Compensar", id: 2}, {name: "Sura", id: 3} ];
 
 		//console.log('THIS IS ADMIN');
 
