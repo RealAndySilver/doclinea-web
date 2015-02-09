@@ -818,9 +818,7 @@
 			self.insurances = response.data.response;
 		});
 
-		// this.practices = [ {name: "Pediatra", id: 1}, {name: "Fonoaudiólogo", id: 2}, {name: "Ginecólogo", id: 3}, {name: "Ortopedista", id: 4}, {name: "Odontólogo", id: 5} ];
 		this.cities = [ {name: "Bogotá", id: 1}, {name: "Medellín", id: 2}, {name: "Cali", id: 3}, {name: "Barranquilla", id: 4}, {name: "Pereira", id: 5}, {name: "Bucaramanga", id: 6} ];
-		//this.insurances = [ {name: "Colpatria", id: 1}, {name: "Compensar", id: 2} ];
 
 		var city = $routeParams.city;
 		var practice_list = $routeParams.practice_list;
@@ -1812,7 +1810,7 @@
 
 		$scope.getInsurances = function(index) {
 			//console.log('Seguros asociados! ', $scope.docDashCtrl.insurances[index].type_list);
-			return $scope.docDashCtrl.insurances[index].type_list;
+			return index.insurance.type_list;
 		};
 
 		// $scope.$watch('doctorData.insurances', function(newValue, oldValue) {
@@ -1860,54 +1858,48 @@
 				studiesInfoTemp.practice_list.push(studiesInfo.practice_list[i].name);
 			}
 
-			// studiesInfoTemp.insurance_list = [];
-			// for (i=0; i < $scope.doctorData.info.insurance_list.length; i++) {
-			// 	// studiesInfoTemp.insurance_list = {};
-			// 	// studiesInfoTemp.insurance_list.insurance = $scope.doctorData.info.insurance_list.insurance;
-			// 	studiesInfoTemp.insurance_list.push($scope.doctorData.info.insurance_list[i]);
-			// }
-
-			// studiesInfoTemp.insurance_list = []; ESTE NOOOOO
-			// for(var i = 0; i < studiesInfo.insurance_list.length; i++) {
-			// 	studiesInfoTemp.insurance_list.push(studiesInfo.insurance_list[i].insurance.name);
-			// }
-
 			studiesInfoTemp.education_list = {};
 			studiesInfoTemp.education_list = $scope.doctorData.info.education_list;
 			studiesInfoTemp.profesional_membership = [];
 			studiesInfoTemp.profesional_membership = $scope.doctorData.info.profesional_membership;
 			studiesInfoTemp.description = $scope.doctorData.info.description;
 
-			studiesInfoTemp.insurance_list = {};
-			studiesInfoTemp.insurance_list.insurance = $scope.doctorData.info.insurance_list[0].insurance.name;
-			studiesInfoTemp.insurance_list.insurance_type = $scope.doctorData.info.insurance_list[0].insurance_type.name;
-			console.log(studiesInfoTemp.insurance_list);
+			studiesInfoTemp.insurance_list = [];
+			for(var i = 0; i < $scope.doctorData.info.insurance_list.length; i++) {
+				var tempInsurance = $scope.doctorData.info.insurance_list[i].insurance.name;
+				var tempInsuranceType = $scope.doctorData.info.insurance_list[i].insurance_type.name;;
+				studiesInfoTemp.insurance_list.push({
+					insurance: tempInsurance,
+					insurance_type: tempInsuranceType,
+				});
+			}
+			//console.log(studiesInfoTemp.insurance_list);
 
 			console.log(studiesInfoTemp);
-     //        $http.post(endpoint + type + '/Update/' + doc_id, studiesInfoTemp)
-     //        .success(function(data) {
-     //            if (!data.status) {
-     //                console.log("Paila, no se actualizó", data);
-     //                var error_msg = 'No se pudo actualizar tu formación académica, verifica la información de nuevo.';
-     //                swal({  
-					// 	title: "", 
-					// 	text: error_msg,   
-					// 	type: "error",   
-					// 	confirmButtonText: "Aceptar",
-					// });
-     //                //console.log(JSON.stringify(data1));
-     //            } else {
-     //               // if successful, bind success message to message
-     //               console.log("Listo, doctor actualizado", data.response);
-     //               var success_msg = 'Tus datos de formación académica han sido actualizados con éxito.';
-	    //        		swal({  
-					// 	title: "", 
-					// 	text: success_msg,   
-					// 	type: "success",   
-					// 	confirmButtonText: "Aceptar",
-					// });
-     //            }
-     //  		});
+            $http.post(endpoint + type + '/Update/' + doc_id, studiesInfoTemp)
+            .success(function(data) {
+                if (!data.status) {
+                    console.log("Paila, no se actualizó", data);
+                    var error_msg = 'No se pudo actualizar tu formación académica, verifica la información de nuevo.';
+                    swal({  
+						title: "", 
+						text: error_msg,   
+						type: "error",   
+						confirmButtonText: "Aceptar",
+					});
+                    //console.log(JSON.stringify(data1));
+                } else {
+                   // if successful, bind success message to message
+                   console.log("Listo, doctor actualizado", data.response);
+                   var success_msg = 'Tus datos de formación académica han sido actualizados con éxito.';
+	           		swal({  
+						title: "", 
+						text: success_msg,   
+						type: "success",   
+						confirmButtonText: "Aceptar",
+					});
+                }
+      		});
        };
 	}]);
 

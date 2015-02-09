@@ -79,11 +79,11 @@
 					<div class="form-group last-form-element">
 					  <label class="col-md-4 control-label" for="insurance_name">Aseguradoras</label>
 					  <div class="col-md-6">
-					  	<div class="pl-container input-top-fix" ng-repeat="insurance_list in docDashCtrl.info.insurance_list">
+					  	<div class="pl-container input-top-fix" ng-repeat="insurance_list in docDashCtrl.info.insurance_list track by $index">
 					  		<select id="insurance{{$index + 1}}" name="insurance" class="form-control small-input" ng-model="docDashCtrl.info.insurance_list[$index].insurance" ng-options="op.name for op in docDashCtrl.insurances">
 						  		<option value="">- Seleccione una aseguradora -</option>
 							</select>
-							<select ng-show="docDashCtrl.info.insurance_list[$index].insurance" id="type_name_{{$index + 1}}" name="type_name" class="form-control small-input" ng-model="docDashCtrl.info.insurance_list[$index].insurance_type" ng-options="op.name for op in getInsurances([$index])">
+							<select ng-show="docDashCtrl.info.insurance_list[$index].insurance" id="insurance_type_{{$index + 1}}" name="insurance_type" class="form-control small-input" ng-model="docDashCtrl.info.insurance_list[$index].insurance_type" ng-options="op.name for op in getInsurances(insurance_list)">
 						  		<option value="">- Seleccione un seguro -</option>
 							</select>
 							<a href="" ng-click="dashStudiesCtrl.removeInsurance(insurance_list)" class="btn btn-danger btn-small remove-btn"><i class="fa fa-times"></i></a>
