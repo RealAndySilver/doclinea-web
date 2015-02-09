@@ -349,9 +349,6 @@
 
 	                   // Store
 					   localStorage.setItem('user', JSON.stringify(User));
-
-					   // $scope.userData = JSON.parse(localStorage.user);
-					   // console.log('Nombre de Usuario guardado', $scope.userData.username);
                    }
        });
        this.data = {};
@@ -492,21 +489,26 @@
 			return 0;
 		};
 
+		localStorage.getItem("user");
+	    if (localStorage.getItem("user")) {
+	    	$scope.userData = JSON.parse(localStorage.user);
+	    };
+
 		this.logout = function() {
 			location.reload();
+			localStorage.removeItem("user");
 			window.location = "/#";
 		};
 
 		this.getUsername = function() {
 			return UserService.getUser().username;
+			console.log(UserService.getUser().username);
 		};
 		this.getUserId = function() {
 			return UserService.getUser().id;
 		}
-
-	    localStorage.getItem("user");
-    	$scope.userData = JSON.parse(localStorage.user);
-    	//console.log('user almacenado ', $scope.userData.username);
+    	
+    	console.log('user almacenado ', $scope.userData.username);
 
 	}]);
 
