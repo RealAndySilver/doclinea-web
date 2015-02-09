@@ -911,13 +911,11 @@
 			self.insurances = response.data.response;
 		});
 
-		// this.practices = [ {name: "Pediatra", id: 1}, {name: "Fonoaudiólogo", id: 2}, {name: "Ginecólogo", id: 3}, {name: "Ortopedista", id: 4}, {name: "Odontólogo", id: 5} ];
 		this.selectedPractice = getPosition(this.practices, docData.practice);
 		
 		this.cities = [ {name: "Bogotá", id: 1}, {name: "Medellín", id: 2}, {name: "Cali", id: 3}, {name: "Barranquilla", id: 4}, {name: "Pereira", id: 5}, {name: "Bucaramanga", id: 6} ];
 		this.selectedCity = getPosition(this.cities, docData.city);
 		
-		//this.insurances = [ {name: "Colpatria", id: 1}, {name: "Compensar", id: 2} ];
 		this.selectedInsurance = getPosition(this.insurances, docData.insurance);
 
 		this.selectedLocalidad = getPosition(this.localidades, docData.localidad.name);
@@ -1422,12 +1420,6 @@
 					//title: info.name +' '+ info.lastname
 				});
 				initialMarker.push(marker);
-				// marker.content = '<div class="infoWindowContent"><div class="map-inner-info"><h4>' + info.practice_list[0] + '</h4><br><h4>' + info.address + '</h4><br><a href="#/" class="btn btn-success">Pedir cita</a></div></div>';
-				
-				// google.maps.event.addListener(marker, 'click', function(){
-				// 	infoWindow.setContent('<h3>' + marker.title + '</h3>' + marker.content);
-				// 	infoWindow.open($scope.map, marker);
-				// });
 			}
 			doctorLat = $scope.doctorData.info.location_list[0].lat;
 			doctorLon = $scope.doctorData.info.location_list[0].lon;
@@ -1537,7 +1529,7 @@
                		if ($scope.doctorData.info.insurance_list.length == 0) {
                			$scope.doctorData.info.insurance_list.push({insurance: ''});
                		};
-               		if ($scope.doctorData.info.insurance_list[0] == null) {
+               		if ($scope.doctorData.info.insurance_list[0] == null || $scope.doctorData.info.insurance_list[0] == undefined) {
                			$scope.doctorData.info.insurance_list[0] = {insurance: ''};
                		};
                		// if ($scope.doctorData.info.gallery.length == 0) {
@@ -1849,18 +1841,11 @@
 
 			for(var i in studiesInfo.practice_list) {
 				if (studiesInfo.practice_list[i] instanceof Array) {
-					//console.log(i + 'Selección inválida');
-					// var invalid_practice = 'Verifique la lista de especialidades.';
-     //           		var alert_div = $("<div class=\"alert alert-danger alert-dismissible noty_dash noty fade in\"  role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">x</span><span class=\"sr-only\"></span></button>"+invalid_practice+"</div>");
-					// $("body").prepend(alert_div);
-					// $(".alert").alert();
 					$('#practice_list_'+(parseInt(i)+1)).removeClass('ng-valid');
 					$('#practice_list_'+(parseInt(i)+1)).removeClass('ng-pristine');
 					$('#practice_list_'+(parseInt(i)+1)).addClass('ng-invalid');
 					$('#practice_list_'+(parseInt(i)+1)).addClass('ng-dirty');
 					return;
-				} else {
-					//console.log(i + 'Selección válida');
 				}
 			}
 
@@ -1877,36 +1862,36 @@
 			studiesInfoTemp.profesional_membership = $scope.doctorData.info.profesional_membership;
 			studiesInfoTemp.description = $scope.doctorData.info.description;
 
-			// studiesInfoTemp.insurance_list = {};
-			// studiesInfoTemp.insurance_list.insurance = $scope.doctorData.info.insurance_list[0].insurance.name;
+			studiesInfoTemp.insurance_list = {};
+			studiesInfoTemp.insurance_list.insurance = $scope.doctorData.info.insurance_list[0].insurance.name;
 			// studiesInfoTemp.insurance_list.insurance_type = $scope.doctorData.info.insurance_list[0].insurance_type.name;
 			// console.log(studiesInfoTemp.insurance_list);
 
 			console.log(studiesInfoTemp);
-            $http.post(endpoint + type + '/Update/' + doc_id, studiesInfoTemp)
-            .success(function(data) {
-                if (!data.status) {
-                    console.log("Paila, no se actualizó", data);
-                    var error_msg = 'No se pudo actualizar tu formación académica, verifica la información de nuevo.';
-                    swal({  
-						title: "", 
-						text: error_msg,   
-						type: "error",   
-						confirmButtonText: "Aceptar",
-					});
-                    //console.log(JSON.stringify(data1));
-                } else {
-                   // if successful, bind success message to message
-                   console.log("Listo, doctor actualizado", data.response);
-                   var success_msg = 'Tus datos de formación académica han sido actualizados con éxito.';
-	           		swal({  
-						title: "", 
-						text: success_msg,   
-						type: "success",   
-						confirmButtonText: "Aceptar",
-					});
-                }
-      		});
+     //        $http.post(endpoint + type + '/Update/' + doc_id, studiesInfoTemp)
+     //        .success(function(data) {
+     //            if (!data.status) {
+     //                console.log("Paila, no se actualizó", data);
+     //                var error_msg = 'No se pudo actualizar tu formación académica, verifica la información de nuevo.';
+     //                swal({  
+					// 	title: "", 
+					// 	text: error_msg,   
+					// 	type: "error",   
+					// 	confirmButtonText: "Aceptar",
+					// });
+     //                //console.log(JSON.stringify(data1));
+     //            } else {
+     //               // if successful, bind success message to message
+     //               console.log("Listo, doctor actualizado", data.response);
+     //               var success_msg = 'Tus datos de formación académica han sido actualizados con éxito.';
+	    //        		swal({  
+					// 	title: "", 
+					// 	text: success_msg,   
+					// 	type: "success",   
+					// 	confirmButtonText: "Aceptar",
+					// });
+     //            }
+     //  		});
        };
 	}]);
 
@@ -3148,6 +3133,8 @@
 						type: "success",   
 						confirmButtonText: "Aceptar",
 					});
+					$('#name').val('');
+					$('#email').val('');
                 }
       		});
       		this.data = {};
