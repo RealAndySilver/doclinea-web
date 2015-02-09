@@ -10,15 +10,6 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig) {
 	var d = date.getDate();
 	var m = date.getMonth();
 	var y = date.getFullYear();
-
-	// $scope.$watch('info', function(newValue, oldValue) {
-	// 	console.log(newValue);
-	// 	if(newValue) {
-	// 		if(newValue._id) {
-	// 			$scope.getCurrentDoctor(newValue);
-	// 		}
-	// 	}
-	// });
 	
 	$scope.changeTo = 'Hungarian';
 	/* event source that pulls from google.com */
@@ -244,10 +235,10 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig) {
 		  var eventStatus = 'Disponible';
 
 		  for(var i in appointments) {
-		  	if (appointments[i].status == 'available') { eventColor = '#5CB85C'; eventStatus = 'Disponible'; } 
-		  	else if (appointments[i].status == 'taken') { eventColor = 'orange';  eventStatus = 'Cita agendada'; } 
-		  	else if (appointments[i].status == 'cancelled') { eventColor = 'red';  eventStatus = 'Cancelado'; } 
-		  	else { eventColor = 'gray'; eventStatus = 'Externo'; }
+		  	if (appointments[i].status == 'available') { eventColor = '#4DC34D'; eventStatus = 'Disponible'; eventTextColor = 'white'; } 
+		  	else if (appointments[i].status == 'taken') { eventColor = '#E9530E';  eventStatus = 'Cita agendada'; eventTextColor = 'black'; } 
+		  	else if (appointments[i].status == 'cancelled') { eventColor = '#E71C2C';  eventStatus = 'Cancelado'; eventTextColor = 'white'; } 
+		  	else { eventColor = '#4F6769'; eventStatus = 'Externo'; eventTextColor = 'white'; }
 
 		  	var appointment = {
 		  	  _id : appointments[i]._id,
@@ -258,7 +249,7 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig) {
 			  className: ['openSesame'],
 			  allDay: false,
 			  color: eventColor,
-			  textColor: 'black',
+			  textColor: eventTextColor,
 			  forceEventDuration: true
 			};
 			//console.log(appointment);

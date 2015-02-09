@@ -14,7 +14,7 @@
 					<ul class="list-group" ng-repeat="a in appointments">
 						<img width="120px" ng-src="{{a.doctor_image}}">
 						<li class="list-group-item">Doctor(a): {{a.doctor_name}}</li>
-					    <li class="list-group-item">Fecha de Cita: {{a.date_start | date:"MMM dd hh:mm"}}</li>
+					    <li class="list-group-item">Fecha de Cita: {{a.date_start | date:"MMM dd hh:mm a"}}</li>
 					    <li class="list-group-item">Motivo de Cita: {{a.reason}}</li>
 					</ul>
 				</div>

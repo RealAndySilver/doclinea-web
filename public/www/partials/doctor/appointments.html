@@ -25,15 +25,12 @@
 		                            <li ng-repeat="e in events | orderBy : 'start'">
 		                                <div class="alert alert-info" style="background:{{e.color}}; color:{{e.textColor}};">
 		                                    <a class="close" ng-click="remove($index)"><i class="icon-remove"></i>x</a>
-		                                    {{e.start | date:"MMM dd hh:mm"}} - {{e.end | date:"MMM dd hh:mm"}}
-		                                    <br><br>
+		                                    <span class="event-rank">{{e.start | date:"MMM dd hh:mm a"}} - {{e.end | date:"MMM dd hh:mm a"}}</span>
 		                                    <input ng-model="e.title" class="form-control input-md">
 		                                    <br>
-		                                    <div class="btn-group btn-group-sm" role="group" aria-label="...">
-												 <input type="radio" name="available" id="available" value="available" ng-model="e.status">Disponible
-												 <input type="radio" name="external" id="external" value="external" ng-model="e.status">Externo
-												 <input type="radio" name="cancelled" id="cancelled" value="cancelled" ng-model="e.status"> Cancelado
-											</div>
+												 <div class="event-status"><input type="radio" name="available" id="available" value="available" ng-model="e.status"> Disponible</div>
+												 <div class="event-status"><input type="radio" name="external" id="external" value="external" ng-model="e.status"> Externo</div>
+												 <div class="event-status"><input type="radio" name="cancelled" id="cancelled" value="cancelled" ng-model="e.status"> Cancelado</div>
 											<button type="button" class="btn btn-info btn-sm" ng-click="setAppointment(status, e)">Guardar</button>
 											<button type="button" class="btn btn-info btn-sm" ng-click="updateEvent(e)">Actualizar estado</button>
 		                                </div>
