@@ -2039,7 +2039,7 @@
 			if($scope.searchDocsCtrl.insurance == undefined || $scope.searchDocsCtrl.insurance == null) {
 				delete params.insurance;
 			}else{
-				params.insurance_list = $scope.searchDocsCtrl.insurance.name;
+				params.insurance_list = $scope.searchDocsCtrl.insurance;
 			}
 			if($scope.searchDocsCtrl.localidad == undefined || $scope.searchDocsCtrl.localidad == null) {
 				delete params.localidad;
@@ -2106,12 +2106,6 @@
 					//title: info.name +' '+ info.lastname
 				});
 				initialMarker.push(marker);
-				// marker.content = '<div class="infoWindowContent"><div class="map-inner-info"><h4>' + info.practice_list[0] + '</h4><br><h4>' + info.address + '</h4><br><a href="#/" class="btn btn-success">Pedir cita</a></div></div>';
-				
-				// google.maps.event.addListener(marker, 'click', function(){
-				// 	infoWindow.setContent('<h3>' + marker.title + '</h3>' + marker.content);
-				// 	infoWindow.open($scope.map, marker);
-				// });
 			}
 			doctorLat = $scope.docInfo.info.location_list[0].lat;
 			doctorLon = $scope.docInfo.info.location_list[0].lon;
@@ -2214,6 +2208,12 @@
                		};
                		if ($scope.docInfo.info.location_list[0] == null) {
                			$scope.docInfo.info.location_list[0] = {location_name: '', location_address: '', lat: '', lon: ''};
+               		};
+               		if ($scope.doctorData.info.insurance_list.length == 0) {
+               			$scope.doctorData.info.insurance_list.push({insurance: '', insurance_type: ''});
+               		};
+               		if ($scope.doctorData.info.insurance_list[0] == null || $scope.doctorData.info.insurance_list[0] == 'undefined') {
+               			$scope.doctorData.info.insurance_list[0] = {insurance: '', insurance_type: ''};
                		};
            		}
         	});
