@@ -1225,7 +1225,6 @@
 			personalInfo.phone = $scope.userData.info.phone;
 			personalInfo.city = $scope.userData.info.city;
 			personalInfo.address = $scope.userData.info.address;
-			//personalInfo.insurance = $scope.userData.info.insurance.name;
 			console.log(personalInfo);
 			console.log(user_id);
 
@@ -1463,6 +1462,10 @@
 			return self.yearsList;
 		}
 		loadYears();
+
+		$scope.goToCalendar = function (docId) {
+			window.location = "/#/calendar/" + docId;
+		}
 
 		$scope.cities = ["Bogotá", "Medellín", "Cali", "Barranquilla", "Pereira", "Bucaramanga"];
 

@@ -2,8 +2,8 @@
   <div class="row">
 	<div class="col-sm-3 col-md-2 sidebar">
 	  <ul class="nav nav-sidebar" role="tablist" id="doc-tab">
-		<li class="active"><a href="/#/doctor_dashboard/{{docDashCtrl.info._id}}/#appointments" role="tab" data-toggle="tab">Citas</a></li>
-		<li><a href="/#/doctor_dashboard/{{doctorId}}" role="tab" data-toggle="tab">Cuenta</a></li>
+		<li class="active"><a href="/#/calendar/{{doctorId}}" role="tab" data-toggle="tab">Citas</a></li>
+		<li><a href="/#/doctor_dashboard/{{doctorId}}">Cuenta</a></li>
 	  </ul>
 	</div>
 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main tab-content">
@@ -11,7 +11,6 @@
 		<div role="main">
 		    <div>
 		        <section id="directives-calendar">
-		        	<!-- {{getCurrentDoctor(docDashCtrl.info)}} -->
 		        	<div>
 		                <div class="row-fluid">
 		                    <div class="span4 events-box">
@@ -25,7 +24,7 @@
 		                            <li ng-repeat="e in events | orderBy : 'start'">
 		                                <div class="alert alert-info" style="background:{{e.color}}; color:{{e.textColor}};">
 		                                    <a class="close" ng-click="remove($index)"><i class="icon-remove"></i>x</a>
-		                                    <span class="event-rank">{{e.start | date:"MMM dd hh:mm a"}} - {{e.end | date:"MMM dd hh:mm a"}}</span>
+		                                    <span class="event-rank"><b>{{e.start | date:"MMM dd hh:mm a"}} - {{e.end | date:"MMM dd hh:mm a"}}</b></span>
 		                                    <input ng-model="e.title" class="form-control input-md">
 		                                    <br>
 												 <div class="event-status"><input type="radio" name="available" id="available" value="available" ng-model="e.status"> Disponible</div>

@@ -236,7 +236,7 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig) {
 
 		  for(var i in appointments) {
 		  	if (appointments[i].status == 'available') { eventColor = '#4DC34D'; eventStatus = 'Disponible'; eventTextColor = 'white'; } 
-		  	else if (appointments[i].status == 'taken') { eventColor = '#E9530E';  eventStatus = 'Cita agendada'; eventTextColor = 'black'; } 
+		  	else if (appointments[i].status == 'taken') { eventColor = '#E9530E';  eventStatus = 'Cita agendada'; eventTextColor = 'white'; } 
 		  	else if (appointments[i].status == 'cancelled') { eventColor = '#E71C2C';  eventStatus = 'Cancelado'; eventTextColor = 'white'; } 
 		  	else { eventColor = '#4F6769'; eventStatus = 'Externo'; eventTextColor = 'white'; }
 
