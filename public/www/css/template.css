@@ -202,7 +202,7 @@ li.vertical-divider {
   padding: 30px 0;
 }
 #main_container .center #main-box {
-  height: 560px;
+  height: 610px;
   margin-top: 50px;
   padding: 0 20px;
   margin-bottom: 20px;
@@ -233,7 +233,7 @@ li.vertical-divider {
   color: #fff;
 }
 #mb-form-box form {
-  margin-top: 35px;
+  margin-top: 15px;
 }
 .mb-left #mb-form-box label {
   display: block;
@@ -250,7 +250,7 @@ li.vertical-divider {
   font-weight: bold;
 }
 .btn-block#search_doctor_main {
-  margin-top: 65px;
+  margin-top: 20px;
 }
 #providers_container {
   background-color: #f8f8f8;
