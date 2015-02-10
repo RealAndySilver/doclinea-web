@@ -83,7 +83,7 @@
 					  		<select id="insurance{{$index + 1}}" name="insurance" class="form-control small-input" ng-model="docDashCtrl.info.insurance_list[$index].insurance" ng-options="op.name for op in insurances track by op.name">
 						  		<option value="">- Selecciona una aseguradora -</option>
 							</select>
-							<select ng-show="docDashCtrl.info.insurance_list[$index].insurance" id="insurance_type_{{$index + 1}}" name="insurance_type" class="form-control small-input" ng-model="docDashCtrl.info.insurance_list[$index].insurance_type" ng-options="op.name for op in getInsurances(insurance_list) track by name">
+							<select ng-show="docDashCtrl.info.insurance_list[$index].insurance" id="insurance_type_{{$index + 1}}" name="insurance_type" class="form-control small-input" ng-model="docDashCtrl.info.insurance_list[$index].insurance_type" ng-options="op.name for op in getInsurances(insurance_list)">
 						  		<option value="">- Selecciona un seguro -</option>
 							</select>
 							<a href="" ng-click="dashStudiesCtrl.removeInsurance(insurance_list)" class="btn btn-danger btn-small remove-btn"><i class="fa fa-times"></i></a>

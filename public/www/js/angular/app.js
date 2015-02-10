@@ -918,9 +918,6 @@
 
 		this.selectedLocalidad = getPosition(this.localidades, docData.localidad.name);
 
-		console.log('CIUDAD SELECCIONADA');
-		console.log(docData.city);
-
 		this.searchDoctor = function() {
 
 			var selectedCity = !this.selectedCity ? encodedParam : this.selectedCity.name;
@@ -1184,16 +1181,6 @@
 		var id = $routeParams.id;
 
 		$scope.userData = this;
-
-		//this.insurances = [];
-
-		var self = this;
-
-		// var promiseGetAllInsurances = InsurancesService.getAll();
-		// promiseGetAllInsurances.then(function(response) {
-		// 	console.log(response.data);
-		// 	self.insurances = response.data.response;
-		// });
 
 		$http.get(endpoint + type + '/GetByID/' + id)
       		.success(function(data) {
@@ -1525,14 +1512,11 @@
                			$scope.doctorData.info.location_list[0] = {location_name: '', location_address: '', lat: '', lon: ''};
                		};
                		if ($scope.doctorData.info.insurance_list.length == 0) {
-               			$scope.doctorData.info.insurance_list.push({insurance: ''});
+               			$scope.doctorData.info.insurance_list.push({insurance: '', insurance_type: ''});
                		};
-               		if ($scope.doctorData.info.insurance_list[0] == null || $scope.doctorData.info.insurance_list[0] == undefined) {
-               			$scope.doctorData.info.insurance_list[0].insurance = {insurance: ''};
+               		if ($scope.doctorData.info.insurance_list[0] == null || $scope.doctorData.info.insurance_list[0] == 'undefined') {
+               			$scope.doctorData.info.insurance_list[0] = {insurance: '', insurance_type: ''};
                		};
-               		// if ($scope.doctorData.info.gallery.length == 0) {
-               		// 	$scope.doctorData.info.gallery.push({name: '', image_url: ''});
-               		// };
            		}
         	});
 	}]);
@@ -1809,7 +1793,6 @@
 		});
 
 		$scope.getInsurances = function(index) {
-			//console.log('Seguros asociados! ', $scope.docDashCtrl.insurances[index].type_list);
 			return index.insurance.type_list;
 		};
 
@@ -1817,7 +1800,6 @@
 			var type = 'Doctor';
 			
 			studiesInfo.practice_list = [];
-			//console.log($scope.docInfo.info.practice_list.length);
 			for (i=0; i < $scope.selectedPracticeList.length; i++) {
 				studiesInfo.practice_list.push($scope.selectedPracticeList[i]);
 			}
@@ -2493,8 +2475,7 @@
 		};
 
 		$scope.getInsurances = function(index) {
-			//console.log($scope.docManageCtrl.insurances[index].type_list);
-			return $scope.docManageCtrl.insurances[index].type_list;
+			return index.insurance.type_list;
 		};
 
 		var update = function(practices, practiceList) {
@@ -2566,11 +2547,18 @@
 			studiesInfoTemp.profesional_membership = [];
 			studiesInfoTemp.profesional_membership = $scope.docInfo.info.profesional_membership;
 			studiesInfoTemp.description = $scope.docInfo.info.description;
-			// studiesInfoTemp.insurance_list = {};
-			// studiesInfoTemp.insurance_list.insurance = $scope.docInfo.info.insurance_list[0].insurance.name;
-			// studiesInfoTemp.insurance_list.insurance_type = $scope.docInfo.info.insurance_list[0].insurance_type.name;
-			// console.log(studiesInfoTemp.insurance_list);
-			console.log(studiesInfoTemp);
+			
+			studiesInfoTemp.insurance_list = [];
+			for(var i = 0; i < $scope.docInfo.info.insurance_list.length; i++) {
+				var tempInsurance = $scope.docInfo.info.insurance_list[i].insurance.name;
+				var tempInsuranceType = $scope.docInfo.info.insurance_list[i].insurance_type.name;;
+				studiesInfoTemp.insurance_list.push({
+					insurance: tempInsurance,
+					insurance_type: tempInsuranceType,
+				});
+			}
+
+			//console.log(studiesInfoTemp);
             $http.post(endpoint + type + '/Update/' + doc_id, studiesInfoTemp)
             .success(function(data) {
                 if (!data.status) {
