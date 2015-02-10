@@ -30,10 +30,25 @@
 					  <input id="patient-name" name="patient_name" type="text" placeholder="" class="form-control input-md" ng-model="bkngCtrl.data.patient_name" required>
 					  </div>
 					</div>
+
+					<div class="form-group">
+					  <label class="col-md-4 control-label" for="insurance_name">Aseguradoras</label>
+					  <div class="col-md-6">
+					  	<div class="pl-container">
+					  		<select id="insurance" name="insurance" class="form-control" ng-model="bkngCtrl.data.insurance.insurance" ng-options="name for name in insurances">
+						  		<option value="">- Pago como particular -</option>
+							</select>
+							<select ng-show="bkngCtrl.data.insurance.insurance" id="insurance_type" name="insurance_type" class="form-control" ng-model="bkngCtrl.data.insurance.insurance_type" ng-options="type for type in getInsurances(bkngCtrl.data.insurance.insurance)">
+						  		<option value="">- Selecciona un seguro -</option>
+							</select>
+					  	</div>
+					  </div>
+					</div>
+
 					<div class="form-group last-form-element">
 					  <label class="col-md-4 control-label" for="patient_phone">Teléfono</label>  
 					  <div class="col-md-6">
-					  <input id="phone" name="patient_phone" type="text" placeholder="" class="form-control input-md" ng-model="bkngCtrl.data.patient_phone" ng-pattern="/^\d+$/" required>
+					  <input id="patient_phone" name="patient_phone" type="text" placeholder="" class="form-control input-md" ng-model="bkngCtrl.data.patient_phone" ng-pattern="/^\d+$/" required>
 					  <div class="error" ng-show="bookingForm.patient_phone.$dirty && bookingForm.patient_phone.$invalid">
 						  <small class="error" ng-show="bookingForm.patient_phone.$error.required">Por favor escribe tu teléfono.</small>
 						  <small class="error" ng-show="bookingForm.patient_phone.$error.pattern">Tu número telefónico solo debe contener números y ningún espacio.</small>

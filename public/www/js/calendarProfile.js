@@ -12,15 +12,6 @@ function CalendarProfileCtrl($scope, $http, $routeParams) {
 	var d = date.getDate();
 	var m = date.getMonth();
 	var y = date.getFullYear();
-
-	// $scope.$watch('info', function(newValue, oldValue) {
-	// 	console.log(newValue);
-	// 	if(newValue) {
-	// 		if(newValue._id) {
-	// 			$scope.getCurrentDoctor(newValue);
-	// 		}
-	// 	}
-	// });
 	
 	$scope.changeTo = 'Hungarian';
 	/* event source that pulls from google.com */
@@ -74,7 +65,7 @@ function CalendarProfileCtrl($scope, $http, $routeParams) {
 			closeOnConfirm: true,
 		},
 		function(){
-			window.location = "/#/booking/" + event._id;
+			window.location = "/#/booking/" + event._id + '/' + $scope.doctorId;
 		});
 	};
 	/* alert on Drop */
@@ -161,7 +152,6 @@ function CalendarProfileCtrl($scope, $http, $routeParams) {
 		eventDrop: false,
 		eventResize: false,
 		disableDragging: true,
-		//eventRender: $scope.eventRender,
 	  }
 	};
 

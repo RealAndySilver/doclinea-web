@@ -127,7 +127,7 @@
 				templateUrl: '../www/partials/doctor/appointments.html',
 				controller: 'CalendarCtrl',
 			}).
-			when('/booking/:eventId', {
+			when('/booking/:eventId/:doctorId', {
 				templateUrl: '../www/booking.html',
 				controller: 'BookingController',
 				controllerAs: 'bkngCtrl',
@@ -1771,10 +1771,6 @@
 		var update = function(practices, practiceList) {
 			if(!practices) return;
 			if(!practiceList) return;
-
-			// console.log('watch');
-			// console.log(JSON.stringify(practices));
-			// console.log(practices);
 			if(practices) {
 				for(var i in practices) {
 					for( var j in practiceList) {
@@ -1783,8 +1779,6 @@
 						}
 					}
 				}
-				// console.log('watch');
-				// console.log($scope.selectedPracticeList);
 			}
 		}
 		$scope.selectedPracticeList = [];
@@ -2161,7 +2155,7 @@
 		});
 
 		this.practices = [];
-		this.insurances = [];
+		$scope.insurances = [];
 
 		var self = this;
 
@@ -2176,7 +2170,7 @@
 		var promiseGetAllInsurances = InsurancesService.getAll();
 		promiseGetAllInsurances.then(function(response) {
 			//console.log(response.data);
-			self.insurances = response.data.response;
+			$scope.insurances = response.data.response;
 		});
 
 		var myDate = new Date();
@@ -2234,12 +2228,36 @@
                		if ($scope.docInfo.info.location_list[0] == null) {
                			$scope.docInfo.info.location_list[0] = {location_name: '', location_address: '', lat: '', lon: ''};
                		};
-               		if ($scope.doctorData.info.insurance_list.length == 0) {
-               			$scope.doctorData.info.insurance_list.push({insurance: '', insurance_type: ''});
+               		if ($scope.docInfo.info.insurance_list.length == 0) {
+               			$scope.docInfo.info.insurance_list.push({insurance: '', insurance_type: ''});
                		};
-               		if ($scope.doctorData.info.insurance_list[0] == null || $scope.doctorData.info.insurance_list[0] == 'undefined') {
-               			$scope.doctorData.info.insurance_list[0] = {insurance: '', insurance_type: ''};
+               		if ($scope.docInfo.info.insurance_list[0] == null || $scope.docInfo.info.insurance_list[0] == 'undefined') {
+               			$scope.docInfo.info.insurance_list[0] = {insurance: '', insurance_type: ''};
                		};
+               		var tempInsuranceList = [];
+
+               		for(var i = 0; i < $scope.docInfo.info.insurance_list.length; i++) {
+						var tempInsurance = $scope.docInfo.info.insurance_list[i].insurance;
+						var tempInsuranceType = $scope.docInfo.info.insurance_list[i].insurance_type;
+
+						for(var j in $scope.insurances) {
+							var insurance = $scope.insurances[j];
+							if(insurance.name === tempInsurance) {
+								var insuranceType = {};
+								for(var k in insurance.type_list) {
+									if(tempInsuranceType === insurance.type_list[k].name) {
+										insuranceType = insurance.type_list[k];
+										break;
+									}
+								}
+
+								tempInsuranceList.push({insurance: insurance, insurance_type: insuranceType});
+							}	
+						}
+					}
+
+					self.info.insurance_list = tempInsuranceList;
+					console.log('insurancesList', self.info.insurance_list);
            		}
         	});
 	}]);
@@ -2488,9 +2506,6 @@
 			if(!practices) return;
 			if(!practiceList) return;
 
-			// console.log('watch');
-			// console.log(JSON.stringify(practices));
-			// console.log(practices);
 			if(practices) {
 				for(var i in practices) {
 					for( var j in practiceList) {
@@ -2499,8 +2514,6 @@
 						}
 					}
 				}
-				// console.log('watch');
-				// console.log($scope.selectedPracticeList);
 			}
 		}
 		$scope.selectedPracticeList = [];
