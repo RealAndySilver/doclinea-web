@@ -233,3 +233,6 @@ header {
 .ad-subsection a {
   margin-left: 15px;
 }
+#calendar-link {
+  cursor: pointer;
+}

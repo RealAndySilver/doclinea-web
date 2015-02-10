@@ -2,7 +2,7 @@
   <div class="row">
 	<div class="col-sm-3 col-md-2 sidebar">
 	  <ul class="nav nav-sidebar" role="tablist" id="doc-tab">
-		<li><a ng-click="goToCalendar(docDashCtrl.info._id)">Citas</a></li>
+		<li id="calendar-link"><a ng-click="goToCalendar(docDashCtrl.info._id)">Citas</a></li>
 		<li class="active"><a href="/#/doctor_dashboard/{{docDashCtrl.info._id}}" role="tab" data-toggle="tab">Cuenta</a></li>
 	  </ul>
 	</div>
@@ -15,7 +15,6 @@
 				<li><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#password_change" role="tab" data-toggle="tab">Contraseña</a></li>
 				<li><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#studies" role="tab" data-toggle="tab">Formación académica</a></li>
 				<li><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#locations" role="tab" data-toggle="tab">Consultorio</a></li>
-				<!-- <li><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#gallery" role="tab" data-toggle="tab">Galería</a></li> -->
 				<li><a href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#settings" role="tab" data-toggle="tab">Notificaciones</a></li>
 			</ul>
 		  	<div class="tab-content">
@@ -24,7 +23,6 @@
 				<password_change class="tab-pane fade" id="password_change"></password_change>
 				<studies class="tab-pane fade" id="studies"></studies>
 				<locations class="tab-pane fade" id="locations"></locations>
-				<!-- <gallery class="tab-pane fade" id="gallery"></gallery> -->
 				<settings class="tab-pane fade" id="settings"></settings>
 			</div>
 		</div>

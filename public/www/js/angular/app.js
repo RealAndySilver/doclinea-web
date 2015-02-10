@@ -1037,7 +1037,7 @@
 						position: new google.maps.LatLng(info.location_list[0].lat, info.location_list[0].lon),
 						title: info.name +' '+ info.lastname
 					});
-					marker.content = '<div class="infoWindowContent"><div class="map-inner-info"><h4>' + info.practice_list[0] + '</h4><br><h4>' + info.location_list[0].location_address + '</h4></div></div>';
+					marker.content = '<div class="infoWindowContent"><div class="map-inner-info"><h4>' + info.practice_list[0] + '</h4><h4>' + info.location_list[0].location_address + '</h4></div></div>';
 					
 					google.maps.event.addListener(marker, 'click', function(){
 						infoWindow.setContent('<h5 class="info-map-title">' + marker.title + '</h5>' + marker.content);
@@ -1498,6 +1498,31 @@
                		if ($scope.doctorData.info.insurance_list[0] == null || $scope.doctorData.info.insurance_list[0] == 'undefined') {
                			$scope.doctorData.info.insurance_list[0] = {insurance: '', insurance_type: ''};
                		};
+
+               		var tempInsuranceList = [];
+
+               		for(var i = 0; i < $scope.doctorData.info.insurance_list.length; i++) {
+						var tempInsurance = $scope.doctorData.info.insurance_list[i].insurance;
+						var tempInsuranceType = $scope.doctorData.info.insurance_list[i].insurance_type;
+
+						for(var j in $scope.insurances) {
+							var insurance = $scope.insurances[j];
+							if(insurance.name === tempInsurance) {
+								var insuranceType = {};
+								for(var k in insurance.type_list) {
+									if(tempInsuranceType === insurance.type_list[k].name) {
+										insuranceType = insurance.type_list[k];
+										break;
+									}
+								}
+
+								tempInsuranceList.push({insurance: insurance, insurance_type: insuranceType});
+							}	
+						}
+					}
+
+					self.info.insurance_list = tempInsuranceList;
+					console.log('insurancesList', self.info.insurance_list);
            		}
         	});
 	}]);
