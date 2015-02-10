@@ -1,7 +1,10 @@
 angular.module('booking', ['ui.bootstrap']);
 var endpoint = "http://192.241.187.135:1414/api_1.0/";
 
-function BookingController($scope, $http, $routeParams) {
+function BookingController($scope, $http, $routeParams, $location, $anchorScroll) {
+	// $location.hash('sign-up-box');
+	// $anchorScroll();
+
 	var appointmentId = $routeParams.eventId;
 
 	localStorage.getItem("user");

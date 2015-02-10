@@ -36,27 +36,21 @@
 			}).
 			when('/practices_list', {
 				templateUrl: '../www/practices_list.html',
-				//controller: 'SignUpController',
 			}).
 			when('/insurances_list', {
 				templateUrl: '../www/insurances_list.html',
-				//controller: 'SignUpController',
 			}).
 			when('/registration', {
 				templateUrl: '../www/registration.html',
-				//controller: 'SignUpController',
 			}).
 			when('/benefits', {
 				templateUrl: '../www/benefits.html',
-				//controller: 'SignUpController',
 			}).
 			when('/sign_up', {
 				templateUrl: '../www/sign_up.html', 
-				//controller: 'SignUpController',
 			}).
 			when('/sign_in', {
 				templateUrl: '../www/sign_in.html',
-				//controller: 'SignInController',
 			}).
 			when('/user/:id', {
 				templateUrl: '../www/user.html',
@@ -358,9 +352,6 @@
 
 	var createDoctor = angular.module('createDoctor', []);
 	createDoctor.controller('DoctorSignUpController', ['$http', '$scope', 'PracticesService', '$location', '$anchorScroll', function($http, $scope, PracticesService, $location, $anchorScroll){
-		$location.hash('doctor-sign-up-box');
-		$anchorScroll();
-		
 		$scope.localidades = localidades;
 
 		this.practices = [];
@@ -412,9 +403,6 @@
 	var loginDoctor = angular.module('loginDoctor', []);
 	loginDoctor.controller('DoctorSignInController', ['$http', '$scope', '$routeParams', '$location', '$anchorScroll', 'User', function($http, $scope, $routeParams, $location, $anchorScroll, User){
 		var type = "Doctor";
-		
-		$location.hash('doctor-sign-in-box');
-		$anchorScroll();
 
 		this.signIn = function() {
 			//console.log('Entra a signIn');
@@ -467,18 +455,8 @@
        };
 	}]);
 
-	app.controller('LoginWelcomeController', ['$scope', '$http', 'UserService', function($scope, $http, UserService){
-		/*var status = 0;
-		if(status == 0) {
-			console.log('No existe una sesión activa');
-		}*/
-
+	app.controller('LoginWelcomeController', ['$scope', '$http', '$location', '$anchorScroll', 'UserService', function($scope, $http, $location, $anchorScroll, UserService){
 		var self = this;
-		/*
-		$scope.$watch(UserService.getUser(), function() {
-			self.getStatus();
-		});
-		*/
 
 		this.getStatus = function() {
 			var user = UserService.getUser();
