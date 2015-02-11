@@ -2097,11 +2097,15 @@
 	    	templateUrl: 'www/partials/admin/doctors.html',
 	    };
 	});
-	adminDash.controller('DoctorsManagementController', ['$http', '$scope', '$routeParams', 'PracticesService', 'InsurancesService', function($http, $scope, $routeParams, PracticesService, InsurancesService){
+	adminDash.controller('DoctorsManagementController', ['$http', '$scope', '$routeParams', '$location', 'PracticesService', 'InsurancesService', function($http, $scope, $routeParams, $location, PracticesService, InsurancesService){
 		$('#doc-dash a').click(function (e) {
 		  e.preventDefault();
 		  $(this).tab('show');
 		});
+
+		$scope.toAdminDashboard = function() {
+			$location.url('/admin_dashboard');
+		};
 
 		$('#doc-dash a[href="#/admin_dashboard/edit_doctor/{{docManageCtrl.info._id}}/#locations"]').on('shown.bs.tab', function (e) {
 		    e.preventDefault();
@@ -2823,11 +2827,15 @@
         };
 	}]);
 	//Controller for Hospital Management in Admin Dashboard
-	adminDash.controller('HospitalsManagementController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams){
+	adminDash.controller('HospitalsManagementController', ['$http', '$scope', '$routeParams', '$location', function($http, $scope, $routeParams, $location){
 		$('#hospi-tab a').click(function (e) {
 		  e.preventDefault();
 		  $(this).tab('show');
 		});
+
+		$scope.toHospitals = function() {
+			$location.url('/admin_dashboard/#sections');
+		};
 
 		$('#hospi-tab a[href="#/admin_dashboard/edit_hospital/{{hospitalManageCtrl.info._id}}/#hospital_location"]').on('shown.bs.tab', function (e) {
 		    e.preventDefault();
