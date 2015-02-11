@@ -40,7 +40,7 @@
 								<li ng-repeat="practice in profile.dProfile.practice_list"><a href="/#/search/{{encodedParam}}/{{encodedParam}}/{{practice}}/{{encodedParam}}">{{practice}}</a></li>
 							</ul>
 						</div>
-						<div class="doc-profile-description">
+						<div class="doc-profile-description" ng-show="profile.dProfile.description">
 							<div class="description-title">Descripción</div>
 							<p class="description-text">{{profile.dProfile.description | limitTo: 260}}</p>
 						</div>
@@ -84,19 +84,19 @@
 		<div class="inner-doc-profile">
 			<div class="doc-details">
 				<h3>Información adicional</h3>
-				<div class="doc-education">
+				<div class="doc-education" ng-show="profile.dProfile.education_list">
 					<span>Formación académica</span>
 					<ul>
 						<li ng-repeat="education in profile.dProfile.education_list">{{education.institute_name}} - {{education.degree}}</li>
 					</ul>
 				</div>
-				<div class="doc-membership">
+				<div class="doc-membership" ng-show="profile.dProfile.profesional_membership">
 					<span>Membresías profesionales</span>
 					<ul>
 						<li ng-repeat="membership in profile.dProfile.profesional_membership">{{membership}}</li>
 					</ul>
 				</div>
-				<div class="doc-insurances">
+				<div class="doc-insurances" ng-show="profile.dProfile.insurance_list">
 					<span>Aseguradoras</span>
 					<ul>
 						<li ng-repeat="insurance in profile.dProfile.insurance_list"><a href="/#/search/{{encodedParam}}/{{encodedParam}}/{{encodedParam}}/{{insurance.insurance}}">{{insurance.insurance}}</a></li>
