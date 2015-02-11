@@ -316,7 +316,7 @@
 							} else if(data.error_id == 1) {
 								swal({  
 									title: "", 
-									text: "Debes activar primero tu cuenta.",   
+									text: "Recuerda activar primero tu cuenta.",   
 									type: "error",   
 									confirmButtonText: "Aceptar",
 								});
@@ -330,9 +330,8 @@
 							}
                    } else {
                            // if successful, bind success message to message
-                       // console.log("Listo, autenticado" + data);
+                       console.log("Listo, autenticado" + data);
                        var user = data.response;
-	                   //console.log('la data es', user);
 	                   window.location = "/#/user/" + user._id
 
 	                   User.username = user.name + ' ' + user.lastname;
@@ -346,7 +345,7 @@
 					   localStorage.setItem('user', JSON.stringify(User));
                    }
        });
-       this.data = {};
+       //this.data = {};
        };
 	}]);
 
@@ -391,12 +390,10 @@
 	                       var doc = data.response;
 	                       var type = "doctor";
 	                       var email = btoa(doc.email);
-	                       //console.log('la data es', doc);
-	                       // window.location = "/#/doctor_dashboard/" + doc._id;
 	                       window.location = "/#/account_confirmation/" + type + "/" + email;
 	                   }
 	        		});
-        this.data = {};
+        //this.data = {};
         };
 	}]);
 
@@ -424,7 +421,7 @@
 							} else if(data.error_id == 1) {
 								swal({  
 									title: "", 
-									text: "Debes activar primero tu cuenta.",   
+									text: "Recuerda activar primero tu cuenta.",   
 									type: "error",   
 									confirmButtonText: "Aceptar",
 								});
@@ -451,7 +448,7 @@
 					   localStorage.setItem('user', JSON.stringify(User));
 	               }
 	       		});
-       this.data = {};
+       //this.data = {};
        };
 	}]);
 
