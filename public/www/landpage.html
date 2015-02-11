@@ -19,13 +19,14 @@
 								  <option value="" >- Selecciona una localidad -</option>
 								</select>
 							</div>
+
 							<label for="insurance">Aseguradora</label>
-							<select class="form-control" name="insurance" id="insurance" ng-model="landDocSearchCtrl.selectedInsurance" ng-options="op.name for op in landDocSearchCtrl.insurances">
+							<select class="form-control" name="insurance" id="insurance" ng-model="landDocSearchCtrl.selectedInsurance.insurance" ng-options="op.name for op in insurances">
 							  <option value="" >- Selecciona una aseguradora -</option>
 							</select>
-							<div ng-show="landDocSearchCtrl.selectedInsurance">
+							<div ng-show="landDocSearchCtrl.selectedInsurance.insurance">
 								<label for="insurance_type">Seguro</label>
-								<select class="form-control" name="insurance_type" id="insurance_type" ng-model="landDocSearchCtrl.selectedInsurance" ng-options="localidad.name for localidad in landDocSearchCtrl.localidades">
+								<select class="form-control" name="insurance_type" id="insurance_type" ng-model="landDocSearchCtrl.selectedInsurance.insurance_type" ng-options="op.name for op in getInsurances(landDocSearchCtrl.selectedInsurance)">
 								  <option value="" >- Selecciona un seguro -</option>
 								</select>
 							</div>
@@ -113,7 +114,7 @@
 							<!-- <a href="#/cities_list"><b>Ver más...</b></a> -->
 						</ul>
 					</div>
-					<div class="column">
+					<!-- <div class="column">
 						<h3>Aseguradora</h3>
 						<hr>
 						<ul>
@@ -122,7 +123,7 @@
 							</li>
 							<a ng-if="listsCtrl.insurances.length > 2" href="#/insurances_list"><b>Ver más...</b></a>
 						</ul>
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</div>

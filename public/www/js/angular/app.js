@@ -735,7 +735,8 @@
 		}
 
 		if(insurance_list !== encodedParam) {
-			docData.data1.insurance_list = insurance_list;
+			var split = insurance_list.split('+');
+			docData.data1.insurance_list = [{insurance: split[0], insurance_type: split[1]}];
 		}
 
 		if(localidad !== encodedParam) {
@@ -757,41 +758,42 @@
 
 		var promiseGetAllPractices = PracticesService.getAll();
 		promiseGetAllPractices.then(function(response) {
-			//console.log(response.data);
 			self.practices = response.data.response;
 		});
 
 		var promiseGetAllInsurances = InsurancesService.getAll();
 		promiseGetAllInsurances.then(function(response) {
-			//console.log(response.data);
 			self.insurances = response.data.response;
 		});
 	}]);
 
 	app.controller('LandpageDocSearchController', ['$http', '$scope', '$routeParams', 'PracticesService', 'InsurancesService', function($http, $scope, $routeParams, PracticesService, InsurancesService) {
-		//console.log(localidades);
 
 		var encodedParam = btoa("undefined");
 
 		this.docs = [];
 		this.practices = [];
-		this.insurances = [];
+		$scope.insurances = [];
 		this.localidades = localidades;
-		//console.log(this.localidades);
 
 		var self = this;
 
 		var promiseGetAllPractices = PracticesService.getAll();
 		promiseGetAllPractices.then(function(response) {
-			//console.log(response.data);
 			self.practices = response.data.response;
 		});
 
 		var promiseGetAllInsurances = InsurancesService.getAll();
 		promiseGetAllInsurances.then(function(response) {
-			//console.log(response.data);
-			self.insurances = response.data.response;
+			$scope.insurances = response.data.response;
 		});
+
+		$scope.getInsurances = function(index) {
+			if (index) {
+				return index.insurance.type_list;
+			}
+			return;
+		};
 
 		this.cities = [ {name: "Bogotá", id: 1}, {name: "Medellín", id: 2}, {name: "Cali", id: 3}, {name: "Barranquilla", id: 4}, {name: "Pereira", id: 5}, {name: "Bucaramanga", id: 6} ];
 
@@ -811,7 +813,7 @@
 			data1.practice_list = practice_list;
 		}
 
-		if(insurance_list !== encodedParam) {
+		if(insurance_list !== encodedParam || insurance_list == undefined) {
 			data1.insurance_list = insurance_list;
 		}
 
@@ -835,11 +837,12 @@
 		this.searchDoctor = function() {
 			var selectedCity = !this.selectedCity ? encodedParam : this.selectedCity.name;
 			var selectedPractice = !this.selectedPractice ? encodedParam : this.selectedPractice.name;
-			var selectedInsurance = !this.selectedInsurance ? encodedParam : this.selectedInsurance.name;
+			var selectedInsurance = !this.selectedInsurance ? encodedParam : this.selectedInsurance;
 			var selectedLocalidad = !this.selectedLocalidad ? encodedParam : this.selectedLocalidad.name;
 
-			window.location = "/#/search/" + selectedCity + "/" + selectedLocalidad + "/" + selectedPractice + "/" + selectedInsurance;
-       		//this.data = {};
+			var selectedInsuranceUrl = selectedInsurance.insurance ? selectedInsurance.insurance.name + '+' + selectedInsurance.insurance_type.name : encodedParam;
+
+			window.location = "/#/search/" + selectedCity + "/" + selectedLocalidad + "/" + selectedPractice + "/" + selectedInsuranceUrl;
        };
 
 	}]);
@@ -849,13 +852,11 @@
 	app.controller('DoctorSearchController', ['$http', '$scope', 'PracticesService', 'InsurancesService', function($http, $scope, PracticesService, InsurancesService){
 
 		var encodedParam = btoa("undefined");
-		console.log(encodedParam);
 
 		var docData = this;
 		this.practices = [];
-		this.insurances = [];
+		$scope.insurances = [];
 		this.localidades = localidades;
-		//console.log(this.localidades);
 
 		var self = this;
 
@@ -874,33 +875,38 @@
 
 		var promiseGetAllPractices = PracticesService.getAll();
 		promiseGetAllPractices.then(function(response) {
-			//console.log(response.data);
 			self.practices = response.data.response;
 		});
 
 		var promiseGetAllInsurances = InsurancesService.getAll();
 		promiseGetAllInsurances.then(function(response) {
-			//console.log(response.data);
-			self.insurances = response.data.response;
+			$scope.insurances = response.data.response;
 		});
+
+		$scope.getInsurances = function(index) {
+			if (index) {
+				return index.insurance.type_list;
+			}
+			return;
+		};
 
 		this.selectedPractice = getPosition(this.practices, docData.practice);
 		
 		this.cities = [ {name: "Bogotá", id: 1}, {name: "Medellín", id: 2}, {name: "Cali", id: 3}, {name: "Barranquilla", id: 4}, {name: "Pereira", id: 5}, {name: "Bucaramanga", id: 6} ];
 		this.selectedCity = getPosition(this.cities, docData.city);
-		
-		this.selectedInsurance = getPosition(this.insurances, docData.insurance);
-
+		this.selectedInsurance = getPosition(this.insurances, docData.insurance_list);
 		this.selectedLocalidad = getPosition(this.localidades, docData.localidad.name);
 
 		this.searchDoctor = function() {
 
 			var selectedCity = !this.selectedCity ? encodedParam : this.selectedCity.name;
 			var selectedPractice = !this.selectedPractice ? encodedParam : this.selectedPractice.name;
-			var selectedInsurance = !this.selectedInsurance ? encodedParam : this.selectedInsurance.name;
+			var selectedInsurance = !this.selectedInsurance ? encodedParam : this.selectedInsurance;
 			var selectedLocalidad = !this.selectedLocalidad ? encodedParam : this.selectedLocalidad.name;
 
-			window.location = "/#/search/" + selectedCity + "/" + selectedLocalidad + "/" + selectedPractice + "/" + selectedInsurance;
+			var selectedInsuranceUrl = selectedInsurance.insurance ? selectedInsurance.insurance.name + '+' + selectedInsurance.insurance_type.name : encodedParam;
+
+			window.location = "/#/search/" + selectedCity + "/" + selectedLocalidad + "/" + selectedPractice + "/" + selectedInsuranceUrl;
        };
 	}]);
 
@@ -914,7 +920,7 @@
 
 		docData.docs = $scope.getDrCtrl.data1;
 
-		console.log('Mi data es ', docData.docs);
+		//console.log('Mi data es ', docData.docs);
 
 		var This = this;
 
@@ -972,8 +978,6 @@
 
 				for (i = 0; i < (This.docs).length; i++){
 					createMarker(This.docs[i]);
-					// console.log('MIS DOCTORES ENCONTRADOS');
-					// console.log(This.docs[i]);
 				}
 
 				$scope.openInfoWindow = function(e, selectedMarker){
@@ -991,7 +995,6 @@
 
 		var type = "Doctor";
 		var id = $routeParams.id;
-		//console.log(id);
 		$scope.encodedParam = btoa("undefined");
 
 		var This = this;

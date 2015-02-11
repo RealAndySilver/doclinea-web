@@ -22,10 +22,16 @@
 		                </div>
 					</div>
 					<div class="column-c">
-						<label for="insurance_list">Aseguradora</label>
-						<select class="form-control" name="insurance_list" id="insurance_list" ng-model="docSearchCtrl.selectedInsurance" ng-options="op.name for op in docSearchCtrl.insurances">
+						<label for="insurance">Aseguradora</label>
+						<select class="form-control" name="insurance" id="insurance" ng-model="docSearchCtrl.selectedInsurance.insurance" ng-options="op.name for op in insurances">
 		                  <option value="">- Selecciona una aseguradora -</option>
 		                </select>
+		                <div ng-show"docSearchCtrl.selectedInsurance.insurance">
+		                	<label for="insurance_type">Seguro</label>
+							<select class="form-control" name="insurance_type" id="insurance_type" ng-model="docSearchCtrl.selectedInsurance.insurance_type" ng-options="op.name for op in getInsurances(docSearchCtrl.selectedInsurance)">
+			                  <option value="">- Selecciona un seguro -</option>
+			                </select>
+		                </div>
 					</div>
 					<div class="column-c">
 						<button id="search_doctor" name="search_doctor" class="btn btn-success btn-block btn-lg">Buscar</button>
