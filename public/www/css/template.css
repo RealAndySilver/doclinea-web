@@ -280,7 +280,7 @@ li.vertical-divider {
   color: #f8580d;
 }
 #providers_container .center {
-  padding: 30px 0;
+  padding: 50px 0;
 }
 #providers_container .center .info-box {
   height: 425px;
@@ -292,6 +292,16 @@ li.vertical-divider {
   width: 33.33%;
 }
 .inner-info-box .column hr {
+  border-top: solid 1px #ec6526;
+  width: 70%;
+  float: left;
+  padding-right: 80px;
+  margin: 10px 0 20px;
+}
+.inner-info-box .column-b {
+  margin-top: 30px;
+}
+.inner-info-box .column-b hr {
   border-top: solid 1px #ec6526;
   width: 70%;
   float: left;
