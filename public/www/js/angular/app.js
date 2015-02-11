@@ -22,7 +22,7 @@
 	]);
 
 	var endpoint = "http://192.241.187.135:1414/api_1.0/";
-	//var endpoint = "http://192.168.0.37:1414/api_1.0/";
+	//var endpoint = "http://192.168.0.40:1414/api_1.0/";
 	app.config(['$routeProvider',
 		function($routeProvider) {
 		$routeProvider.
@@ -3706,6 +3706,50 @@
 	           	});
         };
 	}]);
+
+	//Controller for Customize Sections
+	docDash.directive('customize', function() {
+	    return {
+	    	restrict: 'E',
+	    	templateUrl: 'www/partials/admin/customize.html',
+	    	controller: 'CustomizeController',
+	    	controllerAs: 'customCtrl',
+	    };
+	});
+
+	adminDash.controller('CustomizeController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams){
+
+        this.saveChanges = function(practice_id) {
+        	var data1 = this.info;
+        	console.log('titulo ', data1);
+			
+            $http.post(endpoint + 'Home' + '/Update', data1)
+            .success(function(data) {
+                if (!data.status) {
+                    console.log("No se actualizó", data);
+                    var error_msg = 'No se pudieron guardar los cambios, verifica de nuevo.';
+               		swal({  
+						title: "", 
+						text: error_msg,   
+						type: "error",   
+						confirmButtonText: "Aceptar",
+					});
+                    //console.log(JSON.stringify(data1));
+                } else {
+                   // if successful, bind success message to message
+                    console.log("Listo, cambios actualizados", data);
+                    var success_msg = 'Los cambios han sido guardados con éxito!';
+               		swal({  
+						title: "", 
+						text: success_msg,   
+						type: "success",   
+						confirmButtonText: "Aceptar",
+					});
+                }
+      		});
+        };
+        
+    }]);
 
 })();
 
