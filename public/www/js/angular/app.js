@@ -3719,9 +3719,27 @@
 
 	adminDash.controller('CustomizeController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams){
 
+		$http.get(endpoint + 'Home')
+            .success(function(data) {
+                if (!data.status) {
+                    console.log("No se actualizó", data);
+                    var error_msg = 'No se pudieron cargar los datos.';
+               		swal({  
+						title: "", 
+						text: error_msg,   
+						type: "error",   
+						confirmButtonText: "Aceptar",
+					});
+                    //console.log(JSON.stringify(data1));
+                } else {
+                   // if successful, bind success message to message
+                    //console.log("Listo, datos cargados", data);
+                    $scope.info = data.response;
+                }
+      		});
+
         this.saveChanges = function(practice_id) {
-        	var data1 = this.info;
-        	console.log('titulo ', data1);
+        	var data1 = $scope.info;
 			
             $http.post(endpoint + 'Home' + '/Update', data1)
             .success(function(data) {

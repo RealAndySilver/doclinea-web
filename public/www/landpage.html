@@ -30,28 +30,28 @@
 								  <option value="" >- Selecciona un seguro -</option>
 								</select>
 							</div>
-							<button id="search_doctor_main" name="search_doctor" class="btn btn-success btn-block btn-lg" >Encontrar doctor</button>
+							<button id="search_doctor_main" name="search_doctor" class="btn btn-success btn-block btn-lg" >{{info.section1_find_doctor_button}}</button>
 						</form>
 					</div>
 				</div>
 				<div class="mb-right">
 					<div class="jumbotron">
-						<p>Conoce nuestra plataforma para reservar citas médicas online</p>
+						<p>{{info.section1_left_title}}</p>
 						<ul>
 							<li><i class="fa fa-medkit fa-lg"></i>
-								<span>Contamos con una amplia gama de especialidades.</span>
+								<span>{{info.section1_left_paragraph1}}</span>
 							</li>
 							<li><i class="fa fa-life-ring fa-lg"></i>
-								<span>Busca personal médico de la aseguradora de tu preferencia.</span>
+								<span>{{info.section1_left_paragraph2}}</span>
 							</li>
 							<li><i class="fa fa-location-arrow fa-lg"></i>
-								<span>Encuentra especialistas en tu localidad y cerca de ti.</span>
+								<span>{{info.section1_left_paragraph3}}</span>
 							</li>
 						</ul>
-						<span><b>Tambien disponible en:</b></span>
+						<span><b>{{info.section1_mobile_title}}</b></span>
 						<div>
-							<a href=""><img src="../www/css/images/logo-app_store.png"></a>
-							<a href=""><img src="../www/css/images/android-logo.png"></a>
+							<a href="{{info.section1_appstore_link}}" target="_blank"><img src="../www/css/images/logo-app_store.png"></a>
+							<a href="{{info.section1_googleplay_link}}" target="_blank"><img src="../www/css/images/android-logo.png"></a>
 						</div>
 					</div>
 				</div>
@@ -65,21 +65,18 @@
 				<div class="inner-info-box">
 					<div class="column">
 						<img src="../www/css/images/search.png" />
-						<h3>1. BUSCA</h3>
-						<p>entre nuestros</p>
-						<p class="orange-text"><b>+ 20.000 doctores</b></p>
+						<h3>{{info.section2_left_title}}</h3>
+						<p class="orange-text"><b>{{info.section2_left_paragraph}}</b></p>
 					</div>
 					<div class="column">
 						<img src="../www/css/images/people.png" />
-						<h3>2. ENCUENTRA</h3>
-						<p>las recomendaciones de</p>
-						<p class="orange-text"><b>+ 100.000 pacientes</b></p>
+						<h3>{{info.section2_center_title}}</h3>
+						<p class="orange-text"><b>{{info.section2_center_paragraph}}</b></p>
 					</div>
 					<div class="column">
 						<img src="../www/css/images/calendar.png" />
-						<h3>3. AGENDA</h3>
-						<p>tu cita sin costo adicional</p>
-						<p class="orange-text"><b>+ 50.000 citas</b></p>
+						<h3>{{info.section2_right_title}}</h3>
+						<p class="orange-text"><b>{{info.section2_right_paragraph}}</b></p>
 					</div>
 				</div>
 			</div>
@@ -89,7 +86,7 @@
 	<div id="providers_container" ng-controller="SearchListsController as listsCtrl">
 		<div class="center">
 			<div class="info-box">
-				<h2>Encuentra proveedores de salud según...</h2>
+				<h2>{{info.section3_title}}</h2>
 				<div class="inner-info-box">
 					<div class="column-b">
 						<h3><b>Especialidad</b></h3>
@@ -122,17 +119,15 @@
 	<div id="docs_container">
 		<div class="center">
 			<div class="info-box">
-				<h2>¿Eres un profesional de la salud?</h2>
+				<h2>{{info.section4_left_title}}</h2>
 				<div class="inner-info-box">
 					<div class="column-b">
-						<p>DocLinea es un servicio online para agendar citas médicas
-						al instante. Descubre como manejar tu lista de citas a la
-						vez que recibes calificación por parte de tus pacientes.</p>
-						<a href="#/doctor_sign_up#" class="btn btn-info btn-lg">Únete a nosotros</a> 
+						<p>{{info.section4_left_paragraph}}</p>
+						<a href="#/doctor_sign_up#" class="btn btn-info btn-lg">{{info.section4_left_button_title}}</a> 
 					</div>
 					<div class="column-b">
-						<p>Si ya trabajas con DocLinea, ingresa y sigue manejando tu agenda.</p>
-						<a href="#/doctor_sign_in" class="btn btn-info btn-lg">Iniciar sesión</a>
+						<p>{{info.section4_right_paragraph}}</p>
+						<a href="#/doctor_sign_in" class="btn btn-info btn-lg">{{info.section4_right_button_title}}</a>
 					</div>
 				</div>
 			</div>
