@@ -17,6 +17,35 @@
 						<li class="list-group-item">Doctor(a): {{a.doctor_name}}</li>
 					    <li class="list-group-item">Fecha de Cita: {{a.date_start | date:"MMM dd hh:mm a"}}</li>
 					    <li class="list-group-item">Motivo de Cita: {{a.reason}}</li>
+					    <li class="list-group-item">Lugar: {{a.location[0].location_address}}</li>
+					    <!-- <script src="https://addthisevent.com/libs/ate-latest.min.js"></script> -->
+					    <script src="../www/js/libs/add_this_event.js"></script>
+					    <script type="text/javascript">
+						    //$( document ).ready(function() {
+								addthisevent.settings({
+									mouse		: false,
+									css			: false,
+									outlook		: {show:true, text:"Outlook Calendar"},
+									google		: {show:true, text:"Google Calendar"},
+									yahoo		: {show:true, text:"Yahoo Calendar"},
+									ical		: {show:true, text:"iCal Calendar"},
+									hotmail		: {show:true, text:"Hotmail Calendar"},
+									facebook	: {show:true, text:"Facebook Calendar"}
+								});
+						    //});
+						</script>
+					    <li class="list-group-item">
+						    <a href="http://example.com/link-to-your-event" target="_blank" title="Add to Calendar" class="addthisevent">
+							    Agregar a mi calendario
+							    <span class="_start">{{a.date_start | date:"MMM dd hh:mm a"}}</span>
+							    <span class="_end">{{a.date_end | date:"MMM dd hh:mm a"}}</span>
+							    <span class="_zonecode">14</span>
+							    <span class="_summary">Cita Médica</span>
+							    <span class="_description">{{a.reason}}</span>
+							    <span class="_location">{{a.location[0].location_address}}</span>
+							    <span class="_organizer">{{a.doctor_name}}</span>
+							</a>
+						</li>
 					</ul>
 				</div>
 			</div>	
