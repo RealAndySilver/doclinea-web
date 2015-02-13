@@ -3721,7 +3721,7 @@
 
 	adminDash.controller('CustomizeController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams){
 		if (localStorage.getItem("user")) {
-			var userInfo = JSON.parse(localStorage.user);
+			$scope.userInfo = JSON.parse(localStorage.user);
 		};
     	
 		$http.get(endpoint + 'Home')
@@ -3777,8 +3777,8 @@
         this.invite = function() {
         	var data1 = this.data;
             data1.message = "Hola, quiero invitarte a DocLinea, una plataforma online para agendar citas médicas al instante!";
-            data1.email = userInfo.email;
-        	console.log(data1);
+            data1.email = $scope.userInfo.email;
+        	//console.log(data1);
 			
             $http.post(endpoint + 'User' + '/Invite', data1)
             .success(function(data) {
