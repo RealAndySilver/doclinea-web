@@ -23,6 +23,62 @@ body {
   z-index: 10000;
   display: none;
 }
+#curtain-invite {
+  position: fixed;
+  height: 155px;
+  top: 50%;
+  margin-top: -78px;
+  right: -465px;
+  background: #ec6526;
+  width: 500px;
+  border-radius: 4px;
+  z-index: 99999;
+}
+#invite {
+  width: 45px;
+  float: left;
+  height: 100%;
+  cursor: pointer;
+}
+#curtain-invite:hover {
+  right: -455px;
+}
+#invite span {
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  display: block;
+  margin-top: 75px;
+  margin-right: 5px;
+  font-size: 15px;
+  color: #fff;
+  font-weight: bold;
+}
+#invite-form {
+  float: left;
+  width: 455px;
+  height: 100%;
+}
+#inner-invite-form {
+  height: 84%;
+  width: 96%;
+  margin: 10px;
+}
+#inner-invite-form p {
+  text-align: center;
+  color: #fff;
+  margin: 20px 0 10px 0;
+  font-size: 16px;
+}
+#inner-invite-form .full-input {
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+}
+#inner-invite-form form input.form-control {
+  margin: 0;
+  width: 100%;
+}
 #form-box {
   position: fixed;
   width: 460px;

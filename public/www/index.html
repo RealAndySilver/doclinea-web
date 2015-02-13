@@ -27,7 +27,30 @@
 
     <div id="main-page-container" ng-controller="CustomizeController as customCtrl">
 
-        <div id="shadow"></div>    
+        <div id="shadow"></div>
+
+        <div id="curtain-invite">
+            <div id="invite">
+                <span>Invitar</span>
+            </div> 
+            <div id="invite-form">
+                <div id="inner-invite-form">
+                    <p>Invita a un amigo a DocLinea</p>
+                    <form name="inviteForm" class="form-horizontal" ng-submit="customCtrl.invite()" novalidate>
+                        <div class="form-group">
+                          <div class="full-input">
+                          <input id="destination_email" name="destination_email" type="text" placeholder="Email" class="form-control input-md" ng-model="customCtrl.data.destination_email" required>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="full-input">
+                            <button id="invite-submit" name="invite_submit" class="btn btn-primary">Enviar</button>
+                          </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
         <div id="form-box">
             <div class="jumbotron">

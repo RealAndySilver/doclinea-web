@@ -338,6 +338,7 @@
 	                   User.isDoctor = false;
 	                   User.id = user._id;
 	                   User.gender = user.gender;
+	                   User.email = user.email;
 
 	                   console.log('Mi objeto USUARIO es', User);
 
@@ -443,6 +444,7 @@
 	                   User.username = doc.name + ' ' + doc.lastname;
 	                   User.id = doc._id;
 	                   User.isDoctor = true;
+	                   User.email = doc.email;
 
 	                   // Store
 					   localStorage.setItem('user', JSON.stringify(User));
@@ -3718,7 +3720,10 @@
 	});
 
 	adminDash.controller('CustomizeController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams){
-
+		if (localStorage.getItem("user")) {
+			var userInfo = JSON.parse(localStorage.user);
+		};
+    	
 		$http.get(endpoint + 'Home')
             .success(function(data) {
                 if (!data.status) {
@@ -3733,18 +3738,17 @@
                     //console.log(JSON.stringify(data1));
                 } else {
                    // if successful, bind success message to message
-                    console.log("Listo, datos cargados", data);
-                    $scope.home_info = data.response;
+                    //console.log("Listo, datos cargados", data);
+                    $scope.info = data.response.home_info;
                 }
       		});
 
         this.saveChanges = function() {
-        	//var data1 = $scope.info;
-        	var home_info = {};
-        	var home_info = $scope.info;
-        	console.log(home_info);
+        	var data1 = {};
+        	data1.home_info = $scope.info;
+        	console.log(data1);
 			
-            $http.post(endpoint + 'Home' + '/Update', home_info)
+            $http.post(endpoint + 'Home' + '/Update', data1)
             .success(function(data) {
                 if (!data.status) {
                     console.log("No se actualizó", data);
@@ -3766,6 +3770,40 @@
 						type: "success",   
 						confirmButtonText: "Aceptar",
 					});
+                }
+      		});
+        };
+
+        this.invite = function() {
+        	var data1 = this.data;
+            data1.message = "Hola, quiero invitarte a DocLinea, una plataforma online para agendar citas médicas al instante!";
+            data1.email = userInfo.email;
+        	console.log(data1);
+			
+            $http.post(endpoint + 'User' + '/Invite', data1)
+            .success(function(data) {
+                if (!data.status) {
+                    console.log("No se envió el correo", data);
+                    var error_msg = 'No se pudo enviar el correo, intenta de nuevo.';
+               		swal({  
+						title: "", 
+						text: error_msg,   
+						type: "error",   
+						confirmButtonText: "Aceptar",
+					});
+                    //console.log(JSON.stringify(data1));
+                } else {
+                   // if successful, bind success message to message
+                    console.log("Listo, correo enviado", data);
+                    $("#shadow, #form-box").fadeOut(800);
+					$("#curtain-invite").css('right', '-465px');
+                    /*var success_msg = 'La invitación ha sido enviada con éxito!';
+               		swal({  
+						title: "", 
+						text: success_msg,   
+						type: "success",   
+						confirmButtonText: "Aceptar",
+					});*/
                 }
       		});
         };
