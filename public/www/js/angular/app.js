@@ -3733,15 +3733,18 @@
                     //console.log(JSON.stringify(data1));
                 } else {
                    // if successful, bind success message to message
-                    //console.log("Listo, datos cargados", data);
-                    $scope.info = data.response;
+                    console.log("Listo, datos cargados", data);
+                    $scope.home_info = data.response;
                 }
       		});
 
-        this.saveChanges = function(practice_id) {
-        	var data1 = $scope.info;
+        this.saveChanges = function() {
+        	//var data1 = $scope.info;
+        	var home_info = {};
+        	var home_info = $scope.info;
+        	console.log(home_info);
 			
-            $http.post(endpoint + 'Home' + '/Update', data1)
+            $http.post(endpoint + 'Home' + '/Update', home_info)
             .success(function(data) {
                 if (!data.status) {
                     console.log("No se actualizó", data);
