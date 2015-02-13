@@ -1,0 +1,96 @@
+<div class="center">
+	<div class="results-page">
+		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 top-fix">
+			<div class="inner-info-box">
+				<h2 class="sub-header">Personalizar Mensajes de Notificaciones</h2>
+				<div class="form-box">
+					<form class="form-horizontal" name="customizeForm" ng-submit="notyCtrl.saveChanges()">
+						<fieldset>
+							<legend>Activación de Cuenta</legend>
+							<fieldset>
+								<div class="form-group">
+								    <label class="col-md-4 control-label" for="activation_title">Título</label>  
+								    <div class="col-md-6">
+								    	<input id="activation_title" name="activation_title" type="text" placeholder="" class="form-control input-md" ng-model="info.activation_title">
+								    </div>
+								</div>
+								<div class="form-group">
+								    <label class="col-md-4 control-label" for="activation_message">Mensaje</label>  
+								    <div class="col-md-6">
+								    	<textarea id="activation_message" name="activation_message" type="text" placeholder="" class="form-control input-md" ng-model="info.activation_message"></textarea>
+								    </div>
+								</div>
+							</fieldset>
+							<legend>Bienvenida a DocLinea</legend>
+							<fieldset>
+								<div class="form-group">
+								    <label class="col-md-4 control-label" for="welcome_title">Título</label>  
+								    <div class="col-md-6">
+								    	<input id="welcome_title" name="welcome_title" type="text" placeholder="" class="form-control input-md" ng-model="info.welcome_title">
+								    </div>
+								</div>
+								<div class="form-group">
+								    <label class="col-md-4 control-label" for="welcome_message">Mensaje</label>  
+								    <div class="col-md-6">
+								    	<textarea id="welcome_message" name="welcome_message" type="text" placeholder="" class="form-control input-md" ng-model="info.welcome_message"></textarea>
+								    </div>
+								</div>
+							</fieldset>
+							<legend>Recuperación de Contraseña</legend>
+							<fieldset>
+								<div class="form-group">
+								    <label class="col-md-4 control-label" for="recovering_title">Título</label>  
+								    <div class="col-md-6">
+								    	<input id="recovering_title" name="recovering_title" type="text" placeholder="" class="form-control input-md" ng-model="info.recovering_title">
+								    </div>
+								</div>
+								<div class="form-group">
+								    <label class="col-md-4 control-label" for="recovering_message">Mensaje</label>  
+								    <div class="col-md-6">
+								    	<textarea id="recovering_message" name="recovering_message" type="text" placeholder="" class="form-control input-md" ng-model="info.recovering_message"></textarea>
+								    </div>
+								</div>
+							</fieldset>
+							<legend>Mensaje de Invitación a Amigos</legend>
+							<fieldset>
+								<div class="form-group">
+								    <label class="col-md-4 control-label" for="invitation_title">Título</label>  
+								    <div class="col-md-6">
+								    	<input id="invitation_title" name="invitation_title" type="text" placeholder="" class="form-control input-md" ng-model="info.invitation_title">
+								    </div>
+								</div>
+								<div class="form-group">
+								    <label class="col-md-4 control-label" for="invitation_message">Mensaje</label>  
+								    <div class="col-md-6">
+								    	<textarea id="invitation_message" name="invitation_message" type="text" placeholder="" class="form-control input-md" ng-model="info.invitation_message"></textarea>
+								    </div>
+								</div>
+							</fieldset>
+							<legend>Boletín Informativo</legend>
+							<fieldset>
+								<div class="form-group">
+								    <label class="col-md-4 control-label" for="newsletter_title">Título</label>  
+								    <div class="col-md-6">
+								    	<input id="newsletter_title" name="newsletter_title" type="text" placeholder="" class="form-control input-md" ng-model="info.newsletter_title">
+								    </div>
+								</div>
+								<div class="form-group">
+								    <label class="col-md-4 control-label" for="newsletter_message">Mensaje</label>  
+								    <div class="col-md-6">
+								    	<textarea id="newsletter_message" name="newsletter_message" type="text" placeholder="" class="form-control input-md" ng-model="info.newsletter_message"></textarea>
+								    </div>
+								</div>
+							</fieldset>
+							<div class="form-group">
+							    <div class="col-md-4 center-button">
+									<input type="submit" class="btn btn-primary" value="Guardar">
+									<a href="" class="btn btn-warning">Cancelar</a>
+							    </div>
+							</div>
+						</fieldset>
+					</form>
+				</div>
+			</div>
+	    </div>
+    </div>
+</div>

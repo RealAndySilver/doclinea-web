@@ -6,12 +6,16 @@ $(document).ready(function(){
 
 	$("#form-box img, #shadow").click(function(){
 		$("#shadow, #form-box").fadeOut(800);
-		$("#curtain-invite").css('right', '-465px');
+		$("#curtain-invite").animate({
+		    right: '-465px',
+	    }, 800);
 	});
 
 	$("#curtain-invite").click(function(){
 		$("#shadow").fadeIn(800);
-		$(this).css('right', 0);
+		$("#curtain-invite").animate({
+		    right: 0,
+	    }, 800);
 	});
 
 	$(".scroll").click(function(event){
