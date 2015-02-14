@@ -127,7 +127,7 @@
 				templateUrl: '../www/partials/doctor/appointments.html',
 				controller: 'CalendarCtrl',
 			}).
-			when('/booking/:eventId/:doctorId', {
+			when('/booking/:eventId/:doctorId/:start/:end', {
 				templateUrl: '../www/booking.html',
 				controller: 'BookingController',
 				controllerAs: 'bkngCtrl',

@@ -1,3 +1,18 @@
+<script src="../www/js/libs/add_this_event.js"></script>
+<script type="text/javascript">
+    //$( document ).ready(function() {
+		addthisevent.settings({
+			mouse		: false,
+			css			: false,
+			outlook		: {show:true, text:"Outlook Calendar"},
+			google		: {show:true, text:"Google Calendar"},
+			yahoo		: {show:true, text:"Yahoo Calendar"},
+			ical		: {show:true, text:"iCal Calendar"},
+			hotmail		: {show:true, text:"Hotmail Calendar"},
+			facebook	: {show:true, text:"Facebook Calendar"}
+		});
+    //});
+</script>
 <div id="sign-up-box">
 	<div class="center">
 		<div class="inner-info-box">
@@ -45,7 +60,7 @@
 					  </div>
 					</div>
 
-					<div class="form-group last-form-element">
+					<div class="form-group">
 					  <label class="col-md-4 control-label" for="patient_phone">Teléfono</label>  
 					  <div class="col-md-6">
 					  <input id="patient_phone" name="patient_phone" type="text" placeholder="" class="form-control input-md" ng-model="bkngCtrl.data.patient_phone" ng-pattern="/^\d+$/" required>
@@ -55,9 +70,18 @@
 					  </div>
 					  </div>
 					</div>
-					<!-- <div class="error warning" ng-show="signUpForm.$invalid">
-					    <small class="error warning">Recuerda diligenciar todo el formulario para poder registrarte.</small>
-					</div> -->
+					<div class="form-group last-form-element center-fix">
+						<a href="http://example.com/link-to-your-event" target="_blank" title="Add to Calendar" class="addthisevent">
+						    Agregar a mi calendario
+						    <span class="_start">{{eventStart | date:"MMM dd hh:mm a"}}</span>
+						    <span class="_end">{{eventEnd | date:"MMM dd hh:mm a"}}</span>
+						    <span class="_zonecode">14</span>
+						    <span class="_summary">Cita Médica</span>
+						    <span class="_description">{{bkngCtrl.data.reason}}</span>
+						    <span class="_location">{{doctorInfo.location[0].location_address}}</span>
+						    <span class="_organizer">{{doctorInfo.doctor_name}}</span>
+						</a>
+					</div>
 					<div class="form-group">
 					  <div class="col-md-4 center-button">
 						<button id="sign_up_submit" name="sign_up_submit" class="btn btn-primary">Agendar cita</button>

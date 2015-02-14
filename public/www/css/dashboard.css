@@ -397,3 +397,10 @@ header {
 .addthisevent-drop {
   z-index: 50;
 }
+#sign-up-box .addthisevent-drop {
+  z-index: 50;
+}
+.center-fix {
+  text-align: center;
+  padding: 3px;
+}
