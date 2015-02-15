@@ -1857,7 +1857,7 @@ adminDash.controller('ReasonsPracticeController', ['$http', '$scope', '$routePar
 }]);
 
 //Controller for Customize Sections
-docDash.directive('customize', function() {
+adminDash.directive('customize', function() {
 	return {
 		restrict: 'E',
 		templateUrl: 'www/partials/admin/customize.html',
@@ -1951,7 +1951,7 @@ adminDash.controller('CustomizeController', ['$http', '$scope', '$routeParams', 
 }]);
 
 //Controller for Customize Notifications
-docDash.directive('notifications', function() {
+adminDash.directive('notifications', function() {
 	return {
 		restrict: 'E',
 		templateUrl: 'www/partials/admin/notifications.html',
