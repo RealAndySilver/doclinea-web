@@ -1,5 +1,6 @@
 (function() {
 
+	//Módulos de la Aplicación
 	var app = angular.module('doclinea', [
 		'ngRoute',
 		'searchList',
@@ -25,8 +26,10 @@
 		'ui.modal',
 	]);
 
+	//Endpoint de API
 	var endpoint = "http://192.241.187.135:1414/api_1.0/";
-	//var endpoint = "http://192.168.0.40:1414/api_1.0/";
+
+	//Rutas de la Aplicación
 	app.config(['$routeProvider',
 		function($routeProvider) {
 			$routeProvider.
@@ -143,9 +146,7 @@
 	]);
 
 
-	//DATA
-	//Global data (practices)
-	//Hardcoded data (Cities, Practices)
+	//Información Global (Localidades Bogotá)
 	var localidades = [{
 		name: "Antonio Nariño",
 		lat: 4.5,
@@ -228,6 +229,7 @@
 		lon: 74.5,
 	}, ];
 
+	//Servicios Globales (Especialidades, Aseguradoras)
 	var PracticesService = function($http) {
 		var self = this;
 
@@ -254,42 +256,34 @@
 	};
 	app.service('InsurancesService', ['$http', InsurancesService]);
 
-	//GLOBAL DIRECTIVES
+	//Directivas Globales (Confirmación de Contraseña)
 	app.directive('equals', function() {
 		return {
-			restrict: 'A', // only activate on element attribute
-			require: '?ngModel', // get a hold of NgModelController
+			restrict: 'A', 
+			require: '?ngModel', 
 			link: function(scope, elem, attrs, ngModel) {
-				if (!ngModel) return; // do nothing if no ng-model
+				if (!ngModel) return; 
 
-				// watch own value and re-validate on change
+				// Verifica el valor del campo y lo valida si este cambia
 				scope.$watch(attrs.ngModel, function() {
 					validate();
 				});
 
-				// observe the other value and re-validate on change
+				// Verifica el valor a confirmar y lo valida si este cambia
 				attrs.$observe('equals', function(val) {
 					validate();
 				});
 
 				var validate = function() {
-					// values
+					//Valores de campos de contraseña
 					var val1 = ngModel.$viewValue;
 					var val2 = attrs.equals;
 
-					// set validity
+					// Validación de campos de contraseña
 					ngModel.$setValidity('equals', !val1 || !val2 || val1 === val2);
 				};
 			}
 		}
 	});
-
-	//ACCOUNTS AND AUTHENTICATION
-
-
-
-	
-
-
 
 })();
