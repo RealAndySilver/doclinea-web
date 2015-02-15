@@ -54,7 +54,9 @@ userDash.controller('UserInfoController', ['$http', '$scope', function($http, $s
 		personalInfo.name = $scope.userData.info.name;
 		personalInfo.lastname = $scope.userData.info.lastname;
 		personalInfo.email = $scope.userData.info.email;
-		personalInfo.birthday = $scope.userData.info.birthday.getTime();
+		if (personalInfo.birthday == 'undefined') {
+			personalInfo.birthday = $scope.userData.info.birthday.getTime();
+		};
 		personalInfo.gender = $scope.userData.info.gender;
 		personalInfo.phone = $scope.userData.info.phone;
 		personalInfo.city = $scope.userData.info.city;

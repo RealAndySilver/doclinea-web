@@ -1,4 +1,4 @@
-angular.module('calendarPlugin', ['ui.calendar', 'ui.bootstrap']);
+angular.module('calendarDoctor', ['ui.calendar', 'ui.bootstrap']);
 var endpoint = "http://192.241.187.135:1414/api_1.0/";
 
 function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig) {
@@ -306,6 +306,12 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig) {
 			.success(function(data) {
 				console.log('service response ', data);
 				//var appointments = data.response;
+				swal({
+					title: "",
+					text: "El estado de la cita ha sido actualizado.",
+					type: "success",
+					confirmButtonText: "Aceptar",
+				});
 			});
 	};
 
