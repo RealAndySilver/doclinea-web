@@ -70,8 +70,7 @@ function BookingController($scope, $http, $routeParams, $location, $anchorScroll
     };
 
     $scope.takeAppointment = function(appointmentData) {
-        console.log('citaaaaaa ', appointmentData, $scope.doctorInfo);
-        /*$http.post(endpoint + "Appointment" + '/Take/' + appointmentId, appointmentData)
+        $http.post(endpoint + "Appointment" + '/Take/' + appointmentId, appointmentData)
             .success(function(data) {
                 if (!data.status) {
                     console.log("No se pudo tomar la cita", data);
@@ -92,7 +91,7 @@ function BookingController($scope, $http, $routeParams, $location, $anchorScroll
                     });
                     window.location = "/#/user/" + appointmentData.user_id;
                 }
-            })*/
+            })
     }
 
 }
