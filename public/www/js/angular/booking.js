@@ -9,7 +9,7 @@ function BookingController($scope, $http, $routeParams, $location, $anchorScroll
     console.log($scope.eventStart);
     $scope.eventEnd = new Date(atob($routeParams.end));
 
-    if(localStorage.getItem("user")) {
+    if (localStorage.getItem("user")) {
         $scope.userData = JSON.parse(localStorage.user);
     }
 
@@ -45,6 +45,15 @@ function BookingController($scope, $http, $routeParams, $location, $anchorScroll
     };
 
     this.bookAppointment = function() {
+        if (!localStorage.getItem("user")) {
+            var error_msg = 'Recuerda iniciar tu sesión primero.';
+            swal({
+                title: "",
+                text: error_msg,
+                type: "warning",
+                confirmButtonText: "Aceptar",
+            });
+        }
         var data1 = this.data;
 
         data1.user_id = $scope.userData.id;
@@ -70,6 +79,7 @@ function BookingController($scope, $http, $routeParams, $location, $anchorScroll
     };
 
     $scope.takeAppointment = function(appointmentData) {
+
         $http.post(endpoint + "Appointment" + '/Take/' + appointmentId, appointmentData)
             .success(function(data) {
                 if (!data.status) {

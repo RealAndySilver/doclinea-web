@@ -72,6 +72,15 @@ function CalendarProfileCtrl($scope, $http, $routeParams) {
 	};
 	/* alert on eventClick */
 	$scope.alertOnEventClick = function(event, allDay, jsEvent, view) {
+		if (!localStorage.getItem("user")) {
+            var error_msg = 'Recuerda iniciar tu sesión primero.';
+            swal({
+                title: "",
+                text: error_msg,
+                type: "warning",
+                confirmButtonText: "Aceptar",
+            });
+        }
 		$scope.alertMessage = ('Cita ' + event.title + ' para ' + event.start.format("dddd DD [de] MMMM [de] YYYY h:MM:ss"));
 		//console.log('id de la cita seleccionada ', btoa(new Date(event.start)));
 		var start = btoa(new Date(event.start));
