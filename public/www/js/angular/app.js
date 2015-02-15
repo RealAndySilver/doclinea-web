@@ -8,6 +8,7 @@
 		'loginDoctor',
 		'createUser',
 		'createDoctor',
+		'session',
 		'verify',
 		'recovering',
 		'docProfile',
@@ -286,100 +287,6 @@
 	//ACCOUNTS AND AUTHENTICATION
 
 
-
-	app.controller('LoginWelcomeController', ['$scope', '$http', '$location', '$anchorScroll', 'UserService', function($scope, $http, $location, $anchorScroll, UserService) {
-		var self = this;
-
-		this.getStatus = function() {
-			var user = UserService.getUser();
-			var username = user.username;
-
-			if (username) {
-				if (user.isDoctor) {
-					return 2;
-				} else {
-					return 1;
-				}
-			}
-			return 0;
-		};
-
-		localStorage.getItem("user");
-		if (localStorage.getItem("user")) {
-			$scope.userData = JSON.parse(localStorage.user);
-		};
-
-		this.logout = function() {
-			location.reload();
-			localStorage.removeItem("user");
-			window.location = "/#";
-		};
-
-		this.getUsername = function() {
-			return UserService.getUser().username;
-		};
-		this.getUserId = function() {
-			return UserService.getUser().id;
-		}
-
-	}]);
-
-	app.value('User', {
-		username: '',
-		isDoctor: false,
-		id: '',
-		gender: '',
-	});
-
-	app.service('UserService', ['User', function(User) {
-		this.getUser = function() {
-			if (!localStorage.getItem("user")) {
-				return User;
-			}
-
-			var user = JSON.parse(localStorage.getItem("user"));
-			User = user;
-
-			return User;
-		};
-	}]);
-
-	//Controller for Modal.js
-	var modalView = angular.module('ui.modal', [])
-	modalView.controller('ModalCtrl', function($scope, $modal) {
-
-		$scope.openUser = function(size) {
-
-			var modalUser = $modal.open({
-				templateUrl: '../www/user_password_recover.html',
-				controller: 'UserPasswordRecoverController',
-				size: size,
-				resolve: {
-					items: function() {
-						return $scope.items;
-					}
-				}
-			});
-
-		};
-
-		$scope.openDoctor = function(size) {
-
-			var modalDoctor = $modal.open({
-				templateUrl: '../www/password_recover.html',
-				controller: 'PasswordRecoverController',
-				size: size,
-				resolve: {
-					items: function() {
-						return $scope.items;
-					}
-				}
-			});
-		};
-
-	});
-
-	
 
 	
 
