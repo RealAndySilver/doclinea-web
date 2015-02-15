@@ -259,10 +259,10 @@
 	//Directivas Globales (Confirmación de Contraseña)
 	app.directive('equals', function() {
 		return {
-			restrict: 'A', 
-			require: '?ngModel', 
+			restrict: 'A',
+			require: '?ngModel',
 			link: function(scope, elem, attrs, ngModel) {
-				if (!ngModel) return; 
+				if (!ngModel) return;
 
 				// Verifica el valor del campo y lo valida si este cambia
 				scope.$watch(attrs.ngModel, function() {
