@@ -7,20 +7,21 @@ userDash = angular.module('userDashboard', []);
 userDash.controller('UserDashboardController', ['$http', '$scope', '$routeParams', 'InsurancesService', function($http, $scope, $routeParams, InsurancesService) {
 	var type = 'User';
 
+	//Fix para que se muestre correctamente el contenido dentro del tab seleccionado
 	$('#user-tab a, #myTab a').click(function(e) {
 		e.preventDefault();
 		$(this).tab('show');
 	});
 
+	//Capturar ID de la URL
 	var id = $routeParams.id;
 
 	$scope.userData = this;
 
+	//Servicio que carga un Usuario por su ID
 	$http.get(endpoint + type + '/GetByID/' + id)
 		.success(function(data) {
 			if (!data.status) {
-				console.log("No se encontraron usuarios", data.error);
-				console.log(data);
 				swal({
 					title: "Error de Servidor",
 					text: "Ha ocurrido un error al cargar la información del usuario.",
@@ -28,14 +29,12 @@ userDash.controller('UserDashboardController', ['$http', '$scope', '$routeParams
 					confirmButtonText: "Aceptar",
 				});
 			} else {
-				// if successful, bind success message to message
-				console.log("Resultado de busqueda de usuarios:");
 				$scope.userData.info = data.response;
-				console.log($scope.userData.info);
 			}
 		});
 }]);
-//Controller for Personal Info - User
+
+//Directiva y Controlador para editar información personal de Usuario
 userDash.directive('personalUser', function() {
 	return {
 		restrict: 'E',
@@ -48,9 +47,11 @@ userDash.controller('UserInfoController', ['$http', '$scope', function($http, $s
 	$scope.userData.personalInfo = {};
 	var personalInfo = $scope.userData.personalInfo;
 
+	//Función para actualizar información personal de Doctor
 	this.updateUser = function(user_id) {
 		var type = 'User';
 
+		//Objeto PersonalInfo para guardar la información que se va a editar
 		personalInfo.name = $scope.userData.info.name;
 		personalInfo.lastname = $scope.userData.info.lastname;
 		personalInfo.email = $scope.userData.info.email;
@@ -61,14 +62,11 @@ userDash.controller('UserInfoController', ['$http', '$scope', function($http, $s
 		personalInfo.phone = $scope.userData.info.phone;
 		personalInfo.city = $scope.userData.info.city;
 		personalInfo.address = $scope.userData.info.address;
-		console.log(personalInfo);
-		console.log(user_id);
 
+		//Servicio POST para actualizar la información personal de Doctor
 		$http.post(endpoint + type + '/Update/' + user_id, personalInfo)
 			.success(function(data) {
 				if (!data.status) {
-					console.log("Paila, no se actualizó", data);
-					//console.log(JSON.stringify(data1));
 					var error_msg = 'No se pudieron actualizar tus datos personales, verifica la información de nuevo.';
 					swal({
 						title: "",
@@ -77,8 +75,6 @@ userDash.controller('UserInfoController', ['$http', '$scope', function($http, $s
 						confirmButtonText: "Aceptar",
 					});
 				} else {
-					// if successful, bind success message to message
-					console.log("Listo, usuario actualizado", data.response);
 					var success_msg = 'Tus datos personales han sido actualizados con éxito!';
 					swal({
 						title: "",
@@ -91,6 +87,8 @@ userDash.controller('UserInfoController', ['$http', '$scope', function($http, $s
 	};
 
 }]);
+
+//Directiva y Controlador para editar la contraseña de Usuario
 userDash.directive('passwordChangeUser', function() {
 	return {
 		restrict: 'E',
@@ -100,20 +98,21 @@ userDash.directive('passwordChangeUser', function() {
 	};
 });
 userDash.controller('UserPasswordController', ['$http', '$scope', function($http, $scope) {
+	//Objeto security para guardar la información que se va a editar
 	$scope.userData.security = {};
 	var securityInfo = $scope.userData.security;
 
 	this.updateUser = function(user_id) {
 		var type = 'User';
 
+		//Las contraseñas del formulario se codifican en base64
 		securityInfo.password = btoa($scope.security.password);
 		securityInfo.new_password = btoa($scope.security.new_password);
 
+		//Servicio POST para actualizar la contraseña de un Doctor
 		$http.post(endpoint + type + '/ChangePassword/' + user_id, securityInfo)
 			.success(function(data) {
 				if (!data.status) {
-					console.log("Paila, no se actualizó", data);
-					//console.log(JSON.stringify(data1));
 					var error_msg = 'No se pudo actualizar tu contraseña, verifica la información de nuevo.';
 					swal({
 						title: "",
@@ -122,8 +121,6 @@ userDash.controller('UserPasswordController', ['$http', '$scope', function($http
 						confirmButtonText: "Aceptar",
 					});
 				} else {
-					// if successful, bind success message to message
-					console.log("Listo, usuario actualizado", data.response);
 					var success_msg = 'Tu contraseña ha sido cambiada con éxito!';
 					swal({
 						title: "",
@@ -135,6 +132,8 @@ userDash.controller('UserPasswordController', ['$http', '$scope', function($http
 			});
 	};
 }]);
+
+//Directiva y Controlador para editar ajustes de notificaciones de Usuario
 userDash.directive('userSettings', function() {
 	return {
 		restrict: 'E',
@@ -144,7 +143,7 @@ userDash.directive('userSettings', function() {
 	};
 });
 userDash.controller('UserSettingsController', ['$http', '$scope', function($http, $scope) {
-	//console.log('entra a settings');
+	//Objeto settingsInfo que guarda la información que se va a editar
 	$scope.userData.settingsInfo = {};
 	var settingsInfo = $scope.userData.settingsInfo;
 
@@ -152,7 +151,6 @@ userDash.controller('UserSettingsController', ['$http', '$scope', function($http
 		var type = 'User';
 
 		settingsInfo.settings = {};
-		//settingsInfo.settings = $scope.userData.info.settings;
 
 		settingsInfo.settings.email_appointment_notifications = $scope.userData.info.settings.email_appointment_notifications;
 		if (settingsInfo.settings.email_appointment_notifications == undefined) {
@@ -170,13 +168,11 @@ userDash.controller('UserSettingsController', ['$http', '$scope', function($http
 		if (settingsInfo.settings.mobile_marketing_notifications == undefined) {
 			settingsInfo.settings.mobile_marketing_notifications = false;
 		};
-		console.log(settingsInfo);
 
+		//Servicio POST para actualizar ajustes de notificaciones de Doctor
 		$http.post(endpoint + type + '/Update/' + user_id, settingsInfo)
 			.success(function(data) {
 				if (!data.status) {
-					console.log("Paila, no se actualizó", data);
-					//console.log(JSON.stringify(data1));
 					var error_msg = 'No se pudieron actualizar tus notificaciones, verifica la información de nuevo.';
 					swal({
 						title: "",
@@ -185,8 +181,6 @@ userDash.controller('UserSettingsController', ['$http', '$scope', function($http
 						confirmButtonText: "Aceptar",
 					});
 				} else {
-					// if successful, bind success message to message
-					console.log("Listo, usuario actualizado", data.response);
 					var success_msg = 'Tus notificaciones han sido actualizadas con éxito!';
 					swal({
 						title: "",
