@@ -7,17 +7,20 @@ docDash = angular.module('doctorDashboard', ['calendarDoctor']);
 docDash.controller('DocDashboardController', ['$http', '$scope', '$routeParams', 'PracticesService', 'InsurancesService', function($http, $scope, $routeParams, PracticesService, InsurancesService) {
 	var type = 'Doctor';
 
+	//Fix para que se muestre correctamente el contenido dentro del tab seleccionado
 	$('#doc-tab a, #account-tab a').click(function(e) {
 		e.preventDefault();
 		$(this).tab('show');
 	});
 
+	//Fix para mostrar tab de calendario
 	$('#doc-tab a[href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#appointments"]').on('shown.bs.tab', function(e) {
 		e.preventDefault();
 		$(this).tab('show');
 		$('#set-week').trigger("click");
 	});
 
+	//Cargar mapa de Google Maps al entrar a Consultorio
 	$('#account-tab a[href="#/doctor_dashboard/{{docDashCtrl.info._id}}/#locations"]').on('shown.bs.tab', function(e) {
 		e.preventDefault();
 		var mapOptions = {
@@ -33,7 +36,6 @@ docDash.controller('DocDashboardController', ['$http', '$scope', '$routeParams',
 
 		//cargar ubicación en mapa
 		var createMarker = function(lat, lng) {
-			console.log('ENTRA A CREAR MARKER');
 			var marker = new google.maps.Marker({
 				map: $scope.map,
 				position: new google.maps.LatLng(lat, lng),
@@ -41,6 +43,8 @@ docDash.controller('DocDashboardController', ['$http', '$scope', '$routeParams',
 			});
 			initialMarker.push(marker);
 		}
+
+		//Coordenadas con la ubicación del Doctor
 		doctorLat = $scope.doctorData.info.location_list[0].lat;
 		doctorLon = $scope.doctorData.info.location_list[0].lon;
 		createMarker(doctorLat, doctorLon);
@@ -50,16 +54,16 @@ docDash.controller('DocDashboardController', ['$http', '$scope', '$routeParams',
 			var marker = new google.maps.Marker({
 				position: event.latLng,
 				map: $scope.map,
-				//draggable: true
 			});
 			var markers = [];
 			markers.push(marker);
 			$scope.lat = event.latLng.lat();
 			$scope.lng = event.latLng.lng();
-			console.log($scope.doctorData.info.location_list);
 			if ($scope.doctorData.info.location_list[0].lat && $scope.doctorData.info.location_list[0].lon) {
 				initialMarker[0].setMap(null);
 			};
+
+			//Validación para colocar solo un marcador en mapa a la misma vez
 			google.maps.event.addListener($scope.map, 'click', function() {
 				marker.setMap(null);
 				for (var i = 0, I = markers.length; i < I && markers[i] != marker; ++i);
@@ -74,20 +78,22 @@ docDash.controller('DocDashboardController', ['$http', '$scope', '$routeParams',
 
 	var self = this;
 
+	//Carga de localidades de Bogotá
 	$scope.localidades = localidades;
 
+	//Cargar Especialidades de la API con los servicios globales de app.js
 	var promiseGetAllPractices = PracticesService.getAll();
 	promiseGetAllPractices.then(function(response) {
-		console.log(response.data);
 		self.practices = response.data.response;
 	});
 
+	//Cargar Aseguradoras de la API con los servicios globales de app.js
 	var promiseGetAllInsurances = InsurancesService.getAll();
 	promiseGetAllInsurances.then(function(response) {
-		console.log(response.data);
 		$scope.insurances = response.data.response;
 	});
 
+	//Generar Array con una lista de años a partir de 1950, para años de inicio y finalización de estudios
 	var myDate = new Date();
 	var currentYear = myDate.getFullYear();
 	this.yearsList = [];
@@ -99,21 +105,23 @@ docDash.controller('DocDashboardController', ['$http', '$scope', '$routeParams',
 	}
 	loadYears();
 
+	//Link para sección de calendario 
 	$scope.goToCalendar = function(docId) {
 		window.location = "/#/calendar/" + docId;
 	}
 
+	//Array con Ciudades
 	$scope.cities = ["Bogotá", "Medellín", "Cali", "Barranquilla", "Pereira", "Bucaramanga"];
 
+	//Capturar ID de la URL
 	var id = $routeParams.id;
 
 	$scope.doctorData = this;
 
+	//Servicio que carga un Doctor por su ID
 	$http.get(endpoint + type + '/GetByID/' + id)
 		.success(function(data) {
 			if (!data.status) {
-				console.log("No se encontraron doctores", data.error);
-				console.log(data);
 				swal({
 					title: "Error de Servidor",
 					text: "Ha ocurrido un error al cargar la información del doctor.",
@@ -121,11 +129,9 @@ docDash.controller('DocDashboardController', ['$http', '$scope', '$routeParams',
 					confirmButtonText: "Aceptar",
 				});
 			} else {
-				// if successful, bind success message to message
-				console.log("Resultado de busqueda de doctores:");
 				$scope.doctorData.info = data.response;
-				console.log($scope.doctorData.info);
 
+				//Validaciones para inicializar campos vacios en los formularios cuandos esten indefinidos o NULL
 				if ($scope.doctorData.info.education_list.length == 0) {
 					$scope.doctorData.info.education_list.push({
 						institute_name: '',
@@ -187,6 +193,7 @@ docDash.controller('DocDashboardController', ['$http', '$scope', '$routeParams',
 
 				var tempInsuranceList = [];
 
+				//Función para cargar Aseguradoras de Doctor con sus respectivos Seguros
 				for (var i = 0; i < $scope.doctorData.info.insurance_list.length; i++) {
 					var tempInsurance = $scope.doctorData.info.insurance_list[i].insurance;
 					var tempInsuranceType = $scope.doctorData.info.insurance_list[i].insurance_type;
@@ -211,12 +218,11 @@ docDash.controller('DocDashboardController', ['$http', '$scope', '$routeParams',
 				}
 
 				self.info.insurance_list = tempInsuranceList;
-				console.log('insurancesList', self.info.insurance_list);
 			}
 		});
 }]);
 
-//Controller for Pictures - Doctor
+//Directiva y Controlador para editar la foto de perfil de Doctor
 docDash.directive('pictures', function() {
 	return {
 		restrict: 'E',
@@ -225,6 +231,8 @@ docDash.directive('pictures', function() {
 		controllerAs: 'dashPicturesCtrl',
 	};
 });
+
+//Directiva que captura el input type file para el modelo 
 docDash.directive('fileModel', ['$parse', function($parse) {
 	return {
 		restrict: 'A',
@@ -240,6 +248,8 @@ docDash.directive('fileModel', ['$parse', function($parse) {
 		}
 	};
 }]);
+
+//Servicio POST para actualizar la foto de perfil del Doctor
 docDash.service('fileUpload', ['$http', function($http) {
 	this.uploadFileToUrl = function(file, uploadUrl) {
 		var fd = new FormData();
@@ -270,6 +280,8 @@ docDash.service('fileUpload', ['$http', function($http) {
 			});
 	}
 }]);
+
+//Controlador que previsualiza la foto de perfil cuando se actualiza y se carga una nueva
 docDash.controller('DashboardPicturesController', ['$scope', 'fileUpload', function($scope, fileUpload) {
 	function readURL(input) {
 		if (input.files && input.files[0]) {
@@ -287,17 +299,17 @@ docDash.controller('DashboardPicturesController', ['$scope', 'fileUpload', funct
 		readURL(this);
 	});
 
+	//Aquí se llama al servicio que actualiza la foto de perfil
 	var type = 'Doctor';
 	$scope.uploadFile = function(doc_id) {
 		var file = $scope.myFile;
-		console.log('file is ' + JSON.stringify(file));
 		var uploadUrl = endpoint + type + '/UpdateProfilePic/' + doc_id;
 		fileUpload.uploadFileToUrl(file, uploadUrl);
 	};
 
 }]);
 
-//Controller for change Password - Doctor     -->changePassword/id  password, new_password
+//Directiva y Controlador para editar la contraseña de Doctor
 docDash.directive('passwordChange', function() {
 	return {
 		restrict: 'E',
@@ -307,19 +319,21 @@ docDash.directive('passwordChange', function() {
 	};
 });
 docDash.controller('DashboardPasswordController', ['$http', '$scope', function($http, $scope) {
+	//Objeto securityInfo para guardar la información que se va a editar
 	$scope.doctorData.security = {};
 	var securityInfo = $scope.doctorData.security;
 
 	this.updateDoctor = function(doc_id) {
 		var type = 'Doctor';
 
+		//Las contraseñas del formulario se codifican en base64
 		securityInfo.password = btoa($scope.security.password);
 		securityInfo.new_password = btoa($scope.security.new_password);
 
+		//Servicio POST para actualizar la contraseña de un Doctor
 		$http.post(endpoint + type + '/ChangePassword/' + doc_id, securityInfo)
 			.success(function(data) {
 				if (!data.status) {
-					console.log("Paila, no se actualizó", data);
 					var error_msg = 'No se pudo actualizar tu contraseña, verifica la información de nuevo.';
 					swal({
 						title: "",
@@ -327,10 +341,7 @@ docDash.controller('DashboardPasswordController', ['$http', '$scope', function($
 						type: "error",
 						confirmButtonText: "Aceptar",
 					});
-					//console.log(JSON.stringify(data1));
 				} else {
-					// if successful, bind success message to message
-					console.log("Listo, doctor actualizado", data.response);
 					var success_msg = 'Tu contraseña ha sido cambiada con éxito!';
 					swal({
 						title: "",
@@ -343,7 +354,7 @@ docDash.controller('DashboardPasswordController', ['$http', '$scope', function($
 	};
 }]);
 
-//Controller for Personal Info - Doctor
+//Directiva y Controlador para editar información personal de Doctor
 docDash.directive('personal', function() {
 	return {
 		restrict: 'E',
@@ -356,9 +367,11 @@ docDash.controller('DashboardPersonalController', ['$http', '$scope', function($
 	$scope.doctorData.personalInfo = {};
 	var personalInfo = $scope.doctorData.personalInfo;
 
+	//Función para actualizar información personal de Doctor
 	this.updateDoctor = function(doc_id) {
 		var type = 'Doctor';
 
+		//Objeto PersonalInfo para guardar la información que se va a editar
 		personalInfo.name = $scope.doctorData.info.name;
 		personalInfo.lastname = $scope.doctorData.info.lastname;
 		personalInfo.secondary_email = $scope.doctorData.info.secondary_email;
@@ -369,13 +382,11 @@ docDash.controller('DashboardPersonalController', ['$http', '$scope', function($
 		personalInfo.patient_gender = $scope.doctorData.info.patient_gender;
 		personalInfo.address = $scope.doctorData.info.address;
 		personalInfo.phone = $scope.doctorData.info.phone;
-		console.log(personalInfo);
-		console.log(doc_id);
 
+		//Servicio POST para actualizar la información personal de Doctor
 		$http.post(endpoint + type + '/Update/' + doc_id, personalInfo)
 			.success(function(data) {
 				if (!data.status) {
-					console.log("Paila, no se actualizó", data);
 					var error_msg = 'No se pudieron actualizar tus datos personales, verifica la información de nuevo.';
 					swal({
 						title: "",
@@ -383,10 +394,7 @@ docDash.controller('DashboardPersonalController', ['$http', '$scope', function($
 						type: "error",
 						confirmButtonText: "Aceptar",
 					});
-					//console.log(JSON.stringify(data1));
 				} else {
-					// if successful, bind success message to message
-					console.log("Listo, doctor actualizado", data.response);
 					var success_msg = 'Tus datos personales han sido actualizados con éxito!';
 					swal({
 						title: "",
@@ -399,7 +407,7 @@ docDash.controller('DashboardPersonalController', ['$http', '$scope', function($
 	};
 }]);
 
-//Controller for studies and working information
+//Directiva y Controlador para editar la información académica de Doctor
 docDash.directive('studies', function() {
 	return {
 		restrict: 'E',
@@ -409,21 +417,26 @@ docDash.directive('studies', function() {
 	};
 });
 docDash.controller('DashboardStudiesController', ['$http', '$scope', function($http, $scope) {
+	//Objeto studiesInfo para guardar la información que se va a editar
 	$scope.doctorData.studiesInfo = {};
 	var studiesInfo = $scope.doctorData.studiesInfo;
 
+	//Cargar las especialidades
 	//var practices = $scope.practices;
 
-	//add or remove practice form fields
+	//Agregar un campo de Especialidad en el formulario
 	this.addPractice = function() {
-		//console.log($scope.doctorData.info.practice_list[0]);
 		$scope.doctorData.info.practice_list.push('');
 	};
+
+	//Remover un campo de Especialidad en el formulario
 	this.removePractice = function(practiceToRemove) {
 		var index = $scope.selectedPracticeList.indexOf(practiceToRemove);
 		$scope.doctorData.info.practice_list.splice(index, 1);
 		$scope.selectedPracticeList.splice(index, 1);
 	};
+
+	//Agregar campos de Formación Académica al formulario
 	this.addStudiesInfo = function() {
 		$scope.doctorData.info.education_list.push({
 			institute_name: '',
@@ -433,6 +446,8 @@ docDash.controller('DashboardStudiesController', ['$http', '$scope', function($h
 			hilights: ''
 		});
 	};
+
+	//Remover campos de Formación Académica en el formulario
 	this.removeStudiesInfo = function(studiesToRemove) {
 		var index = $scope.doctorData.info.education_list.indexOf(studiesToRemove);
 		$scope.doctorData.info.education_list.splice(index, 1);
@@ -440,20 +455,26 @@ docDash.controller('DashboardStudiesController', ['$http', '$scope', function($h
 	this.initStudiesInfo = function() {
 		var studies = $scope.doctorData.info.education_list;
 	};
+
+	//Agregar un campo de Aseguradora al formulario
 	this.addInsurance = function() {
-		//console.log($scope.doctorData.info.insurance_list[0]);
 		$scope.doctorData.info.insurance_list.push({
 			insurance: ''
 		});
 	};
+
+	//Remover un campo de Aseguradora en el formulario
 	this.removeInsurance = function(insuranceToRemove) {
 		var index = $scope.doctorData.info.insurance_list.indexOf(insuranceToRemove);
 		$scope.doctorData.info.insurance_list.splice(index, 1);
 	};
+
+	//Agregar un campo de Membresía al formulario
 	this.addMembership = function() {
-		//console.log($scope.doctorData.info.practice_list[0]);
 		$scope.doctorData.info.profesional_membership.push('');
 	};
+
+	//Remover un campo de Membresía en el formulario
 	this.removeMembership = function(membershipToRemove) {
 		var index = $scope.doctorData.info.profesional_membership.indexOf(membershipToRemove);
 		$scope.doctorData.info.profesional_membership.splice(index, 1);
@@ -490,10 +511,12 @@ docDash.controller('DashboardStudiesController', ['$http', '$scope', function($h
 		update(watched.practices, watched.practiceList);
 	});
 
+	//Función para cargar Seguros según el índice de la Aseguradora
 	$scope.getInsurances = function(index) {
 		return index.insurance.type_list;
 	};
 
+	//Función para editar la información académica de Doctor
 	this.updateDoctor = function(doc_id) {
 		var type = 'Doctor';
 
@@ -504,6 +527,7 @@ docDash.controller('DashboardStudiesController', ['$http', '$scope', function($h
 
 		for (var i in studiesInfo.practice_list) {
 			if (studiesInfo.practice_list[i] instanceof Array) {
+				//Validación para especialidad requerida
 				$('#practice_list_' + (parseInt(i) + 1)).removeClass('ng-valid');
 				$('#practice_list_' + (parseInt(i) + 1)).removeClass('ng-pristine');
 				$('#practice_list_' + (parseInt(i) + 1)).addClass('ng-invalid');
@@ -512,6 +536,7 @@ docDash.controller('DashboardStudiesController', ['$http', '$scope', function($h
 			}
 		}
 
+		//Objeto studiesInfoTemp que guarda la información que se va a editar
 		var studiesInfoTemp = {};
 		studiesInfoTemp.practice_list = [];
 		for (var i = 0; i < studiesInfo.practice_list.length; i++) {
@@ -524,6 +549,7 @@ docDash.controller('DashboardStudiesController', ['$http', '$scope', function($h
 		studiesInfoTemp.profesional_membership = $scope.doctorData.info.profesional_membership;
 		studiesInfoTemp.description = $scope.doctorData.info.description;
 
+		//ARRAY donde se guardan Objetos de pares de Aseguradoras y Seguros
 		studiesInfoTemp.insurance_list = [];
 		for (var i = 0; i < $scope.doctorData.info.insurance_list.length; i++) {
 			var tempInsurance = $scope.doctorData.info.insurance_list[i].insurance.name;
@@ -533,13 +559,11 @@ docDash.controller('DashboardStudiesController', ['$http', '$scope', function($h
 				insurance_type: tempInsuranceType,
 			});
 		}
-		//console.log(studiesInfoTemp.insurance_list);
 
-		console.log(studiesInfoTemp);
+		//Servicio POST para actualizar información académica de Doctor
 		$http.post(endpoint + type + '/Update/' + doc_id, studiesInfoTemp)
 			.success(function(data) {
 				if (!data.status) {
-					console.log("Paila, no se actualizó", data);
 					var error_msg = 'No se pudo actualizar tu formación académica, verifica la información de nuevo.';
 					swal({
 						title: "",
@@ -547,10 +571,7 @@ docDash.controller('DashboardStudiesController', ['$http', '$scope', function($h
 						type: "error",
 						confirmButtonText: "Aceptar",
 					});
-					//console.log(JSON.stringify(data1));
 				} else {
-					// if successful, bind success message to message
-					console.log("Listo, doctor actualizado", data.response);
 					var success_msg = 'Tus datos de formación académica han sido actualizados con éxito.';
 					swal({
 						title: "",
@@ -563,7 +584,7 @@ docDash.controller('DashboardStudiesController', ['$http', '$scope', function($h
 	};
 }]);
 
-//Controller for doctor locations
+//Directiva y Controlador para editar ubicación de Doctor
 docDash.directive('locations', function() {
 	return {
 		restrict: 'E',
@@ -573,9 +594,11 @@ docDash.directive('locations', function() {
 	};
 });
 docDash.controller('DashboardLocationsController', ['$http', '$scope', function($http, $scope) {
+	//Objeto locationsInfo que guarda la información que se va a editar
 	$scope.doctorData.locationsInfo = {};
 	var locationsInfo = $scope.doctorData.locationsInfo;
 
+	//Carga de Ciudades
 	var cities = $scope.cities;
 
 	this.updateDoctor = function(doc_id) {
@@ -583,15 +606,17 @@ docDash.controller('DashboardLocationsController', ['$http', '$scope', function(
 
 		locationsInfo.city = $scope.doctorData.info.city;
 		locationsInfo.localidad = $scope.doctorData.info.localidad;
+
+		//location_list es un objeto donde se adicionan las coordenadas del mapa 
 		locationsInfo.location_list = {};
 		locationsInfo.location_list = $scope.doctorData.info.location_list;
 		locationsInfo.location_list[0].lat = $scope.lat;
 		locationsInfo.location_list[0].lon = $scope.lng;
-		console.log(locationsInfo);
+
+		//Servicio POST para actualizar la ubicación de Doctor
 		$http.post(endpoint + type + '/Update/' + doc_id, locationsInfo)
 			.success(function(data) {
 				if (!data.status) {
-					console.log("Paila, no se actualizó", data);
 					var error_msg = 'No se pudo actualizar tu ubicación, verifica la información de nuevo.';
 					swal({
 						title: "",
@@ -599,10 +624,7 @@ docDash.controller('DashboardLocationsController', ['$http', '$scope', function(
 						type: "error",
 						confirmButtonText: "Aceptar",
 					});
-					//console.log(JSON.stringify(locationsInfo));
 				} else {
-					// if successful, bind success message to message
-					console.log("Listo, doctor actualizado", data.response);
 					var success_msg = 'Tus datos de ubicación han sido actualizados con éxito!';
 					swal({
 						title: "",
@@ -615,7 +637,7 @@ docDash.controller('DashboardLocationsController', ['$http', '$scope', function(
 	};
 }]);
 
-//Controller for doctor settings
+//Directiva y Controlador para editar ajustes de notificaciones de Doctor
 docDash.directive('settings', function() {
 	return {
 		restrict: 'E',
@@ -625,7 +647,7 @@ docDash.directive('settings', function() {
 	};
 });
 docDash.controller('DashboardSettingsController', ['$http', '$scope', function($http, $scope) {
-	console.log('entra a settings');
+	//Objeto settingsInfo que guarda la información que se va a editar
 	$scope.doctorData.settingsInfo = {};
 	var settingsInfo = $scope.doctorData.settingsInfo;
 
@@ -633,7 +655,6 @@ docDash.controller('DashboardSettingsController', ['$http', '$scope', function($
 		var type = 'Doctor';
 
 		settingsInfo.settings = {};
-		//settingsInfo.settings = $scope.doctorData.info.settings;
 
 		settingsInfo.settings.email_appointment_notifications = $scope.doctorData.info.settings.email_appointment_notifications;
 		if (settingsInfo.settings.email_appointment_notifications == undefined) {
@@ -651,13 +672,11 @@ docDash.controller('DashboardSettingsController', ['$http', '$scope', function($
 		if (settingsInfo.settings.mobile_marketing_notifications == undefined) {
 			settingsInfo.settings.mobile_marketing_notifications = false;
 		};
-		console.log(settingsInfo);
 
+		//Servicio POST para actualizar ajustes de notificaciones de Doctor
 		$http.post(endpoint + type + '/Update/' + doc_id, settingsInfo)
 			.success(function(data) {
 				if (!data.status) {
-					console.log("Paila, no se actualizó", data);
-					//console.log(JSON.stringify(data1));
 					var error_msg = 'No se pudieron actualizar tus notificaciones, verifica la información de nuevo.';
 					swal({
 						title: "",
@@ -666,8 +685,6 @@ docDash.controller('DashboardSettingsController', ['$http', '$scope', function($
 						confirmButtonText: "Aceptar",
 					});
 				} else {
-					// if successful, bind success message to message
-					console.log("Listo, usuario actualizado", data.response);
 					var success_msg = 'Tus notificaciones han sido actualizadas con éxito!';
 					swal({
 						title: "",
@@ -681,7 +698,7 @@ docDash.controller('DashboardSettingsController', ['$http', '$scope', function($
 }]);
 
 
-//Controller for Doctor Appointments
+//Directiva para Calendario de Doctor, el controlador se encuentra en calendarDoctor.js
 docDash.directive('appointments', function() {
 	return {
 		restrict: 'E',
