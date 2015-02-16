@@ -1,11 +1,10 @@
 angular.module('calendarProfile', ['ui.calendar', 'ui.bootstrap']);
 var endpoint = "http://192.241.187.135:1414/api_1.0/";
 
+//Controlador para añadir un calendario en el perfil de Doctor junto con su funcionalidad
 function CalendarProfileCtrl($scope, $http, $routeParams) {
-	//console.log('Estamos en el calendario del perfil de Doctor ', $routeParams.id);
 
 	$scope.doctorId = $routeParams.id;
-	console.log('mi doctor es ', $scope.doctorId);
 	var date = new Date();
 	var mm = date.getMinutes();
 	var h = date.getHours();
@@ -13,26 +12,15 @@ function CalendarProfileCtrl($scope, $http, $routeParams) {
 	var m = date.getMonth();
 	var y = date.getFullYear();
 
-	$scope.changeTo = 'Hungarian';
-	/* event source that pulls from google.com */
+	//Cargar zona horaria
 	$scope.eventSource = {
-		//url: "http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic",
 		className: 'gcal-event', // an option!
 		currentTimezone: 'Colombia/Bogota' // an option!
 	};
-	/* event source that contains custom events on the scope */
-	$scope.events = [
-		/*
-{title: 'All Day Eventw',start: new Date(y, m, 1)},
-	  {title: 'Long Event',start: new Date(y, m, d - 5),end: new Date(y, m, d - 2)},
-	  {id: 999,title: 'Repeating Event',start: new Date(y, m, d - 3, 16, 0),allDay: false},
-	  {id: 999,title: 'Repeating Event',start: new Date(y, m, d + 4, 16, 0),allDay: false},
-	  {title: 'Birthday Party',start: new Date(y, m, d + 1, 19, 0),end: new Date(y, m, d + 1, 22, 30),allDay: false},
-	  {title: 'Click for Google',start: new Date(y, m, 28),end: new Date(y, m, 29),url: 'http://google.com/'},
-	  {title: 'Birthday Party2',start: new Date(y, m, d + 1, 19, 0),end: new Date(y, m, d + 1, 22, 30),allDay: false, test:"Okeedokee"},
-*/
-	];
-	/* event source that calls a function on every view switch */
+
+	//Inicializar ARRAY de eventos
+	$scope.events = [];
+
 	$scope.eventsF = function(start, end, timezone, callback) {
 		var s = new Date(start).getTime() / 1000;
 		var e = new Date(end).getTime() / 1000;
@@ -47,6 +35,7 @@ function CalendarProfileCtrl($scope, $http, $routeParams) {
 		callback(events);
 	};
 
+	//Eventos de Ejemplo para cargar por defecto en el Calendario, no se utiliza actualmente
 	$scope.calEventsExt = {
 		color: '#f00',
 		textColor: 'yellow',
@@ -70,7 +59,8 @@ function CalendarProfileCtrl($scope, $http, $routeParams) {
 			url: 'http://google.com/'
 		}]
 	};
-	/* alert on eventClick */
+
+	//función que se activa al hacer click en un dia del calendario
 	$scope.alertOnEventClick = function(event, allDay, jsEvent, view) {
 		if (!localStorage.getItem("user")) {
             var error_msg = 'Recuerda iniciar tu sesión primero.';
@@ -96,22 +86,25 @@ function CalendarProfileCtrl($scope, $http, $routeParams) {
 				closeOnConfirm: true,
 			},
 			function() {
+				//redirección a formulario de agendar cita
 				window.location = "/#/booking/" + event._id + '/' + $scope.doctorId + '/' + start + '/' + end;
 			});
 	};
-	/* alert on Drop */
+	
+	//funcion bloqueada para usuario
 	$scope.alertOnDrop = function(event, revertFunc, jsEvent, ui, view) {
 		$scope.alertMessage = ('Evento cambiado a ' + event.start.format("dddd DD [de] MMMM [de] YYYY h:MM:ss"));
 		console.log('Fecha cambiada ', event);
 		$scope.updateEvent(event);
 	};
-	/* alert on Resize */
+
+	//funcion bloqueada para usuario
 	$scope.alertOnResize = function(event, jsEvent, ui, view) {
 		$scope.alertMessage = ('Fecha de finalización cambiada a ' + event.end.format("dddd DD [de] MMMM [de] YYYY h:MM:ss"));
 		console.log('Fecha de finalización cambiada a ', event);
 		$scope.updateEvent(event);
 	};
-	/* add and removes an event source of choice */
+
 	$scope.addRemoveEventSource = function(sources, source) {
 		var canAdd = 0;
 		angular.forEach(sources, function(value, key) {
@@ -124,7 +117,8 @@ function CalendarProfileCtrl($scope, $http, $routeParams) {
 			sources.push(source);
 		}
 	};
-	/* add custom event*/
+	
+	//no se utiliza en la vista de perfil de Doctor
 	$scope.addEvent = function(num) {
 		var date = new Date();
 		var mm = date.getMinutes();
@@ -151,24 +145,27 @@ function CalendarProfileCtrl($scope, $http, $routeParams) {
 			forceEventDuration: true
 		});
 	};
-	/* remove event */
+
+	//no se utiliza en la vista de perfil de Doctor
 	$scope.remove = function(index) {
 		$scope.events.splice(index, 1);
 	};
-	/* Change View */
+
+	//Cambiar la vista a día, semana o mes
 	$scope.changeView = function(view, calendar) {
 		if (calendar !== undefined) {
 			calendar.fullCalendar('changeView', view);
 		}
 	};
-	/* Change View */
+
+	//Desplegar calendario
 	$scope.renderCalender = function(calendar) {
 		if (calendar) {
 			calendar.fullCalendar('render');
 		}
 	};
 
-	/* config object */
+	//Configuración de Calendario
 	$scope.uiConfig = {
 		calendar: {
 			height: 450,
@@ -186,30 +183,28 @@ function CalendarProfileCtrl($scope, $http, $routeParams) {
 		}
 	};
 
+	//Servicio GET que carga la información del doctor actual
 	$scope.getCurrentDoctor = function(doctorId) {
 		$http.get(endpoint + 'Doctor' + '/GetByID/' + doctorId)
 			.success(function(data) {
 				if (!data.status) {
 					console.log("No se encontraron doctores", data.error);
-					//console.log(data);
 				} else {
-					// if successful, bind success message to message
-					console.log("Resultado de busqueda de doctores:");
 					$scope.docInfo = data.response;
-					console.log($scope.docInfo);
 				}
 			});
 	};
 
+	//Servicio GET que carga el listado de citas disponibles para ser tomadas por el usuario
 	$scope.getAppointments = function(doctorId) {
 		$http.get(endpoint + 'Appointment' + '/GetAvailableForDoctor/' + doctorId).success(function(data) {
 			var appointments = data.response;
-			//console.log('datos de servicio ', appointments);
 
 			if (appointments.length > 0) {
 				var eventColor = '';
 				var eventStatus = 'Disponible';
 
+				//Dependiendo del estado de evento, se le asigna un color y un label
 				for (var i in appointments) {
 					if (appointments[i].status == 'available') {
 						eventColor = '#4DC34D';
@@ -241,7 +236,7 @@ function CalendarProfileCtrl($scope, $http, $routeParams) {
 						textColor: 'black',
 						forceEventDuration: true
 					};
-					//console.log(appointment);
+					//los eventos son agregados al ARRAY de eventos
 					$scope.events.push(appointment);
 				}
 			}
@@ -256,7 +251,6 @@ function CalendarProfileCtrl($scope, $http, $routeParams) {
 		}
 	});
 
-	/* event sources array*/
 	$scope.eventSources = [$scope.events, $scope.eventSource, $scope.eventsF];
 	$scope.eventSources2 = [$scope.calEventsExt, $scope.eventsF, $scope.events];
 }

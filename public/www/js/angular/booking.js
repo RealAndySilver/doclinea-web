@@ -1,23 +1,24 @@
 angular.module('booking', ['ui.bootstrap']);
 var endpoint = "http://192.241.187.135:1414/api_1.0/";
 
+//Controlador para que un Usuario tome citas
 function BookingController($scope, $http, $routeParams, $location, $anchorScroll) {
 
+    //Parametros que vienen por URL y son necesarios para tomar una cita
     var appointmentId = $routeParams.eventId;
     var doctorId = $routeParams.doctorId;
     $scope.eventStart = new Date(atob($routeParams.start));
-    console.log($scope.eventStart);
     $scope.eventEnd = new Date(atob($routeParams.end));
 
+    //Validación de sesión activa
     if (localStorage.getItem("user")) {
         $scope.userData = JSON.parse(localStorage.user);
     }
 
+    //Servicio GET para cargar información de Doctor con su ID
     $http.get(endpoint + "Doctor" + '/GetByID/' + doctorId)
         .success(function(data) {
             if (!data.status) {
-                console.log("No se encontro el Doctor", data.error);
-                console.log(data);
                 var error_msg = 'Ha ocurrido un error al intentar cargar la información.';
                 swal({
                     title: "",
@@ -26,17 +27,15 @@ function BookingController($scope, $http, $routeParams, $location, $anchorScroll
                     confirmButtonText: "Aceptar",
                 });
             } else {
-                // if successful, bind success message to message
-                //console.log("Doctor actual:");
                 $scope.doctorInfo = data.response;
                 $scope.insurances = [];
                 for (var i in $scope.doctorInfo.insurance_list) {
                     $scope.insurances.push($scope.doctorInfo.insurance_list[i].insurance);
                 }
-                //console.log($scope.insurances);
             }
         });
 
+    //función que carga las aseguradoras del Doctor con sus respectivos seguros
     $scope.getInsurances = function(index) {
         if (index) {
             var pos = $scope.insurances.indexOf(index);
@@ -44,6 +43,7 @@ function BookingController($scope, $http, $routeParams, $location, $anchorScroll
         return [$scope.doctorInfo.insurance_list[pos].insurance_type];
     };
 
+    //Función para tomar una cita disponible en el calendario del Doctor
     this.bookAppointment = function() {
         if (!localStorage.getItem("user")) {
             var error_msg = 'Recuerda iniciar tu sesión primero.';
@@ -72,18 +72,19 @@ function BookingController($scope, $http, $routeParams, $location, $anchorScroll
                 closeOnConfirm: true,
             },
             function() {
+                //Aquí se cambia el estado de la cita a tomada
                 data1.status = "taken";
-                //console.log('CITA TOMADA CON DATOS: ', data1);
                 $scope.takeAppointment(data1);
             });
     };
 
+    //Función para agendar una cita después de llenar el formulario con la información del paciente
     $scope.takeAppointment = function(appointmentData) {
 
+        //Servicio POST para agendar una cita
         $http.post(endpoint + "Appointment" + '/Take/' + appointmentId, appointmentData)
             .success(function(data) {
                 if (!data.status) {
-                    console.log("No se pudo tomar la cita", data);
                     swal({
                         title: "",
                         text: "Ha ocurrido un error, por favor inténtalo nuevamente.",
@@ -91,8 +92,6 @@ function BookingController($scope, $http, $routeParams, $location, $anchorScroll
                         confirmButtonText: "Aceptar",
                     });
                 } else {
-                    // if successful, bind success message to message
-                    console.log("Listo, la cita fue tomada" + data);
                     swal({
                         title: "Cita agendada!",
                         text: "Usted ha tomado la cita con éxito.",
