@@ -1,4 +1,4 @@
-//PROFILES LIST + MAP WITH DOCTORS LOCATIONS
+//Modulo y Controlador para mostrar resultados de búsqueda de Doctores
 var endpoint = "http://192.241.187.135:1414/api_1.0/";
 
 var mapView = angular.module('searchList', [])
@@ -7,18 +7,19 @@ mapView.controller('MapCtrl', function($scope, $http, $routeParams) {
 	var docData = this;
 	var type = "Doctor";
 
+	//aquí se guardan los parámetros de búsqueda seleccionados en el formulario
 	docData.docs = $scope.getDrCtrl.data1;
-
-	//console.log('Mi data es ', docData.docs);
 
 	var This = this;
 
+	//iniciar loading
 	$('#doc-search-box').show();
+
+	//Servicio POST para cargar lista de doctores con los parámetros establecidos
 	$http.post(endpoint + type + '/GetByParams', docData.docs)
 		.success(function(data) {
 			if (!data.status) {
-				console.log("No se encontraron doctores", data.error);
-				console.log(data);
+				//terminar loading
 				$('#doc-search-box').hide();
 				$(".doc-box").css('visibility', 'hidden');
 				swal({
@@ -28,15 +29,12 @@ mapView.controller('MapCtrl', function($scope, $http, $routeParams) {
 					confirmButtonText: "Aceptar",
 				});
 			} else {
-				// if successful, bind success message to message
-				console.log("Resultado de busqueda de doctores:");
-				console.log(data.response);
+				//terminar loading
 				$('#doc-search-box').hide();
-
 				This.docs = data.response;
-				//console.log(JSON.stringify(this.docs));
 			}
 
+			//cargar mapa de Google Maps
 			var mapOptions = {
 				zoom: 5,
 				center: new google.maps.LatLng(4.670033, -74.0598163),
@@ -48,8 +46,8 @@ mapView.controller('MapCtrl', function($scope, $http, $routeParams) {
 			$scope.markers = [];
 			var infoWindow = new google.maps.InfoWindow();
 
+			//mostrar marcador en el mapa
 			var createMarker = function(info) {
-				//console.log('ENTRA A CREAR MARKER');
 				var marker = new google.maps.Marker({
 					map: $scope.map,
 					position: new google.maps.LatLng(info.location_list[0].lat, info.location_list[0].lon),
@@ -65,6 +63,7 @@ mapView.controller('MapCtrl', function($scope, $http, $routeParams) {
 				$scope.markers.push(marker);
 			}
 
+			//agregar por cada doctor encontrado, un marcador con su ubicación
 			for (i = 0; i < (This.docs).length; i++) {
 				createMarker(This.docs[i]);
 			}

@@ -1,18 +1,21 @@
-//Parent Controller for Doctors Searching
+//Controladores para búsqueda de Doctores por parámetros
 var endpoint = "http://192.241.187.135:1414/api_1.0/";
 
 var searchView = angular.module('searching', [])
 searchView.controller('GetDoctorsController', ['$http', '$routeParams', function($http, $routeParams) {
 
+	//los parámetros indefinidos se codifican en base 64
 	var encodedParam = btoa("undefined");
 
 	var docData = this;
 
+	//los parámetros de búsqueda se capturan por URL para pasar a la pantalla de resultados de búsqueda
 	var city = $routeParams.city;
 	var localidad = $routeParams.localidad;
 	var practice_list = $routeParams.practice_list;
 	var insurance_list = $routeParams.insurance_list;
 
+	//aquí se guardan los parámetros para la búsqueda
 	docData.data1 = {};
 	docData.data1.localidad = {};
 
@@ -39,7 +42,7 @@ searchView.controller('GetDoctorsController', ['$http', '$routeParams', function
 }]);
 
 
-//SEARCH DOCTOR FROM LANDING PAGE
+//Controlador de lista de búsqueda de página de inicio
 searchView.controller('SearchListsController', ['$http', '$scope', 'PracticesService', 'InsurancesService', function($http, $scope, PracticesService, InsurancesService) {
 	$scope.encodedParam = btoa("undefined");
 
@@ -49,17 +52,20 @@ searchView.controller('SearchListsController', ['$http', '$scope', 'PracticesSer
 
 	var self = this;
 
+	//Carga de especialidades para lista
 	var promiseGetAllPractices = PracticesService.getAll();
 	promiseGetAllPractices.then(function(response) {
 		self.practices = response.data.response;
 	});
 
+	//Carga de aseguradoras para lista
 	var promiseGetAllInsurances = InsurancesService.getAll();
 	promiseGetAllInsurances.then(function(response) {
 		self.insurances = response.data.response;
 	});
 }]);
 
+//Controlador de formulario de búsqueda de página de inicio
 searchView.controller('LandpageDocSearchController', ['$http', '$scope', '$routeParams', 'PracticesService', 'InsurancesService', function($http, $scope, $routeParams, PracticesService, InsurancesService) {
 
 	var encodedParam = btoa("undefined");
@@ -71,16 +77,19 @@ searchView.controller('LandpageDocSearchController', ['$http', '$scope', '$route
 
 	var self = this;
 
+	//Carga de especialidades para select de formulario
 	var promiseGetAllPractices = PracticesService.getAll();
 	promiseGetAllPractices.then(function(response) {
 		self.practices = response.data.response;
 	});
 
+	//Carga de especialidades para select de formulario
 	var promiseGetAllInsurances = InsurancesService.getAll();
 	promiseGetAllInsurances.then(function(response) {
 		$scope.insurances = response.data.response;
 	});
 
+	//cargar aseguradoras con sus seguros correspondientes para formulario de búsqueda
 	$scope.getInsurances = function(index) {
 		if (index) {
 			return index.insurance.type_list;
@@ -88,6 +97,7 @@ searchView.controller('LandpageDocSearchController', ['$http', '$scope', '$route
 		return;
 	};
 
+	//JSON con ciudades
 	this.cities = [{
 		name: "Bogotá",
 		id: 1
@@ -132,6 +142,7 @@ searchView.controller('LandpageDocSearchController', ['$http', '$scope', '$route
 		data1.localidad.name = localidad;
 	}
 
+	//función para precargar datos de formulario de búsqueda al cambiar a pantalla de resultados
 	var getPosition = function(list, option) {
 		for (var i in list) {
 			if (list[i].name === option) {
@@ -145,6 +156,7 @@ searchView.controller('LandpageDocSearchController', ['$http', '$scope', '$route
 	this.selectedInsurance = getPosition(this.insurances, this.insurance_list);
 	this.selectedLocalidad = getPosition(this.localidades, this.localidad);
 
+	//función para enviar parámetros a pantalla de resultados
 	this.searchDoctor = function() {
 		var selectedCity = !this.selectedCity ? encodedParam : this.selectedCity.name;
 		var selectedPractice = !this.selectedPractice ? encodedParam : this.selectedPractice.name;
@@ -159,9 +171,9 @@ searchView.controller('LandpageDocSearchController', ['$http', '$scope', '$route
 }]);
 
 
-//GET DOCTOR BY SEARCH PARAMS --> to search page
+//Controlador de formulario de búsqueda de pantalla de resultados
 searchView.controller('DoctorSearchController', ['$http', '$scope', 'PracticesService', 'InsurancesService', function($http, $scope, PracticesService, InsurancesService) {
-
+	//mostrar parámetros indefinidos codificados en base 64
 	var encodedParam = btoa("undefined");
 
 	var docData = this;
@@ -171,6 +183,7 @@ searchView.controller('DoctorSearchController', ['$http', '$scope', 'PracticesSe
 
 	var self = this;
 
+	//asignación de valores de búsqueda con los parámetros elegidos en el formulario de búsqueda
 	docData.city = $scope.getDrCtrl.data1.city;
 	docData.practice = $scope.getDrCtrl.data1.practice_list;
 	docData.insurance = $scope.getDrCtrl.data1.insurance_list;
@@ -184,16 +197,19 @@ searchView.controller('DoctorSearchController', ['$http', '$scope', 'PracticesSe
 		}
 	};
 
+	//Carga de especialidades para select de formulario
 	var promiseGetAllPractices = PracticesService.getAll();
 	promiseGetAllPractices.then(function(response) {
 		self.practices = response.data.response;
 	});
 
+	//Carga de aseguradoras para select de formulario
 	var promiseGetAllInsurances = InsurancesService.getAll();
 	promiseGetAllInsurances.then(function(response) {
 		$scope.insurances = response.data.response;
 	});
 
+	//cargar aseguradoras con sus seguros correspondientes para formulario de búsqueda
 	$scope.getInsurances = function(index) {
 		if (index) {
 			return index.insurance.type_list;
@@ -201,8 +217,7 @@ searchView.controller('DoctorSearchController', ['$http', '$scope', 'PracticesSe
 		return;
 	};
 
-	this.selectedPractice = getPosition(this.practices, docData.practice);
-
+	//JSON con ciudades
 	this.cities = [{
 		name: "Bogotá",
 		id: 1
@@ -222,10 +237,14 @@ searchView.controller('DoctorSearchController', ['$http', '$scope', 'PracticesSe
 		name: "Bucaramanga",
 		id: 6
 	}];
+
+	this.selectedPractice = getPosition(this.practices, docData.practice);
 	this.selectedCity = getPosition(this.cities, docData.city);
 	this.selectedInsurance = getPosition(this.insurances, docData.insurance_list);
 	this.selectedLocalidad = getPosition(this.localidades, docData.localidad.name);
 
+	//función para enviar parámetros a pantalla de resultados, en este caso carga de nuevo esta pantalla 
+	//con nuevos parámetros seleccionados
 	this.searchDoctor = function() {
 
 		var selectedCity = !this.selectedCity ? encodedParam : this.selectedCity.name;
