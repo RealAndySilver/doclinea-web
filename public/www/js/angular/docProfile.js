@@ -1,35 +1,34 @@
-//Controller for Doctor Profile
+//Controlador para vista de perfil de Doctor 
 var endpoint = "http://192.241.187.135:1414/api_1.0/";
 
 var profileView = angular.module('docProfile', [])
 	.controller('ProfileCtrl', function($scope, $http, $routeParams) {
 
 		var type = "Doctor";
+
+		//Capturar ID de la URL
 		var id = $routeParams.id;
 		$scope.encodedParam = btoa("undefined");
 
 		var This = this;
 
+		//Servicio GET para cargar perfil de Doctor según su ID
 		$http.get(endpoint + type + '/GetById/' + id)
 			.success(function(data) {
 				if (!data.status) {
-					console.log("No se encontró un doctor con correo:", data);
 					swal({
 						title: "Error de Servidor",
 						text: "Ha ocurrido un error al cargar la información del doctor.",
 						type: "error",
 						confirmButtonText: "Aceptar",
 					});
+					//Redirección a inicio de página si no se puede cargar el perfil de Doctor
 					window.location = "/#/";
 				} else {
-					// if successful, bind success message to message
-					console.log("El doctor encontrado es:");
-					console.log(data);
-
 					This.dProfile = data.response;
-					//console.log(JSON.stringify(dProfile.name));
 				}
 
+				//Cargar mapa de Google Maps
 				var mapOptions = {
 					zoom: 11,
 					center: new google.maps.LatLng(This.dProfile.location_list[0].lat, This.dProfile.location_list[0].lon),
@@ -38,11 +37,10 @@ var profileView = angular.module('docProfile', [])
 
 				$scope.map = new google.maps.Map(document.getElementById('profile-map'), mapOptions);
 
-				//$scope.markers = [];
 				var infoWindow = new google.maps.InfoWindow();
 
+				//cargar ubicación de Doctor en mapa
 				var createMarker = function(info) {
-					//console.log('ENTRA A CREAR MARKER');
 					var marker = new google.maps.Marker({
 						map: $scope.map,
 						position: new google.maps.LatLng(info.location_list[0].lat, info.location_list[0].lon),
@@ -55,13 +53,13 @@ var profileView = angular.module('docProfile', [])
 						infoWindow.open($scope.map, marker);
 					});
 
-					//$scope.markers.push(marker);
 				}
 
 				createMarker(This.dProfile);
 				$scope.encodedParam = btoa("undefined");
 			});
 
+		//Función para agregar Doctor actual a Favoritos, por parte de usuario paciente
 		$scope.favDoctor = function(doctorId) {
 			if (localStorage.getItem("user")) {
 				$scope.userData = JSON.parse(localStorage.user);
@@ -75,15 +73,15 @@ var profileView = angular.module('docProfile', [])
 				});
 			}
 			
+			//datos necesarios para agregar el Doctor a favoritos
 			var userId = $scope.userData.id;
 			var doctorToFav = {};
 			doctorToFav.doctor_id = doctorId;
 
+			//Servicio POST para agregar el Doctor a Favoritos
 			$http.post(endpoint + "User" + '/Fav/' + userId, doctorToFav)
 				.success(function(data) {
 					if (!data.status) {
-						console.log("No se agregó", data);
-						//console.log(JSON.stringify(data1));
 						var error_msg = 'No se pudo agregar el doctor a favoritos.';
 						swal({
 							title: "",
@@ -92,8 +90,6 @@ var profileView = angular.module('docProfile', [])
 							confirmButtonText: "Aceptar",
 						});
 					} else {
-						// if successful, bind success message to message
-						console.log("Listo, doctor agregado", data.response);
 						var success_msg = 'El doctor se agregó a favoritos con éxito!';
 						swal({
 							title: "",
@@ -107,7 +103,7 @@ var profileView = angular.module('docProfile', [])
 
 	});
 
-//Controller for Doctor Appointments on Profile
+//Directiva para Citas Disponibles, el controlador se encuentra en calendarProfile.js
 profileView.directive('availableCalendar', function($routeParams) {
 	return {
 		restrict: 'E',
