@@ -1,7 +1,9 @@
-//Controller for Modal
+//Controlador para ventana modal
+
 var modalView = angular.module('ui.modal', [])
 modalView.controller('ModalCtrl', function($scope, $modal) {
 
+	//función que abre una ventana modal para recuperación de contraseña de usuario paciente
 	$scope.openUser = function(size) {
 
 		var modalUser = $modal.open({
@@ -17,6 +19,7 @@ modalView.controller('ModalCtrl', function($scope, $modal) {
 
 	};
 
+	//función que abre una ventana modal para recuperación de contraseña de usuario doctor
 	$scope.openDoctor = function(size) {
 
 		var modalDoctor = $modal.open({

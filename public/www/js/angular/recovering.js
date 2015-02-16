@@ -1,16 +1,17 @@
-//Controllers for Password Recovering
+//Controladores para recuperación de contraseña
 var endpoint = "http://192.241.187.135:1414/api_1.0/";
 
 var recover = angular.module('recovering', []);
 recover.controller('PasswordRecoverController', ['$http', '$routeParams', '$modalInstance', '$scope', function($http, $routeParams, $modalInstance, $scope) {
-	//console.log('Entra a recover');
+	
+	//función para recuperar contraseña de Doctor
 	$scope.docRecover = function() {
 		var email = this.recoverCtrl.data.email;
-		console.log(email);
+		
+		//Servicio GET para obtener email de recuperación de contraseña de Doctor
 		$http.get(endpoint + 'Doctor' + '/Recover/' + email)
 			.success(function(data) {
 				if (!data.status) {
-					console.log("El correo no existe o no pudo ser enviado", data);
 					var email_error = 'Correo electrónico no encontrado.';
 					swal({
 						title: "",
@@ -20,33 +21,32 @@ recover.controller('PasswordRecoverController', ['$http', '$routeParams', '$moda
 					});
 					$("#doctor-recover-password #email").val('');
 				} else {
-					// if successful, bind success message to message
-					//console.log("Ha sido enviado el correo" + data);
 					var success_msg = 'Tu solicitud ha sido enviada con éxito!';
 					swal({
 						title: "",
 						text: success_msg,
 						type: "success",
 						confirmButtonText: "Aceptar",
-						//timer: 800,
 					});
 				}
 			});
 		$modalInstance.close();
 	};
+	//Si se cancela el proceso, cerrar ventana modal
 	$scope.cancel = function() {
 		$modalInstance.dismiss('cancel');
 	};
 }]);
 recover.controller('UserPasswordRecoverController', ['$http', '$routeParams', '$modalInstance', '$scope', function($http, $routeParams, $modalInstance, $scope) {
-	//console.log('Entra a recover');
+
+	//función para recuperar contraseña de Usuario
 	$scope.userRecover = function() {
 		var email = this.userRecoverCtrl.data.email;
-		console.log(email);
+
+		//Servicio GET para obtener email de recuperación de contraseña de Usuario
 		$http.get(endpoint + 'User' + '/Recover/' + email)
 			.success(function(data) {
 				if (!data.status) {
-					console.log("El correo no existe o no pudo ser enviado", data);
 					var email_error = 'Correo electrónico no encontrado.';
 					swal({
 						title: "",
@@ -56,47 +56,47 @@ recover.controller('UserPasswordRecoverController', ['$http', '$routeParams', '$
 					});
 					$("#user-recover-password #email").val('');
 				} else {
-					// if successful, bind success message to message
-					//console.log("Ha sido enviado el correo" + data);
 					var success_msg = 'Tu solicitud ha sido enviada con éxito!';
 					swal({
 						title: "",
 						text: success_msg,
 						type: "success",
 						confirmButtonText: "Aceptar",
-						//timer: 800,
 					});
 				}
 			});
 		$modalInstance.close();
 	};
+	//Si se cancela el proceso, cerrar ventana modal
 	$scope.cancel = function() {
 		$modalInstance.dismiss('cancel');
 	};
 }]);
-recover.controller('NewPasswordController', ['$http', '$routeParams', function($http, $routeParams) {
-	console.log('Entra a new password');
 
+//Controlador para nueva contraseña
+recover.controller('NewPasswordController', ['$http', '$routeParams', function($http, $routeParams) {
+
+	//Datos que vienen por URL y se necesitan para la nueva contraseña
 	var token = $routeParams.token;
 	var type = $routeParams.type;
 	var email = $routeParams.email;
-	console.log(token, type, email);
 
+	//función para agregar una nueva contrseña
 	this.sendPassword = function() {
 		var data1 = this.data;
+		// la contraseña se codifica en base 64
 		data1.password = btoa(data1.password);
-		//data1.password_verify = btoa(data1.password_verify);
-		//console.log(data1.password);
 		if (type == 'doctor') {
 			type = 'Doctor';
 		};
 		if (type == 'user') {
 			type = 'User';
 		};
+
+		//servicio POST para actualizar la contraseña
 		$http.post(endpoint + type + '/NewPassword/' + token, data1)
 			.success(function(data) {
 				if (!data.status) {
-					//console.log("El correo no existe o no pudo ser enviado", data);
 					var send_error = 'Ha ocurrido un error, verifica la contraseña de nuevo.';
 					swal({
 						title: "",
@@ -104,20 +104,17 @@ recover.controller('NewPasswordController', ['$http', '$routeParams', function($
 						type: "error",
 						confirmButtonText: "Aceptar",
 					});
-					//$("#doctor-recover-password #email").val('');
 				} else {
-					// if successful, bind success message to message
-					//console.log("Ha sido enviado el correo" + data);
 					var success_msg = 'Tu solicitud ha sido enviada con éxito!';
 					swal({
 						title: "",
 						text: success_msg,
 						type: "success",
 						confirmButtonText: "Aceptar",
-						//timer: 800,
 					});
 				}
 			});
+		//Cuando termina este proceso se redirecciona a la página de inicio	
 		window.location = "/#/";
 	};
 }]);
