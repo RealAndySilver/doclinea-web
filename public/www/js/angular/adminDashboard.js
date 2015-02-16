@@ -831,7 +831,8 @@ adminDash.controller('ManageDocLocationsController', ['$http', '$scope', functio
 			});
 	};
 }]);
-//Controller for Settings - Doctor by Admin
+
+//Directiva y Controlador para editar ajustes de notificaciones de Doctor
 adminDash.directive('docSettings', function() {
 	return {
 		restrict: 'E',
@@ -841,7 +842,7 @@ adminDash.directive('docSettings', function() {
 	};
 });
 adminDash.controller('ManageDocSettingsController', ['$http', '$scope', function($http, $scope) {
-	console.log('entra a settings');
+	//Objeto settingsInfo que guarda la información que se va a editar
 	$scope.docInfo.settingsInfo = {};
 	var settingsInfo = $scope.docInfo.settingsInfo;
 
@@ -849,7 +850,6 @@ adminDash.controller('ManageDocSettingsController', ['$http', '$scope', function
 		var type = 'Doctor';
 
 		settingsInfo.settings = {};
-		//settingsInfo.settings = $scope.docInfo.info.settings;
 
 		settingsInfo.settings.email_appointment_notifications = $scope.docInfo.info.settings.email_appointment_notifications;
 		if (settingsInfo.settings.email_appointment_notifications == undefined) {
@@ -867,13 +867,11 @@ adminDash.controller('ManageDocSettingsController', ['$http', '$scope', function
 		if (settingsInfo.settings.mobile_marketing_notifications == undefined) {
 			settingsInfo.settings.mobile_marketing_notifications = false;
 		};
-		console.log(settingsInfo);
 
+		//Servicio POST para actualizar ajustes de notificaciones de Doctor
 		$http.post(endpoint + type + '/Update/' + doc_id, settingsInfo)
 			.success(function(data) {
 				if (!data.status) {
-					console.log("Paila, no se actualizó", data);
-					//console.log(JSON.stringify(data1));
 					var error_msg = 'No se pudieron actualizar las notificaciones, verifique la información de nuevo.';
 					swal({
 						title: "",
@@ -882,8 +880,6 @@ adminDash.controller('ManageDocSettingsController', ['$http', '$scope', function
 						confirmButtonText: "Aceptar",
 					});
 				} else {
-					// if successful, bind success message to message
-					console.log("Listo, usuario actualizado", data.response);
 					var success_msg = 'Las notificaciones han sido actualizadas con éxito!';
 					swal({
 						title: "",
@@ -895,7 +891,9 @@ adminDash.controller('ManageDocSettingsController', ['$http', '$scope', function
 			});
 	};
 }]);
-//Controller for Hospitals - Seccions in Admin
+
+
+//Directiva y Controlador para sección de Hospitales
 adminDash.directive('hospitals', function() {
 	return {
 		restrict: 'E',
@@ -905,20 +903,16 @@ adminDash.directive('hospitals', function() {
 	};
 });
 adminDash.controller('AdminHospitalsController', ['$http', '$scope', function($http, $scope) {
-	//console.log('THIS IS HOSPITALS');
 	var type = 'Hospital';
 
+	//Crear Hospital
 	this.createHospital = function() {
-		//console.log('THIS IS CREATE HOSPITALS');
 		var data1 = this.info;
 
-		console.log('datos para crear hospital');
-		console.log(data1);
-
+		//Servicio POST para crear Hospital
 		$http.post(endpoint + type + '/Create', data1)
 			.success(function(data) {
 				if (!data.status) {
-					console.log("Paila, no se creó", data);
 					var error_msg = 'No se pudo agregar el hospital, verifica la información de nuevo.';
 					swal({
 						title: "",
@@ -927,8 +921,6 @@ adminDash.controller('AdminHospitalsController', ['$http', '$scope', function($h
 						confirmButtonText: "Aceptar",
 					});
 				} else {
-					// if successful, bind success message to message
-					console.log("Listo, hospital creado", data);
 					var success_msg = 'El hospital ha sido creado con éxito!';
 					swal({
 						title: "",
@@ -943,12 +935,14 @@ adminDash.controller('AdminHospitalsController', ['$http', '$scope', function($h
 		this.data = {};
 	};
 
+	//Cargar hospitales
 	this.showHospitals = function() {
 		var This = this;
+
+		//Servicio GET para cargar hopsitales
 		$http.get(endpoint + type + '/GetAll')
 			.success(function(data) {
 				if (!data.status) {
-					console.log("No se encontraron hospitales", data);
 					var error_msg = 'Ha ocurrido un error al cargar la lista de hospitales.';
 					swal({
 						title: "",
@@ -957,23 +951,20 @@ adminDash.controller('AdminHospitalsController', ['$http', '$scope', function($h
 						confirmButtonText: "Aceptar",
 					});
 				} else {
-					// if successful, bind success message to message
-					console.log("Lista de hospitales");
-					console.log(data);
 					$scope.hospitals = data.response;
 				}
 			});
 	};
 
+	//Borrar Hospital
 	this.deleteHospital = function(id) {
-		console.log(id);
 		data1 = {};
 		data1.id = id;
-		console.log(data1);
+
+		//Servicio POST para borrar hospital
 		$http.post(endpoint + type + '/Delete', data1)
 			.success(function(data) {
 				if (!data.status) {
-					console.log("No se pudo eliminar el hospital", data);
 					var error_msg = 'Ha ocurrido un error al intentar eliminar el hospital.';
 					swal({
 						title: "",
@@ -982,9 +973,6 @@ adminDash.controller('AdminHospitalsController', ['$http', '$scope', function($h
 						confirmButtonText: "Aceptar",
 					});
 				} else {
-					// if successful, bind success message to message
-					console.log("Hospital eliminado exitosamente.");
-					console.log(data);
 					var index = $scope.hospitals.indexOf(data1.id);
 					$scope.hospitals.splice(index, 1);
 					var success = 'El hospital ha sido eliminado con éxito.';
@@ -998,17 +986,22 @@ adminDash.controller('AdminHospitalsController', ['$http', '$scope', function($h
 			});
 	};
 }]);
-//Controller for Hospital Management in Admin Dashboard
+
+//Directiva y Controlador para editar información de Hospital
 adminDash.controller('HospitalsManagementController', ['$http', '$scope', '$routeParams', '$location', function($http, $scope, $routeParams, $location) {
+
+	//Fix para tab
 	$('#hospi-tab a').click(function(e) {
 		e.preventDefault();
 		$(this).tab('show');
 	});
 
+	//Link para volver
 	$scope.toHospitals = function() {
 		$location.url('/admin_dashboard/#sections');
 	};
 
+	//Cargar mapa de Google Maps
 	$('#hospi-tab a[href="#/admin_dashboard/edit_hospital/{{hospitalManageCtrl.info._id}}/#hospital_location"]').on('shown.bs.tab', function(e) {
 		e.preventDefault();
 		var mapOptions = {
@@ -1024,19 +1017,11 @@ adminDash.controller('HospitalsManagementController', ['$http', '$scope', '$rout
 
 		//cargar ubicación en mapa
 		var createMarker = function(lat, lng) {
-			//console.log('ENTRA A CREAR MARKER');
 			var marker = new google.maps.Marker({
 				map: $scope.map,
 				position: new google.maps.LatLng(lat, lng),
-				//title: info.name +' '+ info.lastname
 			});
 			initialMarker.push(marker);
-			// marker.content = '<div class="infoWindowContent"><div class="map-inner-info"><h4>' + info.practice_list[0] + '</h4><br><h4>' + info.address + '</h4><br><a href="#/" class="btn btn-success">Pedir cita</a></div></div>';
-
-			// google.maps.event.addListener(marker, 'click', function(){
-			// 	infoWindow.setContent('<h3>' + marker.title + '</h3>' + marker.content);
-			// 	infoWindow.open($scope.map, marker);
-			// });
 		}
 		hospitalLat = $scope.hospitalInfo.info.location_list[0].lat;
 		hospitalLon = $scope.hospitalInfo.info.location_list[0].lon;
@@ -1047,16 +1032,16 @@ adminDash.controller('HospitalsManagementController', ['$http', '$scope', '$rout
 			var marker = new google.maps.Marker({
 				position: event.latLng,
 				map: $scope.map,
-				//draggable: true
 			});
 			var markers = [];
 			markers.push(marker);
 			$scope.lat = event.latLng.lat();
 			$scope.lng = event.latLng.lng();
-			console.log($scope.hospitalInfo.info.location_list);
 			if ($scope.hospitalInfo.info.location_list[0].lat && $scope.hospitalInfo.info.location_list[0].lon) {
 				initialMarker[0].setMap(null);
 			};
+
+			//Validación par aañadir solo un punto al mapa
 			google.maps.event.addListener($scope.map, 'click', function() {
 				marker.setMap(null);
 				for (var i = 0, I = markers.length; i < I && markers[i] != marker; ++i);
@@ -1071,10 +1056,10 @@ adminDash.controller('HospitalsManagementController', ['$http', '$scope', '$rout
 
 	$scope.hospitalInfo = this;
 
+	//Servicio GET para obtener un Hospital por su ID
 	$http.get(endpoint + type + '/GetByID/' + id)
 		.success(function(data) {
 			if (!data.status) {
-				console.log("No se encontraron hospitales", data.error);
 				var error_msg = 'Ha ocurrido un error al intentar cargar el hospital.';
 				swal({
 					title: "",
@@ -1082,13 +1067,10 @@ adminDash.controller('HospitalsManagementController', ['$http', '$scope', '$rout
 					type: "error",
 					confirmButtonText: "Aceptar",
 				});
-				console.log(data);
 			} else {
-				// if successful, bind success message to message
-				console.log("Resultado de busqueda de hospitales:");
 				$scope.hospitalInfo.info = data.response;
-				console.log($scope.hospitalInfo.info);
 
+				//Validación para campos indefinidos o en NULL
 				if ($scope.hospitalInfo.info.location_list.length == 0) {
 					$scope.hospitalInfo.info.location_list.push({
 						address: ''
@@ -1097,7 +1079,9 @@ adminDash.controller('HospitalsManagementController', ['$http', '$scope', '$rout
 			}
 		});
 }]);
-//Controller for Basic Info - Admin Hospitals
+
+
+//Directiva y Controlador para editar información básica de Hospital
 adminDash.directive('basicHospital', function() {
 	return {
 		restrict: 'E',
@@ -1108,18 +1092,21 @@ adminDash.directive('basicHospital', function() {
 });
 adminDash.controller('BasicHospitalController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams) {
 	var type = "Hospital";
+
+	//Objeto hospitalInfo para guardar información que se va a editar
 	$scope.hospitalInfo.basicInfo = {};
 	var basicInfo = $scope.hospitalInfo.basicInfo;
+
+	//editar hospital
 	this.updateHospital = function(hospital_id) {
 
 		basicInfo.name = $scope.hospitalInfo.info.name;
 		basicInfo.email = $scope.hospitalInfo.info.email;
-		console.log(basicInfo);
 
+		//Servicio POST para actualizar información básica de Hospital
 		$http.post(endpoint + type + '/Update/' + hospital_id, basicInfo)
 			.success(function(data) {
 				if (!data.status) {
-					console.log("Paila, no se actualizó", data);
 					var error_msg = 'No se pudo actualizar la información del hospital, verifica la información de nuevo.';
 					swal({
 						title: "",
@@ -1127,10 +1114,7 @@ adminDash.controller('BasicHospitalController', ['$http', '$scope', '$routeParam
 						type: "error",
 						confirmButtonText: "Aceptar",
 					});
-					//console.log(JSON.stringify(data1));
 				} else {
-					// if successful, bind success message to message
-					console.log("Listo, doctor actualizado", data);
 					var success_msg = 'La información del hospital ha sido actualizada con éxito!';
 					swal({
 						title: "",
@@ -1142,7 +1126,8 @@ adminDash.controller('BasicHospitalController', ['$http', '$scope', '$routeParam
 			});
 	};
 }]);
-//Controller for Logo - Admin Hospitals
+
+//Directiva y Controlador para editar logo de Hospital
 adminDash.directive('hospitalLogo', function() {
 	return {
 		restrict: 'E',
@@ -1158,6 +1143,7 @@ adminDash.directive('hospitalFile', ['$parse', function($parse) {
 			var model = $parse(attrs.hospitalFile);
 			var modelSetter = model.assign;
 
+			//input type file a modelo
 			element.bind('change', function() {
 				scope.$apply(function() {
 					modelSetter(scope, element[0].files[0]);
@@ -1167,6 +1153,7 @@ adminDash.directive('hospitalFile', ['$parse', function($parse) {
 	};
 }]);
 adminDash.service('hospitalUpload', ['$http', function($http) {
+	//Servicio POST para actualizar logo de Hospital
 	this.uploadFileToUrl = function(file, uploadUrl) {
 		var fd = new FormData();
 		fd.append('image', file);
@@ -1213,15 +1200,16 @@ adminDash.controller('LogoHospitalController', ['$http', '$scope', '$routeParams
 		readURL(this);
 	});
 
+	//Llamar a servicio de actualizar logo
 	var type = 'Hospital';
 	$scope.uploadFile = function(hospital_id) {
 		var file = $scope.myFile;
-		console.log('file is ' + JSON.stringify(file));
 		var uploadUrl = endpoint + type + '/UpdatePic/' + hospital_id;
 		hospitalUpload.uploadFileToUrl(file, uploadUrl);
 	};
 }]);
-//Controller for Location - Admin Hospitals
+
+//Directiva y Controlador para editar ubicación de Hospital
 adminDash.directive('locationHospital', function() {
 	return {
 		restrict: 'E',
@@ -1232,20 +1220,23 @@ adminDash.directive('locationHospital', function() {
 });
 adminDash.controller('LocationHospitalController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams) {
 	var type = "Hospital";
+
+	//Objeto hospitalInfo para guardar información que se va a editar
 	$scope.hospitalInfo.location = {};
 	var location = $scope.hospitalInfo.location;
+
+	//editar ubicación
 	this.updateHospital = function(hospital_id) {
 
 		location.location_list = {};
 		location.location_list.address = $scope.hospitalInfo.info.location_list[0].address;
 		location.location_list.lat = $scope.lat;
 		location.location_list.lon = $scope.lng;
-		//console.log(location);
 
+		//Servicio POST para actualizar ubicación de Hospital
 		$http.post(endpoint + type + '/Update/' + hospital_id, location)
 			.success(function(data) {
 				if (!data.status) {
-					console.log("Paila, no se actualizó", data);
 					var error_msg = 'No se puedo actualizar la ubicación del hospital.';
 					swal({
 						title: "",
@@ -1253,10 +1244,7 @@ adminDash.controller('LocationHospitalController', ['$http', '$scope', '$routePa
 						type: "error",
 						confirmButtonText: "Aceptar",
 					});
-					//console.log(JSON.stringify(data1));
 				} else {
-					// if successful, bind success message to message
-					console.log("Listo, doctor actualizado", data);
 					var success_msg = 'La ubicación del hospital ha sido actualizada con éxito!';
 					swal({
 						title: "",
@@ -1268,7 +1256,9 @@ adminDash.controller('LocationHospitalController', ['$http', '$scope', '$routePa
 			});
 	};
 }]);
-//Controller for Insurances - Seccions in Admin
+
+
+//Vista y Controlador para sección de Aseguradoras
 adminDash.directive('insurances', function() {
 	return {
 		restrict: 'E',
@@ -1278,21 +1268,16 @@ adminDash.directive('insurances', function() {
 	};
 });
 adminDash.controller('AdminInsurancesController', ['$http', '$scope', function($http, $scope) {
-	//console.log('THIS IS INSURANCES');
 	var type = 'InsuranceCompany';
 
+	//crear aseguradora
 	this.createInsurance = function() {
-		//console.log('THIS IS CREATE INSURANCES');
 		var data1 = this.info;
-		//data1.type_list = [];
 
-		console.log('datos para crear aseguradora');
-		console.log(data1);
-
+		//Servicio POST para crear Aseguradora
 		$http.post(endpoint + type + '/Create', data1)
 			.success(function(data) {
 				if (!data.status) {
-					console.log("Paila, no se creó", data);
 					var error_msg = "No se puedo agregar la aseguradora, verifica la información de nuevo.";
 					swal({
 						title: "",
@@ -1301,8 +1286,6 @@ adminDash.controller('AdminInsurancesController', ['$http', '$scope', function($
 						confirmButtonText: "Aceptar",
 					});
 				} else {
-					// if successful, bind success message to message
-					console.log("Listo, aseguradora creada", data);
 					var success_msg = 'La aseguradora ha sido creada con éxito!';
 					swal({
 						title: "",
@@ -1317,12 +1300,14 @@ adminDash.controller('AdminInsurancesController', ['$http', '$scope', function($
 		this.data = {};
 	};
 
+	//cargar aseguradoras
 	this.showInsurances = function() {
 		var This = this;
+
+		//Servicio GET para cargar aseguradoras
 		$http.get(endpoint + type + '/GetAll')
 			.success(function(data) {
 				if (!data.status) {
-					console.log("No se encontraron aseguradoras", data);
 					var error_msg = 'Ha ocurrido un error al cargar la lista de aseguradoras.';
 					swal({
 						title: "",
@@ -1331,25 +1316,20 @@ adminDash.controller('AdminInsurancesController', ['$http', '$scope', function($
 						confirmButtonText: "Aceptar",
 					});
 				} else {
-					// if successful, bind success message to message
-					console.log("Lista de aseguradoras");
-					console.log(data);
-
 					$scope.insurances = data.response;
-					//console.log(JSON.stringify(dProfile.name));
 				}
 			});
 	};
 
+	//borrar aseguradora
 	this.deleteInsurance = function(id) {
-		console.log(id);
 		data1 = {};
 		data1.id = id;
-		console.log(data1);
+
+		//Servicio POST para borrar aseguradora
 		$http.post(endpoint + type + '/Delete', data1)
 			.success(function(data) {
 				if (!data.status) {
-					console.log("No se pudo eliminar la aseguradora", data);
 					var error_msg = 'Ha ocurrido un error al intentar eliminar la aseguradora.';
 					swal({
 						title: "",
@@ -1358,9 +1338,6 @@ adminDash.controller('AdminInsurancesController', ['$http', '$scope', function($
 						confirmButtonText: "Aceptar",
 					});
 				} else {
-					// if successful, bind success message to message
-					console.log("Aseguradora eliminada exitosamente.");
-					console.log(data);
 					var index = $scope.insurances.indexOf(data1.id);
 					$scope.insurances.splice(index, 1);
 					var success = 'La aseguradora ha sido eliminada con éxito.';
@@ -1374,8 +1351,10 @@ adminDash.controller('AdminInsurancesController', ['$http', '$scope', function($
 			});
 	};
 }]);
-//Controller for Insurance Management in Admin Dashboard
+
+//Directiva y Controlador para editar aseguradora
 adminDash.controller('InsurancesManagementController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams) {
+	//fix para tab
 	$('#insu-tab a').click(function(e) {
 		e.preventDefault();
 		$(this).tab('show');
@@ -1386,10 +1365,10 @@ adminDash.controller('InsurancesManagementController', ['$http', '$scope', '$rou
 
 	$scope.insuranceInfo = this;
 
+	//Servicio GET para cargar aseguradora según su ID
 	$http.get(endpoint + type + '/GetByID/' + id)
 		.success(function(data) {
 			if (!data.status) {
-				console.log("No se encontraron aseguradoras", data.error);
 				var error_msg = 'Ha ocurrido un error al intentar cargar la aseguradora.';
 				swal({
 					title: "",
@@ -1397,13 +1376,10 @@ adminDash.controller('InsurancesManagementController', ['$http', '$scope', '$rou
 					type: "error",
 					confirmButtonText: "Aceptar",
 				});
-				console.log(data);
 			} else {
-				// if successful, bind success message to message
-				console.log("Resultado de busqueda de aseguradoras:");
 				$scope.insuranceInfo.info = data.response;
-				console.log($scope.insuranceInfo.info);
 
+				//Validación para campso indefinidos o en NULL
 				if ($scope.insuranceInfo.info.type_list.length == 0) {
 					$scope.insuranceInfo.info.type_list.push({
 						name: '',
@@ -1413,7 +1389,8 @@ adminDash.controller('InsurancesManagementController', ['$http', '$scope', '$rou
 			}
 		});
 }]);
-//Controller for Basic Info - Admin Insurances
+
+//Directiva y Controlador para editar info básica de Aseguradora
 adminDash.directive('basicInsurance', function() {
 	return {
 		restrict: 'E',
@@ -1424,20 +1401,21 @@ adminDash.directive('basicInsurance', function() {
 });
 adminDash.controller('BasicInsuranceController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams) {
 	var type = "InsuranceCompany";
+
+	//Objeto insuranceInfo para guardar info que se va a editar
 	$scope.insuranceInfo.basicInfo = {};
 	var basicInfo = $scope.insuranceInfo.basicInfo;
 
+	//editar información básica
 	this.updateInsurance = function(id) {
 
 		basicInfo.name = $scope.insuranceInfo.info.name;
 		basicInfo.email = $scope.insuranceInfo.info.email;
-		console.log(basicInfo);
-		console.log(id);
 
+		//Servicio POST para actualizar información básica
 		$http.post(endpoint + type + '/Update/' + id, basicInfo)
 			.success(function(data) {
 				if (!data.status) {
-					console.log("Paila, no se actualizó", data);
 					var error_msg = 'No se pudo actualizar la información de la aseguradora, verifica la información de nuevo.';
 					swal({
 						title: "",
@@ -1445,10 +1423,7 @@ adminDash.controller('BasicInsuranceController', ['$http', '$scope', '$routePara
 						type: "error",
 						confirmButtonText: "Aceptar",
 					});
-					//console.log(JSON.stringify(data1));
 				} else {
-					// if successful, bind success message to message
-					console.log("Listo, doctor actualizado", data);
 					var success_msg = 'La información de la aseguradora ha sido actualizada con éxito.';
 					swal({
 						title: "",
@@ -1460,7 +1435,8 @@ adminDash.controller('BasicInsuranceController', ['$http', '$scope', '$routePara
 			});
 	};
 }]);
-//Controller for Logo - Admin Insurances
+
+//Directiva y Controlador para editar logo de Aseguradora
 adminDash.directive('insuranceLogo', function() {
 	return {
 		restrict: 'E',
@@ -1476,6 +1452,7 @@ adminDash.directive('insuranceFile', ['$parse', function($parse) {
 			var model = $parse(attrs.insuranceFile);
 			var modelSetter = model.assign;
 
+			//input type file a modelo
 			element.bind('change', function() {
 				scope.$apply(function() {
 					modelSetter(scope, element[0].files[0]);
@@ -1485,6 +1462,7 @@ adminDash.directive('insuranceFile', ['$parse', function($parse) {
 	};
 }]);
 adminDash.service('insuranceUpload', ['$http', function($http) {
+	//Servicio POST para actualizar logo de Aseguradora
 	this.uploadFileToUrl = function(file, uploadUrl) {
 		var fd = new FormData();
 		fd.append('image', file);
@@ -1531,15 +1509,16 @@ adminDash.controller('LogoInsuranceController', ['$http', '$scope', '$routeParam
 		readURL(this);
 	});
 
+	//llamar a servicio de actualizar logo
 	var type = 'InsuranceCompany';
 	$scope.uploadFile = function(insurancecompany_id) {
 		var file = $scope.myFile;
-		console.log('file is ' + JSON.stringify(file));
 		var uploadUrl = endpoint + type + '/UpdatePic/' + insurancecompany_id;
 		insuranceUpload.uploadFileToUrl(file, uploadUrl);
 	};
 }]);
-//Controller for Type List - Admin Insurances
+
+//Directiva y Controlador para subsección de Seguros
 adminDash.directive('typeList', function() {
 	return {
 		restrict: 'E',
@@ -1553,6 +1532,7 @@ adminDash.controller('TypeListController', ['$http', '$scope', '$routeParams', f
 	$scope.insuranceInfo.typeList = {};
 	var typeList = $scope.insuranceInfo.typeList;
 
+	//agregar campo en formulario para Seguro
 	this.addType = function() {
 		$scope.insuranceInfo.info.type_list.push({
 			name: '',
@@ -1560,18 +1540,18 @@ adminDash.controller('TypeListController', ['$http', '$scope', '$routeParams', f
 		});
 	};
 
+	//crear seguro
 	this.createType = function(insuranceCompanyID) {
 
+		//Objeto typeList para guardar info de seguro
 		typeList = {};
 		typeList.name = $scope.insuranceInfo.info.type_list.name;
 		typeList.category = $scope.insuranceInfo.info.type_list.category;
-		console.log(typeList);
-		console.log(insuranceCompanyID);
 
+		//servicio POST para crear Seguro
 		$http.post(endpoint + type + '/AddInsuranceType/' + insuranceCompanyID, typeList)
 			.success(function(data) {
 				if (!data.status) {
-					console.log("Paila, no se actualizó", data);
 					var error_msg = 'No se pudo agregar el seguro, verifica la información de nuevo.';
 					swal({
 						title: "",
@@ -1579,10 +1559,7 @@ adminDash.controller('TypeListController', ['$http', '$scope', '$routeParams', f
 						type: "error",
 						confirmButtonText: "Aceptar",
 					});
-					//console.log(JSON.stringify(data1));
 				} else {
-					// if successful, bind success message to message
-					console.log("Listo, doctor actualizado", data);
 					var success_msg = 'El seguro ha sido agregado con éxito.';
 					swal({
 						title: "",
@@ -1594,15 +1571,15 @@ adminDash.controller('TypeListController', ['$http', '$scope', '$routeParams', f
 			});
 	};
 
+	//borrar seguro
 	this.deleteType = function(id, type_id) {
-		console.log(id);
 		data1 = {};
 		data1.id = type_id;
-		console.log(data1);
+
+		//Servicio POST para eliminar seguro por su ID
 		$http.post(endpoint + type + '/RemoveInsuranceType/' + id, data1)
 			.success(function(data) {
 				if (!data.status) {
-					console.log("No se pudo eliminar el seguro", data);
 					var error_msg = 'Ha ocurrido un error al intentar eliminar el seguro.';
 					swal({
 						title: "",
@@ -1611,9 +1588,6 @@ adminDash.controller('TypeListController', ['$http', '$scope', '$routeParams', f
 						confirmButtonText: "Aceptar",
 					});
 				} else {
-					// if successful, bind success message to message
-					console.log("Seguro eliminado exitosamente.");
-					console.log(data);
 					var index = $scope.insuranceInfo.info.type_list.indexOf(type_id);
 					$scope.insuranceInfo.info.type_list.splice(index, 1);
 					var success_msg = 'El seguro ha sido eliminado con éxito.';
@@ -1627,7 +1601,8 @@ adminDash.controller('TypeListController', ['$http', '$scope', '$routeParams', f
 			});
 	};
 }]);
-//Controller for Practices - Seccions in Admin
+
+//Directiva y Controlador para sección de Especialidades
 adminDash.directive('practices', function() {
 	return {
 		restrict: 'E',
@@ -1637,21 +1612,16 @@ adminDash.directive('practices', function() {
 	};
 });
 adminDash.controller('AdminPracticesController', ['$http', '$scope', function($http, $scope) {
-	//console.log('THIS IS PRACTICES');
 	var type = 'Practice';
 
+	//crear especialidad
 	this.createPractice = function() {
-		//console.log('THIS IS CREATE PRACTICES');
 		var data1 = this.info;
-		//data1.type_list = [];
 
-		console.log('datos para crear especialidad');
-		console.log(data1);
-
+		//Servicio POST para crear Especialidad
 		$http.post(endpoint + type + '/Create', data1)
 			.success(function(data) {
 				if (!data.status) {
-					console.log("Paila, no se creó", data);
 					var error_msg = "No se puedo agregar la especialidad, verifica la información de nuevo.";
 					swal({
 						title: "",
@@ -1660,8 +1630,6 @@ adminDash.controller('AdminPracticesController', ['$http', '$scope', function($h
 						confirmButtonText: "Aceptar",
 					});
 				} else {
-					// if successful, bind success message to message
-					console.log("Listo, especialidad creada", data);
 					var success_msg = 'La especialidad ha sido creada con éxito!';
 					swal({
 						title: "",
@@ -1676,12 +1644,14 @@ adminDash.controller('AdminPracticesController', ['$http', '$scope', function($h
 		this.data = {};
 	};
 
+	//cargar especialidades
 	this.showPractices = function() {
 		var This = this;
+
+		//Servicio GET para cargar especialidades
 		$http.get(endpoint + type + '/GetAll')
 			.success(function(data) {
 				if (!data.status) {
-					console.log("No se encontraron especialidades", data);
 					var error_msg = 'Ha ocurrido un error al intentar cargar la lista de especialidades.';
 					swal({
 						title: "",
@@ -1690,24 +1660,20 @@ adminDash.controller('AdminPracticesController', ['$http', '$scope', function($h
 						confirmButtonText: "Aceptar",
 					});
 				} else {
-					// if successful, bind success message to message
-					console.log("Lista de especialidades");
-					console.log(data);
-
 					$scope.practices = data.response;
-					//console.log(JSON.stringify(dProfile.name));
 				}
 			});
 	};
 
+	//borrar especialidad por ID
 	this.deletePractice = function(id) {
-		console.log(id);
 		data1 = {};
 		data1.id = id;
+
+		//Servicio POST para borrar especialidad
 		$http.post(endpoint + type + '/Delete', data1)
 			.success(function(data) {
 				if (!data.status) {
-					console.log("No se pudo eliminar la especialidad", data);
 					var error_msg = 'Ha ocurrido un error al intentar eliminar la especialidad.';
 					swal({
 						title: "",
@@ -1716,9 +1682,6 @@ adminDash.controller('AdminPracticesController', ['$http', '$scope', function($h
 						confirmButtonText: "Aceptar",
 					});
 				} else {
-					// if successful, bind success message to message
-					console.log("Especialidad eliminada exitosamente.");
-					console.log(data);
 					var index = $scope.practices.indexOf(data1.id);
 					$scope.practices.splice(index, 1);
 					var success_msg = 'La especialidad ha sido eliminada con éxito.';
@@ -1732,8 +1695,10 @@ adminDash.controller('AdminPracticesController', ['$http', '$scope', function($h
 			});
 	};
 }]);
-//Controller for Practice Management in Admin Dashboard
+
+//Directiva y Controlador para editar especialidades
 adminDash.controller('PracticesManagementController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams) {
+	//fix para tab
 	$('#prac-tab a').click(function(e) {
 		e.preventDefault();
 		$(this).tab('show');
@@ -1744,11 +1709,10 @@ adminDash.controller('PracticesManagementController', ['$http', '$scope', '$rout
 
 	$scope.practiceInfo = this;
 
+	//Servicio GET para cargar especialidades
 	$http.get(endpoint + type + '/GetByID/' + id)
 		.success(function(data) {
 			if (!data.status) {
-				console.log("No se encontraron especialidades", data.error);
-				console.log(data);
 				var error_msg = 'Ha ocurrido un error al intentar cargar la especialidad.';
 				swal({
 					title: "",
@@ -1757,14 +1721,12 @@ adminDash.controller('PracticesManagementController', ['$http', '$scope', '$rout
 					confirmButtonText: "Aceptar",
 				});
 			} else {
-				// if successful, bind success message to message
-				console.log("Resultado de busqueda de especialidades:");
 				$scope.practiceInfo.info = data.response;
-				console.log($scope.practiceInfo.info);
 			}
 		});
 }]);
-//Controller for Basic Info - Admin Practices
+
+//Directiva y Controlador para editar info básica de especialidad
 adminDash.directive('basicPractice', function() {
 	return {
 		restrict: 'E',
@@ -1775,20 +1737,21 @@ adminDash.directive('basicPractice', function() {
 });
 adminDash.controller('BasicPracticeController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams) {
 	var type = "Practice";
+
+	//Objeto basicInfo para guardar información a editar
 	$scope.practiceInfo.basicInfo = {};
 	var basicInfo = $scope.practiceInfo.basicInfo;
 
+	//editar info especialidad
 	this.updatePractice = function(practice_id) {
 
 		basicInfo.name = $scope.practiceInfo.info.name;
 		basicInfo.type = $scope.practiceInfo.info.type;
-		console.log(basicInfo);
-		console.log(practice_id);
 
+		//Servicio POST para actualizar info básica
 		$http.post(endpoint + type + '/Update/' + practice_id, basicInfo)
 			.success(function(data) {
 				if (!data.status) {
-					console.log("Paila, no se actualizó", data);
 					var error_msg = 'No se puede actualizar la información de la especialidad, verifica de nuevo.';
 					swal({
 						title: "",
@@ -1796,10 +1759,7 @@ adminDash.controller('BasicPracticeController', ['$http', '$scope', '$routeParam
 						type: "error",
 						confirmButtonText: "Aceptar",
 					});
-					//console.log(JSON.stringify(data1));
 				} else {
-					// if successful, bind success message to message
-					console.log("Listo, doctor actualizado", data);
 					var success_msg = 'La información de la especialidad ha sido actualizada con éxito!';
 					swal({
 						title: "",
@@ -1811,7 +1771,8 @@ adminDash.controller('BasicPracticeController', ['$http', '$scope', '$routeParam
 			});
 	};
 }]);
-//Controller for Appointment Reasons Info - Admin Practices
+
+//Directiva y Controlador para agregar motivos de consulta
 adminDash.directive('reasonsPractice', function() {
 	return {
 		restrict: 'E',
@@ -1822,19 +1783,20 @@ adminDash.directive('reasonsPractice', function() {
 });
 adminDash.controller('ReasonsPracticeController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams) {
 	var type = "Practice";
+
+	//Objeto reasons para guardar información
 	$scope.practiceInfo.reasons = {};
 	var reasons = $scope.practiceInfo.reasons;
 
+	//crear motivo de consulta
 	this.createReason = function(practice_id) {
 
 		reasons.reason = $scope.practiceInfo.info.reason_list.reason;
-		console.log(reasons);
-		console.log(practice_id);
 
+		//Servicio POST para crear motivo de consulta
 		$http.post(endpoint + type + '/AddAppointmentReason/' + practice_id, reasons)
 			.success(function(data) {
 				if (!data.status) {
-					console.log("Paila, no se actualizó", data);
 					var error_msg = 'No se puede agregar el motivo de consulta, verifica de nuevo.';
 					swal({
 						title: "",
@@ -1842,10 +1804,7 @@ adminDash.controller('ReasonsPracticeController', ['$http', '$scope', '$routePar
 						type: "error",
 						confirmButtonText: "Aceptar",
 					});
-					//console.log(JSON.stringify(data1));
 				} else {
-					// if successful, bind success message to message
-					console.log("Listo, motivo de consulta actualizado", data);
 					var success_msg = 'El motivo de consulta ha sido agregado con éxito!';
 					swal({
 						title: "",
@@ -1857,15 +1816,15 @@ adminDash.controller('ReasonsPracticeController', ['$http', '$scope', '$routePar
 			});
 	};
 
+	//borrar motivo de consulta
 	this.deleteReason = function(practice_id, reason_id) {
-		console.log(practice_id);
 		data1 = {};
 		data1.reason_id = reason_id;
-		console.log(data1);
+
+		//Servicio POST para borrar motivo de consulta
 		$http.post(endpoint + type + '/RemoveAppointmentReason/' + practice_id, data1)
 			.success(function(data) {
 				if (!data.status) {
-					console.log("No se pudo eliminar el motivo", data);
 					var error_msg = 'No se puedo agregar el motivo de consulta, verifica de nuevo.';
 					swal({
 						title: "",
@@ -1874,9 +1833,6 @@ adminDash.controller('ReasonsPracticeController', ['$http', '$scope', '$routePar
 						confirmButtonText: "Aceptar",
 					});
 				} else {
-					// if successful, bind success message to message
-					console.log("Motivo eliminado exitosamente.");
-					console.log(data);
 					var index = $scope.practiceInfo.info.reason_list.indexOf(reason_id);
 					$scope.practiceInfo.info.reason_list.splice(index, 1);
 					var success_msg = 'El motivo de consulta ha sido eliminado con éxito!';
@@ -1891,7 +1847,7 @@ adminDash.controller('ReasonsPracticeController', ['$http', '$scope', '$routePar
 	};
 }]);
 
-//Controller for Customize Sections
+//Directiva y Controlador para editar textos de página de inicio
 adminDash.directive('customize', function() {
 	return {
 		restrict: 'E',
@@ -1902,14 +1858,15 @@ adminDash.directive('customize', function() {
 });
 
 adminDash.controller('CustomizeController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams) {
+	//Validación de sesión activa
 	if (localStorage.getItem("user")) {
 		$scope.userInfo = JSON.parse(localStorage.user);
 	};
 
+	//Servicio GET para cargar textos de página de inicio
 	$http.get(endpoint + 'Home')
 		.success(function(data) {
 			if (!data.status) {
-				console.log("No se actualizó", data);
 				var error_msg = 'No se pudieron cargar los datos.';
 				swal({
 					title: "",
@@ -1917,23 +1874,20 @@ adminDash.controller('CustomizeController', ['$http', '$scope', '$routeParams', 
 					type: "error",
 					confirmButtonText: "Aceptar",
 				});
-				//console.log(JSON.stringify(data1));
 			} else {
-				// if successful, bind success message to message
-				//console.log("Listo, datos cargados", data);
 				$scope.text = data.response.home_info;
 			}
 		});
 
+	//Guardar cambios en los textos textos
 	this.saveChanges = function() {
 		var data1 = {};
 		data1.home_info = $scope.text;
-		console.log(data1);
 
+		//Servicio POST para actualizar textos
 		$http.post(endpoint + 'Home' + '/Update', data1)
 			.success(function(data) {
 				if (!data.status) {
-					console.log("No se actualizó", data);
 					var error_msg = 'No se pudieron guardar los cambios, verifica de nuevo.';
 					swal({
 						title: "",
@@ -1941,10 +1895,7 @@ adminDash.controller('CustomizeController', ['$http', '$scope', '$routeParams', 
 						type: "error",
 						confirmButtonText: "Aceptar",
 					});
-					//console.log(JSON.stringify(data1));
 				} else {
-					// if successful, bind success message to message
-					console.log("Listo, cambios actualizados", data);
 					var success_msg = 'Los cambios han sido guardados con éxito!';
 					swal({
 						title: "",
@@ -1956,16 +1907,16 @@ adminDash.controller('CustomizeController', ['$http', '$scope', '$routeParams', 
 			});
 	};
 
+	//Función para invitar amigos, con el botón de Invitar de la página de inicio
 	this.invite = function() {
 		var data1 = this.data;
 		data1.message = "Hola, quiero invitarte a DocLinea, una plataforma online para agendar citas médicas al instante!";
 		data1.email = $scope.userInfo.email;
-		//console.log(data1);
 
+		//Servicio POST para enviar email de invitación
 		$http.post(endpoint + 'User' + '/Invite', data1)
 			.success(function(data) {
 				if (!data.status) {
-					console.log("No se envió el correo", data);
 					var error_msg = 'No se pudo enviar el correo, intenta de nuevo.';
 					swal({
 						title: "",
@@ -1973,10 +1924,8 @@ adminDash.controller('CustomizeController', ['$http', '$scope', '$routeParams', 
 						type: "error",
 						confirmButtonText: "Aceptar",
 					});
-					//console.log(JSON.stringify(data1));
 				} else {
-					// if successful, bind success message to message
-					console.log("Listo, correo enviado", data);
+					//Ocultar formulario al enviar invitación
 					$("#shadow, #form-box").fadeOut(800);
 					$("#curtain-invite").css('right', '-465px');
 				}
@@ -1985,7 +1934,7 @@ adminDash.controller('CustomizeController', ['$http', '$scope', '$routeParams', 
 
 }]);
 
-//Controller for Customize Notifications
+//Directiva y Controlador para editar textos de notificaciones y correos
 adminDash.directive('notifications', function() {
 	return {
 		restrict: 'E',
@@ -1997,10 +1946,10 @@ adminDash.directive('notifications', function() {
 
 adminDash.controller('NotificationsController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams) {
 
+	//Servicio GET para cargas textos de notificaciones y correos
 	$http.get(endpoint + 'Notifications')
 		.success(function(data) {
 			if (!data.status) {
-				console.log("No se actualizó", data);
 				var error_msg = 'No se pudieron cargar los datos.';
 				swal({
 					title: "",
@@ -2008,10 +1957,7 @@ adminDash.controller('NotificationsController', ['$http', '$scope', '$routeParam
 					type: "error",
 					confirmButtonText: "Aceptar",
 				});
-				//console.log(JSON.stringify(data1));
 			} else {
-				// if successful, bind success message to message
-				//console.log("Listo, datos cargados", data);
 				$scope.info = data.response.notification_info;
 			}
 		});
@@ -2021,10 +1967,10 @@ adminDash.controller('NotificationsController', ['$http', '$scope', '$routeParam
 		data1.notification_info = $scope.info;
 		//console.log(data1);
 
+		//Servicio POST para actualizar textos
 		$http.post(endpoint + 'Notifications' + '/Update', data1)
 			.success(function(data) {
 				if (!data.status) {
-					console.log("No se actualizó", data);
 					var error_msg = 'No se pudieron guardar los cambios, verifica de nuevo.';
 					swal({
 						title: "",
@@ -2032,10 +1978,7 @@ adminDash.controller('NotificationsController', ['$http', '$scope', '$routeParam
 						type: "error",
 						confirmButtonText: "Aceptar",
 					});
-					//console.log(JSON.stringify(data1));
 				} else {
-					// if successful, bind success message to message
-					console.log("Listo, cambios actualizados", data);
 					var success_msg = 'Los cambios han sido guardados con éxito!';
 					swal({
 						title: "",
