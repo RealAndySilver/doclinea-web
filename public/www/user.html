@@ -12,40 +12,46 @@
 			<div class="center">
 				<div class="inner-info-box">
 					<h2>Citas</h2>	
-					<ul class="list-group" ng-repeat="a in appointments">
-						<img width="120px" ng-src="{{a.doctor_image}}">
-						<li class="list-group-item">Doctor(a): {{a.doctor_name}}</li>
-					    <li class="list-group-item">Fecha de Cita: {{a.date_start | date:"MMM dd hh:mm a"}}</li>
-					    <li class="list-group-item">Motivo de Cita: {{a.reason}}</li>
-					    <li class="list-group-item">Lugar: {{a.location[0].location_address}}</li>
-					    <!-- <script src="https://addthisevent.com/libs/ate-latest.min.js"></script> -->
-					    <script src="../www/js/libs/add_this_event.js"></script>
-					    <script type="text/javascript">
-						    //$( document ).ready(function() {
-								addthisevent.settings({
-									mouse		: false,
-									css			: false,
-									outlook		: {show:true, text:"Outlook Calendar"},
-									google		: {show:true, text:"Google Calendar"},
-									yahoo		: {show:true, text:"Yahoo Calendar"},
-									ical		: {show:true, text:"iCal Calendar"},
-									hotmail		: {show:true, text:"Hotmail Calendar"},
-									facebook	: {show:true, text:"Facebook Calendar"}
-								});
-						    //});
-						</script>
-					    <li class="list-group-item">
-						    <a href="http://example.com/link-to-your-event" target="_blank" title="Add to Calendar" class="addthisevent">
-							    Agregar a mi calendario
-							    <span class="_start">{{a.date_start | date:"MMM dd hh:mm a"}}</span>
-							    <span class="_end">{{a.date_end | date:"MMM dd hh:mm a"}}</span>
-							    <span class="_zonecode">14</span>
-							    <span class="_summary">Cita Médica</span>
-							    <span class="_description">{{a.reason}}</span>
-							    <span class="_location">{{a.location[0].location_address}}</span>
-							    <span class="_organizer">{{a.doctor_name}}</span>
-							</a>
-						</li>
+					<ul class="list-group panel panel-info" ng-repeat="a in appointments">
+						<div class="img-box">
+							<img width="120px" ng-if="!a.doctor_image" src="../www/css/images/doctormale.png">
+							<img width="120px" ng-src="{{a.doctor_image}}">
+						</div>
+						<div class="info-box">
+							<li class="list-group-item"><b>Doctor(a):</b> {{a.doctor_name}}</li>
+						    <li class="list-group-item"><b>Fecha de Cita:</b> {{a.date_start | date:"MMM dd hh:mm a"}}</li>
+						    <li class="list-group-item"><b>Motivo de Cita:</b> {{a.reason}}</li>
+						    <li class="list-group-item"><b>Lugar:</b> {{a.location[0].location_address}}</li>
+						    <!-- <script src="https://addthisevent.com/libs/ate-latest.min.js"></script> -->
+						    <script src="../www/js/libs/add_this_event.js"></script>
+						    <script type="text/javascript">
+							    //$( document ).ready(function() {
+									addthisevent.settings({
+										mouse		: false,
+										css			: false,
+										outlook		: {show:true, text:"Outlook Calendar"},
+										google		: {show:true, text:"Google Calendar"},
+										yahoo		: {show:true, text:"Yahoo Calendar"},
+										ical		: {show:true, text:"iCal Calendar"},
+										hotmail		: {show:true, text:"Hotmail Calendar"},
+										facebook	: {show:true, text:"Facebook Calendar"}
+									});
+							    //});
+							</script>
+						    <li class="list-group-item">
+							    <a href="http://example.com/link-to-your-event" target="_blank" title="Add to Calendar" class="addthisevent">
+								    Agregar a mi calendario
+								    <span class="_start">{{a.date_start | date:"MMM dd hh:mm a"}}</span>
+								    <span class="_end">{{a.date_end | date:"MMM dd hh:mm a"}}</span>
+								    <span class="_zonecode">14</span>
+								    <span class="_summary">Cita Médica</span>
+								    <span class="_description">{{a.reason}}</span>
+								    <span class="_location">{{a.location[0].location_address}}</span>
+								    <span class="_organizer">{{a.doctor_name}}</span>
+								</a>
+								<a ng-click="cancelAppointment(a._id)" class="cancel-button addthisevent-drop" href="">Cancelar cita</a>
+							</li>
+						</div>
 					</ul>
 				</div>
 			</div>	
@@ -67,14 +73,20 @@
 			<div class="center">
 				<div class="inner-info-box">
 					<h2>Mis Doctores</h2>
-					<ul class="list-group" ng-repeat="f in favorites">
-						<img width="120px" ng-src="{{f.profile_pic.image_url}}">
-						<li class="list-group-item">Doctor(a): {{f.name}} {{f.lastname}}</li>
-					    <li class="list-group-item">Especialidad: {{f.practice_list[0]}}</li>
-					    <li class="list-group-item">
-					    	<a href="#/doctor/{{f._id}}" class="btn btn-info btn-md">Ver perfil</a>
-					    	<a ng-click="unfavDoctor(f._id)" href="" class="btn btn-info btn-md">Eliminar</a>
-					    </li>
+					<ul class="list-group panel panel-info" ng-repeat="f in favorites">
+						<div class="img-box">
+							<img width="120px" ng-if="!f.profile_pic.image_url" src="../www/css/images/doctormale.png">
+							<img width="120px" ng-src="{{f.profile_pic.image_url}}">
+						</div>
+						<div class="info-box">
+							<li class="list-group-item"><b>Doctor(a):</b> {{f.name}} {{f.lastname}}</li>
+						    <li class="list-group-item"><b>Especialidad:</b> {{f.practice_list[0]}}</li>
+						    <li class="list-group-item"><b>Consultorio:</b> {{f.location_list[0].location_address}}</li>
+						    <li class="list-group-item">
+						    	<a href="#/doctor/{{f._id}}" class="btn btn-info btn-md">Ver perfil</a>
+						    	<a ng-click="unfavDoctor(f._id)" href="" class="btn btn-info btn-md">Eliminar</a>
+						    </li>
+						</div>
 					</ul>
 				</div>
 			</div>
