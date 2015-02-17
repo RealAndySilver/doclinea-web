@@ -12,12 +12,13 @@
 			<div class="center">
 				<div class="inner-info-box">
 					<h2>Citas</h2>	
-					<ul class="list-group panel panel-info" ng-repeat="a in appointments">
+					<ul class="list-group" ng-repeat="a in appointments">
 						<div class="img-box">
 							<img width="120px" ng-if="!a.doctor_image" src="../www/css/images/doctormale.png">
 							<img width="120px" ng-src="{{a.doctor_image}}">
 						</div>
 						<div class="info-box">
+							<li class="list-group-item"><b>Paciente:</b> {{a.patient_name}}</li>
 							<li class="list-group-item"><b>Doctor(a):</b> {{a.doctor_name}}</li>
 						    <li class="list-group-item"><b>Fecha de Cita:</b> {{a.date_start | date:"MMM dd hh:mm a"}}</li>
 						    <li class="list-group-item"><b>Motivo de Cita:</b> {{a.reason}}</li>
@@ -75,8 +76,10 @@
 					<h2>Mis Doctores</h2>
 					<ul class="list-group panel panel-info" ng-repeat="f in favorites">
 						<div class="img-box">
-							<img width="120px" ng-if="!f.profile_pic.image_url" src="../www/css/images/doctormale.png">
-							<img width="120px" ng-src="{{f.profile_pic.image_url}}">
+							<div class="fav-img">
+								<img width="120px" ng-if="!f.profile_pic.image_url" src="../www/css/images/doctormale.png">
+								<img width="120px" ng-src="{{f.profile_pic.image_url}}">
+							</div>
 						</div>
 						<div class="info-box">
 							<li class="list-group-item"><b>Doctor(a):</b> {{f.name}} {{f.lastname}}</li>

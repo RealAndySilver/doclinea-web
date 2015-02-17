@@ -407,15 +407,25 @@ header {
   text-align: center;
   padding: 3px;
 }
-#user_appointments .img-box,
-#user_doctors .img-box {
+#user_appointments .img-box {
   float: left;
   width: 20%;
   height: 100%;
   padding: 50px;
 }
 #user_doctors .img-box {
-  padding: 35px;
+  float: left;
+  width: 20%;
+  height: 100%;
+}
+.img-box .fav-img {
+  margin: 25px;
+  height: 73%;
+  width: 74%;
+  overflow: hidden;
+}
+.img-box .fav-img img {
+  width: 100%;
 }
 #user_appointments .info-box,
 #user_doctors .info-box {
@@ -424,13 +434,16 @@ header {
   margin-top: 3px;
 }
 #user_appointments .panel-info {
-  height: 260px;
-  background: #009fe3;
+  height: 302px;
+  background: #fff;
   margin: 45px 0;
+}
+#user_appointments ul.list-group {
+  height: 320px;
 }
 #user_doctors .panel-info {
   height: 188px;
-  background: #009fe3;
+  background: #fff;
   margin: 45px 0;
 }
 .cancel-button {
