@@ -204,6 +204,9 @@ header {
   height: 520px;
   overflow: scroll;
 }
+.events-box .form-control {
+  margin-bottom: 20px;
+}
 .calendar-box {
   width: 70%;
   float: left;
@@ -434,4 +437,10 @@ header {
   float: right;
   height: 66px;
   line-height: 43px;
+}
+.taken-info {
+  margin-bottom: 20px;
+}
+.taken-info span {
+  display: block;
 }

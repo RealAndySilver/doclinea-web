@@ -127,7 +127,7 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig) {
 		var y = date.getFullYear();
 
 		$scope.events.push({
-			title: 'Nuevo evento',
+			title: 'Descripción',
 			start: new Date(y, m, d, h, mm),
 			end: new Date(y, m, d, h, mm + 5),
 			className: ['openSesame'],
@@ -200,8 +200,10 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig) {
 		appointment.status = event.status;
 		appointment.date_start = event.start;
 		appointment.date_end = event.end;
+		appointment.doctor_notes = event.description;
 		appointment.location = $scope.docInfo.location_list;
 		appointment.doctor_image = $scope.docInfo.profile_pic.image_url;
+		console.log('citaa ', appointment);
 
 		//Servicio POST para crear un evento (cita) con estado
 		$http.post(endpoint + 'Appointment' + '/Create/' + appointment.doctor_id, appointment)
@@ -244,20 +246,24 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig) {
 				for (var i in appointments) {
 					if (appointments[i].status == 'available') {
 						eventColor = '#4DC34D';
-						eventStatus = 'Disponible';
+						eventStatus = appointments[i].doctor_notes;
 						eventTextColor = 'white';
+						className = ['openSesame'];
 					} else if (appointments[i].status == 'taken') {
 						eventColor = '#E9530E';
-						eventStatus = 'Cita agendada';
+						eventStatus = appointments[i].patient_name;
 						eventTextColor = 'white';
+						className = ['openSesame'];
 					} else if (appointments[i].status == 'cancelled') {
-						eventColor = '#E71C2C';
+						eventColor = '';
 						eventStatus = 'Cancelado';
-						eventTextColor = 'white';
+						eventTextColor = '';
+						className = ['invisible-event'];
 					} else {
 						eventColor = '#4F6769';
-						eventStatus = 'Externo';
+						eventStatus = appointments[i].doctor_notes;
 						eventTextColor = 'white';
+						className = ['openSesame'];
 					}
 
 					var appointment = {
@@ -266,7 +272,11 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig) {
 						start: new Date(appointments[i].date_start),
 						end: new Date(appointments[i].date_end),
 						status: appointments[i].status,
-						className: ['openSesame'],
+						description: appointments[i].doctor_notes,
+						insurance: appointments[i].insurance,
+						reason: appointments[i].reason,
+						phone: appointments[i].patient_phone,
+						className: className,
 						allDay: false,
 						color: eventColor,
 						textColor: eventTextColor,
@@ -276,6 +286,7 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig) {
 					$scope.events.push(appointment);
 				}
 			}
+			console.log($scope.events);
 		});
 	};
 
@@ -288,6 +299,7 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig) {
 		appointment.status = event.status;
 		appointment.date_start = event.start;
 		appointment.date_end = event.end;
+		appointment.doctor_notes = event.description;
 		appointment.location = $scope.docInfo.location_list;
 
 		//Servicio POST que actualiza un evento
@@ -299,12 +311,55 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig) {
 					type: "success",
 					confirmButtonText: "Aceptar",
 				}, function() {
-	                location.reload();
-	            });
-				
+					location.reload();
+				});
+
 			});
 
 	};
+
+	//función para cancelar cita por parte de doctor
+	$scope.cancelAppointment = function(appointmentId) {
+		console.log('ID citaa ', appointmentId);
+		data1 = {};
+		data1.doctor_id = $scope.doctorId;
+		console.log('ID doctooor ', data1);
+
+		swal({
+				title: "Cancelación de Cita",
+				text: "¿Seguro que quieres eliminar esta cita?",
+				type: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#5CB85C",
+				confirmButtonText: "Aceptar",
+				cancelButtonText: "Cancelar",
+				closeOnConfirm: true,
+			},
+			function() {
+				//Servicio POST para cancelar cita 
+				$http.post(endpoint + "Appointment" + '/Cancel/' + appointmentId + '/' + "doctor", data1)
+					.success(function(data) {
+						if (!data.status) {
+							swal({
+								title: "Error de Servidor",
+								text: "Ha ocurrido un error al cargar la información del doctor.",
+								type: "error",
+								confirmButtonText: "Aceptar",
+							});
+						} else {
+							swal({
+								title: "",
+								text: "La cita ha sido eliminada con éxito.",
+								type: "success",
+								confirmButtonText: "Aceptar",
+							}, function() {
+								location.reload();
+							});
+						}
+					});
+			});
+
+	}
 
 	//función que valida que mientras el doctor actual tenga sesión, se carguen sus datos y sus eventos
 	$scope.$watch('doctorId', function(newValue) {
