@@ -112,7 +112,7 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig) {
 		$scope.events.push({
 			title: 'Nuevo evento',
 			start: new Date(y, m, d, h, mm),
-			end: new Date(y, m, d, h, mm + 30),
+			end: new Date(y, m, d, h, mm + 5),
 			className: ['openSesame'],
 			allDay: false,
 			color: num == 0 ? '' : 'green',

@@ -28,6 +28,7 @@
 
 	//Endpoint de API
 	var endpoint = "http://192.241.187.135:1414/api_1.0/";
+	//var endpoint = "http://192.168.0.32:1414/api_1.0/";
 
 	//Rutas de la Aplicación
 	app.config(['$routeProvider',

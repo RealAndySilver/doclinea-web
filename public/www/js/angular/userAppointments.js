@@ -42,9 +42,6 @@ userAppointments.controller('AppointmentsController', ['$http', '$scope', '$rout
 					type: "success",
 					confirmButtonText: "Aceptar",
 				});
-				function() {
-					location.reload();
-				});
 			}
 		});
 	}
