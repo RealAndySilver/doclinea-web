@@ -19,10 +19,11 @@
                                     <a ng-show="selectedEvent.color" class="close" ng-click="cancelAppointment(selectedEvent._id)"><i class="icon-remove"></i>x</a>
                                     <span class="event-rank"><b>{{selectedEvent.start | date:"MMM dd hh:mm a"}} - {{selectedEvent.end | date:"MMM dd hh:mm a"}}</b></span>
                                     	 <center>
-                                    	 	<input ng-hide="selectedEvent.status === 'taken'" placeholder="Descripción" class="form-control" type="text" placeholder="{{selectedEvent.doctor_notes}}" ng-model="selectedEvent.title">
+                                    	 	<input ng-hide="selectedEvent.status === 'taken'" placeholder="Descripción" class="form-control" type="text" placeholder="{{selectedEvent.doctor_notes}}" ng-model="selectedEvent.description">
                                     	 	<div ng-show="selectedEvent.status === 'taken'" class="taken-info">
                                     	 		<span>{{selectedEvent.title}}</span>
                                     	 		<span>{{selectedEvent.insurance[0].insurance}} - {{selectedEvent.insurance[0].insurance_type}}</span>
+                                    	 		<span ng-if="!selectedEvent.insurance[0]">Pago como particular</span>
                                     	 		<span>Motivo: {{selectedEvent.reason}}</span>
                                     	 		<span>Tel: {{selectedEvent.phone}}</span>
                                     	 	</div>

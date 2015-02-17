@@ -74,7 +74,7 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig) {
 	};
 
 	//función que se activa al cambiar el tamaño de un evento 
-	$scope.alertOnResize = function(event, jsEvent, ui, view) {
+	$scope.alertOnResize = function(delta, event, jsEvent, ui, view) {
 		$scope.alertMessage = ('Fecha de finalización cambiada a ' + event.end.format("dddd DD [de] MMMM [de] YYYY h:MM:ss"));
 		//llamar a la función que actualiza un evento del calendario
 		$scope.updateEvent(event);
@@ -174,6 +174,7 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig) {
 			eventDrop: $scope.alertOnDrop,
 			eventResize: $scope.alertOnResize,
 			dayClick: function(date, allDay, jsEvent, view) {
+				//console.log()
 				$scope.addEventClick(date);
 			},
 		}
@@ -286,7 +287,6 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig) {
 					$scope.events.push(appointment);
 				}
 			}
-			console.log($scope.events);
 		});
 	};
 

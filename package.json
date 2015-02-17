@@ -8,7 +8,6 @@
 	},
 	"dependencies": {
 		"express": "4.x",
-		"jade" : "*",
 		"stylus" : "*",
 		"nib" : "*",
 		"body-parser" : "1.x",
