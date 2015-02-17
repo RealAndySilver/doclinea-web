@@ -20,7 +20,8 @@
 						<div class="info-box">
 							<li class="list-group-item"><b>Paciente:</b> {{a.patient_name}}</li>
 							<li class="list-group-item"><b>Doctor(a):</b> {{a.doctor_name}}</li>
-						    <li class="list-group-item"><b>Fecha de Cita:</b> {{a.date_start | date:"MMM dd hh:mm a"}}</li>
+						    <li class="list-group-item"><b>Hora de Inicio:</b> {{a.date_start | date:"MMM dd hh:mm a"}}</li>
+						    <li class="list-group-item"><b>Hora de Finalización:</b> {{a.date_end | date:"MMM dd hh:mm a"}}</li>
 						    <li class="list-group-item"><b>Motivo de Cita:</b> {{a.reason}}</li>
 						    <li class="list-group-item"><b>Lugar:</b> {{a.location[0].location_address}}</li>
 						    <!-- <script src="https://addthisevent.com/libs/ate-latest.min.js"></script> -->

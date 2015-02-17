@@ -98,7 +98,8 @@ function BookingController($scope, $http, $routeParams, $location, $anchorScroll
                         type: "success",
                         confirmButtonText: "Aceptar",
                     });
-                    window.location = "/#/user/" + appointmentData.user_id;
+                    $location.url('/user/54bd2df6035b39e043000003/#user_appointments');
+                    //window.location = "/#/user/" + appointmentData.user_id;
                 }
             })
     }
