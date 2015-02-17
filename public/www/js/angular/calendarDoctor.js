@@ -62,6 +62,7 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig) {
 
 	//función que se activa al hacer click en un dia del calendario
 	$scope.alertOnEventClick = function(event, allDay, jsEvent, view) {
+		$scope.selectedEvent = event;
 		$scope.alertMessage = (event.title + ' en ' + event.start.format("dddd DD [de] MMMM [de] YYYY h:MM:ss"));
 	};
 
@@ -148,6 +149,8 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig) {
 			textColor: 'black',
 			forceEventDuration: true
 		});
+
+		$scope.selectedEvent = $scope.events[$scope.events.length - 1];
 	};
 
 	//Remover evento de lista de eventos
@@ -233,6 +236,7 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig) {
 						confirmButtonText: "Aceptar",
 					});
 				}
+
 				$scope.getAppointments(appointment.doctor_id);
 			});
 
@@ -242,6 +246,8 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig) {
 	$scope.getAppointments = function(doctorId) {
 		$http.get(endpoint + 'Appointment' + '/GetAllForDoctor/' + doctorId).success(function(data) {
 			var appointments = data.response;
+
+			$scope.events.length = 0;
 
 			if (appointments.length > 0) {
 				var eventColor = '';

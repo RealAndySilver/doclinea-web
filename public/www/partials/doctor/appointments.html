@@ -14,28 +14,15 @@
 		        	<div>
 		                <div class="row-fluid">
 		                    <div class="span4 events-box">
-		                        <div class="btn-group calTools">
-		                          <button type="button" class="btn btn-primary" ng-click="addEvent(0)">
-		                            Agregar Hoy
-		                          </button>
-		                        </div>
 
-		                        <ul class="unstyled events-list">
-		                            <li ng-repeat="e in events | orderBy : 'start'">
-		                                <div class="alert alert-info" style="background:{{e.color}}; color:{{e.textColor}};">
-		                                    <a class="close" ng-click="remove($index)"><i class="icon-remove"></i>x</a>
-		                                    <span class="event-rank"><b>{{e.start | date:"MMM dd hh:mm a"}} - {{e.end | date:"MMM dd hh:mm a"}}</b></span>
-												 <div class="event-status"><input type="radio" name="available" id="available" value="available" ng-model="e.status"> Disponible</div>
-												 <div class="event-status"><input type="radio" name="external" id="external" value="external" ng-model="e.status"> Externo</div>
-												 <div class="event-status"><input type="radio" name="cancelled" id="cancelled" value="cancelled" ng-model="e.status"> Cancelado</div>
-											<button type="button" class="btn btn-info btn-sm" ng-click="setAppointment(status, e)">Guardar</button>
-											<button type="button" class="btn btn-info btn-sm" ng-click="updateEvent(e)">Actualizar estado</button>
-		                                </div>
-		                            </li>
-		                        </ul>
-		                        <div id="bottom-flag">
-		                        	<i class="fa fa-angle-double-down fa-2x"></i>
-		                        </div>
+		                        <div class="alert alert-info" style="background:{{selectedEvent.color}}; color:{{selectedEvent.textColor}};" ng-show="selectedEvent">
+                                    <span class="event-rank"><b>{{selectedEvent.start | date:"MMM dd hh:mm a"}} - {{selectedEvent.end | date:"MMM dd hh:mm a"}}</b></span>
+										 <div class="event-status"><input type="radio" name="available" id="available" value="available" ng-model="selectedEvent.status"> <label for="available">Disponible</label></div>
+										 <div class="event-status"><input type="radio" name="external" id="external" value="external" ng-model="selectedEvent.status"> <label for="external">Externo</label></div>
+										 <div class="event-status"><input type="radio" name="cancelled" id="cancelled" value="cancelled" ng-model="selectedEvent.status"> <label for="cancelled">Cancelado</label></div>
+									<button type="button" class="btn btn-info btn-sm" ng-click="setAppointment(status, selectedEvent)">Guardar</button>
+									<button type="button" class="btn btn-info btn-sm" ng-click="updateEvent(selectedEvent)">Actualizar estado</button>
+                                </div>
 
 		                    </div>
 
