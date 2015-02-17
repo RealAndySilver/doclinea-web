@@ -41,7 +41,9 @@ userAppointments.controller('AppointmentsController', ['$http', '$scope', '$rout
 					text: "La cita ha sido eliminada con éxito.",
 					type: "success",
 					confirmButtonText: "Aceptar",
-				});
+				}, function() {
+	                location.reload();
+	            });
 			}
 		});
 	}

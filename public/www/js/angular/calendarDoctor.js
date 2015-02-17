@@ -62,8 +62,8 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig) {
 
 	//función que se activa al hacer click en un dia del calendario
 	$scope.alertOnEventClick = function(event, allDay, jsEvent, view) {
+		//variable que muestra un evento seleccionado en el calendario
 		$scope.selectedEvent = event;
-		$scope.alertMessage = (event.title + ' en ' + event.start.format("dddd DD [de] MMMM [de] YYYY h:MM:ss"));
 	};
 
 	//función que se activa al arrastrar un evento del calendario a otra posición
@@ -101,15 +101,7 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig) {
 		var d = date.getDate();
 		var m = date.getMonth();
 		var y = date.getFullYear();
-		//aquí se fija la duración de evento por defecto a 30 minutos
-		if (mm < 15) {
-			mm = 0;
-		} else if (mm < 45) {
-			mm = 30;
-		} else {
-			mm = 0;
-			++h;
-		}
+
 		$scope.events.push({
 			title: 'Nuevo evento',
 			start: new Date(y, m, d, h, mm),
@@ -120,33 +112,28 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig) {
 			textColor: num == 0 ? 'black' : 'white',
 			forceEventDuration: true
 		});
+
+		$scope.selectedEvent = $scope.events[$scope.events.length - 1];
 	};
 
 	//función que añade un evento en el día seleccionado del calendario
 	$scope.addEventClick = function(start) {
+
 		var date = new Date(start);
 		var mm = date.getMinutes();
 		var h = date.getHours();
 		var d = date.getDate() + 1;
 		var m = date.getMonth();
 		var y = date.getFullYear();
-		if (mm < 15) {
-			mm = 0;
-		} else if (mm < 45) {
-			mm = 30;
-		} else {
-			mm = 0;
-			++h;
-		}
 
 		$scope.events.push({
 			title: 'Nuevo evento',
 			start: new Date(y, m, d, h, mm),
-			end: new Date(y, m, d, h, mm + 30),
+			end: new Date(y, m, d, h, mm + 5),
 			className: ['openSesame'],
 			allDay: false,
 			color: '',
-			textColor: 'black',
+			textColor: '',
 			forceEventDuration: true
 		});
 
@@ -175,7 +162,7 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig) {
 	//Configuración de Calendario
 	$scope.uiConfig = {
 		calendar: {
-			height: 450,
+			height: 650,
 			editable: true,
 			header: {
 				left: 'title',
@@ -311,8 +298,12 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig) {
 					text: "El estado de la cita ha sido actualizado.",
 					type: "success",
 					confirmButtonText: "Aceptar",
-				});
+				}, function() {
+	                location.reload();
+	            });
+				
 			});
+
 	};
 
 	//función que valida que mientras el doctor actual tenga sesión, se carguen sus datos y sus eventos
