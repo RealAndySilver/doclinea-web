@@ -97,9 +97,13 @@ function BookingController($scope, $http, $routeParams, $location, $anchorScroll
                         text: "Usted ha tomado la cita con éxito.",
                         type: "success",
                         confirmButtonText: "Aceptar",
+                    }, function() {
+                        window.location = "/#/user/" + appointmentData.user_id;
+                        setTimeout(function() {
+                            $('#applist').trigger("click");
+                        }, 400);
                     });
-                    $location.url('/user/54bd2df6035b39e043000003/#user_appointments');
-                    //window.location = "/#/user/" + appointmentData.user_id;
+
                 }
             })
     }

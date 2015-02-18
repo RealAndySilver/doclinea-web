@@ -74,7 +74,7 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig) {
 	};
 
 	//función que se activa al cambiar el tamaño de un evento 
-	$scope.alertOnResize = function(delta, event, jsEvent, ui, view) {
+	$scope.alertOnResize = function(event, jsEvent, ui, view) {
 		$scope.alertMessage = ('Fecha de finalización cambiada a ' + event.end.format("dddd DD [de] MMMM [de] YYYY h:MM:ss"));
 		//llamar a la función que actualiza un evento del calendario
 		$scope.updateEvent(event);
@@ -110,7 +110,7 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig) {
 			allDay: false,
 			color: num == 0 ? '' : 'green',
 			textColor: num == 0 ? 'black' : 'white',
-			forceEventDuration: true
+			forceEventDuration: false
 		});
 
 		$scope.selectedEvent = $scope.events[$scope.events.length - 1];
@@ -134,7 +134,7 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig) {
 			allDay: false,
 			color: '',
 			textColor: '',
-			forceEventDuration: true
+			forceEventDuration: false
 		});
 
 		$scope.selectedEvent = $scope.events[$scope.events.length - 1];
@@ -281,7 +281,7 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig) {
 						allDay: false,
 						color: eventColor,
 						textColor: eventTextColor,
-						forceEventDuration: true
+						forceEventDuration: false
 					};
 					//los eventos son agregados al ARRAY de eventos
 					$scope.events.push(appointment);
@@ -310,8 +310,6 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig) {
 					text: "El estado de la cita ha sido actualizado.",
 					type: "success",
 					confirmButtonText: "Aceptar",
-				}, function() {
-					location.reload();
 				});
 
 			});
