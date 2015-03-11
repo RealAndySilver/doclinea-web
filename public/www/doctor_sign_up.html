@@ -100,10 +100,11 @@
 					<div class="form-group">
 					  <label class="col-md-4 control-label" for="phone">Teléfono</label>  
 					  <div class="col-md-6">
-					  <input id="phone" name="phone" type="text" placeholder="" class="form-control input-md" ng-model="docSignUpCtrl.data.phone" ng-pattern="/^\d+$/" required>
+					  <input id="phone" name="phone" type="text" placeholder="" class="form-control input-md" ng-model="docSignUpCtrl.data.phone" ng-pattern="/^\d+$/" ng-maxlength="10" required>
 					  <div class="error" ng-show="doctorSignUpForm.phone.$dirty && doctorSignUpForm.phone.$invalid">
 					  	  <small class="error" ng-show="doctorSignUpForm.phone.$error.required">Por favor escribe tu teléfono.</small>
 						  <small class="error" ng-show="doctorSignUpForm.phone.$error.pattern">Tu número telefónico solo debe contener números y ningún espacio.</small>
+						  <small class="error" ng-show="doctorSignUpForm.phone.$error.maxlength">No olvides que el campo de teléfono debe ser numérico y de 10 dígitos. En caso de ser un fijo por favor anteponer el indicativo de tu ciudad</small>
 					  </div>
 					  </div>
 					</div>

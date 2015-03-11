@@ -13,7 +13,7 @@ createDoctor.controller('DoctorSignUpController', ['$http', '$scope', 'Practices
 	//Cargar especialidades
 	var promiseGetAllPractices = PracticesService.getAll();
 	promiseGetAllPractices.then(function(response) {
-		console.log(response.data);
+		//console.log(response.data);
 		self.practices = response.data.response;
 	});
 

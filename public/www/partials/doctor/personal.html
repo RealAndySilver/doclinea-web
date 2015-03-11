@@ -84,9 +84,10 @@
 				<div class="form-group">
 				  <label class="col-md-4 control-label" for="phone">Teléfono</label>  
 				  <div class="col-md-6">
-				  <input id="phone" name="phone" type="text" placeholder="" class="form-control input-md" ng-model="docDashCtrl.info.phone" ng-pattern="/^\d+$/">
+				  <input id="phone" name="phone" type="text" placeholder="" class="form-control input-md" ng-model="docDashCtrl.info.phone" ng-pattern="/^\d+$/" ng-maxlength="10">
 				  <div class="error" ng-show="personalDocInfo.phone.$dirty && personalDocInfo.phone.$invalid">
 					  <small class="error" ng-show="personalDocInfo.phone.$error.pattern">Su número telefónico solo debe contener números y ningún espacio.</small>
+					  <small class="error" ng-show="personalDocInfo.phone.$error.maxlength">No olvides que el campo de teléfono debe ser numérico y de 10 dígitos. En caso de ser un fijo por favor anteponer el indicativo de tu ciudad</small>
 				  </div>
 				  </div>
 				</div> 
