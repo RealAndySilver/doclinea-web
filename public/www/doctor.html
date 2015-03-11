@@ -19,8 +19,8 @@
 						<span class="doc-title-name">
 							<label ng-if="profile.dProfile.gender == 1">Dr.</label>
 							<label ng-if="profile.dProfile.gender != 1">Dra.</label>
-							{{profile.dProfile.name}}
-							{{profile.dProfile.lastname}}
+							{{profile.dProfile.name | capitalize}}
+							{{profile.dProfile.lastname | capitalize}}
 						</span>
 						<span class="doc-title-speciality">{{profile.dProfile.practice_list[0]}}</span>
 						<span class="fav-doc"><i class="fa fa-star-o"></i><a ng-click="favDoctor(profile.dProfile._id)">Agregar a Favoritos</a></span>
