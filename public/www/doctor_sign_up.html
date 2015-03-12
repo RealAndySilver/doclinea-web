@@ -156,7 +156,7 @@
 					<div class="form-group center-input last-form-element">
 						<div> 
 							<label class="radio-inline settings-label" for="terms">
-							  <input type="checkbox" name="terms" id="terms">
+							  <input type="checkbox" name="terms" id="terms" ng-model="terms" required>
 							  Leí y acepto el aviso de privacidad y los términos y condiciones.
 							</label>
 							<div class="error" ng-show="doctorSignUpForm.terms.$dirty && doctorSignUpForm.terms.$invalid">
@@ -164,12 +164,9 @@
 						    </div>
 						</div>
 					</div>
-					<!-- <div class="error warning" ng-show="doctorSignUpForm.$invalid">
-					    <small class="error warning">Recuerda diligenciar todo el formulario para poder registrarte.</small>
-					</div> -->
 					<div class="form-group">
 					  <div class="col-md-4 center-button">
-						<button id="doctor_sign_up_submit" name="doctor_sign_up_submit" class="btn btn-primary" popover="Recuerda diligenciar todo el formulario para poder registrarte." popover-trigger="mouseenter">Registrarse</button>
+						<button id="doctor_sign_up_submit" name="doctor_sign_up_submit" class="btn btn-primary" popover="Recuerda diligenciar todo el formulario para poder registrarte." popover-trigger="mouseenter" ng-disabled="doctorSignUpForm.$invalid">Registrarse</button>
 					  </div>
 					</div>
 				</fieldset>
