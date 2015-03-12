@@ -269,7 +269,7 @@ docDash.service('fileUpload', ['$http', function($http) {
 					confirmButtonText: "Aceptar",
 				});
 			})
-			.error(function() {
+			.error(function(data) {
 				var error_msg = 'No se pudo actualizar tu foto de perfil, verifica la información de nuevo.';
 				swal({
 					title: "",
@@ -277,6 +277,7 @@ docDash.service('fileUpload', ['$http', function($http) {
 					type: "error",
 					confirmButtonText: "Aceptar",
 				});
+				console.log(data);
 			});
 	}
 }]);
@@ -303,6 +304,7 @@ docDash.controller('DashboardPicturesController', ['$scope', 'fileUpload', funct
 	var type = 'Doctor';
 	$scope.uploadFile = function(doc_id) {
 		var file = $scope.myFile;
+		console.log('file is ' + JSON.stringify(file));
 		var uploadUrl = endpoint + type + '/UpdateProfilePic/' + doc_id;
 		fileUpload.uploadFileToUrl(file, uploadUrl);
 	};
