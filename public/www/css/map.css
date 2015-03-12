@@ -7,6 +7,7 @@
 }
 .infoWindowContent {
   font-size: 12px !important;
+  width: 240px;
 }
 #map h3 {
   font-size: 14px !important;
@@ -20,7 +21,6 @@
 .infoWindowContent .map-inner-info {
   float: left;
   width: 130px;
-  margin-left: 5px;
 }
 .gm-style-iw h3 {
   font-size: 18px;

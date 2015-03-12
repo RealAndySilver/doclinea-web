@@ -46,7 +46,7 @@ var profileView = angular.module('docProfile', [])
 						position: new google.maps.LatLng(info.location_list[0].lat, info.location_list[0].lon),
 						title: info.name + ' ' + info.lastname
 					});
-					marker.content = '<div class="infoWindowContent"><div class="map-inner-info"><h4>' + info.practice_list[0] + '</h4><h4>' + info.location_list[0].location_address + '</h4></div></div>';
+					marker.content = '<div class="infoWindowContent"><div class="map-inner-info"><h4>' + info.practice_list[0] + '</h4><h4>' + info.location_list[0].location_name + '</h4><h4>' + info.location_list[0].location_address + '</h4></div></div>';
 
 					google.maps.event.addListener(marker, 'click', function() {
 						infoWindow.setContent('<h5 class="info-map-title">' + marker.title + '</h5>' + marker.content);
