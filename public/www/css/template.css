@@ -495,3 +495,6 @@ footer .footer-bottom {
 .link-pointer {
   cursor: pointer;
 }
+.dropdown-menu li a {
+  cursor: pointer;
+}

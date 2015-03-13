@@ -6,7 +6,7 @@
 				<div class="form-group">
 				  <label class="col-md-4 control-label" for="email">Foto de perfil</label>  
 				  <div class="col-md-6">
-				  	<img id="doc-pic" ng-if="!docManageCtrl.info.profile_pic" src="http://www.bowentraining.com.au/wp-content/plugins/bta/images/profile_placeholder.gif" class="img-thumbnail" />
+				  	<img id="doc-pic" ng-if="!docManageCtrl.info.profile_pic" src="../www/css/images/no-logo.png" class="img-thumbnail" />
 				    <img id="doc-pic" ng-if="docManageCtrl.info.profile_pic" ng-src="{{docManageCtrl.info.profile_pic.image_url}}" class="img-thumbnail" />
 				    <span class="btn btn-info btn-file">Subir foto
 				  		<input type="file" id="doc-image" class="form-control input-md" doctor-pic="myFile" ng-model="image">
