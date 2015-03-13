@@ -12,10 +12,17 @@ var profileView = angular.module('docProfile', [])
 
 		var This = this;
 
+		//iniciar loading
+		$("#doc-profile").css('visibility', 'hidden');
+		$('#doc-search-box').show();
+
 		//Servicio GET para cargar perfil de Doctor según su ID
 		$http.get(endpoint + type + '/GetById/' + id)
 			.success(function(data) {
 				if (!data.status) {
+					//terminar loading
+					$('#doc-search-box').hide();
+					$("#doc-profile").css('visibility', 'hidden');
 					swal({
 						title: "Error de Servidor",
 						text: "Ha ocurrido un error al cargar la información del doctor.",
@@ -25,6 +32,9 @@ var profileView = angular.module('docProfile', [])
 					//Redirección a inicio de página si no se puede cargar el perfil de Doctor
 					window.location = "/#/";
 				} else {
+					//terminar loading
+					$('#doc-search-box').hide();
+					$("#doc-profile").css('visibility', 'visible');
 					This.dProfile = data.response;
 				}
 
