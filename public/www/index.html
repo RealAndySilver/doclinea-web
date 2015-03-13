@@ -75,13 +75,13 @@
                     <!-- <li class="vertical-divider"></li> -->
                     <li ng-show="loginCtrl.getStatus() == 0"><a href="#/registration"><span>Registrarse</span></a></li>
                     <li ng-show="loginCtrl.getStatus() == 0"><a href="#/sign_in"><span>Iniciar sesión</span><i class="fa fa-chevron-right fa-lg"></i></a></li>
-                    <li ng-show="loginCtrl.getStatus() == 1" class="btn-group"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#/user/{{loginCtrl.getUserId()}}"><span>{{loginCtrl.getUsername() | capitalize}}</span><i class="fa fa-chevron-right fa-lg"></i></a>
+                    <li ng-cloak ng-show="loginCtrl.getStatus() == 1" class="btn-group"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#/user/{{loginCtrl.getUserId()}}"><span>{{loginCtrl.getUsername() | capitalize}}</span><i class="fa fa-chevron-right fa-lg"></i></a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="#/user/{{loginCtrl.getUserId()}}">Mi Cuenta</a></li>
                             <li><a ng-click="loginCtrl.logout()">Cerrar sesión</a></li>
                         </ul>
                     </li>
-                    <li ng-show="loginCtrl.getStatus() == 2" class="btn-group"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#/doctor_dashboard/{{loginCtrl.getUserId()}}"><span>{{loginCtrl.getUsername() | capitalize}}</span><i class="fa fa-chevron-right fa-lg"></i></a>
+                    <li ng-cloak ng-show="loginCtrl.getStatus() == 2" class="btn-group"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#/doctor_dashboard/{{loginCtrl.getUserId()}}"><span>{{loginCtrl.getUsername() | capitalize}}</span><i class="fa fa-chevron-right fa-lg"></i></a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="#/doctor_dashboard/{{loginCtrl.getUserId()}}">Mi Cuenta</a></li>
                             <li><a ng-click="loginCtrl.logout()">Cerrar sesión</a></li>

@@ -360,7 +360,7 @@ li.vertical-divider {
 }
 .inner-info-box .column-b hr {
   border-top: solid 1px #ec6526;
-  width: 70%;
+  width: 80%;
   float: left;
   padding-right: 80px;
   margin: 10px 0 20px;
@@ -497,4 +497,12 @@ footer .footer-bottom {
 }
 .dropdown-menu li a {
   cursor: pointer;
+}
+[ng:cloak],
+[ng-cloak],
+[data-ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
+.x-ng-cloak {
+  display: none !important;
 }
