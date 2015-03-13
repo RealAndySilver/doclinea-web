@@ -91,6 +91,7 @@ adminDash = angular.module('adminDashboard', []);
 
 //Controlador Principal para Módulo de Administración
 adminDash.controller('AdminDashboardController', ['$http', '$scope', '$routeParams', 'PracticesService', 'InsurancesService', function($http, $scope, $routeParams, PracticesService, InsurancesService) {
+
 	this.practices = [];
 	this.insurances = [];
 

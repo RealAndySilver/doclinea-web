@@ -2,6 +2,7 @@
 //Module and Controllers for Doctor Dashboard - PARENT CONTROLLER//
 ///////////////////////////////////////////////////////////////////
 var endpoint = "http://192.241.187.135:1414/api_1.0/";
+//var endpoint = "http://192.168.0.41:1414/api_1.0/";
 
 docDash = angular.module('doctorDashboard', ['calendarDoctor']);
 docDash.controller('DocDashboardController', ['$http', '$scope', '$routeParams', 'PracticesService', 'InsurancesService', function($http, $scope, $routeParams, PracticesService, InsurancesService) {
