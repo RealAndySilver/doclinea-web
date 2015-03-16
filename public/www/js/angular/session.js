@@ -1,5 +1,3 @@
-var endpoint = "http://192.241.187.135:1414/api_1.0/";
-
 //Controlador y Módulo para manejo de sesión
 
 var session = angular.module('session', []);

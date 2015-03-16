@@ -1,5 +1,3 @@
-var endpoint = "http://192.241.187.135:1414/api_1.0/";
-
 //Modulo y Controlador para crear cuenta de Doctor
 var createDoctor = angular.module('createDoctor', []);
 createDoctor.controller('DoctorSignUpController', ['$http', '$scope', 'PracticesService', '$location', '$anchorScroll', function($http, $scope, PracticesService, $location, $anchorScroll) {

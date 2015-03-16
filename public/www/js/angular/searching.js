@@ -1,6 +1,4 @@
 //Controladores para búsqueda de Doctores por parámetros
-var endpoint = "http://192.241.187.135:1414/api_1.0/";
-
 var searchView = angular.module('searching', [])
 searchView.controller('GetDoctorsController', ['$http', '$routeParams', function($http, $routeParams) {
 

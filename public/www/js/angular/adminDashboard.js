@@ -2,8 +2,6 @@
 //Modulo y Controladores para Administración//
 //////////////////////////////////////////////
 
-var endpoint = "http://192.241.187.135:1414/api_1.0/";
-
 //JSON con Localidades de Bogotá
 var localidades = [{
 	name: "Antonio Nariño",

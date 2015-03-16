@@ -1,5 +1,3 @@
-var endpoint = "http://192.241.187.135:1414/api_1.0/";
-
 //Controlador para confirmación de creación de cuenta
 var verify = angular.module('verify', []);
 verify.controller('AccountConfirmationController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams) {

@@ -1,5 +1,4 @@
 angular.module('booking', ['ui.bootstrap']);
-var endpoint = "http://192.241.187.135:1414/api_1.0/";
 
 //Controlador para que un Usuario tome citas
 function BookingController($scope, $http, $routeParams, $location, $anchorScroll) {

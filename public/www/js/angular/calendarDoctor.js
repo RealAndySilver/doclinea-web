@@ -1,5 +1,4 @@
 angular.module('calendarDoctor', ['ui.calendar', 'ui.bootstrap']);
-var endpoint = "http://192.241.187.135:1414/api_1.0/";
 
 //Controlador para añadir un calendario en el Dashboard de Doctor junto con su funcionalidad
 function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig) {
@@ -204,7 +203,6 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig) {
 		appointment.doctor_notes = event.description;
 		appointment.location = $scope.docInfo.location_list;
 		appointment.doctor_image = $scope.docInfo.profile_pic.image_url;
-		console.log('citaa ', appointment);
 
 		//Servicio POST para crear un evento (cita) con estado
 		$http.post(endpoint + 'Appointment' + '/Create/' + appointment.doctor_id, appointment)

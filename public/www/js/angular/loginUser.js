@@ -1,5 +1,3 @@
-var endpoint = "http://192.241.187.135:1414/api_1.0/";
-
 //Módulo y Controlador para iniciar sesión como Usuario Paciente
 var login = angular.module('loginUser', []);
 login.controller('SignInController', ['$http', 'User', function($http, User) {
