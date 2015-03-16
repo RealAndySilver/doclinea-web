@@ -506,3 +506,7 @@ footer .footer-bottom {
 .x-ng-cloak {
   display: none !important;
 }
+.terms-box {
+  height: 320px;
+  overflow: scroll;
+}

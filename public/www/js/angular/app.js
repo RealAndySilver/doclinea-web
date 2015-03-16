@@ -21,6 +21,7 @@
 		'calendarDoctor',
 		'calendarProfile',
 		'booking',
+		'termsModule',
 		'ui.calendar',
 		'ui.bootstrap',
 		'ui.modal',

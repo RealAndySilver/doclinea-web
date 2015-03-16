@@ -154,10 +154,11 @@
 					  </div>
 					</div>
 					<div class="form-group center-input last-form-element">
-						<div> 
+						<div>
+							<a ng-controller="ModalCtrl as modalDocCtrl" ng-click="openDoctorTerms()" style="cursor: pointer;">Leer Términos y Condiciones</a> 
 							<label class="radio-inline settings-label" for="terms">
 							  <input type="checkbox" name="terms" id="terms" ng-model="terms" required>
-							  Leí y acepto el aviso de privacidad y los términos y condiciones.
+							  <span>Leí y acepto el aviso de privacidad y los términos y condiciones.</span>
 							</label>
 							<div class="error" ng-show="doctorSignUpForm.terms.$dirty && doctorSignUpForm.terms.$invalid">
 						 	  <small class="error" ng-show="doctorSignUpForm.terms.$error.required">Acepta antes los términos y condiciones.</small>
