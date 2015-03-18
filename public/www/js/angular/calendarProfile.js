@@ -1,5 +1,5 @@
 angular.module('calendarProfile', ['ui.calendar', 'ui.bootstrap']);
-var endpoint = "http://192.241.187.135:1414/api_1.0/";
+var endpoint = "http://doclinea.com:1414/api_1.0/";
 
 //Controlador para añadir un calendario en el perfil de Doctor junto con su funcionalidad
 function CalendarProfileCtrl($scope, $http, $routeParams) {
