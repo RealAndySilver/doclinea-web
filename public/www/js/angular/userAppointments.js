@@ -1,5 +1,5 @@
 //Modulo y Controlador para Citas de Usuario
-
+var endpoint = "http://doclinea.com:1414/api_1.0/";
 userAppointments = angular.module('userAppointments', []);
 userAppointments.controller('AppointmentsController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams) {
 	var userId = $routeParams.id;

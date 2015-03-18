@@ -1,3 +1,5 @@
+var endpoint = "http://doclinea.com:1414/api_1.0/";
+
 angular.module('calendarDoctor', ['ui.calendar', 'ui.bootstrap']);
 
 //Controlador para añadir un calendario en el Dashboard de Doctor junto con su funcionalidad

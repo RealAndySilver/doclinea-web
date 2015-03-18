@@ -1,4 +1,5 @@
 //Modulo y Controlador para Doctores Favoritos de un usuario Paciente
+var endpoint = "http://doclinea.com:1414/api_1.0/";
 
 userDoctors = angular.module('userDoctors', []);
 userDoctors.controller('FavoritesController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams) {

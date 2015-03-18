@@ -1,3 +1,5 @@
+var endpoint = "http://doclinea.com:1414/api_1.0/";
+
 //Modulo y Controlador para mostrar resultados de búsqueda de Doctores
 var mapView = angular.module('searchList', [])
 mapView.controller('MapCtrl', function($scope, $http, $routeParams) {

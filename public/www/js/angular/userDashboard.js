@@ -1,6 +1,7 @@
 ///////////////////////////////////////////////////////////////////
 //Module and Controllers for User Dashboard - PARENT CONTROLLER////
 ///////////////////////////////////////////////////////////////////
+var endpoint = "http://doclinea.com:1414/api_1.0/";
 
 userDash = angular.module('userDashboard', []);
 userDash.controller('UserDashboardController', ['$http', '$scope', '$routeParams', 'InsurancesService', function($http, $scope, $routeParams, InsurancesService) {

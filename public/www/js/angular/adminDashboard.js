@@ -1,6 +1,7 @@
 //////////////////////////////////////////////
 //Modulo y Controladores para Administración//
 //////////////////////////////////////////////
+var endpoint = "http://doclinea.com:1414/api_1.0/";
 
 //JSON con Localidades de Bogotá
 var localidades = [{

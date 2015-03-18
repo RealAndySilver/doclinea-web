@@ -1,3 +1,5 @@
+var endpoint = "http://doclinea.com:1414/api_1.0/";
+
 //Módulo y Controlador para inicio de sesión de Doctor
 var loginDoctor = angular.module('loginDoctor', []);
 loginDoctor.controller('DoctorSignInController', ['$http', '$scope', '$routeParams', '$location', '$anchorScroll', 'User', function($http, $scope, $routeParams, $location, $anchorScroll, User) {

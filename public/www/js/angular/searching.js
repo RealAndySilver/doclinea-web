@@ -1,3 +1,5 @@
+var endpoint = "http://doclinea.com:1414/api_1.0/";
+
 //Controladores para búsqueda de Doctores por parámetros
 var searchView = angular.module('searching', [])
 searchView.controller('GetDoctorsController', ['$http', '$routeParams', function($http, $routeParams) {
