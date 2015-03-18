@@ -1,10 +1,10 @@
-var endpoint = "http://doclinea.com:1414/api_1.0/";
+//var endpoint = "http://doclinea.com:1414/api_1.0/";
 
 angular.module('calendarDoctor', ['ui.calendar', 'ui.bootstrap']);
 
 //Controlador para añadir un calendario en el Dashboard de Doctor junto con su funcionalidad
-function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig) {
-
+function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig, EndpointService, $route) {
+	var endpoint = EndpointService.ip;
 	$scope.doctorId = $routeParams.doctorId;
 	var date = new Date();
 	var mm = date.getMinutes();
@@ -111,7 +111,8 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig) {
 			allDay: false,
 			color: num == 0 ? '' : 'green',
 			textColor: num == 0 ? 'black' : 'white',
-			forceEventDuration: false
+			forceEventDuration: false, 
+			status: 'available',
 		});
 
 		$scope.selectedEvent = $scope.events[$scope.events.length - 1];
@@ -135,7 +136,8 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig) {
 			allDay: false,
 			color: '',
 			textColor: '',
-			forceEventDuration: false
+			forceEventDuration: false,
+			status: 'available',
 		});
 
 		$scope.selectedEvent = $scope.events[$scope.events.length - 1];
@@ -203,8 +205,14 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig) {
 		appointment.date_start = event.start;
 		appointment.date_end = event.end;
 		appointment.doctor_notes = event.description;
-		appointment.location = $scope.docInfo.location_list;
-		appointment.doctor_image = $scope.docInfo.profile_pic.image_url;
+		
+		if($scope.docInfo.location_list){
+			appointment.location = $scope.docInfo.location_list;
+		}
+		
+		if($scope.docInfo.profile_pic){
+			appointment.doctor_image = $scope.docInfo.profile_pic.image_url;
+		}
 
 		//Servicio POST para crear un evento (cita) con estado
 		$http.post(endpoint + 'Appointment' + '/Create/' + appointment.doctor_id, appointment)
@@ -228,6 +236,7 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig) {
 				}
 
 				$scope.getAppointments(appointment.doctor_id);
+				$route.reload();
 			});
 
 	};
@@ -272,6 +281,7 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig) {
 						title: eventStatus,
 						start: new Date(appointments[i].date_start),
 						end: new Date(appointments[i].date_end),
+						exists: appointments[i].date_created,
 						status: appointments[i].status,
 						description: appointments[i].doctor_notes,
 						insurance: appointments[i].insurance,
@@ -311,7 +321,7 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig) {
 					type: "success",
 					confirmButtonText: "Aceptar",
 				});
-
+				$route.reload();
 			});
 
 	};

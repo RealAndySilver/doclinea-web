@@ -1,7 +1,7 @@
 //////////////////////////////////////////////
 //Modulo y Controladores para Administración//
 //////////////////////////////////////////////
-var endpoint = "http://doclinea.com:1414/api_1.0/";
+
 
 //JSON con Localidades de Bogotá
 var localidades = [{
@@ -89,7 +89,8 @@ var localidades = [{
 adminDash = angular.module('adminDashboard', []);
 
 //Controlador Principal para Módulo de Administración
-adminDash.controller('AdminDashboardController', ['$http', '$scope', '$routeParams', 'PracticesService', 'InsurancesService', function($http, $scope, $routeParams, PracticesService, InsurancesService) {
+adminDash.controller('AdminDashboardController', ['$http', '$scope', '$routeParams', 'PracticesService', 'InsurancesService', 'EndpointService', function($http, $scope, $routeParams, PracticesService, InsurancesService, EndpointService) {
+	var endpoint = EndpointService.ip;
 
 	this.practices = [];
 	this.insurances = [];
@@ -145,8 +146,8 @@ adminDash.directive('filters', function() {
 		controllerAs: 'searchDocsCtrl',
 	};
 });
-adminDash.controller('SearchDoctorsController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams) {
-
+adminDash.controller('SearchDoctorsController', ['$http', '$scope', '$routeParams', 'EndpointService', function($http, $scope, $routeParams, EndpointService) {
+	var endpoint = EndpointService.ip;
 	//Mostrar valor indefinido en la URL cuando falte algún parámetro de búsqueda
 	var encodedParam = btoa("undefined");
 	var params = {};
@@ -207,7 +208,8 @@ adminDash.directive('doctors', function() {
 		templateUrl: 'www/partials/admin/doctors.html',
 	};
 });
-adminDash.controller('DoctorsManagementController', ['$http', '$scope', '$routeParams', '$location', 'PracticesService', 'InsurancesService', function($http, $scope, $routeParams, $location, PracticesService, InsurancesService) {
+adminDash.controller('DoctorsManagementController', ['$http', '$scope', '$routeParams', '$location', 'PracticesService', 'InsurancesService','EndpointService', function($http, $scope, $routeParams, $location, PracticesService, InsurancesService,EndpointService) {
+	var endpoint = EndpointService.ip;
 	//Fix para que se muestre correctamente el contenido dentro del tab seleccionado
 	$('#doc-dash a').click(function(e) {
 		e.preventDefault();
@@ -416,7 +418,8 @@ adminDash.directive('docPersonal', function() {
 		controllerAs: 'docPersonalManageCtrl',
 	};
 });
-adminDash.controller('ManageDocPersonalController', ['$http', '$scope', function($http, $scope) {
+adminDash.controller('ManageDocPersonalController', ['$http', '$scope','EndpointService', function($http, $scope,EndpointService) {
+	var endpoint = EndpointService.ip;
 	$scope.docInfo.personalInfo = {};
 	var personalInfo = $scope.docInfo.personalInfo;
 
@@ -523,7 +526,8 @@ adminDash.service('fileUpload', ['$http', function($http) {
 }]);
 
 //Controlador que previsualiza la foto de perfil cuando se actualiza y se carga una nueva
-adminDash.controller('ManageDocPictureController', ['$scope', 'fileUpload', function($scope, fileUpload) {
+adminDash.controller('ManageDocPictureController', ['$scope', 'fileUpload','EndpointService', function($scope, fileUpload,EndpointService) {
+	var endpoint = EndpointService.ip;
 	function readURL(input) {
 		if (input.files && input.files[0]) {
 			var reader = new FileReader();
@@ -560,7 +564,8 @@ adminDash.directive('docPassword', function() {
 		controllerAs: 'docPasswordManageCtrl',
 	};
 });
-adminDash.controller('ManageDocPasswordController', ['$http', '$scope', function($http, $scope) {
+adminDash.controller('ManageDocPasswordController', ['$http', '$scope','EndpointService', function($http, $scope,EndpointService) {
+	var endpoint = EndpointService.ip;
 	//Objeto securityInfo para guardar la información que se va a editar
 	$scope.docInfo.security = {};
 	var securityInfo = $scope.docInfo.security;
@@ -606,7 +611,8 @@ adminDash.directive('docStudies', function() {
 		controllerAs: 'docStudiesManageCtrl',
 	};
 });
-adminDash.controller('ManageDocStudiesController', ['$http', '$scope', function($http, $scope) {
+adminDash.controller('ManageDocStudiesController', ['$http', '$scope','EndpointService', function($http, $scope,EndpointService) {
+	var endpoint = EndpointService.ip;
 	//Objeto studiesInfo para guardar la información que se va a editar
 	$scope.docInfo.studiesInfo = {};
 	var studiesInfo = $scope.docInfo.studiesInfo;
@@ -787,7 +793,8 @@ adminDash.directive('docLocations', function() {
 		controllerAs: 'docLocationsManageCtrl',
 	};
 });
-adminDash.controller('ManageDocLocationsController', ['$http', '$scope', function($http, $scope) {
+adminDash.controller('ManageDocLocationsController', ['$http', '$scope','EndpointService', function($http, $scope,EndpointService) {
+	var endpoint = EndpointService.ip;
 	//Objeto locationsInfo que guarda la información que se va a editar
 	$scope.docInfo.locationsInfo = {};
 	var locationsInfo = $scope.docInfo.locationsInfo;
@@ -841,7 +848,8 @@ adminDash.directive('docSettings', function() {
 		controllerAs: 'docSettingsManageCtrl',
 	};
 });
-adminDash.controller('ManageDocSettingsController', ['$http', '$scope', function($http, $scope) {
+adminDash.controller('ManageDocSettingsController', ['$http', '$scope','EndpointService', function($http, $scope,EndpointService) {
+	var endpoint = EndpointService.ip;
 	//Objeto settingsInfo que guarda la información que se va a editar
 	$scope.docInfo.settingsInfo = {};
 	var settingsInfo = $scope.docInfo.settingsInfo;
@@ -902,9 +910,9 @@ adminDash.directive('hospitals', function() {
 		controllerAs: 'hospitalsCtrl',
 	};
 });
-adminDash.controller('AdminHospitalsController', ['$http', '$scope', function($http, $scope) {
+adminDash.controller('AdminHospitalsController', ['$http', '$scope','EndpointService', function($http, $scope,EndpointService) {
 	var type = 'Hospital';
-
+var endpoint = EndpointService.ip;
 	//Crear Hospital
 	this.createHospital = function() {
 		var data1 = this.info;
@@ -988,8 +996,8 @@ adminDash.controller('AdminHospitalsController', ['$http', '$scope', function($h
 }]);
 
 //Directiva y Controlador para editar información de Hospital
-adminDash.controller('HospitalsManagementController', ['$http', '$scope', '$routeParams', '$location', function($http, $scope, $routeParams, $location) {
-
+adminDash.controller('HospitalsManagementController', ['$http', '$scope', '$routeParams', '$location','EndpointService', function($http, $scope, $routeParams, $location,EndpointService) {
+var endpoint = EndpointService.ip;
 	//Fix para tab
 	$('#hospi-tab a').click(function(e) {
 		e.preventDefault();
@@ -1090,9 +1098,9 @@ adminDash.directive('basicHospital', function() {
 		controllerAs: 'basicHospitalCtrl',
 	};
 });
-adminDash.controller('BasicHospitalController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams) {
+adminDash.controller('BasicHospitalController', ['$http', '$scope', '$routeParams','EndpointService', function($http, $scope, $routeParams,EndpointService) {
 	var type = "Hospital";
-
+var endpoint = EndpointService.ip;
 	//Objeto hospitalInfo para guardar información que se va a editar
 	$scope.hospitalInfo.basicInfo = {};
 	var basicInfo = $scope.hospitalInfo.basicInfo;
@@ -1183,7 +1191,8 @@ adminDash.service('hospitalUpload', ['$http', function($http) {
 			});
 	}
 }]);
-adminDash.controller('LogoHospitalController', ['$http', '$scope', '$routeParams', 'hospitalUpload', function($http, $scope, $routeParams, hospitalUpload) {
+adminDash.controller('LogoHospitalController', ['$http', '$scope', '$routeParams', 'hospitalUpload','EndpointService', function($http, $scope, $routeParams, hospitalUpload,EndpointService) {
+	var endpoint = EndpointService.ip;
 	function readURL(input) {
 		if (input.files && input.files[0]) {
 			var reader = new FileReader();
@@ -1218,9 +1227,9 @@ adminDash.directive('locationHospital', function() {
 		controllerAs: 'locationHospitalCtrl',
 	};
 });
-adminDash.controller('LocationHospitalController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams) {
+adminDash.controller('LocationHospitalController', ['$http', '$scope', '$routeParams','EndpointService', function($http, $scope, $routeParams,EndpointService) {
 	var type = "Hospital";
-
+	var endpoint = EndpointService.ip;
 	//Objeto hospitalInfo para guardar información que se va a editar
 	$scope.hospitalInfo.location = {};
 	var location = $scope.hospitalInfo.location;
@@ -1267,9 +1276,9 @@ adminDash.directive('insurances', function() {
 		controllerAs: 'insurancesCtrl',
 	};
 });
-adminDash.controller('AdminInsurancesController', ['$http', '$scope', function($http, $scope) {
+adminDash.controller('AdminInsurancesController', ['$http', '$scope','EndpointService', function($http, $scope,EndpointService) {
 	var type = 'InsuranceCompany';
-
+	var endpoint = EndpointService.ip;
 	//crear aseguradora
 	this.createInsurance = function() {
 		var data1 = this.info;
@@ -1353,7 +1362,8 @@ adminDash.controller('AdminInsurancesController', ['$http', '$scope', function($
 }]);
 
 //Directiva y Controlador para editar aseguradora
-adminDash.controller('InsurancesManagementController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams) {
+adminDash.controller('InsurancesManagementController', ['$http', '$scope', '$routeParams','EndpointService', function($http, $scope, $routeParams,EndpointService) {
+	var endpoint = EndpointService.ip;
 	//fix para tab
 	$('#insu-tab a').click(function(e) {
 		e.preventDefault();
@@ -1399,9 +1409,9 @@ adminDash.directive('basicInsurance', function() {
 		controllerAs: 'basicInsuranceCtrl',
 	};
 });
-adminDash.controller('BasicInsuranceController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams) {
+adminDash.controller('BasicInsuranceController', ['$http', '$scope', '$routeParams','EndpointService', function($http, $scope, $routeParams,EndpointService) {
 	var type = "InsuranceCompany";
-
+	var endpoint = EndpointService.ip;
 	//Objeto insuranceInfo para guardar info que se va a editar
 	$scope.insuranceInfo.basicInfo = {};
 	var basicInfo = $scope.insuranceInfo.basicInfo;
@@ -1492,7 +1502,8 @@ adminDash.service('insuranceUpload', ['$http', function($http) {
 			});
 	}
 }]);
-adminDash.controller('LogoInsuranceController', ['$http', '$scope', '$routeParams', 'insuranceUpload', function($http, $scope, $routeParams, insuranceUpload) {
+adminDash.controller('LogoInsuranceController', ['$http', '$scope', '$routeParams', 'insuranceUpload','EndpointService', function($http, $scope, $routeParams, insuranceUpload,EndpointService) {
+	var endpoint = EndpointService.ip;
 	function readURL(input) {
 		if (input.files && input.files[0]) {
 			var reader = new FileReader();
@@ -1527,7 +1538,8 @@ adminDash.directive('typeList', function() {
 		controllerAs: 'typeListCtrl',
 	};
 });
-adminDash.controller('TypeListController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams) {
+adminDash.controller('TypeListController', ['$http', '$scope', '$routeParams','EndpointService', function($http, $scope, $routeParams,EndpointService) {
+	var endpoint = EndpointService.ip;
 	var type = "InsuranceCompany";
 	$scope.insuranceInfo.typeList = {};
 	var typeList = $scope.insuranceInfo.typeList;
@@ -1611,9 +1623,9 @@ adminDash.directive('practices', function() {
 		controllerAs: 'practicesCtrl',
 	};
 });
-adminDash.controller('AdminPracticesController', ['$http', '$scope', function($http, $scope) {
+adminDash.controller('AdminPracticesController', ['$http', '$scope','EndpointService', function($http, $scope,EndpointService) {
 	var type = 'Practice';
-
+	var endpoint = EndpointService.ip;
 	//crear especialidad
 	this.createPractice = function() {
 		var data1 = this.info;
@@ -1697,7 +1709,8 @@ adminDash.controller('AdminPracticesController', ['$http', '$scope', function($h
 }]);
 
 //Directiva y Controlador para editar especialidades
-adminDash.controller('PracticesManagementController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams) {
+adminDash.controller('PracticesManagementController', ['$http', '$scope', '$routeParams','EndpointService', function($http, $scope, $routeParams,EndpointService) {
+	var endpoint = EndpointService.ip;
 	//fix para tab
 	$('#prac-tab a').click(function(e) {
 		e.preventDefault();
@@ -1735,9 +1748,9 @@ adminDash.directive('basicPractice', function() {
 		controllerAs: 'basicPracticeCtrl',
 	};
 });
-adminDash.controller('BasicPracticeController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams) {
+adminDash.controller('BasicPracticeController', ['$http', '$scope', '$routeParams','EndpointService', function($http, $scope, $routeParams,EndpointService) {
 	var type = "Practice";
-
+	var endpoint = EndpointService.ip;
 	//Objeto basicInfo para guardar información a editar
 	$scope.practiceInfo.basicInfo = {};
 	var basicInfo = $scope.practiceInfo.basicInfo;
@@ -1781,9 +1794,9 @@ adminDash.directive('reasonsPractice', function() {
 		controllerAs: 'reasonsPracticeCtrl',
 	};
 });
-adminDash.controller('ReasonsPracticeController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams) {
+adminDash.controller('ReasonsPracticeController', ['$http', '$scope', '$routeParams','EndpointService', function($http, $scope, $routeParams,EndpointService) {
 	var type = "Practice";
-
+	var endpoint = EndpointService.ip;
 	//Objeto reasons para guardar información
 	$scope.practiceInfo.reasons = {};
 	var reasons = $scope.practiceInfo.reasons;
@@ -1857,7 +1870,8 @@ adminDash.directive('customize', function() {
 	};
 });
 
-adminDash.controller('CustomizeController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams) {
+adminDash.controller('CustomizeController', ['$http', '$scope', '$routeParams','EndpointService', function($http, $scope, $routeParams,EndpointService) {
+	var endpoint = EndpointService.ip;
 	//Validación de sesión activa
 	if (localStorage.getItem("user")) {
 		$scope.userInfo = JSON.parse(localStorage.user);
@@ -1944,8 +1958,8 @@ adminDash.directive('notifications', function() {
 	};
 });
 
-adminDash.controller('NotificationsController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams) {
-
+adminDash.controller('NotificationsController', ['$http', 'EndpointService', '$scope', '$routeParams', function($http, $scope, $routeParams, EndpointService) {
+	var endpoint = EndpointService.ip;
 	//Servicio GET para cargas textos de notificaciones y correos
 	$http.get(endpoint + 'Notifications')
 		.success(function(data) {

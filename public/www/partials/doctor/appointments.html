@@ -30,9 +30,9 @@
                                     	 </center>
 										 <div class="event-status"><input type="radio" name="available" id="available" value="available" ng-model="selectedEvent.status"> <label for="available">Disponible</label></div>
 										 <div class="event-status"><input type="radio" name="external" id="external" value="external" ng-model="selectedEvent.status"> <label for="external">Externo</label></div>
-										 <div ng-show="selectedEvent.status" class="event-status"><input type="radio" name="cancelled" id="cancelled" value="cancelled" ng-model="selectedEvent.status"> <label for="cancelled">Cancelado</label></div>
-									<button type="button" class="btn btn-info btn-sm" ng-click="setAppointment(status, selectedEvent)">Guardar</button>
-									<button type="button" class="btn btn-info btn-sm" ng-click="updateEvent(selectedEvent)">Actualizar estado</button>
+										 <div ng-show="selectedEvent.exists" class="event-status"><input type="radio" name="cancelled" id="cancelled" value="cancelled" ng-model="selectedEvent.status"> <label for="cancelled">Cancelado</label></div>
+									<button type="button" class="btn btn-info btn-sm" ng-show="selectedEvent.color == ''" ng-click="setAppointment(status, selectedEvent)">Guardar</button>
+									<button type="button" class="btn btn-info btn-sm" ng-show="selectedEvent.exists" ng-click="updateEvent(selectedEvent)">Actualizar estado</button>
                                 </div>
 
 		                    </div>

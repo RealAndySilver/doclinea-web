@@ -1,7 +1,8 @@
 //Controlador y Módulo para manejo de sesión
-var endpoint = "http://doclinea.com:1414/api_1.0/";
+//var endpoint = "http://doclinea.com:1414/api_1.0/";
 var session = angular.module('session', []);
-session.controller('LoginWelcomeController', ['$scope', '$http', '$location', '$anchorScroll', 'UserService', function($scope, $http, $location, $anchorScroll, UserService) {
+session.controller('LoginWelcomeController', ['$scope', '$http', '$location', '$anchorScroll', 'UserService', 'EndpointService', function($scope, $http, $location, $anchorScroll, UserService, EndpointService) {
+	var endpoint = EndpointService.ip;
 	var self = this;
 
 	//Verificar el tipo de usuario que inicia sesión

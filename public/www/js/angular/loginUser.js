@@ -1,8 +1,9 @@
-var endpoint = "http://doclinea.com:1414/api_1.0/";
+//var endpoint = "http://doclinea.com:1414/api_1.0/";
 
 //Módulo y Controlador para iniciar sesión como Usuario Paciente
 var login = angular.module('loginUser', []);
-login.controller('SignInController', ['$http', 'User', function($http, User) {
+login.controller('SignInController', ['$http', 'User', 'EndpointService', function($http, User, EndpointService) {
+	var endpoint = EndpointService.ip;
 	var type = "User";
 
 	//función para iniciar sesión como Usuario paciente

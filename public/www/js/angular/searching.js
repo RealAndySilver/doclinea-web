@@ -1,8 +1,9 @@
-var endpoint = "http://doclinea.com:1414/api_1.0/";
+//var endpoint = "http://doclinea.com:1414/api_1.0/";
 
 //Controladores para búsqueda de Doctores por parámetros
 var searchView = angular.module('searching', [])
-searchView.controller('GetDoctorsController', ['$http', '$routeParams', function($http, $routeParams) {
+searchView.controller('GetDoctorsController', ['$http', '$routeParams', 'EndpointService', function($http, $routeParams, EndpointService) {
+	var endpoint = EndpointService.ip;
 
 	//los parámetros indefinidos se codifican en base 64
 	var encodedParam = btoa("undefined");
@@ -43,7 +44,8 @@ searchView.controller('GetDoctorsController', ['$http', '$routeParams', function
 
 
 //Controlador de lista de búsqueda de página de inicio
-searchView.controller('SearchListsController', ['$http', '$scope', 'PracticesService', 'InsurancesService', function($http, $scope, PracticesService, InsurancesService) {
+searchView.controller('SearchListsController', ['$http', '$scope', 'PracticesService', 'InsurancesService', 'EndpointService', function($http, $scope, PracticesService, InsurancesService, EndpointService) {
+	var endpoint = EndpointService.ip;
 	$scope.encodedParam = btoa("undefined");
 
 	this.practices = [];
@@ -66,7 +68,8 @@ searchView.controller('SearchListsController', ['$http', '$scope', 'PracticesSer
 }]);
 
 //Controlador de formulario de búsqueda de página de inicio
-searchView.controller('LandpageDocSearchController', ['$http', '$scope', '$routeParams', 'PracticesService', 'InsurancesService', function($http, $scope, $routeParams, PracticesService, InsurancesService) {
+searchView.controller('LandpageDocSearchController', ['$http', '$scope', '$routeParams', 'PracticesService', 'InsurancesService', 'EndpointService', function($http, $scope, $routeParams, PracticesService, InsurancesService, EndpointService) {
+	var endpoint = EndpointService.ip;
 
 	var encodedParam = btoa("undefined");
 
@@ -172,7 +175,8 @@ searchView.controller('LandpageDocSearchController', ['$http', '$scope', '$route
 
 
 //Controlador de formulario de búsqueda de pantalla de resultados
-searchView.controller('DoctorSearchController', ['$http', '$scope', 'PracticesService', 'InsurancesService', function($http, $scope, PracticesService, InsurancesService) {
+searchView.controller('DoctorSearchController', ['$http', '$scope', 'PracticesService', 'InsurancesService', 'EndpointService', function($http, $scope, PracticesService, InsurancesService, EndpointService) {
+	var endpoint = EndpointService.ip;
 	//mostrar parámetros indefinidos codificados en base 64
 	var encodedParam = btoa("undefined");
 

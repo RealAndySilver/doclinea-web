@@ -1,8 +1,9 @@
-var endpoint = "http://doclinea.com:1414/api_1.0/";
+//var endpoint = "http://doclinea.com:1414/api_1.0/";
 
 //Módulo y Controlador para crear cuenta de Usuario Paciente
 var createUser = angular.module('createUser', []);
-createUser.controller('SignUpController', ['$http', '$scope', function($http, $scope) {
+createUser.controller('SignUpController', ['$http', '$scope', 'EndpointService', function($http, $scope, EndpointService) {
+	var endpoint = EndpointService.ip;
 	var type = "User";
 
 	//función para crear cuenta

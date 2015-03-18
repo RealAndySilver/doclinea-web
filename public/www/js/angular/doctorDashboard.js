@@ -1,10 +1,11 @@
 ///////////////////////////////////////////////////////////////////
 //Module and Controllers for Doctor Dashboard - PARENT CONTROLLER//
 ///////////////////////////////////////////////////////////////////
-var endpoint = "http://doclinea.com:1414/api_1.0/";
+//var endpoint = "http://doclinea.com:1414/api_1.0/";
 
 docDash = angular.module('doctorDashboard', ['calendarDoctor']);
-docDash.controller('DocDashboardController', ['$http', '$scope', '$routeParams', 'PracticesService', 'InsurancesService', function($http, $scope, $routeParams, PracticesService, InsurancesService) {
+docDash.controller('DocDashboardController', ['$http', '$scope', '$routeParams', 'PracticesService', 'InsurancesService', 'EndpointService', function($http, $scope, $routeParams, PracticesService, InsurancesService, EndpointService) {
+	var endpoint = EndpointService.ip;
 	var type = 'Doctor';
 
 	//Fix para que se muestre correctamente el contenido dentro del tab seleccionado
@@ -283,7 +284,8 @@ docDash.service('fileUpload', ['$http', function($http) {
 }]);
 
 //Controlador que previsualiza la foto de perfil cuando se actualiza y se carga una nueva
-docDash.controller('DashboardPicturesController', ['$scope', 'fileUpload', function($scope, fileUpload) {
+docDash.controller('DashboardPicturesController', ['$scope', 'fileUpload', 'EndpointService', function($scope, fileUpload, EndpointService) {
+	var endpoint = EndpointService.ip;
 	function readURL(input) {
 		if (input.files && input.files[0]) {
 			var reader = new FileReader();
@@ -320,7 +322,8 @@ docDash.directive('passwordChange', function() {
 		controllerAs: 'dashPasswordCtrl',
 	};
 });
-docDash.controller('DashboardPasswordController', ['$http', '$scope', function($http, $scope) {
+docDash.controller('DashboardPasswordController', ['$http', '$scope', 'EndpointService', function($http, $scope, EndpointService) {
+	var endpoint = EndpointService.ip;
 	//Objeto securityInfo para guardar la información que se va a editar
 	$scope.doctorData.security = {};
 	var securityInfo = $scope.doctorData.security;
@@ -365,7 +368,8 @@ docDash.directive('personal', function() {
 		controllerAs: 'dashPersonalCtrl',
 	};
 });
-docDash.controller('DashboardPersonalController', ['$http', '$scope', function($http, $scope) {
+docDash.controller('DashboardPersonalController', ['$http', '$scope', 'EndpointService', function($http, $scope, EndpointService) {
+	var endpoint = EndpointService.ip;
 	$scope.doctorData.personalInfo = {};
 	var personalInfo = $scope.doctorData.personalInfo;
 
@@ -418,7 +422,8 @@ docDash.directive('studies', function() {
 		controllerAs: 'dashStudiesCtrl',
 	};
 });
-docDash.controller('DashboardStudiesController', ['$http', '$scope', function($http, $scope) {
+docDash.controller('DashboardStudiesController', ['$http', '$scope', 'EndpointService', function($http, $scope, EndpointService) {
+	var endpoint = EndpointService.ip;
 	//Objeto studiesInfo para guardar la información que se va a editar
 	$scope.doctorData.studiesInfo = {};
 	var studiesInfo = $scope.doctorData.studiesInfo;
@@ -595,7 +600,8 @@ docDash.directive('locations', function() {
 		controllerAs: 'dashLocationsCtrl',
 	};
 });
-docDash.controller('DashboardLocationsController', ['$http', '$scope', function($http, $scope) {
+docDash.controller('DashboardLocationsController', ['$http', '$scope', 'EndpointService', function($http, $scope, EndpointService) {
+	var endpoint = EndpointService.ip;
 	//Objeto locationsInfo que guarda la información que se va a editar
 	$scope.doctorData.locationsInfo = {};
 	var locationsInfo = $scope.doctorData.locationsInfo;
@@ -648,7 +654,8 @@ docDash.directive('settings', function() {
 		controllerAs: 'dashSettingsCtrl',
 	};
 });
-docDash.controller('DashboardSettingsController', ['$http', '$scope', function($http, $scope) {
+docDash.controller('DashboardSettingsController', ['$http', '$scope', 'EndpointService', function($http, $scope, EndpointService) {
+	var endpoint = EndpointService.ip;
 	//Objeto settingsInfo que guarda la información que se va a editar
 	$scope.doctorData.settingsInfo = {};
 	var settingsInfo = $scope.doctorData.settingsInfo;

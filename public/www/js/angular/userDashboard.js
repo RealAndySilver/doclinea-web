@@ -1,10 +1,11 @@
 ///////////////////////////////////////////////////////////////////
 //Module and Controllers for User Dashboard - PARENT CONTROLLER////
 ///////////////////////////////////////////////////////////////////
-var endpoint = "http://doclinea.com:1414/api_1.0/";
+//var endpoint = "http://doclinea.com:1414/api_1.0/";
 
 userDash = angular.module('userDashboard', []);
-userDash.controller('UserDashboardController', ['$http', '$scope', '$routeParams', 'InsurancesService', function($http, $scope, $routeParams, InsurancesService) {
+userDash.controller('UserDashboardController', ['$http', '$scope', '$routeParams', 'InsurancesService', 'EndpointService', function($http, $scope, $routeParams, InsurancesService, EndpointService) {
+	var endpoint = EndpointService.ip;
 	var type = 'User';
 
 	//Fix para que se muestre correctamente el contenido dentro del tab seleccionado
@@ -43,7 +44,8 @@ userDash.directive('personalUser', function() {
 		controllerAs: 'userInfoCtrl',
 	};
 });
-userDash.controller('UserInfoController', ['$http', '$scope', function($http, $scope) {
+userDash.controller('UserInfoController', ['$http', '$scope', 'EndpointService', function($http, $scope, EndpointService) {
+	var endpoint = EndpointService.ip;
 	$scope.userData.personalInfo = {};
 	var personalInfo = $scope.userData.personalInfo;
 
@@ -97,7 +99,8 @@ userDash.directive('passwordChangeUser', function() {
 		controllerAs: 'userPassCtrl',
 	};
 });
-userDash.controller('UserPasswordController', ['$http', '$scope', function($http, $scope) {
+userDash.controller('UserPasswordController', ['$http', '$scope', 'EndpointService', function($http, $scope, EndpointService) {
+	var endpoint = EndpointService.ip;
 	//Objeto security para guardar la información que se va a editar
 	$scope.userData.security = {};
 	var securityInfo = $scope.userData.security;
@@ -142,7 +145,8 @@ userDash.directive('userSettings', function() {
 		controllerAs: 'settingsCtrl',
 	};
 });
-userDash.controller('UserSettingsController', ['$http', '$scope', function($http, $scope) {
+userDash.controller('UserSettingsController', ['$http', '$scope', 'EndpointService', function($http, $scope, EndpointService) {
+	var endpoint = EndpointService.ip;
 	//Objeto settingsInfo que guarda la información que se va a editar
 	$scope.userData.settingsInfo = {};
 	var settingsInfo = $scope.userData.settingsInfo;

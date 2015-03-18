@@ -30,6 +30,12 @@
 	//Endpoint de API
 	var endpoint = "http://doclinea.com:1414/api_1.0/";
 
+	app.factory('EndpointService', function(){
+		return {
+			ip: endpoint,
+		};
+	});
+
 	//Rutas de la Aplicación
 	app.config(['$routeProvider',
 		function($routeProvider) {

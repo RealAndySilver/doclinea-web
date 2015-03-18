@@ -1,10 +1,10 @@
-var endpoint = "http://doclinea.com:1414/api_1.0/";
+//var endpoint = "http://doclinea.com:1414/api_1.0/";
 
 angular.module('booking', ['ui.bootstrap']);
 
 //Controlador para que un Usuario tome citas
-function BookingController($scope, $http, $routeParams, $location, $anchorScroll) {
-
+function BookingController($scope, $http, $routeParams, $location, $anchorScroll, EndpointService) {
+    var endpoint = EndpointService.ip;
     //Parametros que vienen por URL y son necesarios para tomar una cita
     var appointmentId = $routeParams.eventId;
     var doctorId = $routeParams.doctorId;

@@ -1,11 +1,11 @@
-var endpoint = "http://doclinea.com:1414/api_1.0/";
+//var endpoint = "http://doclinea.com:1414/api_1.0/";
 
 //Modulo y Controlador para crear cuenta de Doctor
 var createDoctor = angular.module('createDoctor', []);
-createDoctor.controller('DoctorSignUpController', ['$http', '$scope', 'PracticesService', '$location', '$anchorScroll', function($http, $scope, PracticesService, $location, $anchorScroll) {
+createDoctor.controller('DoctorSignUpController', ['$http', '$scope', 'PracticesService', '$location', '$anchorScroll', 'EndpointService', function($http, $scope, PracticesService, $location, $anchorScroll, EndpointService) {
 	//Cargar localidades de Bogotá
 	$scope.localidades = localidades;
-
+	var endpoint = EndpointService.ip;
 	this.practices = [];
 
 	var self = this;

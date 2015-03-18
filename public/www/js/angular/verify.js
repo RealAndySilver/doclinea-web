@@ -1,8 +1,9 @@
 //Controlador para confirmación de creación de cuenta
 
-var endpoint = "http://doclinea.com:1414/api_1.0/";
+//var endpoint = "http://doclinea.com:1414/api_1.0/";
 var verify = angular.module('verify', []);
-verify.controller('AccountConfirmationController', ['$http', '$scope', '$routeParams', function($http, $scope, $routeParams) {
+verify.controller('AccountConfirmationController', ['$http', '$scope', '$routeParams', 'EndpointService', function($http, $scope, $routeParams, EndpointService) {
+	var endpoint = EndpointService.ip;
 
 	var type = $routeParams.type;
 	var email = $routeParams.email;
