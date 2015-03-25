@@ -2,7 +2,7 @@
 
 //Módulo y Controlador para inicio de sesión de Doctor
 var loginDoctor = angular.module('loginDoctor', []);
-loginDoctor.controller('DoctorSignInController', ['$http', '$scope', '$routeParams', '$location', '$anchorScroll', 'User', 'EndpointService', function($http, $scope, $routeParams, $location, $anchorScroll, User, EndpointService) {
+loginDoctor.controller('DoctorSignInController', ['$http', '$scope', '$routeParams', '$location', '$anchorScroll', 'User', 'EndpointService', '$route', function($http, $scope, $routeParams, $location, $anchorScroll, User, EndpointService, $route) {
 	var endpoint = EndpointService.ip;
 	var type = "Doctor";
 
@@ -51,6 +51,10 @@ loginDoctor.controller('DoctorSignInController', ['$http', '$scope', '$routePara
 
 					//el usuario Doctor se guarda en local storage para mantener su sesión activa
 					localStorage.setItem('user', JSON.stringify(User));
+
+					setTimeout(function() {
+						location.reload();
+					}, 400);
 				}
 			});
 	};

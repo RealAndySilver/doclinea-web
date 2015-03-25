@@ -23,12 +23,12 @@
    <link rel="stylesheet" type="text/css" href="../www/js/libs/sweet-alert/sweet-alert.css">
 </head>
 
-<body ng-app="doclinea">
+<body ng-app="doclinea" ng-cloak autoscroll="false">
 
     <div id="main-page-container" ng-controller="CustomizeController as customCtrl">
 
         <div id="shadow"></div>
-
+        userInfo: {{userInfo.username}} {{userInfo.name}} {{userInfo}}
         <div id="curtain-invite" ng-show="userInfo">
             <div id="invite">
                 <span>Invitar</span>

@@ -111,7 +111,7 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig, EndpointSer
 			allDay: false,
 			color: num == 0 ? '' : 'green',
 			textColor: num == 0 ? 'black' : 'white',
-			forceEventDuration: false, 
+			forceEventDuration: true, 
 			status: 'available',
 		});
 
@@ -122,9 +122,10 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig, EndpointSer
 	$scope.addEventClick = function(start) {
 
 		var date = new Date(start);
+		console.log('evento entrante', date);
 		var mm = date.getMinutes();
-		var h = date.getHours();
-		var d = date.getDate() + 1;
+		var h = date.getHours() + 5;
+		var d = date.getDate();
 		var m = date.getMonth();
 		var y = date.getFullYear();
 
@@ -136,7 +137,7 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig, EndpointSer
 			allDay: false,
 			color: '',
 			textColor: '',
-			forceEventDuration: false,
+			forceEventDuration: true,
 			status: 'available',
 		});
 
@@ -177,8 +178,8 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig, EndpointSer
 			eventDrop: $scope.alertOnDrop,
 			eventResize: $scope.alertOnResize,
 			dayClick: function(date, allDay, jsEvent, view) {
-				//console.log()
-				$scope.addEventClick(date);
+				console.log('evento click', date._d);
+				$scope.addEventClick(date._d);
 			},
 		}
 	};
@@ -302,6 +303,8 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig, EndpointSer
 
 	//Función que actualiza el estado y duración de un evento, así como su cambio de fecha
 	$scope.updateEvent = function(event) {
+		//REVISAR LA UBICACION DEL EVENTO EN EL CALENDARIO AL HACER UPDATE -BANDERA AL CREAR
+
 		//objeto appointment para guardar la información del evento
 		var appointment = {}
 		appointment.doctor_id = $scope.docInfo._id;

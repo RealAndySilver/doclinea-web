@@ -38,8 +38,8 @@ recover.controller('PasswordRecoverController', ['$http', '$routeParams', '$moda
 		$modalInstance.dismiss('cancel');
 	};
 }]);
-recover.controller('UserPasswordRecoverController', ['$http', '$routeParams', '$modalInstance', '$scope', function($http, $routeParams, $modalInstance, $scope) {
-
+recover.controller('UserPasswordRecoverController', ['$http', '$routeParams', '$modalInstance', '$scope', 'EndpointService', function($http, $routeParams, $modalInstance, $scope, EndpointService) {
+	var endpoint = EndpointService.ip;
 	//función para recuperar contraseña de Usuario
 	$scope.userRecover = function() {
 		var email = this.userRecoverCtrl.data.email;
@@ -75,8 +75,8 @@ recover.controller('UserPasswordRecoverController', ['$http', '$routeParams', '$
 }]);
 
 //Controlador para nueva contraseña
-recover.controller('NewPasswordController', ['$http', '$routeParams', function($http, $routeParams) {
-
+recover.controller('NewPasswordController', ['$http', '$routeParams', 'EndpointService', function($http, $routeParams, EndpointService) {
+	var endpoint = EndpointService.ip;
 	//Datos que vienen por URL y se necesitan para la nueva contraseña
 	var token = $routeParams.token;
 	var type = $routeParams.type;

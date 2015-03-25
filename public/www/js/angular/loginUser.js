@@ -52,6 +52,10 @@ login.controller('SignInController', ['$http', 'User', 'EndpointService', functi
 
 					//el usuario Paciente se guarda en local storage para mantener su sesión activa
 					localStorage.setItem('user', JSON.stringify(User));
+
+					setTimeout(function() {
+						location.reload();
+					}, 400);
 				}
 			});
 	};

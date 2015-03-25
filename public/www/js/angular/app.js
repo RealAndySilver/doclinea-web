@@ -29,6 +29,7 @@
 
 	//Endpoint de API
 	var endpoint = "http://doclinea.com:1414/api_1.0/";
+	//var endpoint = "http://andres.local:1414/api_1.0/";
 
 	app.factory('EndpointService', function(){
 		return {
