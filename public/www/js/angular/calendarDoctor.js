@@ -69,7 +69,6 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig, EndpointSer
 
 	//función que se activa al arrastrar un evento del calendario a otra posición
 	$scope.alertOnDrop = function(event, revertFunc, jsEvent, ui, view) {
-		console.log('drop a inicio', event);
 		$scope.alertMessage = ('Evento cambiado a ' + event.start.format("dddd DD [de] MMMM [de] YYYY h:MM:ss"));
 		//llamar a la función que actualiza un evento del calendario
 		$scope.updateEvent(event);
@@ -77,7 +76,6 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig, EndpointSer
 
 	//función que se activa al cambiar el tamaño de un evento 
 	$scope.alertOnResize = function(event, jsEvent, ui, view) {
-		console.log('resize a finalización', event);
 		$scope.alertMessage = ('Fecha de finalización cambiada a ' + event.end.format("dddd DD [de] MMMM [de] YYYY h:MM:ss"));
 		//llamar a la función que actualiza un evento del calendario
 		$scope.updateEvent(event);
@@ -307,7 +305,7 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig, EndpointSer
 	$scope.updateEvent = function(event) {
 		var dropDate = new Date(event.start._d);
 		var resizeDate = new Date(event.end);
-		//console.log('evento entrante', date);
+		
 		var smm = dropDate.getMinutes();
 		var sh = dropDate.getHours() + 5;
 		var sd = dropDate.getDate();
@@ -326,12 +324,6 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig, EndpointSer
 		appointment.doctor_name = $scope.docInfo.name + ' ' + $scope.docInfo.lastname;
 		appointment.status = event.status;
 		appointment.date_start = new Date(sy, sm, sd, sh, smm);
-		/*if (event.end) {
-			appointment.date_end = event.end;
-		} else {
-			appointment.date_end = new Date(sy, sm, sd, sh, smm + 5);
-		}*/
-		//appointment.date_end = event.end;
 		appointment.date_end = new Date(ry, rm, rd, rh, smm);
 		appointment.doctor_notes = event.description;
 		appointment.location = $scope.docInfo.location_list;
