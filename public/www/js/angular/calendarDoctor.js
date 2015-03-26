@@ -113,7 +113,7 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig, EndpointSer
 			allDay: false,
 			color: num == 0 ? '' : 'green',
 			textColor: num == 0 ? 'black' : 'white',
-			forceEventDuration: true, 
+			forceEventDuration: false,
 			status: 'available',
 		});
 
@@ -305,8 +305,8 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig, EndpointSer
 
 	//Función que actualiza el estado y duración de un evento, así como su cambio de fecha
 	$scope.updateEvent = function(event) {
-		//REVISAR LA UBICACION DEL EVENTO EN EL CALENDARIO AL HACER UPDATE -BANDERA AL CREAR
 		var dropDate = new Date(event.start._d);
+		var resizeDate = new Date(event.end);
 		//console.log('evento entrante', date);
 		var smm = dropDate.getMinutes();
 		var sh = dropDate.getHours() + 5;
@@ -314,13 +314,25 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig, EndpointSer
 		var sm = dropDate.getMonth();
 		var sy = dropDate.getFullYear();
 
+		var rmm = resizeDate.getMinutes();
+		var rh = resizeDate.getHours() + 5;
+		var rd = resizeDate.getDate();
+		var rm = resizeDate.getMonth();
+		var ry = resizeDate.getFullYear();
+
 		//objeto appointment para guardar la información del evento
 		var appointment = {};
 		appointment.doctor_id = $scope.docInfo._id;
 		appointment.doctor_name = $scope.docInfo.name + ' ' + $scope.docInfo.lastname;
 		appointment.status = event.status;
 		appointment.date_start = new Date(sy, sm, sd, sh, smm);
-		appointment.date_end = event.end._d;
+		/*if (event.end) {
+			appointment.date_end = event.end;
+		} else {
+			appointment.date_end = new Date(sy, sm, sd, sh, smm + 5);
+		}*/
+		//appointment.date_end = event.end;
+		appointment.date_end = new Date(ry, rm, rd, rh, smm);
 		appointment.doctor_notes = event.description;
 		appointment.location = $scope.docInfo.location_list;
 
