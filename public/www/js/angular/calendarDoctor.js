@@ -113,6 +113,8 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig, EndpointSer
 			textColor: num == 0 ? 'black' : 'white',
 			forceEventDuration: false,
 			status: 'available',
+			startEditable: false,
+			durationEditable: false,
 		});
 
 		$scope.selectedEvent = $scope.events[$scope.events.length - 1];
@@ -139,6 +141,8 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig, EndpointSer
 			textColor: '',
 			forceEventDuration: true,
 			status: 'available',
+			startEditable: false,
+			durationEditable: false,
 		});
 
 		$scope.selectedEvent = $scope.events[$scope.events.length - 1];
@@ -305,7 +309,7 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig, EndpointSer
 	$scope.updateEvent = function(event) {
 		var dropDate = new Date(event.start._d);
 		var resizeDate = new Date(event.end);
-		
+
 		var smm = dropDate.getMinutes();
 		var sh = dropDate.getHours() + 5;
 		var sd = dropDate.getDate();
