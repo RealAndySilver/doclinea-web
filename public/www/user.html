@@ -19,7 +19,7 @@
 						</div>
 						<div class="info-box">
 							<li class="list-group-item"><b>Paciente:</b> {{a.patient_name}}</li>
-							<li class="list-group-item"><b>Doctor(a):</b> {{a.doctor_name}}</li>
+							<li class="list-group-item"><b>Doctor(a):</b> {{a.doctor_name | capitalize}}</li>
 						    <li class="list-group-item"><b>Hora de Inicio:</b> {{a.date_start | date:"MMM dd hh:mm a"}}</li>
 						    <li class="list-group-item"><b>Hora de Finalización:</b> {{a.date_end | date:"MMM dd hh:mm a"}}</li>
 						    <li class="list-group-item"><b>Motivo de Cita:</b> {{a.reason}}</li>
@@ -83,7 +83,7 @@
 							</div>
 						</div>
 						<div class="info-box">
-							<li class="list-group-item"><b>Doctor(a):</b> {{f.name}} {{f.lastname}}</li>
+							<li class="list-group-item"><b>Doctor(a):</b> {{f.name | capitalize}} {{f.lastname | capitalize}}</li>
 						    <li class="list-group-item"><b>Especialidad:</b> {{f.practice_list[0]}}</li>
 						    <li class="list-group-item"><b>Consultorio:</b> {{f.location_list[0].location_address}}</li>
 						    <li class="list-group-item">

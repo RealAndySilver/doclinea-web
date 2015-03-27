@@ -17,6 +17,7 @@ userAppointments.controller('AppointmentsController', ['$http', '$scope', '$rout
 				});
 			} else {
 				$scope.appointments = data.response;
+				console.log('citas', $scope.appointments);
 			}
 		});
 

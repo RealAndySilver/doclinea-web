@@ -34,10 +34,16 @@ session.controller('LoginWelcomeController', ['$scope', '$http', '$location', '$
 	};
 
 	this.getUsername = function() {
-		return UserService.getUser().username;
+		if(UserService.getUser()) {
+			return UserService.getUser().username;
+		}
+		return '';
 	};
 	this.getUserId = function() {
-		return UserService.getUser().id;
+		if(UserService.getUser()) {
+			return UserService.getUser().id;
+		}
+		return '';
 	}
 
 }]);

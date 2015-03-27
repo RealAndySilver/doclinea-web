@@ -51,10 +51,10 @@ loginDoctor.controller('DoctorSignInController', ['$http', '$scope', '$routePara
 
 					//el usuario Doctor se guarda en local storage para mantener su sesión activa
 					localStorage.setItem('user', JSON.stringify(User));
-
+					/*
 					setTimeout(function() {
 						location.reload();
-					}, 400);
+					}, 400);*/
 				}
 			});
 	};

@@ -10,12 +10,21 @@ createUser.controller('SignUpController', ['$http', '$scope', 'EndpointService',
 	this.signUp = function() {
 		var data1 = this.data;
 		data1.password = btoa(data1.password);
+		this.data.password_verify = btoa(this.data.password_verify);
 		data1.birthday = data1.birthday.getTime();
 
 		//Servicio POST para crear cuenta
 		$http.post(endpoint + type + '/Create', data1)
 			.success(function(data) {
-				if (!data.status) {
+				console.log('data', data);
+				if(data.err) {
+					swal({
+						title: "",
+						text: "El email ya esta asignado a otro usuario",
+						type: "error",
+						confirmButtonText: "Aceptar",
+					});
+				} else if (!data.status) {
 					swal({
 						title: "",
 						text: "Ha ocurrido un error, por favor inténtalo nuevamente.",

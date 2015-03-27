@@ -1,7 +1,7 @@
 //Controlador para vista de perfil de Doctor 
 //var endpoint = "http://doclinea.com:1414/api_1.0/";
 var profileView = angular.module('docProfile', [])
-	.controller('ProfileCtrl', function($scope, $http, $routeParams, EndpointService) {
+	.controller('ProfileCtrl', function($scope, $http, $routeParams, User, EndpointService) {
 		var endpoint = EndpointService.ip;
 
 		var type = "Doctor";
@@ -11,6 +11,11 @@ var profileView = angular.module('docProfile', [])
 		$scope.encodedParam = btoa("undefined");
 
 		var This = this;
+
+		if (localStorage.getItem("user")) {
+			$scope.userInfo = JSON.parse(localStorage.user);
+			console.log('user', $scope.userInfo);
+		};
 
 		//iniciar loading
 		$("#doc-profile").css('visibility', 'hidden');
@@ -56,7 +61,19 @@ var profileView = angular.module('docProfile', [])
 						position: new google.maps.LatLng(info.location_list[0].lat, info.location_list[0].lon),
 						title: info.name + ' ' + info.lastname
 					});
-					marker.content = '<div class="infoWindowContent"><div class="map-inner-info"><h4>' + info.practice_list[0] + '</h4><h4>' + info.location_list[0].location_name + '</h4><h4>' + info.location_list[0].location_address + '</h4></div></div>';
+
+					var myContent = '<div class="infoWindowContent"><div class="map-inner-info"><h4>' + info.practice_list[0] + '</h4>';
+
+					if(info.location_list[0].location_name !== undefined) {
+						myContent += '<h4>' + info.location_list[0].location_name + '</h4>';
+					}
+					if(info.location_list[0].location_address !== undefined) {
+						myContent += '<h4>' + info.location_list[0].location_address + '</h4>';
+					}
+
+					myContent += '</div></div>';
+
+					marker.content = myContent;
 
 					google.maps.event.addListener(marker, 'click', function() {
 						infoWindow.setContent('<h5 class="info-map-title">' + marker.title + '</h5>' + marker.content);

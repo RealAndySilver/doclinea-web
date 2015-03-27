@@ -510,3 +510,6 @@ footer .footer-bottom {
   height: 320px;
   overflow: scroll;
 }
+.form-control {
+  height: 42px;
+}

@@ -71,6 +71,7 @@ function CalendarProfileCtrl($scope, $http, $routeParams, EndpointService) {
                 type: "warning",
                 confirmButtonText: "Aceptar",
             });
+            return;
         }
 		$scope.alertMessage = ('Cita ' + event.title + ' para ' + event.start.format("dddd DD [de] MMMM [de] YYYY h:MM:ss"));
 		//console.log('id de la cita seleccionada ', btoa(new Date(event.start)));

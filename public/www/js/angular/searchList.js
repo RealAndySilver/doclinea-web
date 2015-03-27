@@ -13,6 +13,7 @@ mapView.controller('MapCtrl', function($scope, $http, $routeParams, EndpointServ
 
 	var This = this;
 
+	this.docs = [];
 	//iniciar loading
 	$('#doc-search-box').show();
 

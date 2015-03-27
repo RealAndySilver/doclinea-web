@@ -32,7 +32,7 @@
 							<div class="visual-rating"></div>
 							<a href="#extra-doc-info" class="link-reviews scroll">Ver comentarios</a>
 						</div>
-						<a href="#doc-book" class="btn btn-success btn-lg scroll">Pedir cita</a>
+						<a ng-hide="userInfo.isDoctor" href="#doc-book" class="btn btn-success btn-lg scroll">Pedir cita</a>
 					</div>
 					<div class="doc-description">
 						<div class="doc-specs">
@@ -64,7 +64,7 @@
 		</div>
 	</div>
 </div>
-<div id="doc-book">
+<div id="doc-book" ng-hide="userInfo.isDoctor">
 	<div class="center">
 		<div class="inner-doc-profile">
 			<h2>Pide una cita</h2>

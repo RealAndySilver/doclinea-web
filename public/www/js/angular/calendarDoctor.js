@@ -64,19 +64,28 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig, EndpointSer
 	//función que se activa al hacer click en un dia del calendario
 	$scope.alertOnEventClick = function(event, allDay, jsEvent, view) {
 		//variable que muestra un evento seleccionado en el calendario
-		$scope.selectedEvent = event;
+		//$scope.selectedEvent = event;
+
+		$scope.events.map(function(item) {
+			if(item._id === event._id) {
+				$scope.selectedEvent = item;
+			}
+		});
 	};
 
 	//función que se activa al arrastrar un evento del calendario a otra posición
 	$scope.alertOnDrop = function(event, revertFunc, jsEvent, ui, view) {
-		$scope.alertMessage = ('Evento cambiado a ' + event.start.format("dddd DD [de] MMMM [de] YYYY h:MM:ss"));
+		$scope.alertMessage = ('Evento cambiado a ' + event.start.format("dddd DD [de] MMMM [de] YYYY h:mm:ss"));
 		//llamar a la función que actualiza un evento del calendario
 		$scope.updateEvent(event);
+		// if (!event.exists) {
+		// 	$scope.addEventClick(event.start);
+		// };
 	};
 
 	//función que se activa al cambiar el tamaño de un evento 
 	$scope.alertOnResize = function(event, jsEvent, ui, view) {
-		$scope.alertMessage = ('Fecha de finalización cambiada a ' + event.end.format("dddd DD [de] MMMM [de] YYYY h:MM:ss"));
+		$scope.alertMessage = ('Fecha de finalización cambiada a ' + event.end.format("dddd DD [de] MMMM [de] YYYY h:mm:ss"));
 		//llamar a la función que actualiza un evento del calendario
 		$scope.updateEvent(event);
 	};
@@ -113,8 +122,6 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig, EndpointSer
 			textColor: num == 0 ? 'black' : 'white',
 			forceEventDuration: false,
 			status: 'available',
-			startEditable: false,
-			durationEditable: false,
 		});
 
 		$scope.selectedEvent = $scope.events[$scope.events.length - 1];
@@ -122,7 +129,6 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig, EndpointSer
 
 	//función que añade un evento en el día seleccionado del calendario
 	$scope.addEventClick = function(start) {
-
 		var date = new Date(start);
 		//console.log('evento entrante', date);
 		var mm = date.getMinutes();
@@ -141,11 +147,40 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig, EndpointSer
 			textColor: '',
 			forceEventDuration: true,
 			status: 'available',
-			startEditable: false,
-			durationEditable: false,
 		});
 
 		$scope.selectedEvent = $scope.events[$scope.events.length - 1];
+	};
+
+	//función que añade un evento en el día seleccionado del calendario
+	$scope.getEventClick = function(start, end) {
+		var date = new Date(start);
+		//console.log('evento entrante', date);
+		var mm = date.getMinutes();
+		var h = date.getHours() + 5;
+		var d = date.getDate();
+		var m = date.getMonth();
+		var y = date.getFullYear();
+
+		var dateEnd = new Date(end);
+		//console.log('evento entrante', date);
+		var emm = dateEnd.getMinutes();
+		var eh = dateEnd.getHours() + 5;
+		var ed = dateEnd.getDate();
+		var em = dateEnd.getMonth();
+		var ey = dateEnd.getFullYear();
+
+		return{
+			title: 'Descripción',
+			start: new Date(y, m, d, h, mm),
+			end: new Date(ey, em, ed, eh, emm),
+			className: ['openSesame'],
+			allDay: false,
+			color: '',
+			textColor: '',
+			forceEventDuration: true,
+			status: 'available',
+		};
 	};
 
 	//Remover evento de lista de eventos
@@ -202,6 +237,7 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig, EndpointSer
 
 	//función que crea un evento a partir de la fecha seleccionada
 	$scope.setAppointment = function(status, event) {
+		console.log('event', event);
 		//objeto appointment donde se va a guardar la información del evento
 		var appointment = {}
 		appointment.doctor_id = $scope.docInfo._id;
@@ -210,12 +246,12 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig, EndpointSer
 		appointment.date_start = event.start;
 		appointment.date_end = event.end;
 		appointment.doctor_notes = event.description;
-		
-		if($scope.docInfo.location_list){
+
+		if ($scope.docInfo.location_list) {
 			appointment.location = $scope.docInfo.location_list;
 		}
-		
-		if($scope.docInfo.profile_pic){
+
+		if ($scope.docInfo.profile_pic) {
 			appointment.doctor_image = $scope.docInfo.profile_pic.image_url;
 		}
 
@@ -307,8 +343,9 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig, EndpointSer
 
 	//Función que actualiza el estado y duración de un evento, así como su cambio de fecha
 	$scope.updateEvent = function(event) {
+		console.log('evento', event);
 		var dropDate = new Date(event.start._d);
-		var resizeDate = new Date(event.end);
+		var resizeDate = new Date(event.end._d);
 
 		var smm = dropDate.getMinutes();
 		var sh = dropDate.getHours() + 5;
@@ -328,22 +365,35 @@ function CalendarCtrl($scope, $http, $routeParams, uiCalendarConfig, EndpointSer
 		appointment.doctor_name = $scope.docInfo.name + ' ' + $scope.docInfo.lastname;
 		appointment.status = event.status;
 		appointment.date_start = new Date(sy, sm, sd, sh, smm);
-		appointment.date_end = new Date(ry, rm, rd, rh, smm);
+		appointment.date_end = new Date(ry, rm, rd, rh, rmm);
 		appointment.doctor_notes = event.description;
 		appointment.location = $scope.docInfo.location_list;
 
-		//Servicio POST que actualiza un evento
-		$http.post(endpoint + 'Appointment' + '/Update/' + event._id, appointment)
-			.success(function(data) {
-				swal({
-					title: "",
-					text: "El estado de la cita ha sido actualizado.",
-					type: "success",
-					confirmButtonText: "Aceptar",
+		if (event.exists) {
+			//Servicio POST que actualiza un evento
+			console.log('appointment', appointment);
+			$http.post(endpoint + 'Appointment' + '/Update/' + event._id, appointment)
+				.success(function(data) {
+					swal({
+						title: "",
+						text: "El estado de la cita ha sido actualizado.",
+						type: "success",
+						confirmButtonText: "Aceptar",
+					});
+					$route.reload();
 				});
-				$route.reload();
+		} else {
+			$scope.events = $scope.events.map(function(item) {
+				if(item._id !== event._id) {
+					return item;
+				} else {
+					var newEvent = $scope.getEventClick(event.start._d, event.end._d);
+					newEvent._id = item._id;
+					$scope.selectedEvent = newEvent;
+					return newEvent;
+				}
 			});
-
+		}
 	};
 
 	//función para cancelar cita por parte de doctor

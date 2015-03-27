@@ -1870,9 +1870,13 @@ adminDash.directive('customize', function() {
 	};
 });
 
-adminDash.controller('CustomizeController', ['$http', '$scope', '$routeParams','EndpointService', function($http, $scope, $routeParams,EndpointService) {
+adminDash.controller('CustomizeController', ['$http', '$scope', '$routeParams','EndpointService', 'User', function($http, $scope, $routeParams,EndpointService, User) {
 	var endpoint = EndpointService.ip;
 	//Validación de sesión activa
+
+	$scope.$watch(User, function() {
+		$scope.userInfo = User;
+	});
 	if (localStorage.getItem("user")) {
 		$scope.userInfo = JSON.parse(localStorage.user);
 	};
@@ -1930,7 +1934,12 @@ adminDash.controller('CustomizeController', ['$http', '$scope', '$routeParams','
 		//Servicio POST para enviar email de invitación
 		$http.post(endpoint + 'User' + '/Invite', data1)
 			.success(function(data) {
+				console.log('data', data);
 				if (!data.status) {
+					$("#shadow, #form-box").fadeOut(800);
+					$("#curtain-invite").animate({
+					    right: '-465px',
+				    }, 800);
 					var error_msg = 'No se pudo enviar el correo, intenta de nuevo.';
 					swal({
 						title: "",
@@ -1941,8 +1950,13 @@ adminDash.controller('CustomizeController', ['$http', '$scope', '$routeParams','
 				} else {
 					//Ocultar formulario al enviar invitación
 					$("#shadow, #form-box").fadeOut(800);
-					$("#curtain-invite").css('right', '-465px');
+					$("#curtain-invite").animate({
+					    right: '-465px',
+				    }, 800);
 				}
+			})
+			.error(function(error) {
+				console.log('error', error);
 			});
 	};
 
