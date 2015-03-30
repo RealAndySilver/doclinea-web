@@ -204,13 +204,13 @@ function CalendarProfileCtrl($scope, $http, $routeParams, EndpointService) {
 
 			if (appointments.length > 0) {
 				var eventColor = '';
-				var eventStatus = 'Disponible';
+				//var eventStatus = 'Disponible';
 
 				//Dependiendo del estado de evento, se le asigna un color y un label
 				for (var i in appointments) {
 					if (appointments[i].status == 'available') {
 						eventColor = '#4DC34D';
-						eventStatus = 'Disponible';
+						eventStatus = appointments[i].doctor_notes;
 						eventTextColor = 'white';
 					} else if (appointments[i].status == 'taken') {
 						eventColor = '#E9530E';
@@ -232,6 +232,7 @@ function CalendarProfileCtrl($scope, $http, $routeParams, EndpointService) {
 						start: new Date(appointments[i].date_start),
 						end: new Date(appointments[i].date_end),
 						status: appointments[i].status,
+						description: appointments[i].doctor_notes,
 						className: ['openSesame'],
 						allDay: false,
 						color: eventColor,
