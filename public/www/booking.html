@@ -50,12 +50,15 @@
 					  <label class="col-md-4 control-label" for="insurance_name">Aseguradoras</label>
 					  <div class="col-md-6">
 					  	<div class="pl-container">
-					  		<select id="insurance" name="insurance" class="form-control" ng-model="bkngCtrl.data.insurance.insurance" ng-options="name for name in insurances">
+					  		<!-- <select id="insurance" name="insurance" class="form-control" ng-model="bkngCtrl.data.insurance.insurance" ng-options="name for name in insurances">
+						  		<option value="">- Pago como particular -</option>
+							</select> -->
+							<select id="insurance" name="insurance" class="form-control" ng-model="bkngCtrl.data.final_insurance" ng-options="name for name in insurances">
 						  		<option value="">- Pago como particular -</option>
 							</select>
-							<select ng-show="bkngCtrl.data.insurance.insurance" id="insurance_type" name="insurance_type" class="form-control" ng-model="bkngCtrl.data.insurance.insurance_type" ng-options="type for type in getInsurances(bkngCtrl.data.insurance.insurance)">
+							<!-- <select ng-show="bkngCtrl.data.insurance.insurance" id="insurance_type" name="insurance_type" class="form-control" ng-model="bkngCtrl.data.insurance.insurance_type" ng-options="type for type in getInsurances(bkngCtrl.data.insurance.insurance)">
 						  		<option value="">- Selecciona un seguro -</option>
-							</select>
+							</select> -->
 					  	</div>
 					  </div>
 					</div>

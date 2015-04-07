@@ -7,13 +7,11 @@ mapView.controller('MapCtrl', function($scope, $http, $routeParams, EndpointServ
 
 	var docData = this;
 	var type = "Doctor";
+	var doctorArray = [];
 
 	//aquí se guardan los parámetros de búsqueda seleccionados en el formulario
 	docData.docs = $scope.getDrCtrl.data1;
 
-	var This = this;
-
-	this.docs = [];
 	//iniciar loading
 	$('#doc-search-box').show();
 
@@ -33,7 +31,7 @@ mapView.controller('MapCtrl', function($scope, $http, $routeParams, EndpointServ
 			} else {
 				//terminar loading
 				$('#doc-search-box').hide();
-				This.docs = data.response;
+				docData.doctorArray = data.response;
 			}
 
 			//cargar mapa de Google Maps
@@ -66,8 +64,8 @@ mapView.controller('MapCtrl', function($scope, $http, $routeParams, EndpointServ
 			}
 
 			//agregar por cada doctor encontrado, un marcador con su ubicación
-			for (i = 0; i < (This.docs).length; i++) {
-				createMarker(This.docs[i]);
+			for (i = 0; i < (docData.docs).length; i++) {
+				createMarker(docData.docs[i]);
 			}
 
 			$scope.openInfoWindow = function(e, selectedMarker) {

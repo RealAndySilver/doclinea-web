@@ -100,7 +100,7 @@
 				<div class="doc-insurances" ng-show="profile.dProfile.insurance_list">
 					<span>Aseguradoras</span>
 					<ul>
-						<li ng-repeat="insurance in profile.dProfile.insurance_list">{{insurance.insurance}}</li>
+						<li ng-repeat="insurance in profile.dProfile.insurance_list">{{insurance.insurance}} - ({{insurance.insurance_type}})</li>
 					</ul>
 				</div>
 				<div class="doc-practices">

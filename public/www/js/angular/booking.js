@@ -19,6 +19,7 @@ function BookingController($scope, $http, $routeParams, $location, $anchorScroll
     //Servicio GET para cargar información de Doctor con su ID
     $http.get(endpoint + "Doctor" + '/GetByID/' + doctorId)
         .success(function(data) {
+            $scope.final_insurance = '';
             if (!data.status) {
                 var error_msg = 'Ha ocurrido un error al intentar cargar la información.';
                 swal({
@@ -31,7 +32,8 @@ function BookingController($scope, $http, $routeParams, $location, $anchorScroll
                 $scope.doctorInfo = data.response;
                 $scope.insurances = [];
                 for (var i in $scope.doctorInfo.insurance_list) {
-                    $scope.insurances.push($scope.doctorInfo.insurance_list[i].insurance);
+                    $scope.final_insurance = $scope.doctorInfo.insurance_list[i].insurance + ' - ' + $scope.doctorInfo.insurance_list[i].insurance_type;
+                    $scope.insurances.push($scope.final_insurance);
                 }
             }
         });
@@ -62,6 +64,7 @@ function BookingController($scope, $http, $routeParams, $location, $anchorScroll
         if (data1.patient_is_user == 'true') {
             data1.patient_name = $scope.userData.username;
         };
+        data1.insurance = $scope.final_insurance;
         swal({
                 title: "Confirmación de Cita",
                 text: "¿Seguro que quieres tomar esta cita?",
@@ -104,7 +107,7 @@ function BookingController($scope, $http, $routeParams, $location, $anchorScroll
                             $('#applist').trigger("click");
                         }, 400);
                     });
-
+                    console.log(data);
                 }
             })
     }

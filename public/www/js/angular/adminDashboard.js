@@ -237,11 +237,9 @@ adminDash.controller('DoctorsManagementController', ['$http', '$scope', '$routeP
 
 		//Cargar ubicación en mapa
 		var createMarker = function(lat, lng) {
-			console.log('ENTRA A CREAR MARKER');
 			var marker = new google.maps.Marker({
 				map: $scope.map,
 				position: new google.maps.LatLng(lat, lng),
-				title: info.name + ' ' + info.lastname,
 			});
 			initialMarker.push(marker);
 		}
